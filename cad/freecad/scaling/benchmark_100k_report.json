@@ -1,0 +1,41 @@
+{
+  "benchmark_id": "BENCH-SCL-100K-001",
+  "timestamp": "2026-10-24T17:37:03Z",
+  "total_tracked_components": 100065,
+  "database": {
+    "file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\scaling\\starship_100k_part_registry.db",
+    "size_mb": 27.93,
+    "build_duration_sec": 2.16,
+    "insert_throughput_items_per_sec": 46423.0
+  },
+  "query_performance": {
+    "query_1_nose_tps_tiles": {
+      "count": 6193,
+      "mass_kg": 1114.7,
+      "latency_ms": 10.348
+    },
+    "query_2_booster_subsystem": {
+      "count": 38174,
+      "mass_kg": 52041.3,
+      "latency_ms": 20.861
+    },
+    "query_3_battery_cells": {
+      "count": 17000,
+      "latency_ms": 2.019
+    }
+  },
+  "cad_representation": {
+    "file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\scaling\\Starship_Lightweight_Pattern_Rep.FCStd",
+    "size_kb": 144.1,
+    "compound_features": 1000,
+    "recompute_save_duration_sec": 6.09
+  },
+  "system_resources": {
+    "initial_ram_mb": 41.1,
+    "peak_ram_mb": 106.6,
+    "ram_increase_mb": 65.6,
+    "ram_ceiling_limit_mb": 2048.0,
+    "passed_memory_ceiling": true
+  },
+  "total_execution_sec": 8.39
+}
