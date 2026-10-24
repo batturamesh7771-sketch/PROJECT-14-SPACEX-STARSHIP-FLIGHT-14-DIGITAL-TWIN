@@ -1,0 +1,57 @@
+{
+  "mission": "Starship Flight 14 Digital Engineering Laboratory",
+  "phase": "Phase 4: Staging Dynamics & Dual-Vehicle Trajectory",
+  "timestamp": "2026-10-24T18:16:15Z",
+  "staging_separation": {
+    "staging_trigger_s": 142.0,
+    "initial_velocity_ms": 1807.8,
+    "separation_clearance_1s_m": 5.4987,
+    "separation_clearance_3s_m": 48.0617,
+    "final_relative_distance_m": 383.8036,
+    "final_relative_velocity_ms": 100.366,
+    "peak_relative_accel_g": 1.366,
+    "peak_plume_force_kn": 1900.0,
+    "status": "CLEAN_SEPARATION_VERIFIED"
+  },
+  "booster_recovery": {
+    "mission_phase": "Booster Flight 14 Return & Splashdown",
+    "apogee": {
+      "altitude_km": 107.636,
+      "time_s": 221.35,
+      "downrange_km": 35.706
+    },
+    "boostback_shutdown": {
+      "time_s": 218.0,
+      "propellant_consumed_tonnes": 445.94
+    },
+    "splashdown": {
+      "time_s": 413.35,
+      "altitude_km": 0.0,
+      "downrange_km": 217.289,
+      "touchdown_relative_velocity_ms": 6.0,
+      "dry_mass_tonnes": 200.82,
+      "location": "Gulf of Mexico (Offshore Starbase, TX)",
+      "status": "CONTROLLED_SOFT_SPLASHDOWN_VERIFIED"
+    }
+  },
+  "starship_orbital_insertion": {
+    "profile": "Actual Flight 14 Profile (Engine Anomaly at T+255s)",
+    "seco_timestamp_s": 522.35,
+    "seco_altitude_km": 152.048,
+    "seco_downrange_km": 1551.19,
+    "seco_inertial_velocity_ms": 7838.9,
+    "seco_relative_velocity_ms": 7410.7,
+    "seco_mass_tonnes": 220.85,
+    "reserve_propellant_tonnes": 81.88,
+    "orbital_elements": {
+      "semi_major_axis_km": 6567.29,
+      "eccentricity": 0.00618,
+      "inclination_deg": 25.75,
+      "perigee_altitude_km": 148.56,
+      "apogee_altitude_km": 229.74,
+      "period_minutes": 88.28
+    },
+    "status": "ORBITAL_INSERTION_VERIFIED"
+  },
+  "status": "ALL_PHASE4_MODELS_VERIFIED"
+}
