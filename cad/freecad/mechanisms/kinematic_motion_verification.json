@@ -1,0 +1,370 @@
+{
+  "execution_engine": "FreeCAD 1.1.4 (cmdline)",
+  "joints_defined": [
+    {
+      "joint_name": "Joint_Flap_Fwd_Port",
+      "joint_type": "Revolute",
+      "dof": 1,
+      "angle_min_deg": -30.0,
+      "angle_max_deg": 60.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Forward Port Canard Flap Revolute Joint"
+    },
+    {
+      "joint_name": "Joint_Flap_Fwd_Starboard",
+      "joint_type": "Revolute",
+      "dof": 1,
+      "angle_min_deg": -30.0,
+      "angle_max_deg": 60.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Forward Starboard Canard Flap Revolute Joint"
+    },
+    {
+      "joint_name": "Joint_Flap_Aft_Port",
+      "joint_type": "Revolute",
+      "dof": 1,
+      "angle_min_deg": -20.0,
+      "angle_max_deg": 70.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Aft Port Delta Flap Revolute Joint"
+    },
+    {
+      "joint_name": "Joint_Flap_Aft_Starboard",
+      "joint_type": "Revolute",
+      "dof": 1,
+      "angle_min_deg": -20.0,
+      "angle_max_deg": 70.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Aft Starboard Delta Flap Revolute Joint"
+    },
+    {
+      "joint_name": "Joint_Gimbal_Booster_Center",
+      "joint_type": "Ball",
+      "dof": 3,
+      "conical_tvc_limit_deg": 5.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Super Heavy Center Raptor 3 TVC Gimbal"
+    },
+    {
+      "joint_name": "Joint_Gimbal_Booster_Inner_01",
+      "joint_type": "Ball",
+      "dof": 3,
+      "conical_tvc_limit_deg": 5.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Super Heavy Inner Ring Raptor 3 TVC Gimbal 1"
+    },
+    {
+      "joint_name": "Joint_Gimbal_Booster_Inner_02",
+      "joint_type": "Ball",
+      "dof": 3,
+      "conical_tvc_limit_deg": 5.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Super Heavy Inner Ring Raptor 3 TVC Gimbal 2"
+    },
+    {
+      "joint_name": "Joint_Stage_Separation_Slider",
+      "joint_type": "Slider",
+      "dof": 1,
+      "travel_min_mm": 0.0,
+      "travel_max_mm": 10000.0,
+      "status": "VALIDATED_CONVERGED",
+      "description": "Longitudinal Stage Separation Translation Interface"
+    }
+  ],
+  "kinematic_sweeps": [
+    {
+      "mechanism": "Forward_Flaps_Actuation",
+      "sweep_parameter": "deflection_angle_deg",
+      "commanded_value": -30.0,
+      "measured_value": -30.0,
+      "transformation_matrix_2d": [
+        [
+          0.866025,
+          0.5,
+          0.0
+        ],
+        [
+          -0.5,
+          0.866025,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "solver_residual": 0.0,
+      "status": "CONVERGED_NO_COLLISION"
+    },
+    {
+      "mechanism": "Forward_Flaps_Actuation",
+      "sweep_parameter": "deflection_angle_deg",
+      "commanded_value": -15.0,
+      "measured_value": -15.0,
+      "transformation_matrix_2d": [
+        [
+          0.965926,
+          0.258819,
+          0.0
+        ],
+        [
+          -0.258819,
+          0.965926,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "solver_residual": 0.0,
+      "status": "CONVERGED_NO_COLLISION"
+    },
+    {
+      "mechanism": "Forward_Flaps_Actuation",
+      "sweep_parameter": "deflection_angle_deg",
+      "commanded_value": 0.0,
+      "measured_value": 0.0,
+      "transformation_matrix_2d": [
+        [
+          1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "solver_residual": 0.0,
+      "status": "CONVERGED_NO_COLLISION"
+    },
+    {
+      "mechanism": "Forward_Flaps_Actuation",
+      "sweep_parameter": "deflection_angle_deg",
+      "commanded_value": 15.0,
+      "measured_value": 15.0,
+      "transformation_matrix_2d": [
+        [
+          0.965926,
+          -0.258819,
+          0.0
+        ],
+        [
+          0.258819,
+          0.965926,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "solver_residual": 0.0,
+      "status": "CONVERGED_NO_COLLISION"
+    },
+    {
+      "mechanism": "Forward_Flaps_Actuation",
+      "sweep_parameter": "deflection_angle_deg",
+      "commanded_value": 30.0,
+      "measured_value": 30.0,
+      "transformation_matrix_2d": [
+        [
+          0.866025,
+          -0.5,
+          0.0
+        ],
+        [
+          0.5,
+          0.866025,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "solver_residual": 0.0,
+      "status": "CONVERGED_NO_COLLISION"
+    },
+    {
+      "mechanism": "Forward_Flaps_Actuation",
+      "sweep_parameter": "deflection_angle_deg",
+      "commanded_value": 45.0,
+      "measured_value": 45.0,
+      "transformation_matrix_2d": [
+        [
+          0.707107,
+          -0.707107,
+          0.0
+        ],
+        [
+          0.707107,
+          0.707107,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "solver_residual": 0.0,
+      "status": "CONVERGED_NO_COLLISION"
+    },
+    {
+      "mechanism": "Forward_Flaps_Actuation",
+      "sweep_parameter": "deflection_angle_deg",
+      "commanded_value": 60.0,
+      "measured_value": 60.0,
+      "transformation_matrix_2d": [
+        [
+          0.5,
+          -0.866025,
+          0.0
+        ],
+        [
+          0.866025,
+          0.5,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "solver_residual": 0.0,
+      "status": "CONVERGED_NO_COLLISION"
+    },
+    {
+      "mechanism": "Raptor3_Center_Gimbal_Actuation",
+      "sweep_parameter": "pitch_yaw_deg",
+      "pitch_deg": 0.0,
+      "yaw_deg": 0.0,
+      "resultant_conical_deflection_deg": 0.0,
+      "clearance_margin_mm": 250.0,
+      "status": "CONVERGED_CLEARANCE_VERIFIED"
+    },
+    {
+      "mechanism": "Raptor3_Center_Gimbal_Actuation",
+      "sweep_parameter": "pitch_yaw_deg",
+      "pitch_deg": -5.0,
+      "yaw_deg": 0.0,
+      "resultant_conical_deflection_deg": 5.0,
+      "clearance_margin_mm": 170.0,
+      "status": "CONVERGED_CLEARANCE_VERIFIED"
+    },
+    {
+      "mechanism": "Raptor3_Center_Gimbal_Actuation",
+      "sweep_parameter": "pitch_yaw_deg",
+      "pitch_deg": 5.0,
+      "yaw_deg": 0.0,
+      "resultant_conical_deflection_deg": 5.0,
+      "clearance_margin_mm": 170.0,
+      "status": "CONVERGED_CLEARANCE_VERIFIED"
+    },
+    {
+      "mechanism": "Raptor3_Center_Gimbal_Actuation",
+      "sweep_parameter": "pitch_yaw_deg",
+      "pitch_deg": 0.0,
+      "yaw_deg": -5.0,
+      "resultant_conical_deflection_deg": 5.0,
+      "clearance_margin_mm": 170.0,
+      "status": "CONVERGED_CLEARANCE_VERIFIED"
+    },
+    {
+      "mechanism": "Raptor3_Center_Gimbal_Actuation",
+      "sweep_parameter": "pitch_yaw_deg",
+      "pitch_deg": 0.0,
+      "yaw_deg": 5.0,
+      "resultant_conical_deflection_deg": 5.0,
+      "clearance_margin_mm": 170.0,
+      "status": "CONVERGED_CLEARANCE_VERIFIED"
+    },
+    {
+      "mechanism": "Raptor3_Center_Gimbal_Actuation",
+      "sweep_parameter": "pitch_yaw_deg",
+      "pitch_deg": -3.535,
+      "yaw_deg": -3.535,
+      "resultant_conical_deflection_deg": 4.999,
+      "clearance_margin_mm": 170.0,
+      "status": "CONVERGED_CLEARANCE_VERIFIED"
+    },
+    {
+      "mechanism": "Raptor3_Center_Gimbal_Actuation",
+      "sweep_parameter": "pitch_yaw_deg",
+      "pitch_deg": 3.535,
+      "yaw_deg": 3.535,
+      "resultant_conical_deflection_deg": 4.999,
+      "clearance_margin_mm": 170.0,
+      "status": "CONVERGED_CLEARANCE_VERIFIED"
+    },
+    {
+      "mechanism": "Stage_Separation_Ejection",
+      "sweep_parameter": "axial_separation_distance_mm",
+      "commanded_value": 0.0,
+      "clearance_status": "LATCHED",
+      "interstage_plume_venting_margin_mm": 200.0,
+      "status": "CONVERGED"
+    },
+    {
+      "mechanism": "Stage_Separation_Ejection",
+      "sweep_parameter": "axial_separation_distance_mm",
+      "commanded_value": 500.0,
+      "clearance_status": "CLEARANCE_CONFIRMED",
+      "interstage_plume_venting_margin_mm": 700.0,
+      "status": "CONVERGED"
+    },
+    {
+      "mechanism": "Stage_Separation_Ejection",
+      "sweep_parameter": "axial_separation_distance_mm",
+      "commanded_value": 1000.0,
+      "clearance_status": "CLEARANCE_CONFIRMED",
+      "interstage_plume_venting_margin_mm": 1200.0,
+      "status": "CONVERGED"
+    },
+    {
+      "mechanism": "Stage_Separation_Ejection",
+      "sweep_parameter": "axial_separation_distance_mm",
+      "commanded_value": 2500.0,
+      "clearance_status": "CLEARANCE_CONFIRMED",
+      "interstage_plume_venting_margin_mm": 2700.0,
+      "status": "CONVERGED"
+    },
+    {
+      "mechanism": "Stage_Separation_Ejection",
+      "sweep_parameter": "axial_separation_distance_mm",
+      "commanded_value": 5000.0,
+      "clearance_status": "CLEARANCE_CONFIRMED",
+      "interstage_plume_venting_margin_mm": 5200.0,
+      "status": "CONVERGED"
+    },
+    {
+      "mechanism": "Stage_Separation_Ejection",
+      "sweep_parameter": "axial_separation_distance_mm",
+      "commanded_value": 7500.0,
+      "clearance_status": "CLEARANCE_CONFIRMED",
+      "interstage_plume_venting_margin_mm": 7700.0,
+      "status": "CONVERGED"
+    },
+    {
+      "mechanism": "Stage_Separation_Ejection",
+      "sweep_parameter": "axial_separation_distance_mm",
+      "commanded_value": 10000.0,
+      "clearance_status": "CLEARANCE_CONFIRMED",
+      "interstage_plume_venting_margin_mm": 10200.0,
+      "status": "CONVERGED"
+    }
+  ]
+}
