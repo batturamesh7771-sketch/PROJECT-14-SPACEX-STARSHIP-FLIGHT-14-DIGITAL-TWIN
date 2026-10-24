@@ -1,0 +1,331 @@
+# Starship Flight 14 Vehicle Engineering Parameters
+# Classification: Sourced Engineering Baseline
+# Format Version: 1.0.0
+# Date Created: 2026-10-24
+
+metadata:
+  project: "Starship Flight 14 Digital Engineering Laboratory"
+  vehicle: "Starship / Super Heavy Full Stack (Flight 14)"
+  launch_date: "2026-09-28"
+  status_taxonomy:
+    - "public_fact: Directly stated by a primary authoritative source"
+    - "observed_event: Directly confirmed by flight telemetry or independent reports"
+    - "derived: Computed mathematically from verified physical principles"
+    - "assumption: Engineering estimate chosen for proprietary gaps"
+    - "unknown: Metric acknowledged as unavailable publicly"
+
+geometry:
+  full_stack_height:
+    name: "Full Stack Total Height"
+    symbol: "H_total"
+    value: 121.0
+    unit: "m"
+    source_id: "SPX-F14-001"
+    locator: "Vehicle Specs Table"
+    status: "public_fact"
+    uncertainty: "+/- 0.5 m"
+    model_scope: "CAD / Aerodynamic Reference"
+    last_reviewed: "2026-10-24"
+
+  core_outer_diameter:
+    name: "Core Outer Diameter"
+    symbol: "D_core"
+    value: 9.0
+    unit: "m"
+    source_id: "SPX-F14-001"
+    locator: "Vehicle Specs Table"
+    status: "public_fact"
+    uncertainty: "+/- 0.05 m"
+    model_scope: "CAD / Frontal Area Reference"
+    last_reviewed: "2026-10-24"
+
+  booster_height:
+    name: "Super Heavy Booster Height"
+    symbol: "H_booster"
+    value: 71.0
+    unit: "m"
+    source_id: "SPX-F14-001"
+    locator: "Booster Section"
+    status: "public_fact"
+    uncertainty: "+/- 0.5 m"
+    model_scope: "Booster CAD & Dynamics"
+    last_reviewed: "2026-10-24"
+
+  ship_height:
+    name: "Starship Upper Stage Height"
+    symbol: "H_ship"
+    value: 50.3
+    unit: "m"
+    source_id: "SPX-F14-001"
+    locator: "Ship Section"
+    status: "public_fact"
+    uncertainty: "+/- 0.5 m"
+    model_scope: "Ship CAD & Dynamics"
+    last_reviewed: "2026-10-24"
+
+  interstage_ring_height:
+    name: "Hot-Staging Interstage Ring Height"
+    symbol: "H_interstage"
+    value: 3.5
+    unit: "m"
+    source_id: "NASA-HECC-001"
+    locator: "Page 2"
+    status: "public_fact"
+    uncertainty: "+/- 0.1 m"
+    model_scope: "Staging Separation CAD"
+    last_reviewed: "2026-10-24"
+
+  aerodynamic_reference_area:
+    name: "Aerodynamic Reference Area"
+    symbol: "A_ref"
+    value: 63.617
+    unit: "m^2"
+    source_id: "SPX-F14-001"
+    locator: "Derived from pi * (D/2)^2"
+    status: "derived"
+    uncertainty: "+/- 0.7 m^2"
+    model_scope: "3-DOF / 6-DOF Aerodynamics"
+    last_reviewed: "2026-10-24"
+
+mass_properties:
+  liftoff_gross_mass:
+    name: "Combined Liftoff Gross Mass"
+    symbol: "m_0"
+    value: 5000000.0
+    unit: "kg"
+    source_id: "SPX-UPD-001"
+    locator: "Section 3"
+    status: "derived"
+    uncertainty: "+/- 3.0%"
+    model_scope: "Ascent Initial State"
+    last_reviewed: "2026-10-24"
+
+  booster_propellant_capacity:
+    name: "Booster Propellant Mass"
+    symbol: "m_prop_b"
+    value: 3400000.0
+    unit: "kg"
+    source_id: "SPX-UPD-001"
+    locator: "Section 3"
+    status: "public_fact"
+    uncertainty: "+/- 2.0%"
+    model_scope: "Booster Mass Flow"
+    last_reviewed: "2026-10-24"
+
+  booster_dry_mass:
+    name: "Booster Dry Structural Mass"
+    symbol: "m_dry_b"
+    value: 200000.0
+    unit: "kg"
+    source_id: "AIAA-2024-001"
+    locator: "Section 4.1"
+    status: "assumption"
+    uncertainty: "+/- 8.0%"
+    model_scope: "Booster Boostback / Landing"
+    last_reviewed: "2026-10-24"
+
+  ship_propellant_capacity:
+    name: "Starship Upper Stage Propellant Mass"
+    symbol: "m_prop_s"
+    value: 1200000.0
+    unit: "kg"
+    source_id: "SPX-UPD-001"
+    locator: "Section 3"
+    status: "public_fact"
+    uncertainty: "+/- 2.0%"
+    model_scope: "Ship Ascent Mass Flow"
+    last_reviewed: "2026-10-24"
+
+  ship_dry_mass:
+    name: "Starship Upper Stage Dry Mass"
+    symbol: "m_dry_s"
+    value: 105000.0
+    unit: "kg"
+    source_id: "AIAA-2024-001"
+    locator: "Section 4.2"
+    status: "assumption"
+    uncertainty: "+/- 7.0%"
+    model_scope: "Orbit / Reentry Dynamics"
+    last_reviewed: "2026-10-24"
+
+  starlink_v3_unit_mass:
+    name: "Starlink V3 Satellite Unit Mass"
+    symbol: "m_sat"
+    value: 1750.0
+    unit: "kg"
+    source_id: "FCC-SAT-001"
+    locator: "Attachment A"
+    status: "assumption"
+    uncertainty: "+/- 10.0%"
+    model_scope: "Payload Mass Breakdown"
+    last_reviewed: "2026-10-24"
+
+  payload_count:
+    name: "Payload Satellite Count"
+    symbol: "N_sat"
+    value: 26
+    unit: "count"
+    source_id: "REU-F14-001"
+    locator: "Paragraph 2"
+    status: "public_fact"
+    uncertainty: "exact"
+    model_scope: "Orbital Deployment Manifest"
+    last_reviewed: "2026-10-24"
+
+  total_payload_mass:
+    name: "Total Delivered Payload Mass"
+    symbol: "m_payload"
+    value: 45500.0
+    unit: "kg"
+    source_id: "FCC-SAT-001"
+    locator: "26 * 1750 kg"
+    status: "derived"
+    uncertainty: "+/- 10.0%"
+    model_scope: "Insertion Mass State"
+    last_reviewed: "2026-10-24"
+
+propulsion:
+  booster_engine_count:
+    name: "Booster Engine Count"
+    symbol: "N_eng_b"
+    value: 33
+    unit: "count"
+    source_id: "SPX-F14-001"
+    locator: "Booster Engine Layout"
+    status: "public_fact"
+    uncertainty: "exact"
+    model_scope: "Booster Propulsion"
+    last_reviewed: "2026-10-24"
+
+  ship_engine_count:
+    name: "Ship Engine Count"
+    symbol: "N_eng_s"
+    value: 6
+    unit: "count"
+    source_id: "SPX-F14-001"
+    locator: "Ship Engine Layout (3 SL + 3 Vac)"
+    status: "public_fact"
+    uncertainty: "exact"
+    model_scope: "Ship Propulsion"
+    last_reviewed: "2026-10-24"
+
+  raptor3_sea_level_thrust:
+    name: "Raptor 3 Sea-Level Thrust per Engine"
+    symbol: "T_SL"
+    value: 2745000.0
+    unit: "N"
+    source_id: "SPX-UPD-001"
+    locator: "280 tf rated"
+    status: "public_fact"
+    uncertainty: "+/- 2.0%"
+    model_scope: "Liftoff / Ascent Thrust"
+    last_reviewed: "2026-10-24"
+
+  raptor3_vacuum_thrust:
+    name: "Raptor 3 Vacuum Thrust per Engine"
+    symbol: "T_vac"
+    value: 2940000.0
+    unit: "N"
+    source_id: "SPX-UPD-001"
+    locator: "300 tf rated"
+    status: "public_fact"
+    uncertainty: "+/- 3.0%"
+    model_scope: "Vacuum Ascent Thrust"
+    last_reviewed: "2026-10-24"
+
+  raptor3_sea_level_isp:
+    name: "Raptor 3 Sea-Level Specific Impulse"
+    symbol: "Isp_SL"
+    value: 330.0
+    unit: "s"
+    source_id: "SPX-UPD-001"
+    locator: "Engine Performance Sheet"
+    status: "public_fact"
+    uncertainty: "+/- 1.5 s"
+    model_scope: "Sea Level Mass Flow Rate"
+    last_reviewed: "2026-10-24"
+
+  raptor3_vacuum_isp:
+    name: "Raptor 3 Vacuum Specific Impulse"
+    symbol: "Isp_vac"
+    value: 380.0
+    unit: "s"
+    source_id: "SPX-UPD-001"
+    locator: "Engine Performance Sheet"
+    status: "public_fact"
+    uncertainty: "+/- 2.0 s"
+    model_scope: "Vacuum Mass Flow Rate"
+    last_reviewed: "2026-10-24"
+
+  booster_total_liftoff_thrust:
+    name: "Booster Combined Liftoff Thrust (33 engines)"
+    symbol: "T_liftoff"
+    value: 90585000.0
+    unit: "N"
+    source_id: "SPX-UPD-001"
+    locator: "33 * 2.745 MN"
+    status: "derived"
+    uncertainty: "+/- 2.0%"
+    model_scope: "Liftoff Acceleration"
+    last_reviewed: "2026-10-24"
+
+  initial_thrust_to_weight_ratio:
+    name: "Initial Liftoff Thrust to Weight Ratio"
+    symbol: "T_W_0"
+    value: 1.847
+    unit: "dimensionless"
+    source_id: "SPX-UPD-001"
+    locator: "T_liftoff / (m_0 * g_0)"
+    status: "derived"
+    uncertainty: "+/- 0.05"
+    model_scope: "Liftoff Kinematics"
+    last_reviewed: "2026-10-24"
+
+structural_materials:
+  hull_material:
+    name: "Primary Hull Material"
+    symbol: "Mat_hull"
+    value: "304L Stainless Steel (Cold Rolled)"
+    unit: "string"
+    source_id: "ROARK-FEA-001"
+    locator: "Table 1"
+    status: "public_fact"
+    uncertainty: "exact"
+    model_scope: "CAD / FEA Material Model"
+    last_reviewed: "2026-10-24"
+
+  youngs_modulus:
+    name: "Hull Material Young's Modulus"
+    symbol: "E_steel"
+    value: 193000000000.0
+    unit: "Pa"
+    source_id: "ROARK-FEA-001"
+    locator: "Table 1"
+    status: "public_fact"
+    uncertainty: "+/- 2.0 GPa"
+    model_scope: "ANSYS FEA Solver"
+    last_reviewed: "2026-10-24"
+
+  yield_strength:
+    name: "Hull Material Tensile Yield Strength"
+    symbol: "sigma_y"
+    value: 290000000.0
+    unit: "Pa"
+    source_id: "ROARK-FEA-001"
+    locator: "Table 1"
+    status: "public_fact"
+    uncertainty: "+/- 10 MPa"
+    model_scope: "Structural Margin of Safety"
+    last_reviewed: "2026-10-24"
+
+  tank_ullage_pressure:
+    name: "Propellant Tank Nominal Operating Pressure"
+    symbol: "p_tank"
+    value: 600000.0
+    unit: "Pa"
+    source_id: "AIAA-2024-001"
+    locator: "Section 3.2"
+    status: "assumption"
+    uncertainty: "+/- 0.5 bar"
+    model_scope: "FEA Tank Pressure Load"
+    last_reviewed: "2026-10-24"

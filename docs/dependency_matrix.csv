@@ -1,0 +1,19 @@
+Task_ID,Task_Name,Phase,Prerequisite_Task_IDs,Prerequisite_Software,Prerequisite_Datasets,Blocks_Task_IDs,Can_Run_Parallel,Critical_Path_Flag
+TSK-001,Phase 0 Read-Only Workspace Audit,Phase 0,NONE,PowerShell,Local Scratch Folders,TSK-002,FALSE,TRUE
+TSK-002,Toolchain & Solver Availability Smoke Tests,Phase 0,TSK-001,Python / GMAT / MATLAB,Disk Executables,TSK-003,FALSE,TRUE
+TSK-003,Publish Current State Audit & Prereq Matrix,Phase 0,TSK-002,Git,Test Execution Logs,TSK-004;TSK-005,FALSE,TRUE
+TSK-004,Compile Flight 14 Source Registry & Citations,Phase 1,TSK-003,Python (`pymupdf`),SpaceX / Reuters / Spaceflight Now,TSK-006,TRUE,TRUE
+TSK-005,Build Vehicle Sourced Parameter Ledger (YAML),Phase 1,TSK-003,Python (`pyyaml`),NASA NTRS / Public Specs,TSK-007;TSK-008,TRUE,TRUE
+TSK-006,Construct Planned vs Actual Flight 14 Event CSVs,Phase 1,TSK-004,Python (`pyyaml`),Contemporaneous Reports,TSK-009,FALSE,TRUE
+TSK-007,Develop Autodesk Fusion Parametric Assembly Script,Phase 2,TSK-005,Autodesk Fusion Python API,Vehicle Dimensions,TSK-013;TSK-014,TRUE,FALSE
+TSK-008,Implement 3-DOF Numerical Ascent Solver (RK4),Phase 3,TSK-005;TSK-006,Python / MATLAB,Thrust & Mass Tables,TSK-009,FALSE,TRUE
+TSK-009,Implement Staging State Machine & Separation Dynamics,Phase 4,TSK-008,Python / MATLAB,Staging Times & Relative Velocity,TSK-010;TSK-011,FALSE,TRUE
+TSK-010,Simulate Booster Flip & Boostback to Gulf Splashdown,Phase 4,TSK-009,Python / MATLAB,Booster Aero & Throttle Limits,TSK-016,TRUE,FALSE
+TSK-011,Propagate Ship Orbit Insertion & Compare with GMAT,Phase 5,TSK-009,NASA GMAT R2026a (`gmatpy`),SECO State Vector,TSK-012;TSK-015,FALSE,TRUE
+TSK-012,Model Sequential Deployment of 26 Starlink V3 Sats,Phase 5,TSK-011,NASA GMAT R2026a / Python,Deployment Delta-Vs,TSK-016,FALSE,TRUE
+TSK-013,Setup Compressible CFD Benchmark in OpenFOAM,Phase 7,TSK-007,OpenFOAM v2012 (WSL),STEP Geometry & Supersonic Grid,TSK-016,TRUE,FALSE
+TSK-014,Setup Structural Tank FEA in ANSYS Mechanical,Phase 8,TSK-007,ANSYS Mechanical APDL (v261),Exported STEP Shell & Pressure Loads,TSK-016,TRUE,FALSE
+TSK-015,Build Aerothermal Reentry Heating Model,Phase 9,TSK-011,Python (`numpy`),Entry Trajectory States,TSK-016,TRUE,FALSE
+TSK-016,Integrate WebGL Three.js Mission Dashboard,Phase 10,TSK-010;TSK-011;TSK-012;TSK-015,Node.js / Three.js,Generated CSV Run Data,TSK-017,FALSE,TRUE
+TSK-017,Automated V&V Test Suite & Uncertainty Report,Phase 11,TSK-016,Python (`unittest`),All Module Test Outputs,TSK-018,FALSE,TRUE
+TSK-018,Release Package Documentation & Freeze Baseline,Phase 11,TSK-017,Git,All Project Artifacts,NONE,FALSE,TRUE

@@ -1,0 +1,27 @@
+satellite_id,satellite_name,deployment_sequence,deployment_time_s,separation_velocity_mps,separation_angle_deg,mass_kg,frequency_band,status,assumed_or_verified,source_id
+SAT-F14-001,Starlink-V3-31-1-A,1,1320,0.50,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-002,Starlink-V3-31-1-B,2,1334,0.52,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-003,Starlink-V3-31-1-C,3,1348,0.48,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-004,Starlink-V3-31-1-D,4,1362,0.51,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-005,Starlink-V3-31-1-E,5,1376,0.49,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-006,Starlink-V3-31-1-F,6,1390,0.50,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-007,Starlink-V3-31-1-G,7,1404,0.53,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-008,Starlink-V3-31-1-H,8,1418,0.47,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-009,Starlink-V3-31-1-I,9,1432,0.52,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-010,Starlink-V3-31-1-J,10,1446,0.49,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-011,Starlink-V3-31-1-K,11,1460,0.50,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-012,Starlink-V3-31-1-L,12,1474,0.51,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-013,Starlink-V3-31-1-M,13,1488,0.48,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-014,Starlink-V3-31-1-N,14,1502,0.52,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-015,Starlink-V3-31-1-O,15,1516,0.50,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-016,Starlink-V3-31-1-P,16,1530,0.49,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-017,Starlink-V3-31-1-Q,17,1544,0.51,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-018,Starlink-V3-31-1-R,18,1558,0.50,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-019,Starlink-V3-31-1-S,19,1572,0.48,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-020,Starlink-V3-31-1-T,20,1586,0.53,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-021,Starlink-V3-31-1-U,21,1600,0.50,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-022,Starlink-V3-31-1-V,22,1614,0.49,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-023,Starlink-V3-31-1-W,23,1628,0.51,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-024,Starlink-V3-31-1-X,24,1642,0.50,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-025,Starlink-V3-31-1-Y,25,1656,0.48,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001
+SAT-F14-026,Starlink-V3-31-1-Z,26,1670,0.52,15.0,1750,E-band / Ku / Direct-to-Cell,DEPLOYED,assumed_separation_speed,FCC-SAT-001

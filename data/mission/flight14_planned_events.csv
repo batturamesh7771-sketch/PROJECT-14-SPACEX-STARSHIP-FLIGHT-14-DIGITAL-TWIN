@@ -1,0 +1,20 @@
+event_id,profile_id,event_name,t_plus_seconds,utc_time_if_known,planned_or_actual,time_quality,source_id,locator,confidence,notes
+EVT-PLN-001,flight14_planned_profile,Propellant Load Commences,-4500,2026-09-28T12:45:00Z,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Pre-flight automated cryogenic loading sequence.
+EVT-PLN-002,flight14_planned_profile,Raptor Engine Chill,-1180,2026-09-28T13:40:20Z,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Liquid methane and LOX engine chill conditioning.
+EVT-PLN-003,flight14_planned_profile,Ignition Sequence Start,-3,2026-09-28T13:59:57Z,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Automated torch igniter sequence for 33 Raptor 3 engines.
+EVT-PLN-004,flight14_planned_profile,Liftoff,0,2026-09-28T14:00:00Z,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Nominal liftoff from Starbase Orbital Launch Mount 1.
+EVT-PLN-005,flight14_planned_profile,Maximum Dynamic Pressure (Max-Q),62,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Vehicle throttles back to 70% to limit aerodynamic load.
+EVT-PLN-006,flight14_planned_profile,Booster Most Engines Cutoff (MECO),140,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,30 outer and intermediate engines shut down; 3 center engines maintain thrust.
+EVT-PLN-007,flight14_planned_profile,Hot-Staging Separation,142,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Starship upper stage Raptors ignite while attached; physical latch release.
+EVT-PLN-008,flight14_planned_profile,Booster Boostback Burn Startup,148,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,13 Raptor engines ignite to reverse downrange velocity towards coast.
+EVT-PLN-009,flight14_planned_profile,Booster Boostback Burn Shutdown,214,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Boostback delta-V achieved; grid fins deployed for aerodynamic guidance.
+EVT-PLN-010,flight14_planned_profile,Booster Landing Burn Startup,395,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,3 center Raptor engines ignite for terminal deceleration.
+EVT-PLN-011,flight14_planned_profile,Booster Controlled Splashdown (Gulf),415,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Controlled vertical hover and touchdown in Gulf of Mexico water.
+EVT-PLN-012,flight14_planned_profile,Starship Second Engine Cutoff (SECO),510,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Target orbital velocity reached (~7750 m/s); insertion into parking orbit.
+EVT-PLN-013,flight14_planned_profile,Payload Bay Door Open,1020,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Payload bay dispenser latch disengages for satellite deployment.
+EVT-PLN-014,flight14_planned_profile,Starlink V3 Satellite Deployment Start,1080,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,26 Starlink V3 satellites released sequentially.
+EVT-PLN-015,flight14_planned_profile,Payload Bay Door Close,1680,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Satellite dispenser closed following payload separation.
+EVT-PLN-016,flight14_planned_profile,Planned Long-Duration Orbital Coast,1800,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,HIGH,Planned multi-revolution orbital checkout (~9 hours).
+EVT-PLN-017,flight14_planned_profile,Planned Deorbit Burn,33300,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,MEDIUM,Pre-flight nominal deorbit burn over Indian Ocean (~T+9h 15m).
+EVT-PLN-018,flight14_planned_profile,Planned Atmospheric Entry Interface,34800,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,MEDIUM,Atmospheric interface at 120 km altitude (~T+9h 40m).
+EVT-PLN-019,flight14_planned_profile,Planned Starship Splashdown,36300,,PLANNED,SCHEDULED,SPX-F14-001,Timeline Table,MEDIUM,Pre-flight planned splashdown in Pacific Ocean (~T+10h 05m).

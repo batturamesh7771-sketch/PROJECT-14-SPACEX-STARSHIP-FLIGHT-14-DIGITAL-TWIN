@@ -1,0 +1,67 @@
+# Starship Flight 14 Explicit Engineering Assumptions & Sensitivity Bounds
+# Document ID: DOC-ASSUME-001
+# Date: 2026-10-24
+
+assumptions:
+  ASM-001:
+    parameter: "Booster Dry Mass (m_dry_b)"
+    assumed_value: 200000.0
+    unit: "kg"
+    uncertainty_range: [180000.0, 220000.0]
+    rationale: "SpaceX proprietary trade secret. Derived from Falcon 9 structural fraction (~0.04-0.05) scaled up for 9m diameter stainless steel barrel sections, forward grid fin actuators, interstage ring, and 33 Raptor plumbing manifold."
+    sensitivity_impact: "Alters booster boostback delta-V by +/- 45 m/s and landing burn propellant reserve."
+    verified_status: "UNVERIFIED_ASSUMPTION"
+
+  ASM-002:
+    parameter: "Starship Upper Stage Dry Mass (m_dry_s)"
+    assumed_value: 105000.0
+    unit: "kg"
+    uncertainty_range: [95000.0, 115000.0]
+    rationale: "Proprietary SpaceX value. Estimated from stated 100-150 t LEO payload capacity and mass fractions required to close the rocket equation for LEO insertion at ~7.75 km/s."
+    sensitivity_impact: "Alters orbital insertion burn duration by +/- 12 seconds."
+    verified_status: "UNVERIFIED_ASSUMPTION"
+
+  ASM-003:
+    parameter: "Starlink V3 Satellite Unit Mass (m_sat)"
+    assumed_value: 1750.0
+    unit: "kg"
+    uncertainty_range: [1500.0, 2000.0]
+    rationale: "Derived from FCC Form 312 disclosures for Gen2/V3 satellites with direct-to-cell phased array antennas."
+    sensitivity_impact: "Affects total payload mass (45.5 t +/- 6.5 t) and SECO orbital state."
+    verified_status: "DERIVED_ESTIMATE"
+
+  ASM-004:
+    parameter: "Satellite Deployment Separation Velocity (delta_v_sep)"
+    assumed_value: 0.50
+    unit: "m/s"
+    uncertainty_range: [0.30, 0.80]
+    rationale: "Typical low-shock mechanical spring / rail release velocity for smallsat dispenser mechanisms in LEO."
+    sensitivity_impact: "Affects relative distance between deployed satellites over subsequent orbital revolutions."
+    verified_status: "UNVERIFIED_ASSUMPTION"
+
+  ASM-005:
+    parameter: "Max-Q Dynamic Pressure Throttle Notch"
+    assumed_value: 0.70
+    unit: "dimensionless fraction"
+    uncertainty_range: [0.60, 0.80]
+    rationale: "Standard heavy-lift ascent profile to constrain max dynamic pressure below 35 kPa to prevent aerodynamic buckling of the forward dome."
+    sensitivity_impact: "Controls peak aerodynamic acceleration and Max-Q timestamp (+/- 4 seconds)."
+    verified_status: "OBSERVED_ANALOG"
+
+  ASM-006:
+    parameter: "Thermal Protection System (TPS) Tile Emissivity"
+    assumed_value: 0.85
+    unit: "dimensionless"
+    uncertainty_range: [0.80, 0.90]
+    rationale: "Standard high-temperature reaction-cured borosilicate ceramic tile coating emissivity (similar to Space Shuttle LI-900 / TUFI)."
+    sensitivity_impact: "Alters radiative surface equilibrium temperature during peak reentry heating by +/- 60 K."
+    verified_status: "LITERATURE_BENCHMARK"
+
+  ASM-007:
+    parameter: "Propellant Tank Operating Ullage Pressure"
+    assumed_value: 600000.0
+    unit: "Pa"
+    uncertainty_range: [500000.0, 700000.0]
+    rationale: "Autogenous pressurization target required to suppress cavitation at Raptor 3 turbopump inducers (~5-6 bar)."
+    sensitivity_impact: "Primary load input for ANSYS MAPDL structural tank hoop stress FEA benchmark."
+    verified_status: "ENGINEERING_ANALOG"
