@@ -1,0 +1,53 @@
+{
+  "mission": "Starship Flight 14 Digital Engineering Laboratory",
+  "phase": "Phase 3: Propulsion & 3-DOF Ascent Dynamics Core",
+  "timestamp": "2026-10-24T18:03:31Z",
+  "nominal_profile": {
+    "profile": "Nominal Baseline",
+    "liftoff_total_mass_tonnes": 4939.8,
+    "liftoff_thrust_mn": 81.69,
+    "liftoff_twr": 1.686,
+    "max_q": {
+      "value_kpa": 39.01,
+      "time_s": 30.0,
+      "altitude_km": 4.342,
+      "mach": 0.97
+    },
+    "meco": {
+      "time_s": 140.0,
+      "altitude_km": 69.443,
+      "downrange_km": 130.672,
+      "relative_velocity_ms": 1807.8,
+      "inertial_velocity_ms": 2179.8,
+      "mass_tonnes": 2098.41,
+      "final_accel_g": 0.42
+    }
+  },
+  "anomaly_profile": {
+    "profile": "Injected Anomaly (Engine 17 Out at T+35s)",
+    "liftoff_total_mass_tonnes": 4939.8,
+    "liftoff_thrust_mn": 81.69,
+    "liftoff_twr": 1.686,
+    "max_q": {
+      "value_kpa": 39.01,
+      "time_s": 30.0,
+      "altitude_km": 4.342,
+      "mach": 0.97
+    },
+    "meco": {
+      "time_s": 140.0,
+      "altitude_km": 69.467,
+      "downrange_km": 130.683,
+      "relative_velocity_ms": 1808.0,
+      "inertial_velocity_ms": 2180.0,
+      "mass_tonnes": 2098.41,
+      "final_accel_g": 0.42
+    }
+  },
+  "verification_metrics": {
+    "rk4_step_sensitivity_pct": 0.000157,
+    "rk4_position_residual_m": 10.1366,
+    "keplerian_energy_drift": 2.63e-06,
+    "status": "ALL_TESTS_VERIFIED"
+  }
+}
