@@ -70,7 +70,7 @@ def rk4_solve(f, t_span, y0, dt, *args, event_fn=None):
     t_list = [t]
     y_list = [y.copy()]
 
-    while t < tf:
+    while t < tf - 1e-12:
         h = min(dt, tf - t)
         y = rk4_step(f, t, y, h, *args)
         t += h

@@ -1,0 +1,66 @@
+% NASA General Mission Analysis Tool (GMAT) Script
+% Starship Flight 14 — Stage 2 Orbital Insertion & Propagation Cross-Check
+% Mission Epoch: 28 Sep 2026 (Launch 14:00:00 UTC)
+% State at SECO (T+522.35s)
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft StarshipStage2;
+GMAT StarshipStage2.DateFormat = UTCGregorian;
+GMAT StarshipStage2.Epoch = '28 Sep 2026 14:08:42.350';
+GMAT StarshipStage2.CoordinateSystem = EarthMJ2000Eq;
+GMAT StarshipStage2.DisplayStateType = Cartesian;
+
+% State vector from verified Phase 4 SECO solution:
+GMAT StarshipStage2.X = -1885.241;
+GMAT StarshipStage2.Y = -5948.115;
+GMAT StarshipStage2.Z = 2954.820;
+GMAT StarshipStage2.VX = 2.1042;
+GMAT StarshipStage2.VY = 6.4951;
+GMAT StarshipStage2.VZ = 3.6120;
+
+GMAT StarshipStage2.DryMass = 138975.0; % Hardware + 26 Satellites (kg)
+GMAT StarshipStage2.Cd = 2.2;
+GMAT StarshipStage2.Cr = 1.8;
+GMAT StarshipStage2.DragArea = 63.6;
+GMAT StarshipStage2.SRPArea = 63.6;
+
+%----------------------------------------
+%---------- Force Model & Propagator
+%----------------------------------------
+
+Create ForceModel LowEarthProp_ForceModel;
+GMAT LowEarthProp_ForceModel.CentralBody = Earth;
+GMAT LowEarthProp_ForceModel.PrimaryBodies = {Earth};
+GMAT LowEarthProp_ForceModel.PointMasses = {Luna, Sun};
+GMAT LowEarthProp_ForceModel.SRP = On;
+GMAT LowEarthProp_ForceModel.GravityField.Earth.Degree = 8;
+GMAT LowEarthProp_ForceModel.GravityField.Earth.Order = 8;
+GMAT LowEarthProp_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+
+Create Propagator DefaultProp;
+GMAT DefaultProp.FM = LowEarthProp_ForceModel;
+GMAT DefaultProp.Type = RungeKutta89;
+GMAT DefaultProp.InitialStepSize = 10;
+GMAT DefaultProp.Accuracy = 1e-11;
+GMAT DefaultProp.MinStep = 0.001;
+GMAT DefaultProp.MaxStep = 60;
+
+%----------------------------------------
+%---------- Subscribers & Reports
+%----------------------------------------
+
+Create ReportFile OrbitalReport;
+GMAT OrbitalReport.Filename = 'Starship_Flight14_GMAT_Orbit_Report.txt';
+GMAT OrbitalReport.Add = {StarshipStage2.UTCGregorian, StarshipStage2.Earth.SMA, StarshipStage2.Earth.ECC, StarshipStage2.Earth.INC, StarshipStage2.Earth.RadPer, StarshipStage2.Earth.RadApo};
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+
+% Propagate for one complete parking orbit revolution (~5400s)
+Propagate DefaultProp(StarshipStage2) {StarshipStage2.ElapsedSecs = 5400.0};

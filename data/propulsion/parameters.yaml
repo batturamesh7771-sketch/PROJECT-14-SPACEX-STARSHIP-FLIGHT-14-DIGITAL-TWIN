@@ -1,0 +1,153 @@
+# Starship Flight 14 Digital Engineering Laboratory
+# Propulsion & Ascent Dynamics Parameter Registry
+# Document ID: PARAMS-PROP-001
+# Author: Senior Launch-Vehicle Flight Dynamics & Propulsion Lead
+# Standard: AIAA / NASA SP-8000 Space Vehicle Design Criteria
+
+metadata:
+  mission: "Starship Flight 14"
+  date: "2026-09-28"
+  launch_site:
+    name: "Starbase, Boca Chica, Texas"
+    pad: "Orbital Launch Mount 1 (OLM-1)"
+    geodetic_latitude_deg: 25.9960
+    geodetic_longitude_deg: -97.1550
+    elevation_msl_m: 3.0
+  target_parking_orbit:
+    perigee_altitude_km: 150.0
+    apogee_altitude_km: 245.0
+    inclination_deg: 26.3
+    orbital_velocity_target_ms: 7840.0
+
+raptor3_engines:
+  sea_level_variant:
+    designation: "Raptor 3 SL"
+    cycle: "Full-Flow Staged Combustion (FFSC)"
+    propellants: "Sub-cooled Liquid Methane (LCH4) / Liquid Oxygen (LOX)"
+    mixture_ratio_of: 3.60
+    chamber_pressure_bar: 350.0
+    thrust_sea_level_n: 2.7458e6 # 2.75 MN (~280 tf)
+    thrust_vacuum_n: 2.9000e6    # 2.90 MN (~295 tf)
+    isp_sea_level_s: 330.0
+    isp_vacuum_s: 350.0
+    nozzle_exit_diameter_m: 1.30
+    nozzle_exit_area_m2: 1.32732
+    engine_dry_mass_kg: 1525.0
+    nominal_mass_flow_kg_s: 844.89
+    throttle_limits:
+      min_fraction: 0.40
+      max_fraction: 1.00
+    gimbal_range_deg: 12.0
+    provenance:
+      source_id: "SPX-F14-001"
+      confidence: "HIGH"
+      status: "PUBLIC_FACT"
+
+  vacuum_variant:
+    designation: "Raptor 3 Vacuum (RVac)"
+    cycle: "Full-Flow Staged Combustion (FFSC)"
+    propellants: "LCH4 / LOX"
+    mixture_ratio_of: 3.60
+    chamber_pressure_bar: 350.0
+    thrust_vacuum_n: 2.9000e6    # 2.90 MN (~295 tf)
+    isp_vacuum_s: 380.0
+    nozzle_exit_diameter_m: 2.30
+    nozzle_exit_area_m2: 4.15476
+    engine_dry_mass_kg: 1800.0
+    nominal_mass_flow_kg_s: 778.20
+    throttle_limits:
+      min_fraction: 0.40
+      max_fraction: 1.00
+    gimbal_range_deg: 0.0 # Fixed mount (attitude trimmed via center SL Raptors and RCS)
+    provenance:
+      source_id: "SPX-F14-001"
+      confidence: "HIGH"
+      status: "PUBLIC_FACT"
+
+super_heavy_booster:
+  geometry:
+    diameter_m: 9.0
+    height_m: 71.0
+    reference_cross_section_m2: 63.617
+  propulsion:
+    total_engines: 33
+    engine_variant: "Raptor 3 SL"
+    cluster_layout:
+      center: 1
+      inner_ring: 2
+      middle_ring: 10
+      outer_ring: 20
+    liftoff_thrust_sl_mn: 90.61
+    liftoff_thrust_vac_mn: 95.70
+  mass_budget_kg:
+    dry_structure_kg: 141500.0
+    engines_33_kg: 50325.0
+    grid_fins_4_kg: 9000.0
+    interstage_ring_kg: 9000.0
+    total_hardware_dry_mass_kg: 200825.0 # 200.825 t
+    usable_propellant_liftoff_kg: 3400000.0 # 3,400 t
+    ascent_burned_propellant_kg: 2920000.0 # 2,920 t
+    boostback_burn_reserve_kg: 400000.0 # 400 t
+    landing_burn_reserve_kg: 80000.0 # 80 t
+  staging_timeline:
+    ignition_startup_s: -3.0
+    liftoff_s: 0.0
+    max_q_bucket_start_s: 30.0
+    max_q_bucket_end_s: 68.0
+    max_q_bucket_throttle: 0.60
+    meco_s: 140.0
+    hot_staging_separation_s: 142.0
+
+starship_stage2:
+  geometry:
+    diameter_m: 9.0
+    height_m: 50.0
+    reference_cross_section_m2: 63.617
+  propulsion:
+    total_engines: 6
+    sea_level_engines: 3
+    vacuum_engines: 3
+    total_vacuum_thrust_mn: 17.40
+    combined_effective_isp_vac_s: 364.38
+    combined_nominal_mass_flow_kg_s: 4869.27
+  mass_budget_kg:
+    dry_structure_and_tps_kg: 90000.0
+    engines_6_kg: 9975.0
+    total_hardware_dry_mass_kg: 99975.0 # ~100 t
+    payload_mass_kg: 39000.0 # 26 Starlink V3 direct-to-cell satellites (39 t)
+    usable_propellant_liftoff_kg: 1200000.0 # 1,200 t
+    ascent_propellant_burned_kg: 1118000.0
+    on_orbit_and_deorbit_reserve_kg: 82000.0 # 82 t
+  burn_timeline:
+    hot_staging_ignition_s: 142.0
+    nominal_seco_s: 510.0
+    actual_flight14_seco_s: 522.4 # Compensated extended burn
+
+aerodynamics:
+  reference_area_m2: 63.617
+  subsonic_cd: 0.28
+  transonic_peak_cd: 0.63 # Peaking near Mach 1.05
+  supersonic_decay_cd: 0.35
+  hypersonic_asymptote_cd: 0.30
+  booster_base_first_entry_cd: 0.90
+
+scenario_anomalies:
+  booster_engine_out:
+    primary_event_s: 35.0  # Public observed callout
+    secondary_research_pdf_s: 76.0 # T+1:16 noted in research document
+    engine_id: 21 # Outer ring Raptor
+    action: "Instantaneous thrust termination; remaining 32 engines compensate"
+  starship_engine_out:
+    primary_event_s: 255.0 # Early in upper ascent burn
+    secondary_research_pdf_s: 491.0 # T+8:11 noted in research document
+    engine_id: 1 # Raptor Vacuum engine 1
+    action: "Instantaneous thrust termination; burn extended to T+522.4s to achieve target orbital velocity"
+
+environment:
+  standard_gravity_g0_m_s2: 9.80665
+  earth_gravitational_parameter_gm_m3_s2: 3.986004418e14
+  earth_equatorial_radius_m: 6378137.0
+  earth_polar_radius_m: 6356752.3142
+  j2_zonal_harmonic: 1.08262668e-3
+  earth_rotation_omega_rad_s: 7.292115e-5
+  atmosphere_model: "U.S. Standard Atmosphere 1976 (NOAA/NASA/USAF)"
