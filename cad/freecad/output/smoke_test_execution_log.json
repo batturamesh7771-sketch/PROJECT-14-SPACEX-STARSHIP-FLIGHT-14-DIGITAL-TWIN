@@ -1,0 +1,50 @@
+{
+  "test_name": "P2.0A_MINIMAL_CAD_SMOKE_TEST",
+  "timestamp": "2026-10-24T17:13:07Z",
+  "freecad_version": "1.1.4",
+  "python_version": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Create Document",
+      "doc_name": "SmokeTest_Flight14_P2",
+      "status": "PASS"
+    },
+    {
+      "step": 2,
+      "action": "Parametric Geometry Creation & B-Rep Validation",
+      "object_count": 3,
+      "measured_total_volume_m3": 811.634002323428,
+      "theoretical_total_volume_m3": 811.6340023234281,
+      "status": "PASS"
+    },
+    {
+      "step": 3,
+      "action": "Native Document Save (.FCStd)",
+      "file_path": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\output\\smoke_test_model.FCStd",
+      "size_bytes": 4282,
+      "status": "PASS"
+    },
+    {
+      "step": 4,
+      "action": "Neutral STEP Export (ISO-10303)",
+      "file_path": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\output\\smoke_test_model.step",
+      "size_bytes": 15878,
+      "status": "PASS"
+    },
+    {
+      "step": 5,
+      "action": "Closed-Loop STEP Re-Import & Volumetric Residual Check",
+      "reimported_objects": 3,
+      "reimported_total_volume_m3": 811.6340023233857,
+      "volume_residual_pct": 5.203863811039455e-12,
+      "status": "PASS"
+    },
+    {
+      "step": 6,
+      "action": "Idempotent Safe Regeneration Check",
+      "status": "PASS"
+    }
+  ],
+  "overall_status": "VERIFIED_SUCCESS"
+}
