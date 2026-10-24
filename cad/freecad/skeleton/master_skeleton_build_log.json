@@ -1,0 +1,129 @@
+{
+  "task": "P2.1_MASTER_VEHICLE_SKELETON",
+  "timestamp": "2026-10-24T17:18:59Z",
+  "freecad_version": "1.1.4",
+  "python_version": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:00:26) [MSC v.1944 64 bit (AMD64)]",
+  "elements": [
+    {
+      "type": "Spreadsheet",
+      "alias_count": 18,
+      "status": "PASS"
+    },
+    {
+      "type": "DatumPlanes",
+      "count": 14,
+      "status": "PASS"
+    },
+    {
+      "component_id": "OML-BOOSTER-001",
+      "label": "SuperHeavy_Booster_OML",
+      "volume_m3": 4516.824837698725,
+      "discipline": "Primary_Structure",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-GRIDFIN-001",
+      "label": "Booster_GridFin_Envelope_1",
+      "volume_m3": 1.62,
+      "discipline": "Aero_Actuation",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-GRIDFIN-002",
+      "label": "Booster_GridFin_Envelope_2",
+      "volume_m3": 1.620000000000001,
+      "discipline": "Aero_Actuation",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-GRIDFIN-003",
+      "label": "Booster_GridFin_Envelope_3",
+      "volume_m3": 1.62,
+      "discipline": "Aero_Actuation",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-GRIDFIN-004",
+      "label": "Booster_GridFin_Envelope_4",
+      "volume_m3": 1.62,
+      "discipline": "Aero_Actuation",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-INTERSTAGE-001",
+      "label": "HotStaging_Vented_Interstage_OML",
+      "volume_m3": 222.66037932317656,
+      "discipline": "Staging_Aerodynamics",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-SHIP-BARREL-001",
+      "label": "Starship_Barrel_OML",
+      "volume_m3": 2182.0717173671305,
+      "discipline": "Primary_Structure",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-SHIP-NOSE-001",
+      "label": "Starship_Nose_OML",
+      "volume_m3": 363.4194381672673,
+      "discipline": "Aerodynamic_Fairing",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-FLAP-AFT-PORT",
+      "label": "Aft_Flap_Envelope_Port",
+      "volume_m3": 6.4,
+      "discipline": "Aero_Control",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-FLAP-AFT-STARBOARD",
+      "label": "Aft_Flap_Envelope_Starboard",
+      "volume_m3": 6.4,
+      "discipline": "Aero_Control",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-FLAP-FWD-PORT",
+      "label": "Fwd_Flap_Envelope_Port",
+      "volume_m3": 2.52,
+      "discipline": "Aero_Control",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "OML-FLAP-FWD-STARBOARD",
+      "label": "Fwd_Flap_Envelope_Starboard",
+      "volume_m3": 2.52,
+      "discipline": "Aero_Control",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "ENG-BOOSTER-PUCK-33",
+      "label": "Booster_Thrust_Puck_33Raptor",
+      "volume_m3": 99.75184993678313,
+      "discipline": "Propulsion_Structure",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "ENG-SHIP-PUCK-06",
+      "label": "Ship_Thrust_Puck_6Raptor",
+      "volume_m3": 68.04689687675491,
+      "discipline": "Propulsion_Structure",
+      "status": "VALID_SOLID"
+    },
+    {
+      "component_id": "PLD-BAY-ENV-001",
+      "label": "Payload_Bay_Internal_Envelope",
+      "volume_m3": 854.5132017764238,
+      "discipline": "Payload_Accommodations",
+      "status": "VALID_SOLID"
+    }
+  ],
+  "overall_status": "VERIFIED_SUCCESS",
+  "output_fcstd": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\skeleton\\Starship_Master_Skeleton.FCStd",
+  "output_step": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\skeleton\\Starship_Master_Skeleton.step",
+  "total_volume_m3": 8331.60832114626,
+  "oml_solids_count": 15,
+  "datum_planes_count": 14
+}
