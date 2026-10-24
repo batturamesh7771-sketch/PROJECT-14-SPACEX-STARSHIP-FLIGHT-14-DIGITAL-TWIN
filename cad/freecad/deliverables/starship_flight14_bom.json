@@ -1,0 +1,172 @@
+{
+  "project": "Starship Flight 14 Digital Engineering Lab",
+  "standard": "ISO 10303 / MIL-STD-1374A",
+  "total_line_items": 13,
+  "total_physical_occurrences": 79,
+  "mass_breakdown_kg": {
+    "booster_dry_mass": 191825.0,
+    "interstage_ring_mass": 9000.0,
+    "starship_dry_mass": 9975.0,
+    "payload_manifest_mass": 39000.0,
+    "total_stack_dry_mass": 210800.0,
+    "total_stack_liftoff_hardware_mass": 341300.0
+  },
+  "line_items": [
+    {
+      "item_no": 1,
+      "part_id": "PART-BST-BARREL-001",
+      "component_name": "Super Heavy Booster Tank Barrel (CH4/LOX Tanks & Common Dome)",
+      "subsystem": "Super Heavy Booster",
+      "quantity": 1,
+      "unit_mass_kg": 130000.0,
+      "material_spec": "AISI 304L Cold-Worked Austenitic Stainless Steel (4mm shell)",
+      "source_ref": "FAA-PEA-2022 / SPX-STARSHIP-2024",
+      "status": "derived",
+      "total_mass_kg": 130000.0
+    },
+    {
+      "item_no": 2,
+      "part_id": "PART-BST-GRIDFIN-001",
+      "component_name": "Super Heavy Aerodynamic Steering Grid Fin Assembly",
+      "subsystem": "Super Heavy Booster",
+      "quantity": 4,
+      "unit_mass_kg": 750.0,
+      "material_spec": "Ti-6Al-4V Grade 5 Welded Titanium Frame",
+      "source_ref": "SPX-STARSHIP-2024",
+      "status": "derived",
+      "total_mass_kg": 3000.0
+    },
+    {
+      "item_no": 3,
+      "part_id": "PART-BST-PUCK-001",
+      "component_name": "Super Heavy 33-Engine Thrust Puck & Transfer Structure",
+      "subsystem": "Super Heavy Booster",
+      "quantity": 1,
+      "unit_mass_kg": 8500.0,
+      "material_spec": "SX500 Austenitic Superalloy / High-Strength Forged Steel",
+      "source_ref": "AIAA-2024-001",
+      "status": "derived",
+      "total_mass_kg": 8500.0
+    },
+    {
+      "item_no": 4,
+      "part_id": "PART-ENG-RAPTOR3-SL-001",
+      "component_name": "Raptor 3 Sea-Level Methalox Rocket Engine (2.75 MN)",
+      "subsystem": "Propulsion (Booster)",
+      "quantity": 33,
+      "unit_mass_kg": 1525.0,
+      "material_spec": "SX500 / Inconel 718 Turbomachinery / Copper Regen Liner",
+      "source_ref": "SPX-RAPTOR3-UPDATE-2024",
+      "status": "public_fact",
+      "total_mass_kg": 50325.0
+    },
+    {
+      "item_no": 5,
+      "part_id": "PART-INT-STAGE-001",
+      "component_name": "Hot-Staging Ring (3.5m Vented Interstage Structure with 24 Ports)",
+      "subsystem": "Hot Staging Interstage",
+      "quantity": 1,
+      "unit_mass_kg": 9000.0,
+      "material_spec": "AISI 304L Stainless Steel with Inconel Thermal Heat Shielding",
+      "source_ref": "SPX-STARSHIP-2024",
+      "status": "public_fact",
+      "total_mass_kg": 9000.0
+    },
+    {
+      "item_no": 6,
+      "part_id": "PART-SHP-FUSELAGE-001",
+      "component_name": "Starship Upper Stage Fuselage & Main Propellant Tanks",
+      "subsystem": "Starship Upper Stage",
+      "quantity": 1,
+      "unit_mass_kg": 55000.0,
+      "material_spec": "AISI 304L Cold-Worked Austenitic Stainless Steel",
+      "source_ref": "FAA-PEA-2022 / SPX-STARSHIP-2024",
+      "status": "derived",
+      "total_mass_kg": 55000.0
+    },
+    {
+      "item_no": 7,
+      "part_id": "PART-SHP-NOSE-001",
+      "component_name": "Starship Ogive Nose Cone & Forward LOX Header Tank",
+      "subsystem": "Starship Upper Stage",
+      "quantity": 1,
+      "unit_mass_kg": 22000.0,
+      "material_spec": "AISI 304L Stainless Steel + TUFROC/AETB-12 Aerothermal TPS",
+      "source_ref": "SPX-STARSHIP-2024",
+      "status": "derived",
+      "total_mass_kg": 22000.0
+    },
+    {
+      "item_no": 8,
+      "part_id": "PART-SHP-FLAP-FWD-001",
+      "component_name": "Starship Forward Actuated Canard Flap Assembly",
+      "subsystem": "Starship Upper Stage",
+      "quantity": 2,
+      "unit_mass_kg": 1200.0,
+      "material_spec": "AISI 304L Stainless Steel + Hexagonal Aerothermal TPS Tiles",
+      "source_ref": "SPX-STARSHIP-2024",
+      "status": "derived",
+      "total_mass_kg": 2400.0
+    },
+    {
+      "item_no": 9,
+      "part_id": "PART-SHP-FLAP-AFT-001",
+      "component_name": "Starship Aft Actuated Aerodynamic Delta Flap Assembly",
+      "subsystem": "Starship Upper Stage",
+      "quantity": 2,
+      "unit_mass_kg": 3800.0,
+      "material_spec": "AISI 304L Stainless Steel + Hexagonal Aerothermal TPS Tiles",
+      "source_ref": "SPX-STARSHIP-2024",
+      "status": "derived",
+      "total_mass_kg": 7600.0
+    },
+    {
+      "item_no": 10,
+      "part_id": "PART-SHP-PAYLOAD-BAY-001",
+      "component_name": "Internal Cargo Bay Structure & Starlink PEZ Dispenser Gate",
+      "subsystem": "Starship Upper Stage",
+      "quantity": 1,
+      "unit_mass_kg": 4500.0,
+      "material_spec": "Al-Li 2195 Aerospace Alloy / Carbon Composite Dispenser Rails",
+      "source_ref": "SPX-STARSHIP-2024",
+      "status": "derived",
+      "total_mass_kg": 4500.0
+    },
+    {
+      "item_no": 11,
+      "part_id": "PART-ENG-RAPTOR3-SL-002",
+      "component_name": "Raptor 3 Sea-Level Center Gimbal Engine (Starship Stage 2)",
+      "subsystem": "Propulsion (Ship Center)",
+      "quantity": 3,
+      "unit_mass_kg": 1525.0,
+      "material_spec": "SX500 Austenitic Superalloy / Electric TVC Gimbal Actuators",
+      "source_ref": "SPX-RAPTOR3-UPDATE-2024",
+      "status": "public_fact",
+      "total_mass_kg": 4575.0
+    },
+    {
+      "item_no": 12,
+      "part_id": "PART-ENG-RAPTOR3-VAC-001",
+      "component_name": "Raptor 3 Vacuum Engine (2.3m Niobium Expansion Nozzle)",
+      "subsystem": "Propulsion (Ship Vacuum)",
+      "quantity": 3,
+      "unit_mass_kg": 1800.0,
+      "material_spec": "SX500 / Niobium Alloy C-103 Radiative Nozzle Extension",
+      "source_ref": "SPX-RAPTOR3-UPDATE-2024",
+      "status": "public_fact",
+      "total_mass_kg": 5400.0
+    },
+    {
+      "item_no": 13,
+      "part_id": "PART-PLD-STARLINK-V3-001",
+      "component_name": "Starlink V3 Direct-to-Cell Communication Satellite",
+      "subsystem": "Payload Manifest",
+      "quantity": 26,
+      "unit_mass_kg": 1500.0,
+      "material_spec": "Al-Li Honeycomb Structure / Silicon PV / Direct-to-Cell Phased Array",
+      "source_ref": "SPX-STARLINK-V3-ANNOUNCE-2025",
+      "status": "public_fact",
+      "total_mass_kg": 39000.0
+    }
+  ]
+}

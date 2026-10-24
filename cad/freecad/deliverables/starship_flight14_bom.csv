@@ -1,0 +1,14 @@
+item_no,part_id,component_name,subsystem,quantity,unit_mass_kg,total_mass_kg,material_spec,source_ref,status
+1,PART-BST-BARREL-001,Super Heavy Booster Tank Barrel (CH4/LOX Tanks & Common Dome),Super Heavy Booster,1,130000.0,130000.0,AISI 304L Cold-Worked Austenitic Stainless Steel (4mm shell),FAA-PEA-2022 / SPX-STARSHIP-2024,derived
+2,PART-BST-GRIDFIN-001,Super Heavy Aerodynamic Steering Grid Fin Assembly,Super Heavy Booster,4,750.0,3000.0,Ti-6Al-4V Grade 5 Welded Titanium Frame,SPX-STARSHIP-2024,derived
+3,PART-BST-PUCK-001,Super Heavy 33-Engine Thrust Puck & Transfer Structure,Super Heavy Booster,1,8500.0,8500.0,SX500 Austenitic Superalloy / High-Strength Forged Steel,AIAA-2024-001,derived
+4,PART-ENG-RAPTOR3-SL-001,Raptor 3 Sea-Level Methalox Rocket Engine (2.75 MN),Propulsion (Booster),33,1525.0,50325.0,SX500 / Inconel 718 Turbomachinery / Copper Regen Liner,SPX-RAPTOR3-UPDATE-2024,public_fact
+5,PART-INT-STAGE-001,Hot-Staging Ring (3.5m Vented Interstage Structure with 24 Ports),Hot Staging Interstage,1,9000.0,9000.0,AISI 304L Stainless Steel with Inconel Thermal Heat Shielding,SPX-STARSHIP-2024,public_fact
+6,PART-SHP-FUSELAGE-001,Starship Upper Stage Fuselage & Main Propellant Tanks,Starship Upper Stage,1,55000.0,55000.0,AISI 304L Cold-Worked Austenitic Stainless Steel,FAA-PEA-2022 / SPX-STARSHIP-2024,derived
+7,PART-SHP-NOSE-001,Starship Ogive Nose Cone & Forward LOX Header Tank,Starship Upper Stage,1,22000.0,22000.0,AISI 304L Stainless Steel + TUFROC/AETB-12 Aerothermal TPS,SPX-STARSHIP-2024,derived
+8,PART-SHP-FLAP-FWD-001,Starship Forward Actuated Canard Flap Assembly,Starship Upper Stage,2,1200.0,2400.0,AISI 304L Stainless Steel + Hexagonal Aerothermal TPS Tiles,SPX-STARSHIP-2024,derived
+9,PART-SHP-FLAP-AFT-001,Starship Aft Actuated Aerodynamic Delta Flap Assembly,Starship Upper Stage,2,3800.0,7600.0,AISI 304L Stainless Steel + Hexagonal Aerothermal TPS Tiles,SPX-STARSHIP-2024,derived
+10,PART-SHP-PAYLOAD-BAY-001,Internal Cargo Bay Structure & Starlink PEZ Dispenser Gate,Starship Upper Stage,1,4500.0,4500.0,Al-Li 2195 Aerospace Alloy / Carbon Composite Dispenser Rails,SPX-STARSHIP-2024,derived
+11,PART-ENG-RAPTOR3-SL-002,Raptor 3 Sea-Level Center Gimbal Engine (Starship Stage 2),Propulsion (Ship Center),3,1525.0,4575.0,SX500 Austenitic Superalloy / Electric TVC Gimbal Actuators,SPX-RAPTOR3-UPDATE-2024,public_fact
+12,PART-ENG-RAPTOR3-VAC-001,Raptor 3 Vacuum Engine (2.3m Niobium Expansion Nozzle),Propulsion (Ship Vacuum),3,1800.0,5400.0,SX500 / Niobium Alloy C-103 Radiative Nozzle Extension,SPX-RAPTOR3-UPDATE-2024,public_fact
+13,PART-PLD-STARLINK-V3-001,Starlink V3 Direct-to-Cell Communication Satellite,Payload Manifest,26,1500.0,39000.0,Al-Li Honeycomb Structure / Silicon PV / Direct-to-Cell Phased Array,SPX-STARLINK-V3-ANNOUNCE-2025,public_fact
