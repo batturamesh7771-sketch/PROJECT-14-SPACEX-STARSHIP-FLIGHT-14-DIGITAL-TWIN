@@ -1,0 +1,35 @@
+{
+  "execution_engine": "FreeCAD 1.1.4 (cmdline)",
+  "assemblies": [
+    {
+      "assembly_name": "Assembly_Booster_Stage1",
+      "file_fcstd": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\assemblies\\Assembly_Booster_Stage1.FCStd",
+      "file_step": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\assemblies\\Assembly_Booster_Stage1.step",
+      "fcstd_bytes": 15691,
+      "step_bytes": 1640,
+      "total_occurrences": 39,
+      "engine_count": 33,
+      "gridfin_count": 4
+    },
+    {
+      "assembly_name": "Assembly_Starship_Stage2",
+      "file_fcstd": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\assemblies\\Assembly_Starship_Stage2.FCStd",
+      "file_step": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\assemblies\\Assembly_Starship_Stage2.step",
+      "fcstd_bytes": 6920,
+      "step_bytes": 1640,
+      "total_occurrences": 13,
+      "engine_count": 6,
+      "flap_count": 4
+    },
+    {
+      "assembly_name": "Assembly_Flight14_FullStack",
+      "file_fcstd": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\assemblies\\Assembly_Flight14_FullStack.FCStd",
+      "file_step": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\assemblies\\Assembly_Flight14_FullStack.step",
+      "fcstd_bytes": 11361,
+      "step_bytes": 1640,
+      "total_top_occurrences": 29,
+      "subassemblies_count": 2,
+      "payload_count": 26
+    }
+  ]
+}

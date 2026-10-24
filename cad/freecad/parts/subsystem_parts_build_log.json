@@ -1,0 +1,245 @@
+{
+  "execution_engine": "FreeCAD 1.1.4 (cmdline)",
+  "parts_generated": [
+    {
+      "part_name": "Booster_Tank_Barrel",
+      "part_id": "PART-BST-BARREL-001",
+      "subsystem": "Super Heavy Booster",
+      "material": "AISI 304L Cold-Worked Stainless Steel",
+      "design_mass_kg": 130000.0,
+      "cad_volume_m3": 233.4489,
+      "bbox_mm": {
+        "xmin": -4500.0,
+        "xmax": 4500.0,
+        "ymin": -4500.0,
+        "ymax": 4500.0,
+        "zmin": 0.0,
+        "zmax": 71000.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\booster\\Booster_Tank_Barrel.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\booster\\Booster_Tank_Barrel.step",
+      "fcstd_bytes": 3027,
+      "step_bytes": 9112
+    },
+    {
+      "part_name": "Booster_Grid_Fin",
+      "part_id": "PART-BST-GRIDFIN-001",
+      "subsystem": "Super Heavy Booster",
+      "material": "Ti-6Al-4V Grade 5 Cast/Welded Titanium",
+      "design_mass_kg": 750.0,
+      "cad_volume_m3": 1.0735,
+      "bbox_mm": {
+        "xmin": -150.0,
+        "xmax": 4000.0,
+        "ymin": -400.0,
+        "ymax": 400.0,
+        "zmin": 0.0,
+        "zmax": 2000.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\booster\\Booster_Grid_Fin.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\booster\\Booster_Grid_Fin.step",
+      "fcstd_bytes": 11799,
+      "step_bytes": 91207
+    },
+    {
+      "part_name": "Booster_Thrust_Puck",
+      "part_id": "PART-BST-PUCK-001",
+      "subsystem": "Super Heavy Booster",
+      "material": "SX500 High-Strength Austenitic Superalloy",
+      "design_mass_kg": 8500.0,
+      "cad_volume_m3": 16.5656,
+      "bbox_mm": {
+        "xmin": -4450.0,
+        "xmax": 4450.0,
+        "ymin": -4450.0,
+        "ymax": 4450.0,
+        "zmin": 0.0,
+        "zmax": 1200.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\booster\\Booster_Thrust_Puck.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\booster\\Booster_Thrust_Puck.step",
+      "fcstd_bytes": 2167,
+      "step_bytes": 5519
+    },
+    {
+      "part_name": "Hot_Staging_Ring",
+      "part_id": "PART-INT-STAGE-001",
+      "subsystem": "Hot Staging Interstage",
+      "material": "AISI 304L Stainless Steel / Inconel Thermal Heat Shielding",
+      "design_mass_kg": 9000.0,
+      "cad_volume_m3": 1.4819,
+      "bbox_mm": {
+        "xmin": -4500.0,
+        "xmax": 4500.0,
+        "ymin": -4500.0,
+        "ymax": 4500.0,
+        "zmin": 0.0,
+        "zmax": 3500.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\interstage\\Hot_Staging_Ring.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\interstage\\Hot_Staging_Ring.step",
+      "fcstd_bytes": 2192,
+      "step_bytes": 4999
+    },
+    {
+      "part_name": "Ship_Fuselage_Tanks",
+      "part_id": "PART-SHP-FUSELAGE-001",
+      "subsystem": "Starship Upper Stage",
+      "material": "AISI 304L Cold-Worked Stainless Steel",
+      "design_mass_kg": 55000.0,
+      "cad_volume_m3": 211.5904,
+      "bbox_mm": {
+        "xmin": -4500.0,
+        "xmax": 4500.0,
+        "ymin": -4500.0,
+        "ymax": 4500.0,
+        "zmin": 0.0,
+        "zmax": 34300.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Fuselage_Tanks.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Fuselage_Tanks.step",
+      "fcstd_bytes": 3034,
+      "step_bytes": 9111
+    },
+    {
+      "part_name": "Ship_Nose_Cone",
+      "part_id": "PART-SHP-NOSE-001",
+      "subsystem": "Starship Upper Stage",
+      "material": "AISI 304L Stainless Steel + TUFROC/AETB-12 Aerothermal TPS",
+      "design_mass_kg": 22000.0,
+      "cad_volume_m3": 554.0994,
+      "bbox_mm": {
+        "xmin": -4500.0,
+        "xmax": 4500.0,
+        "ymin": -4500.0,
+        "ymax": 4500.0,
+        "zmin": 0.0,
+        "zmax": 16000.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Nose_Cone.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Nose_Cone.step",
+      "fcstd_bytes": 5377,
+      "step_bytes": 20108
+    },
+    {
+      "part_name": "Ship_Forward_Flap",
+      "part_id": "PART-SHP-FLAP-FWD-001",
+      "subsystem": "Starship Upper Stage",
+      "material": "AISI 304L + Aerothermal TPS Tiles",
+      "design_mass_kg": 1200.0,
+      "cad_volume_m3": 1.4604,
+      "bbox_mm": {
+        "xmin": -300.0,
+        "xmax": 4500.0,
+        "ymin": -900.0,
+        "ymax": 700.0,
+        "zmin": -220.0,
+        "zmax": 100.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Forward_Flap.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Forward_Flap.step",
+      "fcstd_bytes": 3417,
+      "step_bytes": 10924
+    },
+    {
+      "part_name": "Ship_Aft_Flap",
+      "part_id": "PART-SHP-FLAP-AFT-001",
+      "subsystem": "Starship Upper Stage",
+      "material": "AISI 304L + Aerothermal TPS Tiles",
+      "design_mass_kg": 3800.0,
+      "cad_volume_m3": 12.9411,
+      "bbox_mm": {
+        "xmin": -400.0,
+        "xmax": 11500.0,
+        "ymin": -1600.0,
+        "ymax": 1600.0,
+        "zmin": -355.0,
+        "zmax": 175.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Aft_Flap.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Ship_Aft_Flap.step",
+      "fcstd_bytes": 2896,
+      "step_bytes": 10992
+    },
+    {
+      "part_name": "Payload_Dispenser_Bay",
+      "part_id": "PART-SHP-PAYLOAD-BAY-001",
+      "subsystem": "Starship Upper Stage",
+      "material": "Al-Li 2195 / Carbon Composite Dispenser Rails",
+      "design_mass_kg": 4500.0,
+      "cad_volume_m3": 96.9799,
+      "bbox_mm": {
+        "xmin": -4400.0,
+        "xmax": 4400.0,
+        "ymin": -4400.0,
+        "ymax": 4400.0,
+        "zmin": 0.0,
+        "zmax": 17000.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Payload_Dispenser_Bay.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\ship\\Payload_Dispenser_Bay.step",
+      "fcstd_bytes": 3347,
+      "step_bytes": 15586
+    },
+    {
+      "part_name": "Raptor3_Engine_SL",
+      "part_id": "PART-ENG-RAPTOR3-SL-001",
+      "subsystem": "Propulsion (Raptor 3)",
+      "material": "SX500 Austenitic Superalloy / Inconel 718 Powerhead",
+      "design_mass_kg": 1525.0,
+      "cad_volume_m3": 1.5418,
+      "bbox_mm": {
+        "xmin": -650.0,
+        "xmax": 650.0,
+        "ymin": -650.0,
+        "ymax": 650.0,
+        "zmin": 0.0,
+        "zmax": 2850.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\propulsion\\Raptor3_Engine_SL.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\propulsion\\Raptor3_Engine_SL.step",
+      "fcstd_bytes": 2914,
+      "step_bytes": 7461
+    },
+    {
+      "part_name": "Raptor3_Engine_Vac",
+      "part_id": "PART-ENG-RAPTOR3-VAC-001",
+      "subsystem": "Propulsion (Raptor 3)",
+      "material": "SX500 / Niobium C-103 Radiative Bell Extension",
+      "design_mass_kg": 1800.0,
+      "cad_volume_m3": 4.2544,
+      "bbox_mm": {
+        "xmin": -1150.0,
+        "xmax": 1150.0,
+        "ymin": -1150.0,
+        "ymax": 1150.0,
+        "zmin": 0.0,
+        "zmax": 3450.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\propulsion\\Raptor3_Engine_Vac.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\propulsion\\Raptor3_Engine_Vac.step",
+      "fcstd_bytes": 2922,
+      "step_bytes": 7491
+    },
+    {
+      "part_name": "Starlink_V3_Satellite",
+      "part_id": "PART-PLD-STARLINK-V3-001",
+      "subsystem": "Payload Manifest",
+      "material": "Al-Li Honeycomb Core / Silicon PV / Direct-to-Cell Arrays",
+      "design_mass_kg": 1500.0,
+      "cad_volume_m3": 6.7424,
+      "bbox_mm": {
+        "xmin": -3500.0,
+        "xmax": 3500.0,
+        "ymin": -1750.0,
+        "ymax": 1750.0,
+        "zmin": 0.0,
+        "zmax": 330.0
+      },
+      "fcstd_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\payload\\Starlink_V3_Satellite.FCStd",
+      "step_file": "C:\\Users\\user\\.gemini\\antigravity\\scratch\\starship_flight14_digital_lab\\cad\\freecad\\parts\\payload\\Starlink_V3_Satellite.step",
+      "fcstd_bytes": 4136,
+      "step_bytes": 19589
+    }
+  ]
+}
