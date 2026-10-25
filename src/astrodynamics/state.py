@@ -6,8 +6,8 @@ Encapsulates 3D Cartesian position, velocity, vehicle mass, epoch, and physical 
 
 import math
 from dataclasses import dataclass, field
-from datetime import datetime
-from typing import Optional
+from datetime import datetime, timedelta
+from typing import Optional, Union
 import numpy as np
 
 from .constants import MU_EARTH, R_EARTH_EQUATORIAL
@@ -21,13 +21,16 @@ class OrbitalState:
     """
     r: np.ndarray # Position in meters [x, y, z]
     v: np.ndarray # Velocity in m/s [vx, vy, vz]
-    epoch: datetime = field(default_factory=lambda: DEFAULT_MISSION_EPOCH)
+    epoch: Union[datetime, float, int] = field(default_factory=lambda: DEFAULT_MISSION_EPOCH)
     frame: str = "ECI_J2000"
     mass_kg: float = 220850.0
     area_m2: float = 63.617
     cd: float = 2.20
 
     def __post_init__(self):
+        if isinstance(self.epoch, (int, float)):
+            self.epoch = DEFAULT_MISSION_EPOCH + timedelta(seconds=float(self.epoch))
+
         self.r = np.asarray(self.r, dtype=np.float64)
         self.v = np.asarray(self.v, dtype=np.float64)
 

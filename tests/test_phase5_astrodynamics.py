@@ -461,6 +461,62 @@ class TestPhase5Astrodynamics(unittest.TestCase):
         self.assertAlmostEqual(sma_stat["mean"], 6567.87, delta=1.0)
         self.assertGreater(sma_stat["std"], 0.5)
 
+    # -------------------------------------------------------------------------
+    # TEST 21: Deorbit Earth-Intersecting Geometry & Sub-Surface Perigee
+    # -------------------------------------------------------------------------
+    def test_21_deorbit_earth_intersecting_geometry(self):
+        """TEST-P5-21: 95 m/s retrograde burn near periapsis produces sub-surface perigee (hp < 0 km)."""
+        disposal_json = os.path.join(PROJECT_ROOT, "output", "phase5", "disposal_scenario_summary.json")
+        self.assertTrue(os.path.exists(disposal_json), "Disposal summary JSON must exist")
+
+        with open(disposal_json, "r", encoding="utf-8") as f:
+            import json
+            data = json.load(f)
+
+        self.assertEqual(data["status"], "DEORBIT_INTERFACE_REACHED")
+        self.assertTrue(data["is_earth_intersecting"], "Transfer orbit must be Earth-intersecting")
+        self.assertLess(data["transfer_orbit_perigee_altitude_km"], 0.0, "Perigee altitude must be negative")
+        self.assertAlmostEqual(data["transfer_orbit_perigee_altitude_km"], -81.09, delta=2.0)
+        self.assertAlmostEqual(data["entry_interface_altitude_km"], 120.0, delta=1.0)
+        self.assertAlmostEqual(data["entry_interface_time_s"], 6025.0, delta=10.0)
+
+    # -------------------------------------------------------------------------
+    # TEST 22: Deorbit Payload Mass Depletion & Propellant Accounting
+    # -------------------------------------------------------------------------
+    def test_22_deorbit_payload_mass_depletion(self):
+        """TEST-P5-22: Post-deployment vehicle mass is 181.85 t and consumed propellant is ~4,577 kg."""
+        disposal_json = os.path.join(PROJECT_ROOT, "output", "phase5", "disposal_scenario_summary.json")
+        with open(disposal_json, "r", encoding="utf-8") as f:
+            import json
+            data = json.load(f)
+
+        self.assertEqual(data["payload_mass_deployed_kg"], 39000.0)
+        self.assertEqual(data["pre_burn_vehicle_mass_kg"], 181850.0)
+        self.assertAlmostEqual(data["propellant_consumed_kg"], 4577.29, delta=1.0)
+        self.assertAlmostEqual(data["post_burn_mass_kg"], 177272.71, delta=1.0)
+
+    # -------------------------------------------------------------------------
+    # TEST 23: Continuous GMAT Cartesian Ephemeris Residuals
+    # -------------------------------------------------------------------------
+    def test_23_gmat_cartesian_ephemeris_residuals(self):
+        """TEST-P5-23: Continuous GMAT 3D position residuals remain < 400 m and velocity < 0.5 m/s."""
+        gmat_json = os.path.join(PROJECT_ROOT, "output", "phase5", "gmat_comparison.json")
+        residuals_csv = os.path.join(PROJECT_ROOT, "output", "phase5", "gmat_ephemeris_residuals.csv")
+
+        self.assertTrue(os.path.exists(residuals_csv), "GMAT ephemeris residuals CSV must exist")
+        with open(residuals_csv, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        self.assertGreater(len(lines), 50, "Residuals CSV must contain at least 50 ephemeris records")
+
+        with open(gmat_json, "r", encoding="utf-8") as f:
+            import json
+            data = json.load(f)
+
+        self.assertIn("max_pos_residual_m", data)
+        self.assertLess(data["max_pos_residual_m"], 400.0, "Max 3D position residual must be < 400 m")
+        self.assertLess(data["mean_pos_residual_m"], 150.0, "Mean 3D position residual must be < 150 m")
+        self.assertLess(data["max_vel_residual_ms"], 0.5, "Max 3D velocity residual must be < 0.5 m/s")
+
 
 if __name__ == "__main__":
     unittest.main()

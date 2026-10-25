@@ -23,7 +23,13 @@ from .propagator import propagate_orbit, propagate_orbit_adaptive, propagate_orb
 from .events import get_standard_orbital_events
 from .maneuvers import apply_impulsive_delta_v, compute_hohmann_deorbit_delta_v, ManeuverResult
 from .mission_timeline import CanonicalMissionTimeline, MissionEvent
-from .gmat_adapter import generate_gmat_script, execute_gmat_script, parse_gmat_report, compare_python_with_gmat
+from .gmat_adapter import (
+    generate_gmat_script,
+    execute_gmat_script,
+    parse_gmat_report,
+    compare_python_with_gmat,
+    compute_ephemeris_residuals
+)
 from .uncertainty import run_deterministic_sensitivity_study, run_monte_carlo_analysis, SensitivityResult, MonteCarloSummary
 from .reporting import (
     export_trajectory_csv,
@@ -66,6 +72,7 @@ __all__ = [
     "execute_gmat_script",
     "parse_gmat_report",
     "compare_python_with_gmat",
+    "compute_ephemeris_residuals",
     "run_deterministic_sensitivity_study",
     "run_monte_carlo_analysis",
     "SensitivityResult",

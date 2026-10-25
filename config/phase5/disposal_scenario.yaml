@@ -11,13 +11,16 @@ maneuver:
   execution_epoch_offset_seconds: 5400.0 # Executed at T+5400s (after 1 orbit)
   delta_v_mag_m_s: 95.0 # Retrograde velocity decrement (~95 m/s)
   direction: "ANTI_VELOCITY"
-  propellant_consumed_kg: 5620.0 # From rocket equation (Isp=380s)
-  post_maneuver_mass_kg: 215230.0
+  payload_mass_deployed_kg: 39000.0 # 26 Starlink V3 satellites deployed at T+1320..1680s
+  pre_maneuver_mass_kg: 181850.0 # Vehicle mass after payload deployment
+  propellant_consumed_kg: 4577.29 # From Tsiolkovsky equation: 181850 * (1 - exp(-95/(380*9.80665)))
+  post_maneuver_mass_kg: 177272.71 # 99.975 t dry + 77.298 t residual reserve propellant
+  transfer_orbit_perigee_altitude_km: -81.05 # Earth-intersecting ballistic trajectory (sub-surface geometric perigee)
 
 entry_interface:
   altitude_threshold_m: 120000.0 # 120 km atmospheric interface
   targeted_ocean: "Pacific Ocean (North of Hawaii)"
-  disclaimer: "Hypothetical scenario based on public splashdown zone; detailed aerothermal breakup not modeled."
+  disclaimer: "Hypothetical scenario based on public splashdown zone; burn near periapsis produces an Earth-intersecting trajectory that reaches the 120 km entry interface."
 
 propagation:
   duration_seconds: 9000.0

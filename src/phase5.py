@@ -34,6 +34,7 @@ from src.astrodynamics import (
     execute_gmat_script,
     parse_gmat_report,
     compare_python_with_gmat,
+    compute_ephemeris_residuals,
     run_deterministic_sensitivity_study,
     run_monte_carlo_analysis,
     export_trajectory_csv,
@@ -260,7 +261,12 @@ def run_gmat_comparison(config_path: str, output_dir: str = "output/phase5") -> 
     final_elem = py_res.elements_history[-1]
     gmat_final = gmat_records[-1]
 
-    comp_dict = compare_python_with_gmat(final_elem, gmat_final)
+    res_summary = compute_ephemeris_residuals(
+        py_result=py_res,
+        gmat_records=gmat_records,
+        output_csv_path=os.path.join(output_dir, "gmat_ephemeris_residuals.csv")
+    )
+    comp_dict = compare_python_with_gmat(final_elem, gmat_final, residuals_summary=res_summary)
     export_gmat_comparison_csv(comp_dict, os.path.join(output_dir, "gmat_comparison.csv"))
     export_summary_json(comp_dict, os.path.join(output_dir, "gmat_comparison.json"))
 
@@ -285,11 +291,16 @@ def run_disposal_simulation(config_path: str, output_dir: str = "output/phase5")
         enable_drag=False,
         detect_events=False
     )
+
+    # Account for deployment of 26 Starlink satellites (39.0 t mass released at T+1320..1680s)
+    payload_deployed_kg = float(man_cfg.get("payload_mass_deployed_kg", 39000.0))
+    pre_man_mass_kg = max(state.mass_kg - payload_deployed_kg, 99975.0)
+
     pre_man_state = OrbitalState(
         r=coast_res.states_r[-1],
         v=coast_res.states_v[-1],
         epoch=coast_res.epochs[-1],
-        mass_kg=state.mass_kg,
+        mass_kg=pre_man_mass_kg,
         area_m2=state.area_m2,
         cd=state.cd
     )
@@ -300,7 +311,8 @@ def run_disposal_simulation(config_path: str, output_dir: str = "output/phase5")
         state=pre_man_state,
         delta_v_vec=delta_v_rtn,
         frame="RTN",
-        isp_s=380.0
+        isp_s=380.0,
+        min_allowable_mass_kg=99975.0  # Dry mass without payload
     )
 
     # 3. Propagate post-burn state with atmospheric interface detector (120 km)
@@ -322,12 +334,16 @@ def run_disposal_simulation(config_path: str, output_dir: str = "output/phase5")
         "initial_orbit_sma_km": coast_res.elements_history[-1]["semi_major_axis_m"] / 1000.0,
         "initial_perigee_altitude_km": coast_res.elements_history[-1]["perigee_altitude_m"] / 1000.0,
         "delta_v_applied_m_s": delta_v_mag,
+        "payload_mass_deployed_kg": payload_deployed_kg,
+        "pre_burn_vehicle_mass_kg": pre_man_mass_kg,
         "propellant_consumed_kg": man_res.propellant_consumed_kg,
         "post_burn_mass_kg": man_res.final_mass_kg,
         "transfer_orbit_perigee_altitude_km": post_elem["perigee_altitude_m"] / 1000.0,
+        "is_earth_intersecting": bool(post_elem["perigee_altitude_m"] < 0.0),
         "entry_interface_time_s": entry_event.time_s + offset_s if entry_event else None,
         "entry_interface_altitude_km": entry_event.altitude_spherical_km if entry_event else None,
-        "targeted_region": man_cfg.get("targeted_ocean", "Pacific Ocean (North of Hawaii)")
+        "targeted_region": man_cfg.get("targeted_ocean", "Pacific Ocean (North of Hawaii)"),
+        "physical_note": "A 95 m/s retrograde burn near periapsis shifts the new periapsis to the opposite side of Earth with negative altitude (-81 km), producing an Earth-intersecting atmospheric entry trajectory."
     }
 
     export_summary_json(disposal_summary, os.path.join(output_dir, "disposal_scenario_summary.json"))

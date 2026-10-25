@@ -12,5 +12,15 @@
   "periapsis_diff_km": 0.0009081655935005983,
   "python_apoapsis_km": 6609.545922344329,
   "gmat_apoapsis_km": 6609.529000861818,
-  "apoapsis_diff_km": 0.016921482510952046
+  "apoapsis_diff_km": 0.016921482510952046,
+  "step_count": 183,
+  "max_pos_residual_m": 289.48355147369944,
+  "mean_pos_residual_m": 105.79907183111229,
+  "final_pos_residual_m": 257.15965947707514,
+  "max_vel_residual_ms": 0.30558558469453506,
+  "mean_vel_residual_ms": 0.11245298542759675,
+  "final_vel_residual_ms": 0.1642342776406683,
+  "max_sma_residual_m": 34.52987938453589,
+  "final_sma_residual_m": 8.914824053135817,
+  "final_ecc_residual": 1.2104625317409592e-06
 }

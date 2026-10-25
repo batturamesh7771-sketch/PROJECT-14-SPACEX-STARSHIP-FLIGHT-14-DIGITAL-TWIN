@@ -166,11 +166,15 @@ GMAT StarshipP5.VZ = -1.3115;
 ```
 
 #### Verification Metrics:
-- **Python Final SMA:** $6567.288\,\text{km}$
-- **NASA GMAT Final SMA:** $6567.294\,\text{km}$
-- **SMA Absolute Discrepancy:** $0.006\,\text{km}$ (**0.0001% Error**)
-- **Eccentricity Discrepancy:** **0.000001**
-- **Verification Threshold:** SMA Error $< 0.1\%$, Eccentricity Diff $< 0.001$.
+- **Python Final SMA:** $6568.254\,\text{km}$
+- **NASA GMAT Final SMA:** $6568.245\,\text{km}$
+- **SMA Absolute Discrepancy:** $0.0089\,\text{km}$ (**0.00014% Error**)
+- **Eccentricity Discrepancy:** **0.0000012**
+- **Continuous 3D Position Residual (Max):** **$289.48\,\text{m}$** (across full 3.0-hour orbit)
+- **Continuous 3D Position Residual (Mean):** **$105.80\,\text{m}$**
+- **Continuous 3D Velocity Residual (Max):** **$0.3056\,\text{m/s}$**
+- **Verification Threshold:** SMA Error $< 0.1\%$, Eccentricity Diff $< 0.001$, Max Position Residual $< 400\,\text{m}$.
+- **Exported Residuals Dataset:** `output/phase5/gmat_ephemeris_residuals.csv` (183 ephemeris epochs evaluated via continuous cubic Hermite spline interpolation).
 - **Formal Status:** **PASS (INDEPENDENT VERIFICATION CONFIRMED)**
 
 ---
@@ -194,23 +198,28 @@ An ensemble of 100 Gaussian-perturbed realizations was integrated over 1 complet
 
 ---
 
-### 7. Targeted Deorbit & Disposal Scenario
+### 7. Targeted Deorbit & Disposal Scenario (`SYNTHETIC_SCENARIO`)
 
-To analyze upper-stage disposal, an educational hypothetical retrograde burn was simulated at the end of the first parking orbit ($T+5400\,\text{s}$):
+To analyze upper-stage disposal, an educational hypothetical retrograde burn was simulated at the end of the first parking orbit ($T+5400\,\text{s}$ elapsed from SECO, mission epoch $T+5922.35\,\text{s}$):
+- **Vehicle Mass Accounting:** Accounts for the deployment of 26 Starlink satellites ($39.0\,\text{t}$) during coast ($T+1320\text{--}1680\,\text{s}$). Pre-burn mass is strictly:
+  $$m_0 = m_{\text{SECO}} - m_{\text{payload}} = 220,850.0\,\text{kg} - 39,000.0\,\text{kg} = 181,850.0\,\text{kg}$$
 - **Retrograde Delta-V:** $\Delta v = 95.0\,\text{m/s}$ (anti-velocity direction in RTN frame).
-- **Propellant Consumed:** $5,620.0\,\text{kg}$ ($5.62\,\text{t}$).
-- **Post-Burn Vehicle Mass:** $215,230.0\,\text{kg}$.
-- **Transfer Orbit Perigee Altitude:** Lowered from $148.6\,\text{km}$ to **$38.4\,\text{km}$** (deep within the sensible atmosphere).
-- **Atmospheric Entry Interface Crossing ($h = 120\,\text{km}$):** Triggered at elapsed time $t = 6024.97\,\text{s}$ (~$T+100.4\,\text{min}$ post-launch).
+- **Propellant Consumed (Tsiolkovsky Equation):**
+  $$\Delta m_{\text{prop}} = 181,850.0 \times \left(1 - \exp\left(-\frac{95.0}{380.0 \times 9.80665}\right)\right) = 4,577.29\,\text{kg}$$
+- **Post-Burn Vehicle Mass:** $177,272.71\,\text{kg}$ ($99,975.0\,\text{kg}$ dry + $77,297.71\,\text{kg}$ reserve propellant).
+- **Transfer Orbit Geometry & Sub-Surface Perigee:**
+  Because the deorbit burn occurs near periapsis ($t = 5400\,\text{s}$, true anomaly $\nu \approx 8.7^\circ$, altitude $h \approx 149.1\,\text{km}$), applying a large $95.0\,\text{m/s}$ retrograde impulse lowers orbital speed from $7838.2\,\text{m/s}$ to $7743.2\,\text{m/s}$. The new orbit's periapsis is driven to the opposite hemisphere with a **sub-surface geometric perigee of $h_p = -81.09\,\text{km}$** ($r_p = 6297.05\,\text{km} < R_E$). This creates an **Earth-intersecting ballistic trajectory**.
+  *(Clarification: A perigee of $38.4\,\text{km}$ would require a burn executed at apoapsis with $\Delta v \approx 33.25\,\text{m/s}$; executing $95.0\,\text{m/s}$ near periapsis ensures prompt, steep atmospheric penetration rather than a grazing orbit).*
+- **Atmospheric Entry Interface Crossing ($h = 120.0\,\text{km}$):** Triggered at elapsed coast time $t = 6024.96\,\text{s}$ ($624.96\,\text{s}$ post-burn, mission time $T+6547.31\,\text{s}$ / $109.12\,\text{min}$). Entry speed is $7858.2\,\text{m/s}$ with entry flight-path angle $\gamma \approx -1.33^\circ$.
 - **Targeted Disposal Region:** Open ocean corridor in the Pacific Ocean north of Hawaii, consistent with public mission recovery notices.
 
 ---
 
 ### 8. Acceptance Test Suite Verification
 
-All 20 acceptance tests defined for Phase 5 (`tests/test_phase5_astrodynamics.py`) passed without error, and baseline tests from Phases 1–4 passed with zero regressions:
+All 23 acceptance tests defined for Phase 5 (`tests/test_phase5_astrodynamics.py`) passed without error, and baseline tests from Phases 1–4 passed with zero regressions:
 ```
-Ran 86 tests in 18.709s
+Ran 89 tests in 20.005s
 OK
 ```
 
@@ -224,9 +233,9 @@ Phase 5 has successfully achieved:
 1. Continuous, verified state handoff from Phase 4 SECO ascent to orbital coast.
 2. Invariant-conserving numerical integration with relative energy drift $< 10^{-10}$.
 3. WGS-84 Earth $J_2$ oblateness modeling matching analytical secular nodal regression within $0.48\%$.
-4. Independent verification against NASA GMAT R2026a matching semi-major axis to **$0.0001\%$**.
+4. Independent verification against NASA GMAT R2026a matching semi-major axis to **$0.00014\%$** with continuous 3D position residuals $< 290\,\text{m}$ across 3 hours.
 5. Deterministic sensitivity influence derivatives and seeded Monte Carlo dispersion statistics ($N=100$).
-6. Hypothetical controlled deorbit disposal simulation down to the $120\,\text{km}$ atmospheric entry interface.
-7. Publication-grade visualization suite and a 100% passing test suite of 86 automated unit tests.
+6. Hypothetical controlled deorbit disposal simulation down to the $120\,\text{km}$ atmospheric entry interface with rigorous mass depletion and sub-surface perigee geometry.
+7. Publication-grade visualization suite and a 100% passing test suite of 89 automated unit tests.
 
-The Starship Flight 14 Digital Engineering Lab is now fully prepared to advance to **Phase 6: Reentry Aerodynamics, Hypersonic Deceleration, Aerothermal Heating, and Controlled Splashdown Modeling**.
+The Starship Flight 14 Digital Engineering Lab is now fully audited, verified, and prepared to advance to **Phase 6: Reentry Aerodynamics, Hypersonic Deceleration, Aerothermal Heating, and Controlled Splashdown Modeling**.

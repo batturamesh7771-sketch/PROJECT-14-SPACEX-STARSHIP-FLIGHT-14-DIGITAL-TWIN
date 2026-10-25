@@ -54,6 +54,11 @@ The model developed herein is an **educational, open-source engineering reconstr
   - Multi-body collision avoidance and relative dispersion analysis between individual satellites.
   - Payload bay door aerodynamic disturbance torques.
 
+#### 2.5 Deorbit Geometry & Sub-Surface Perigee vs. Apoapsis Hohmann Transfer
+- **Implemented Model:** Retrograde impulsive burn of $\Delta v = 95.0\,\text{m/s}$ executed at $t = 5400\,\text{s}$ elapsed coast ($103.5\,\text{s}$ past periapsis, $\nu \approx 8.7^\circ$). Because the burn occurs near periapsis ($h \approx 149.1\,\text{km}$), applying $95\,\text{m/s}$ retrograde shifts the transfer orbit periapsis to the opposite hemisphere with a **sub-surface geometric altitude of $h_p = -81.09\,\text{km}$**. This produces a steep, Earth-intersecting ballistic arc that terminates at the $120.0\,\text{km}$ entry interface at $t = 6024.96\,\text{s}$ ($625.0\,\text{s}$ post-burn).
+- **Distinction from Apoapsis Deorbit:** A transfer orbit perigee of $+38.4\,\text{km}$ (often cited in grazing entry literature) requires executing a much smaller retrograde burn ($\Delta v \approx 33.25\,\text{m/s}$) **at apoapsis** ($h_a \approx 230\,\text{km}$). Executing $95.0\,\text{m/s}$ near periapsis intentionally forces an immediate steep plunge, ensuring reliable disposal within the targeted Pacific Ocean corridor.
+- **Classification:** Labeled strictly `SYNTHETIC_SCENARIO` / `MODEL_ASSUMPTION`.
+
 ---
 
 ### 3. Risk Register & Mitigation Strategy

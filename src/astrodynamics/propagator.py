@@ -322,6 +322,11 @@ def propagate_orbit_adaptive(
         entry_alt_m=entry_alt_m
     ) if detect_events else None
 
+    t_eval = None
+    if eval_step_s is not None and eval_step_s > 0:
+        num_eval_pts = int(math.ceil(duration_s / eval_step_s)) + 1
+        t_eval = np.linspace(0.0, duration_s, num_eval_pts)
+
     if solve_ivp is None:
         # High-precision fallback when SciPy is not available in environment
         step_dt = eval_step_s if eval_step_s is not None and eval_step_s > 0 else 5.0

@@ -50,7 +50,7 @@ GMAT Flight14_Prop.MaxStep = 60;
 
 Create ReportFile OrbitalReport;
 GMAT OrbitalReport.Filename = 'C:/Users/user/.gemini/antigravity/scratch/starship_flight14_digital_lab/output/phase5/gmat_orbit_report.txt';
-GMAT OrbitalReport.Add = {StarshipP5.UTCGregorian, StarshipP5.Earth.SMA, StarshipP5.Earth.ECC, StarshipP5.Earth.Altitude, StarshipP5.Earth.RadPer, StarshipP5.Earth.RadApo};
+GMAT OrbitalReport.Add = {StarshipP5.UTCGregorian, StarshipP5.EarthMJ2000Eq.X, StarshipP5.EarthMJ2000Eq.Y, StarshipP5.EarthMJ2000Eq.Z, StarshipP5.EarthMJ2000Eq.VX, StarshipP5.EarthMJ2000Eq.VY, StarshipP5.EarthMJ2000Eq.VZ, StarshipP5.Earth.SMA, StarshipP5.Earth.ECC, StarshipP5.Earth.Altitude, StarshipP5.Earth.RadPer, StarshipP5.Earth.RadApo};
 
 %----------------------------------------
 %---------- Mission Sequence

@@ -23,10 +23,10 @@ The complete test suite was executed using standard Python `unittest`:
 ```powershell
 python -m unittest discover tests
 ```
-- **Total Tests Run:** 86
+- **Total Tests Run:** 89
 - **Total Failures:** 0
 - **Total Errors:** 0
-- **Execution Wall Time:** 18.709 s
+- **Execution Wall Time:** 20.005 s
 - **Overall Verdict:** **ACCEPTANCE PASSED (100% SUCCESS)**
 
 #### Test Breakdown by Test ID
@@ -50,9 +50,12 @@ python -m unittest discover tests
 | **TEST-P5-15** | `test_15_orbital_event_detection` | Periapsis & ascending node root finding | Zero crossing detection $\mathbf{r}\cdot\mathbf{v}=0, z=0$ | Detected within tolerance | **PASS** |
 | **TEST-P5-16** | `test_16_impulsive_maneuver_rocket_equation`| Retrograde $\Delta v = 95\,\text{m/s}$ maneuver | Tsiolkovsky $\Delta m$ error $< 1\,\text{g}$ | Error $< 0.001\,\text{kg}$ | **PASS** |
 | **TEST-P5-17** | `test_17_maneuver_propellant_depletion_guard`| Maneuver propellant safety floor | Blocks burns exceeding available propellant | Raises `ValueError` | **PASS** |
-| **TEST-P5-18** | `test_18_gmat_independent_ephemeris_agreement`| NASA GMAT R2026a cross-comparison | SMA diff $< 0.1\%$, Ecc diff $< 0.001$ | **SMA Diff: 0.0001%**, **Ecc Diff: 0.000001** | **PASS** |
+| **TEST-P5-18** | `test_18_gmat_independent_ephemeris_agreement`| NASA GMAT R2026a cross-comparison | SMA diff $< 0.1\%$, Ecc diff $< 0.001$ | **SMA Diff: 0.00014%**, **Ecc Diff: 0.0000012** | **PASS** |
 | **TEST-P5-19** | `test_19_sensitivity_analysis_consistency`| Deterministic OAT parameter sensitivity | In-track velocity perturbation produces $\Delta a > 0$ | Physically consistent | **PASS** |
 | **TEST-P5-20** | `test_20_monte_carlo_reproducibility` | Seeded Monte Carlo ensemble ($N=100$) | Repeatable statistics with fixed seed 42 | Mean $a = 6567.87\,\text{km}$ | **PASS** |
+| **TEST-P5-21** | `test_21_deorbit_earth_intersecting_geometry` | Deorbit burn near periapsis produces $h_p < 0\,\text{km}$ | Sub-surface perigee, entry interface $120\,\text{km}$ | $h_p = -81.09\,\text{km}$, $t_{\text{entry}} = 6025.0\,\text{s}$ | **PASS** |
+| **TEST-P5-22** | `test_22_deorbit_payload_mass_depletion` | Deorbit mass accounting after 26 Starlinks | $m_{\text{pre}} = 181.85\,\text{t}$, $\Delta m_{\text{prop}} \approx 4577\,\text{kg}$ | $181,850.0\,\text{kg}$, $\Delta m = 4,577.29\,\text{kg}$ | **PASS** |
+| **TEST-P5-23** | `test_23_gmat_cartesian_ephemeris_residuals` | Continuous GMAT 3D Cartesian residuals | Max pos residual $< 400\,\text{m}$, max vel $< 0.5\,\text{m/s}$ | Max pos: **$289.48\,\text{m}$**, max vel: **$0.306\,\text{m/s}$** | **PASS** |
 
 ---
 
@@ -76,16 +79,25 @@ A step-size refinement study was conducted over a complete orbital period ($5400
 
 ### 4. Independent NASA GMAT R2026a Cross-Verification
 
-The Python orbital propagation core was cross-verified against NASA's official mission design tool, **GMAT R2026a Console** (`E:\NASA\GMAT-R2026a\bin\GmatConsole.exe`), using identical initial conditions and force models ($J_2$ oblate central gravity, Runge-Kutta 8(9) integrator):
+The Python orbital propagation core was cross-verified against NASA's official mission design tool, **GMAT R2026a Console** (`E:\NASA\GMAT-R2026a\bin\GmatConsole.exe`), using identical initial conditions and force models ($J_2$ oblate central gravity, Runge-Kutta 8(9) integrator). Continuous cubic Hermite spline interpolation was applied to evaluate Python states at exact GMAT report timestamps, eliminating step discretization errors:
 
+#### Final Orbital Element Agreement (3.0 Hours / 10,800 s):
 | Orbital Parameter | Python Propagator | NASA GMAT R2026a | Absolute Difference | Relative Difference | Verification Threshold | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Semi-Major Axis ($a$)** | $6567.288\,\text{km}$ | $6567.294\,\text{km}$ | $0.006\,\text{km}$ | **0.0001%** | $< 0.1\%$ | **PASS** |
-| **Eccentricity ($e$)** | $0.006180$ | $0.006181$ | $0.000001$ | — | $< 0.001$ | **PASS** |
-| **Perigee Radius ($r_p$)** | $6526.685\,\text{km}$ | $6526.690\,\text{km}$ | $0.005\,\text{km}$ | **0.0001%** | $< 0.1\%$ | **PASS** |
-| **Apogee Radius ($r_a$)** | $6607.891\,\text{km}$ | $6607.898\,\text{km}$ | $0.007\,\text{km}$ | **0.0001%** | $< 0.1\%$ | **PASS** |
+| **Semi-Major Axis ($a$)** | $6568.254\,\text{km}$ | $6568.245\,\text{km}$ | $0.0089\,\text{km}$ | **0.00014%** | $< 0.1\%$ | **PASS** |
+| **Eccentricity ($e$)** | $0.006287$ | $0.006285$ | $0.0000012$ | — | $< 0.001$ | **PASS** |
+| **Perigee Radius ($r_p$)** | $6526.962\,\text{km}$ | $6526.961\,\text{km}$ | $0.0009\,\text{km}$ | **0.00001%** | $< 0.1\%$ | **PASS** |
+| **Apogee Radius ($r_a$)** | $6609.546\,\text{km}$ | $6609.529\,\text{km}$ | $0.0169\,\text{km}$ | **0.00026%** | $< 0.1\%$ | **PASS** |
 
-The observed agreement of **$0.0001\%$** in semi-major axis and **$0.000001$** in eccentricity conclusively confirms the mathematical correctness of the orbital equations of motion, time conversion, and coordinate frames.
+#### Continuous 3D Cartesian State Residuals (183 Common Epochs):
+| Residual Metric | Measured Value | Acceptance Threshold | Status |
+| :--- | :---: | :---: | :---: |
+| **Max 3D Position Error ($\max \|\Delta \mathbf{r}\|$):** | **$289.48\,\text{m}$** | $< 400.0\,\text{m}$ | **PASS** |
+| **Mean 3D Position Error ($\text{mean} \|\Delta \mathbf{r}\|$):** | **$105.80\,\text{m}$** | $< 150.0\,\text{m}$ | **PASS** |
+| **Final 3D Position Error ($\|\Delta \mathbf{r}(t_{\text{end}})\|$):** | **$257.16\,\text{m}$** | $< 350.0\,\text{m}$ | **PASS** |
+| **Max 3D Velocity Error ($\max \|\Delta \mathbf{v}\|$):** | **$0.3056\,\text{m/s}$** | $< 0.50\,\text{m/s}$ | **PASS** |
+| **Mean 3D Velocity Error ($\text{mean} \|\Delta \mathbf{v}\|$):** | **$0.1125\,\text{m/s}$** | $< 0.20\,\text{m/s}$ | **PASS** |
+| **Final 3D Velocity Error ($\|\Delta \mathbf{v}(t_{\text{end}})\|$):** | **$0.1642\,\text{m/s}$** | $< 0.25\,\text{m/s}$ | **PASS** |
 
 ---
 
@@ -103,8 +115,15 @@ The observed agreement of **$0.0001\%$** in semi-major axis and **$0.000001$** i
 - **Apogee Altitude ($h_a$):** Mean $= 230.5\,\text{km}$, Std $= 2.4\,\text{km}$.
 - **Orbital Period ($P$):** Mean $= 88.29\,\text{min}$, Std $= 0.03\,\text{min}$.
 
+#### 5.3 Audited Targeted Deorbit Disposal & Sub-Surface Perigee Verification
+- **Pre-Maneuver Vehicle Mass:** $181,850.0\,\text{kg}$ (reflecting $39.0\,\text{t}$ payload release).
+- **Retrograde Burn Delta-V:** $95.0\,\text{m/s}$ at $t = 5400\,\text{s}$ ($\nu \approx 8.7^\circ$).
+- **Propellant Expended:** $4,577.29\,\text{kg}$ via Tsiolkovsky equation ($I_{\text{sp}} = 380\,\text{s}$).
+- **Post-Burn Transfer Orbit:** $a = 6422.56\,\text{km}$, $e = 0.01955$, $h_p = -81.09\,\text{km}$ (sub-surface, Earth-intersecting).
+- **Atmospheric Entry Interface Crossing:** $t = 6024.96\,\text{s}$ at altitude $h = 119.88\,\text{km}$, speed $v = 7858.2\,\text{m/s}$.
+
 ---
 
 ### 6. Verification Sign-Off
 
-The Phase 5 Astrodynamics and Orbital Propagation implementation satisfies all governing requirements, achieves independent numerical convergence, confirms physical invariant conservation, matches NASA GMAT R2026a benchmarks to four decimal places, and passes all 86 test cases. Phase 5 is hereby declared **VERIFIED AND COMPLETE**.
+The Phase 5 Astrodynamics and Orbital Propagation implementation satisfies all governing requirements, achieves independent numerical convergence, confirms physical invariant conservation, matches NASA GMAT R2026a benchmarks to four decimal places with 3D ephemeris agreement $< 290\,\text{m}$, and passes all 89 test cases. Phase 5 is hereby declared **VERIFIED AND COMPLETE**.
