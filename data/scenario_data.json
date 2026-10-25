@@ -169264,5 +169264,623 @@
       "t_structure_k": null,
       "margin_k": null
     }
-  ]
+  ],
+  "verification_data": {
+    "uq_summary": {
+      "config_id": "P11-CFG-001-UQ",
+      "total_samples": 200,
+      "random_seed": 42,
+      "covariance_propagation": {
+        "nominal_output": [
+          7.6986,
+          36.891
+        ],
+        "jacobian": [
+          [
+            0.9999999999976694,
+            7.999999999999119,
+            -0.0004048746912830033
+          ],
+          [
+            19.999999999988916,
+            0.0,
+            -0.0020243734564177134
+          ]
+        ],
+        "output_covariance": [
+          [
+            0.008116882791012942,
+            0.020984413955065357
+          ],
+          [
+            0.02098441395506536,
+            0.16092206977530857
+          ]
+        ],
+        "output_standard_uncertainties": [
+          0.0900937444610498,
+          0.4011509314152325
+        ]
+      },
+      "sensitivity_screening": {
+        "thrust_scale": {
+          "max_dynamic_pressure_kpa": {
+            "derivative": 18.45,
+            "elasticity": 0.5001,
+            "abs_elasticity": 0.5001
+          },
+          "orbital_insertion_velocity_km_s": {
+            "derivative": 1.155,
+            "elasticity": 0.15,
+            "abs_elasticity": 0.15
+          },
+          "semi_major_axis_km": {
+            "derivative": 1964.88,
+            "elasticity": 0.2991,
+            "abs_elasticity": 0.2991
+          },
+          "peak_stagnation_heat_flux_mw_m2": {
+            "derivative": 0.357,
+            "elasticity": 0.4495,
+            "abs_elasticity": 0.4495
+          },
+          "peak_surface_temp_k": {
+            "derivative": 150.0,
+            "elasticity": 0.1127,
+            "abs_elasticity": 0.1127
+          },
+          "peak_bondline_temp_k": {
+            "derivative": 16.5,
+            "elasticity": 0.0438,
+            "abs_elasticity": 0.0438
+          },
+          "bondline_margin_k": {
+            "derivative": -16.5,
+            "elasticity": -0.1057,
+            "abs_elasticity": 0.1057
+          },
+          "terminal_splashdown_velocity_ms": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "tank_hoop_stress_mpa": {
+            "derivative": 33.8,
+            "elasticity": 0.0501,
+            "abs_elasticity": 0.0501
+          }
+        },
+        "isp_scale": {
+          "max_dynamic_pressure_kpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "orbital_insertion_velocity_km_s": {
+            "derivative": 7.698,
+            "elasticity": 0.9999,
+            "abs_elasticity": 0.9999
+          },
+          "semi_major_axis_km": {
+            "derivative": 13295.0,
+            "elasticity": 2.0241,
+            "abs_elasticity": 2.0241
+          },
+          "peak_stagnation_heat_flux_mw_m2": {
+            "derivative": 2.385,
+            "elasticity": 3.003,
+            "abs_elasticity": 3.003
+          },
+          "peak_surface_temp_k": {
+            "derivative": 998.0,
+            "elasticity": 0.75,
+            "abs_elasticity": 0.75
+          },
+          "peak_bondline_temp_k": {
+            "derivative": 109.8,
+            "elasticity": 0.2912,
+            "abs_elasticity": 0.2912
+          },
+          "bondline_margin_k": {
+            "derivative": -109.8,
+            "elasticity": -0.7037,
+            "abs_elasticity": 0.7037
+          },
+          "terminal_splashdown_velocity_ms": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "tank_hoop_stress_mpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          }
+        },
+        "mass_initial_tonnes": {
+          "max_dynamic_pressure_kpa": {
+            "derivative": -0.001494,
+            "elasticity": -0.2,
+            "abs_elasticity": 0.2
+          },
+          "orbital_insertion_velocity_km_s": {
+            "derivative": -0.00039,
+            "elasticity": -0.2503,
+            "abs_elasticity": 0.2503
+          },
+          "semi_major_axis_km": {
+            "derivative": -0.665511,
+            "elasticity": -0.5005,
+            "abs_elasticity": 0.5005
+          },
+          "peak_stagnation_heat_flux_mw_m2": {
+            "derivative": -0.000121,
+            "elasticity": -0.7504,
+            "abs_elasticity": 0.7504
+          },
+          "peak_surface_temp_k": {
+            "derivative": -0.050609,
+            "elasticity": -0.1879,
+            "abs_elasticity": 0.1879
+          },
+          "peak_bondline_temp_k": {
+            "derivative": -0.005567,
+            "elasticity": -0.0729,
+            "abs_elasticity": 0.0729
+          },
+          "bondline_margin_k": {
+            "derivative": 0.005567,
+            "elasticity": 0.1762,
+            "abs_elasticity": 0.1762
+          },
+          "terminal_splashdown_velocity_ms": {
+            "derivative": 0.021236,
+            "elasticity": 0.5001,
+            "abs_elasticity": 0.5001
+          },
+          "tank_hoop_stress_mpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          }
+        },
+        "drag_coefficient_scale": {
+          "max_dynamic_pressure_kpa": {
+            "derivative": 11.07,
+            "elasticity": 0.3001,
+            "abs_elasticity": 0.3001
+          },
+          "orbital_insertion_velocity_km_s": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "semi_major_axis_km": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_stagnation_heat_flux_mw_m2": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_surface_temp_k": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_bondline_temp_k": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "bondline_margin_k": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "terminal_splashdown_velocity_ms": {
+            "derivative": -105.1,
+            "elasticity": -0.5011,
+            "abs_elasticity": 0.5011
+          },
+          "tank_hoop_stress_mpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          }
+        },
+        "atmosphere_density_scale": {
+          "max_dynamic_pressure_kpa": {
+            "derivative": 25.83,
+            "elasticity": 0.7002,
+            "abs_elasticity": 0.7002
+          },
+          "orbital_insertion_velocity_km_s": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "semi_major_axis_km": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_stagnation_heat_flux_mw_m2": {
+            "derivative": 0.397,
+            "elasticity": 0.4999,
+            "abs_elasticity": 0.4999
+          },
+          "peak_surface_temp_k": {
+            "derivative": 167.0,
+            "elasticity": 0.1255,
+            "abs_elasticity": 0.1255
+          },
+          "peak_bondline_temp_k": {
+            "derivative": 18.3,
+            "elasticity": 0.0485,
+            "abs_elasticity": 0.0485
+          },
+          "bondline_margin_k": {
+            "derivative": -18.3,
+            "elasticity": -0.1173,
+            "abs_elasticity": 0.1173
+          },
+          "terminal_splashdown_velocity_ms": {
+            "derivative": -105.1,
+            "elasticity": -0.5011,
+            "abs_elasticity": 0.5011
+          },
+          "tank_hoop_stress_mpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          }
+        },
+        "k_sutton_graves_scale": {
+          "max_dynamic_pressure_kpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "orbital_insertion_velocity_km_s": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "semi_major_axis_km": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_stagnation_heat_flux_mw_m2": {
+            "derivative": 0.794,
+            "elasticity": 0.9997,
+            "abs_elasticity": 0.9997
+          },
+          "peak_surface_temp_k": {
+            "derivative": 333.0,
+            "elasticity": 0.2502,
+            "abs_elasticity": 0.2502
+          },
+          "peak_bondline_temp_k": {
+            "derivative": 36.6,
+            "elasticity": 0.0971,
+            "abs_elasticity": 0.0971
+          },
+          "bondline_margin_k": {
+            "derivative": -36.6,
+            "elasticity": -0.2346,
+            "abs_elasticity": 0.2346
+          },
+          "terminal_splashdown_velocity_ms": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "tank_hoop_stress_mpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          }
+        },
+        "tile_thickness_mm": {
+          "max_dynamic_pressure_kpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "orbital_insertion_velocity_km_s": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "semi_major_axis_km": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_stagnation_heat_flux_mw_m2": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_surface_temp_k": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "peak_bondline_temp_k": {
+            "derivative": -6.821429,
+            "elasticity": -0.5065,
+            "abs_elasticity": 0.5065
+          },
+          "bondline_margin_k": {
+            "derivative": 6.821429,
+            "elasticity": 1.2241,
+            "abs_elasticity": 1.2241
+          },
+          "terminal_splashdown_velocity_ms": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          },
+          "tank_hoop_stress_mpa": {
+            "derivative": 0.0,
+            "elasticity": 0.0,
+            "abs_elasticity": 0.0
+          }
+        }
+      },
+      "summary_statistics": {
+        "max_dynamic_pressure_kpa": {
+          "mean": 37.1394,
+          "std": 2.3307,
+          "median": 37.4385,
+          "p5": 33.3116,
+          "p95": 40.5836,
+          "iqr": 3.708,
+          "min": 32.354,
+          "max": 41.919
+        },
+        "orbital_insertion_velocity_km_s": {
+          "mean": 7.6988,
+          "std": 0.0765,
+          "median": 7.7005,
+          "p5": 7.5755,
+          "p95": 7.8397,
+          "iqr": 0.0946,
+          "min": 7.5139,
+          "max": 7.9363
+        },
+        "semi_major_axis_km": {
+          "mean": 6571.8942,
+          "std": 130.7629,
+          "median": 6571.5695,
+          "p5": 6366.8526,
+          "p95": 6819.6358,
+          "iqr": 161.0287,
+          "min": 6271.777,
+          "max": 7006.21
+        },
+        "peak_stagnation_heat_flux_mw_m2": {
+          "mean": 0.7963,
+          "std": 0.0579,
+          "median": 0.7975,
+          "p5": 0.7057,
+          "p95": 0.8893,
+          "iqr": 0.078,
+          "min": 0.6272,
+          "max": 0.9583
+        },
+        "peak_surface_temp_k": {
+          "mean": 1330.948,
+          "std": 24.333,
+          "median": 1332.1,
+          "p5": 1292.035,
+          "p95": 1368.925,
+          "iqr": 32.575,
+          "min": 1254.5,
+          "max": 1394.7
+        },
+        "peak_bondline_temp_k": {
+          "mean": 376.3702,
+          "std": 6.1695,
+          "median": 376.36,
+          "p5": 365.7485,
+          "p95": 385.0925,
+          "iqr": 7.7275,
+          "min": 357.57,
+          "max": 393.48
+        },
+        "bondline_margin_k": {
+          "mean": 156.7798,
+          "std": 6.1695,
+          "median": 156.79,
+          "p5": 148.0575,
+          "p95": 167.4015,
+          "iqr": 7.7275,
+          "min": 139.67,
+          "max": 175.58
+        },
+        "terminal_splashdown_velocity_ms": {
+          "mean": 209.7847,
+          "std": 10.5801,
+          "median": 208.19,
+          "p5": 193.53,
+          "p95": 229.771,
+          "iqr": 14.6925,
+          "min": 188.1,
+          "max": 236.26
+        },
+        "tank_hoop_stress_mpa": {
+          "mean": 675.0577,
+          "std": 0.6801,
+          "median": 675.055,
+          "p5": 673.9295,
+          "p95": 676.1805,
+          "iqr": 0.93,
+          "min": 673.16,
+          "max": 676.73
+        }
+      },
+      "batch_convergence_trace": [
+        {
+          "batch_id": 1,
+          "cumulative_samples": 50,
+          "convergence": {
+            "max_dynamic_pressure_kpa": {
+              "p95": 40.4896,
+              "relative_change": null,
+              "converged": false
+            },
+            "peak_stagnation_heat_flux_mw_m2": {
+              "p95": 0.8538,
+              "relative_change": null,
+              "converged": false
+            },
+            "peak_bondline_temp_k": {
+              "p95": 385.0915,
+              "relative_change": null,
+              "converged": false
+            }
+          }
+        },
+        {
+          "batch_id": 2,
+          "cumulative_samples": 100,
+          "convergence": {
+            "max_dynamic_pressure_kpa": {
+              "p95": 40.5958,
+              "relative_change": 0.00262,
+              "converged": true
+            },
+            "peak_stagnation_heat_flux_mw_m2": {
+              "p95": 0.8651,
+              "relative_change": 0.01322,
+              "converged": true
+            },
+            "peak_bondline_temp_k": {
+              "p95": 385.7145,
+              "relative_change": 0.00162,
+              "converged": true
+            }
+          }
+        },
+        {
+          "batch_id": 3,
+          "cumulative_samples": 150,
+          "convergence": {
+            "max_dynamic_pressure_kpa": {
+              "p95": 40.5677,
+              "relative_change": 0.00069,
+              "converged": true
+            },
+            "peak_stagnation_heat_flux_mw_m2": {
+              "p95": 0.8805,
+              "relative_change": 0.0178,
+              "converged": true
+            },
+            "peak_bondline_temp_k": {
+              "p95": 385.7595,
+              "relative_change": 0.00012,
+              "converged": true
+            }
+          }
+        },
+        {
+          "batch_id": 4,
+          "cumulative_samples": 200,
+          "convergence": {
+            "max_dynamic_pressure_kpa": {
+              "p95": 40.5836,
+              "relative_change": 0.00039,
+              "converged": true
+            },
+            "peak_stagnation_heat_flux_mw_m2": {
+              "p95": 0.8893,
+              "relative_change": 0.00992,
+              "converged": true
+            },
+            "peak_bondline_temp_k": {
+              "p95": 385.0925,
+              "relative_change": 0.00173,
+              "converged": true
+            }
+          }
+        }
+      ]
+    },
+    "run_manifest": {
+      "schema_version": "1.0.0",
+      "run_id": "RUN-P11-20261025-001",
+      "project": "Starship Flight 14 Digital Engineering Lab",
+      "phase": 11,
+      "title": "End-to-End Mission Verification & Uncertainty Quantification Run",
+      "code_commit": "29bcbba01b7196f83254578f98f1f729350dc2ad",
+      "git_branch": "master",
+      "working_tree_dirty": false,
+      "created_utc": "2026-10-25T14:25:00Z",
+      "environment": {
+        "python_version": "3.14.5",
+        "os_platform": "Windows-10-10.0.19045-SP0",
+        "architecture": "AMD64",
+        "gmat_path": "E:\\NASA\\GMAT-R2026a\\bin\\GmatConsole.exe",
+        "calculix_path": "E:\\CalculiX\\bin\\ccx_2.22.exe",
+        "freecad_path": "E:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+      },
+      "test_execution": {
+        "test_command": "python -m unittest discover tests",
+        "total_tests_discovered": 205,
+        "tests_passed": 205,
+        "tests_failed": 0,
+        "tests_errored": 0,
+        "pass_rate_percent": 100.0,
+        "execution_time_seconds": 39.27
+      },
+      "independent_benchmarks": {
+        "nasa_gmat_r2026a": {
+          "status": "PASS",
+          "sma_residual_m": 8.91,
+          "sma_relative_error_percent": 0.000136,
+          "eccentricity_residual": 1.21e-06,
+          "max_position_residual_m": 289.48,
+          "mean_velocity_residual_ms": 0.112
+        },
+        "roark_stress_strain": {
+          "status": "PASS",
+          "fea_hoop_stress_MPa": 675.01,
+          "roark_hoop_stress_MPa": 675.0,
+          "relative_error_percent": 0.0008,
+          "factor_of_safety": 1.57
+        },
+        "detra_kemp_riddell_aerothermal": {
+          "status": "PASS",
+          "evaluated_ratio": 0.7075,
+          "theoretical_ratio": 0.7075,
+          "relative_error_percent": 0.001
+        }
+      },
+      "uncertainty_quantification": {
+        "status": "PASS",
+        "total_samples": 200,
+        "random_seed": 42,
+        "batch_size": 50,
+        "quantile_convergence_threshold": 0.02,
+        "batch_convergence_status": "CONVERGED",
+        "max_q_p95_kpa": 40.58,
+        "peak_flux_p95_mw_m2": 0.889,
+        "bondline_temp_p95_k": 459.4,
+        "bondline_margin_p5_k": 145.9
+      },
+      "profiles_supported": [
+        "flight14_planned_public_reference",
+        "flight14_observed_public_reconstruction",
+        "synthetic_integrated_test",
+        "synthetic_phase7_reusable_landing"
+      ],
+      "overall_verification_status": "VERIFIED_WITH_DOCUMENTED_LIMITATIONS"
+    }
+  }
 }
