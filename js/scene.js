@@ -194,7 +194,20 @@ class MissionSceneManager {
     const earthRadius = 6.378137; // 1 unit = 1000 km
     const earthGeo = new THREE.SphereGeometry(earthRadius, 64, 64);
 
-    const earthTex = this.createProceduralEarthTexture();
+    let earthTex = this.createProceduralEarthTexture();
+    const loader = new THREE.TextureLoader();
+    loader.load(
+      "assets/textures/globeprev-clouds-on-DOpaHC5m-r2.jpg",
+      (tex) => {
+        if (this.earthMesh) {
+          this.earthMesh.material.map = tex;
+          this.earthMesh.material.needsUpdate = true;
+        }
+      },
+      undefined,
+      () => { /* silent fallback to procedural texture */ }
+    );
+
     const earthMat = new THREE.MeshStandardMaterial({
       map: earthTex,
       roughness: 0.65,
@@ -203,8 +216,8 @@ class MissionSceneManager {
       emissiveIntensity: 0.4,
     });
 
-    const earthMesh = new THREE.Mesh(earthGeo, earthMat);
-    this.earthGroup.add(earthMesh);
+    this.earthMesh = new THREE.Mesh(earthGeo, earthMat);
+    this.earthGroup.add(this.earthMesh);
 
     // Atmospheric Rim Glow (Fresnel outer shell)
     const atmoGeo = new THREE.SphereGeometry(earthRadius * 1.025, 48, 48);
@@ -473,7 +486,52 @@ class MissionSceneManager {
       this.controls.update();
     }
 
+    if (this.starshipGroup) {
+      this.renderMiniGlobe(this.starshipGroup.position);
+    }
+
     this.renderer.render(this.scene, this.camera);
+  }
+
+  renderMiniGlobe(vPos) {
+    const canvas = document.getElementById("mini-globe-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // Globe circle
+    ctx.beginPath();
+    ctx.arc(w / 2, h / 2, w / 2 - 2, 0, Math.PI * 2);
+    ctx.fillStyle = "#051126";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(0, 229, 255, 0.4)";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Lat/Lon grid
+    ctx.strokeStyle = "rgba(0, 229, 255, 0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.ellipse(w / 2, h / 2, w / 2 - 4, (w / 2 - 4) * 0.4, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(w / 2, 2);
+    ctx.lineTo(w / 2, h - 2);
+    ctx.stroke();
+
+    // Vehicle position indicator
+    const rNorm = Math.sqrt(vPos.x * vPos.x + vPos.y * vPos.y + vPos.z * vPos.z) || 6.378;
+    const nx = vPos.x / rNorm;
+    const ny = -vPos.z / rNorm;
+    const vx = w / 2 + nx * (w / 2 - 8);
+    const vy = h / 2 + ny * (h / 2 - 8);
+
+    ctx.beginPath();
+    ctx.arc(vx, vy, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = "#00e5ff";
+    ctx.fill();
   }
 }
 

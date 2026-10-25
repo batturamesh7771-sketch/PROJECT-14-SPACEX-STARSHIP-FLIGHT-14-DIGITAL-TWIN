@@ -49,7 +49,7 @@
     },
     "mach": {
       "name": "Mach Number",
-      "unit": "M",
+      "unit": "[-]",
       "provenance": "Phase 3 Ascent & Phase 6 Entry Solvers",
       "formula": "M = v_{rel} / \\sqrt{\\gamma R_{air} T}",
       "description": "Ratio of vehicle airspeed relative to local atmospheric acoustic speed."

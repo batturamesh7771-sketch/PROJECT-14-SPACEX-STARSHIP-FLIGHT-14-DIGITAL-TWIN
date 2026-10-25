@@ -4,9 +4,10 @@
  *
  * Implements:
  *   - Master simulation playback clock with sub-second precision
- *   - Dynamic speed multipliers (0.1x to 10x)
- *   - Timeline scrubbing and continuous linear interpolation between trajectory states
- *   - Fast jump to mission milestones
+ *   - Playback controls: Play/Pause, Rewind, Step (+/- 1s), Speed Multipliers (0.1x to 10x)
+ *   - Direct timeline scrubbing with state interpolation
+ *   - Dual timestamp display: Mission Elapsed Time (T+HH:MM:SS) and Total Duration (HH:MM:SS)
+ *   - Event milestone scrubbing and camera focus
  */
 
 class TimelineController {
@@ -23,6 +24,8 @@ class TimelineController {
 
     // DOM Elements
     this.clockEl = document.getElementById("master-clock");
+    this.hudElapsedEl = document.getElementById("hud-elapsed-time");
+    this.overviewElapsedEl = document.getElementById("overview-elapsed-time");
     this.scrubberEl = document.getElementById("timeline-scrubber");
     this.playBtn = document.getElementById("btn-play");
     this.speedBtns = document.querySelectorAll(".speed-btn");
@@ -35,7 +38,7 @@ class TimelineController {
   setProfile(profileData) {
     this.currentProfile = profileData;
     this.trajectory = profileData.trajectory || [];
-    this.maxTime = profileData.duration_s || 100.0;
+    this.maxTime = profileData.duration_s || (this.trajectory.length > 0 ? this.trajectory[this.trajectory.length - 1].time_s : 100.0);
     this.currentTime = 0.0;
 
     if (this.scrubberEl) {
@@ -76,7 +79,7 @@ class TimelineController {
     }
 
     this.speedBtns.forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", () => {
         this.speedBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         this.playbackSpeed = parseFloat(btn.dataset.speed || "1.0");
@@ -92,7 +95,7 @@ class TimelineController {
     milestones.forEach(m => {
       const btn = document.createElement("button");
       btn.className = "milestone-btn ctrl-btn";
-      btn.innerText = `${m.name} (${m.time_s}s)`;
+      btn.innerText = `${m.name} (T+${m.time_s.toFixed(0)}s)`;
       btn.addEventListener("click", () => {
         this.seekTo(m.time_s);
         if (this.callbacks.onMilestoneSelect) {
@@ -130,7 +133,6 @@ class TimelineController {
   }
 
   updateClockDisplay() {
-    if (!this.clockEl) return;
     const totalSec = Math.floor(this.currentTime);
     const hrs = Math.floor(totalSec / 3600);
     const mins = Math.floor((totalSec % 3600) / 60);
@@ -138,7 +140,20 @@ class TimelineController {
     const frac = Math.floor((this.currentTime - totalSec) * 100);
 
     const pad = (n, len = 2) => String(n).padStart(len, "0");
-    this.clockEl.innerText = `T+${pad(hrs)}:${pad(mins)}:${pad(secs)}.${pad(frac)}`;
+    const formatted = `T+${pad(hrs)}:${pad(mins)}:${pad(secs)}.${pad(frac)}`;
+    const standardFormat = `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+
+    if (this.clockEl) this.clockEl.innerText = formatted;
+    if (this.hudElapsedEl) this.hudElapsedEl.innerText = standardFormat;
+    if (this.overviewElapsedEl) this.overviewElapsedEl.innerText = standardFormat;
+
+    const scrubberClock = document.getElementById("scrubber-clock-readout");
+    if (scrubberClock) {
+      const totHrs = Math.floor(this.maxTime / 3600);
+      const totMins = Math.floor((this.maxTime % 3600) / 60);
+      const totSecs = Math.floor(this.maxTime % 60);
+      scrubberClock.innerText = `${standardFormat} / ${pad(totHrs)}:${pad(totMins)}:${pad(totSecs)}`;
+    }
   }
 
   interpolateState(targetTime) {
@@ -150,7 +165,7 @@ class TimelineController {
       return this.trajectory[this.trajectory.length - 1];
     }
 
-    // Binary search for interval
+    // Binary search for surrounding interval
     let low = 0;
     let high = this.trajectory.length - 1;
     while (low <= high) {
@@ -172,7 +187,7 @@ class TimelineController {
     // Linearly interpolate numeric fields
     const lerp = (a, b) => a + (b - a) * alpha;
 
-    const lerpedPoint = {
+    return {
       time_s: targetTime,
       altitude_km: lerp(p0.altitude_km || 0, p1.altitude_km || 0),
       velocity_km_s: lerp(p0.velocity_km_s || 0, p1.velocity_km_s || 0),
@@ -180,7 +195,7 @@ class TimelineController {
       dynamic_pressure_kpa: lerp(p0.dynamic_pressure_kpa || 0, p1.dynamic_pressure_kpa || 0),
       thrust_mn: lerp(p0.thrust_mn || 0, p1.thrust_mn || 0),
       mass_tonnes: lerp(p0.mass_tonnes || 0, p1.mass_tonnes || 0),
-      apparent_g: lerp(p0.apparent_g || 0, p1.apparent_g || 0),
+      apparent_g: lerp(p0.apparent_g || 1.0, p1.apparent_g || 1.0),
       pitch_deg: lerp(p0.pitch_deg || 0, p1.pitch_deg || 0),
       flaps_fwd_deg: lerp(p0.flaps_fwd_deg || 0, p1.flaps_fwd_deg || 0),
       flaps_aft_deg: lerp(p0.flaps_aft_deg || 0, p1.flaps_aft_deg || 0),
@@ -195,8 +210,6 @@ class TimelineController {
         lerp(p0.scene_pos[2], p1.scene_pos[2]),
       ],
     };
-
-    return lerpedPoint;
   }
 
   notifyState() {
@@ -214,7 +227,6 @@ class TimelineController {
 
     if (this.isPlaying && this.currentProfile) {
       // In orbital profile, trajectory spans hours; scale playback step naturally:
-      // When duration is large (> 1000s), scale speed so mission is viewable in ~90s:
       const timeScaleFactor = this.maxTime > 1000 ? 40.0 : 1.0;
       const dt = (deltaMs / 1000.0) * this.playbackSpeed * timeScaleFactor;
 
