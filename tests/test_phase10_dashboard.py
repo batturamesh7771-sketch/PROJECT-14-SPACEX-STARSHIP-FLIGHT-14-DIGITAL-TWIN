@@ -196,6 +196,7 @@ class TestPhase10Dashboard(unittest.TestCase):
             os.path.join("vendor", "three.min.js"),
             os.path.join("vendor", "OrbitControls.js"),
             os.path.join("data", "scenario_data.json"),
+            os.path.join("data", "scenario_data_embedded.js"),
             os.path.join("data", "run_manifest.json"),
         ]
         for rel in expected_files:
@@ -209,6 +210,29 @@ class TestPhase10Dashboard(unittest.TestCase):
             self.assertTrue(os.path.isfile(s_path))
             self.assertTrue(os.path.isfile(m_path))
             self.assertGreater(os.path.getsize(s_path), 1_000_000)
+
+    def test_16_embedded_scenario_data_fallback(self):
+        """16. scenario_data_embedded.js must exist, be > 1MB, and start with window.EMBEDDED_SCENARIO_DATA."""
+        emb_path = os.path.join(os.path.dirname(__file__), "..", "src", "dashboard", "static", "data", "scenario_data_embedded.js")
+        self.assertTrue(os.path.isfile(emb_path))
+        self.assertGreater(os.path.getsize(emb_path), 1_000_000)
+        with open(emb_path, "r", encoding="utf-8") as f:
+            header = f.read(50)
+        self.assertTrue(header.startswith("window.EMBEDDED_SCENARIO_DATA = {"))
+
+    def test_17_dashboard_launchers_exist(self):
+        """17. Both Windows batch (run_dashboard.bat) and PowerShell (run_dashboard.ps1) launchers must exist."""
+        root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        bat = os.path.join(root, "run_dashboard.bat")
+        ps1 = os.path.join(root, "run_dashboard.ps1")
+        self.assertTrue(os.path.isfile(bat), "run_dashboard.bat must exist in repo root")
+        self.assertTrue(os.path.isfile(ps1), "run_dashboard.ps1 must exist in repo root")
+
+    def test_18_mach_dimensionless_unit(self):
+        """18. Mach number unit in channel registry must be dimensionless '[-]', never 'M' (meters)."""
+        mach_meta = self.payload["channel_registry"]["mach"]
+        self.assertNotEqual(mach_meta["unit"], "M", "Mach number must not be labeled in meters ('M')")
+        self.assertIn(mach_meta["unit"], ["[-]", "dimensionless", ""])
 
 
 if __name__ == "__main__":

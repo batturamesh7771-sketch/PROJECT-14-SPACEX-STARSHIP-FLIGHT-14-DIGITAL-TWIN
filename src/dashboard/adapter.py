@@ -110,7 +110,7 @@ def get_channel_registry() -> Dict[str, Dict[str, str]]:
         },
         "mach": {
             "name": "Mach Number",
-            "unit": "M",
+            "unit": "[-]",
             "provenance": "Phase 3 Ascent & Phase 6 Entry Solvers",
             "formula": "M = v_{rel} / \\sqrt{\\gamma R_{air} T}",
             "description": "Ratio of vehicle airspeed relative to local atmospheric acoustic speed."
@@ -665,12 +665,16 @@ def export_dashboard_data(output_dir: Optional[str] = None) -> Tuple[str, str]:
     os.makedirs(output_dir, exist_ok=True)
 
     scenario_path = os.path.join(output_dir, "scenario_data.json")
+    embedded_path = os.path.join(output_dir, "scenario_data_embedded.js")
     manifest_path = os.path.join(output_dir, "run_manifest.json")
 
     payload = build_scenario_data()
 
     with open(scenario_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2)
+
+    with open(embedded_path, "w", encoding="utf-8") as f:
+        f.write("window.EMBEDDED_SCENARIO_DATA = " + json.dumps(payload) + ";\n")
 
     manifest = {
         "manifest_version": "1.0.0",
