@@ -1,0 +1,138 @@
+! ==============================================================================
+! STARSHIP FLIGHT 14 DIGITAL ENGINEERING LAB
+! PHASE 8: STRUCTURAL FEA BENCHMARK - PROPELLANT TANK BARREL SECTION
+! ANSYS Mechanical APDL Input Deck (SHELL181 Thin-Walled Shell Formulation)
+! File: fea/tank_section_stress.mac
+! ==============================================================================
+
+/TITLE, Starship Propellant Tank Section - Combined Pressure and Axial Load FEA
+/COM, -------------------------------------------------------------------------
+/COM, Structural Benchmark of 9.0m Diameter, 4.0mm Wall 304L Stainless Shell
+/COM, Evaluates Roark Thin-Walled Formula: Sigma_hoop = (p * r) / t
+/COM, -------------------------------------------------------------------------
+
+/PREP7
+C*** 1. GEOMETRIC & LOAD PARAMETERS
+DIAM       = 9.000          ! Outer diameter [m]
+RADIUS     = DIAM / 2.0     ! Cylinder radius = 4.5 m
+THICK      = 0.004          ! Wall thickness = 4.0 mm
+HEIGHT     = 10.000         ! Barrel section height = 10.0 m
+PRESSURE   = 0.600E6        ! Internal ullage pressure = 6.0 bar (0.60 MPa)
+AXIAL_G    = 3.0            ! Axial launch acceleration load factor [g]
+SHIP_MASS  = 120000.0       ! Starship stage mass [kg]
+G_ACCEL    = 9.80665        ! Standard gravity [m/s^2]
+TOTAL_AXIAL_FORCE = AXIAL_G * SHIP_MASS * G_ACCEL ! ~3.53 MN axial compressive force
+LINE_LOAD  = TOTAL_AXIAL_FORCE / (2.0 * 3.1415926535 * RADIUS) ! Compressive line load [N/m]
+
+C*** 2. MATERIAL PROPERTIES: AISI 304L COLD-ROLLED STAINLESS STEEL
+MPTEMP,,,,,,,,
+MPTEMP,1,0
+MPDATA,EX,1,,193.0E9        ! Young's Modulus = 193 GPa
+MPDATA,PRXY,1,,0.29         ! Poisson's Ratio = 0.29
+MPDATA,DENS,1,,7900.0       ! Mass Density = 7900 kg/m^3
+
+C*** 3. ELEMENT TYPE & SECTION DEFINITIONS
+ET,1,SHELL181               ! 4-node structural shell with membrane & bending capabilities
+KEYOPT,1,1,0                ! Membrane and bending stiffness active
+KEYOPT,1,3,2                ! Full integration formulation
+KEYOPT,1,8,1                ! Store data for all layers (bottom, middle, top)
+
+SECTYPE,1,SHELL,,TankWall
+SECDATA,THICK,1,0.0,3       ! 4.0 mm thickness, Material ID 1, 3 integration points
+SECOFFSET,MID               ! Mid-surface offset
+
+C*** 4. SOLID MODELING OF CYLINDRICAL BARREL SECTION
+CSYS,1                      ! Switch to cylindrical coordinate system (r, theta, z)
+K,1,RADIUS,0,0
+K,2,RADIUS,90,0
+K,3,RADIUS,180,0
+K,4,RADIUS,270,0
+
+K,5,RADIUS,0,HEIGHT
+K,6,RADIUS,90,HEIGHT
+K,7,RADIUS,180,HEIGHT
+K,8,RADIUS,270,HEIGHT
+
+L,1,2
+L,2,3
+L,3,4
+L,4,1
+
+L,5,6
+L,6,7
+L,7,8
+L,8,5
+
+L,1,5
+L,2,6
+L,3,7
+L,4,8
+
+A,1,2,6,5
+A,2,3,7,6
+A,3,4,8,7
+A,4,1,5,8
+
+CSYS,0                      ! Return to global Cartesian (x, y, z)
+
+C*** 5. MESHING CONTROLS
+AESIZE,ALL,0.150            ! Nominal 150 mm element edge length
+MSHAPE,0,2D                 ! Quadrilateral mapped meshing
+MSHKEY,1
+AMESH,ALL
+
+C*** 6. BOUNDARY CONDITIONS AND LOADS
+! Constrain bottom edge (Z = 0) against axial displacement and rigid body motion
+CSYS,1
+NSEL,S,LOC,Z,0.0
+D,ALL,UZ,0.0                ! Prevent axial motion at baseline ring
+D,ALL,ROTX,0.0              ! Symmetry / clamped tangent
+D,ALL,ROTY,0.0
+
+! Prevent rigid body translation by pinning anchor node at (RADIUS, 0, 0)
+NSEL,R,LOC,X,RADIUS
+NSEL,R,LOC,Y,0.0
+D,ALL,UX,0.0
+D,ALL,UY,0.0
+ALLSEL,ALL
+
+! Apply internal ullage pressure (0.60 MPa) normal to all shell elements
+SFA,ALL,1,PRES,PRESSURE
+
+! Apply top edge compressive axial line load (Z = HEIGHT)
+NSEL,S,LOC,Z,HEIGHT
+F,ALL,FZ,-LINE_LOAD * (0.150) ! Line load integrated over element tributary width
+ALLSEL,ALL
+
+FINISH
+
+C*** 7. SOLUTION EXECUTION
+/SOLU
+ANTYPE,0                    ! Static linear analysis
+NLGEOM,OFF                  ! Small deflection baseline benchmark
+SOLVE
+FINISH
+
+C*** 8. GENERAL POST-PROCESSING & RESULTS EXTRACTION
+/POST1
+SET,LAST
+
+! Extract peak Von Mises stress and hoop stress
+ETABLE,S_EQV,S,EQV          ! Von Mises Equivalent Stress
+ETABLE,S_HOOP,S,2           ! Circumferential Hoop Stress
+ETABLE,S_AXIAL,S,1          ! Longitudinal Axial Stress
+
+! Write results log
+*GET,MAX_SEQV,ETABLE,0,MAX,S_EQV
+*GET,MAX_SHOOP,ETABLE,0,MAX,S_HOOP
+*GET,MAX_SAXIAL,ETABLE,0,MAX,S_AXIAL
+*GET,MAX_RADIAL_DISP,NODE,0,MAX,U,X
+
+*CFOPEN,tank_stress_summary,txt
+*VWRITE,MAX_SHOOP,MAX_SEQV,MAX_RADIAL_DISP
+(1X,'MAX_HOOP_STRESS_PA:   ',E15.7,/,'MAX_VON_MISES_PA:    ',E15.7,/,'MAX_RADIAL_DISP_M:   ',E15.7)
+*CFCLOSE
+
+/COM, -------------------------------------------------------------------------
+/COM, FEA Execution Complete. Summary written to tank_stress_summary.txt
+/COM, -------------------------------------------------------------------------

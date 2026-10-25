@@ -1,0 +1,13 @@
+RequirementID,Description,VerificationMethod,ModulePath,TestID,Status
+REQ-FEA-001,Thin-walled cylinder Roark hoop stress benchmark (pr/t),Analytical Verification,src/fea/analytical.py,test_01_roark_hoop_stress_formula,VERIFIED
+REQ-FEA-002,Thin-walled cylinder Roark longitudinal stress benchmark (pr/2t),Analytical Verification,src/fea/analytical.py,test_02_roark_longitudinal_stress_pressure_only,VERIFIED
+REQ-FEA-003,Axial compressive launch acceleration superposition (F/2*pi*r*t),Analytical Verification,src/fea/analytical.py,test_03_roark_axial_compression_superposition,VERIFIED
+REQ-FEA-004,Von Mises equivalent stress plane stress evaluation,Analytical Verification,src/fea/analytical.py,test_04_roark_von_mises_plane_stress,VERIFIED
+REQ-FEA-005,Radial displacement Hookean expansion evaluation (r/E*(sigma_h - nu*sigma_l)),Analytical Verification,src/fea/analytical.py,test_05_roark_radial_deflection,VERIFIED
+REQ-FEA-006,Hetenyi characteristic shell decay parameter and wave length calculation,Mathematical Formulation,src/fea/analytical.py,test_06_shell_characteristic_decay_length,VERIFIED
+REQ-FEA-007,Parametric quadrilateral shell mesh generator with boundary node tagging,Geometric Validation,src/fea/mesh.py,test_07_mesh_generator_quad_topology,VERIFIED
+REQ-FEA-008,High-precision numerical thin-shell structural equilibrium solver,Numerical Benchmark,src/fea/solver.py,test_09_numerical_shell_solver_hoop_accuracy,VERIFIED
+REQ-FEA-009,Mesh refinement convergence across 3 element densities (Error < 1.0%),Convergence Study,src/fea/reporting.py,test_11_mesh_refinement_error_monotonicity,VERIFIED
+REQ-FEA-010,Abaqus/CalculiX S4R input deck generation and CCX execution,Toolchain Execution,src/fea/calculix_deck.py,test_12_calculix_deck_syntax_and_keywords,VERIFIED
+REQ-FEA-011,ANSYS Mechanical APDL parameterized SHELL181 macro generation,Macro Validation,fea/tank_section_stress.mac,test_13_ansys_mac_deck_parameters,VERIFIED
+REQ-FEA-012,NASA SP-8007 axial buckling capacity and pressure stabilization model,Empirical Verification,src/fea/analytical.py,test_14_nasa_sp8007_critical_buckling_stress,VERIFIED

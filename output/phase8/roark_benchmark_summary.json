@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Case 1: Nominal Flight Ullage Pressure (6.0 bar)",
+    "metrics": {
+      "pressure_bar": 6.0,
+      "pressure_MPa": 0.6,
+      "axial_force_MN": 0.0,
+      "radius_m": 4.5,
+      "thickness_mm": 4.0,
+      "radius_to_thickness_ratio": 1125.0,
+      "hoop_stress_MPa": 675.0,
+      "axial_stress_MPa": 337.5,
+      "von_mises_stress_MPa": 584.57,
+      "radial_displacement_mm": 13.456,
+      "axial_displacement_mm": 7.345,
+      "safety_factor_yield": 0.496,
+      "margin_of_safety_yield": -0.504,
+      "classical_buckling_stress_MPa": 61.42,
+      "critical_buckling_load_MN": 6.95
+    }
+  },
+  {
+    "name": "Case 2: Launch Acceleration (3.0g Axial + 6.0 bar)",
+    "metrics": {
+      "pressure_bar": 6.0,
+      "pressure_MPa": 0.6,
+      "axial_force_MN": 3.53,
+      "radius_m": 4.5,
+      "thickness_mm": 4.0,
+      "radius_to_thickness_ratio": 1125.0,
+      "hoop_stress_MPa": 675.0,
+      "axial_stress_MPa": 306.28,
+      "von_mises_stress_MPa": 585.4,
+      "radial_displacement_mm": 13.667,
+      "axial_displacement_mm": 5.727,
+      "safety_factor_yield": 0.495,
+      "margin_of_safety_yield": -0.505,
+      "classical_buckling_stress_MPa": 61.42,
+      "critical_buckling_load_MN": 6.95
+    }
+  },
+  {
+    "name": "Case 3: Cryogenic Proof Pressure Test (8.5 bar)",
+    "metrics": {
+      "pressure_bar": 8.5,
+      "pressure_MPa": 0.85,
+      "axial_force_MN": 0.0,
+      "radius_m": 4.5,
+      "thickness_mm": 4.0,
+      "radius_to_thickness_ratio": 1125.0,
+      "hoop_stress_MPa": 956.25,
+      "axial_stress_MPa": 478.12,
+      "von_mises_stress_MPa": 828.14,
+      "radial_displacement_mm": 19.063,
+      "axial_displacement_mm": 10.405,
+      "safety_factor_yield": 0.35,
+      "margin_of_safety_yield": -0.65,
+      "classical_buckling_stress_MPa": 78.39,
+      "critical_buckling_load_MN": 8.87
+    }
+  },
+  {
+    "name": "Case 4: Reentry Peak Deceleration (3.23g + 2.0 bar)",
+    "metrics": {
+      "pressure_bar": 2.0,
+      "pressure_MPa": 0.2,
+      "axial_force_MN": 3.168,
+      "radius_m": 4.5,
+      "thickness_mm": 4.0,
+      "radius_to_thickness_ratio": 1125.0,
+      "hoop_stress_MPa": 225.0,
+      "axial_stress_MPa": 84.49,
+      "von_mises_stress_MPa": 196.86,
+      "radial_displacement_mm": 4.675,
+      "axial_displacement_mm": 0.997,
+      "safety_factor_yield": 1.473,
+      "margin_of_safety_yield": 0.473,
+      "classical_buckling_stress_MPa": 34.27,
+      "critical_buckling_load_MN": 3.88
+    }
+  }
+]

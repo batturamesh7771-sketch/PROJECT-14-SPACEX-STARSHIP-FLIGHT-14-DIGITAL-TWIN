@@ -1,0 +1,15 @@
+{
+  "total_nodes": 2160,
+  "total_elements": 2088,
+  "nominal_element_size_mm": 368.8,
+  "pressure_bar": 6.0,
+  "axial_force_MN": 3.53,
+  "max_hoop_stress_MPa": 675.01,
+  "max_von_mises_MPa": 585.4,
+  "max_radial_displacement_mm": 14.243,
+  "roark_hoop_stress_MPa": 675.0,
+  "roark_von_mises_MPa": 585.4,
+  "hoop_stress_error_percent": 0.0008,
+  "von_mises_error_percent": 0.0008,
+  "safety_factor_yield": 0.495
+}

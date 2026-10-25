@@ -1,0 +1,4 @@
+mesh_level,n_theta,n_z,total_nodes,total_elements,element_size_mm,max_hoop_MPa,roark_hoop_MPa,hoop_error_percent,max_von_mises_MPa,von_mises_error_percent
+Coarse,36,15,540,504,749.8,675.02,675.0,0.0026,585.42,0.0027
+Medium,72,30,2160,2088,368.8,675.01,675.0,0.0008,585.4,0.0008
+Fine,144,60,8640,8496,182.9,675.02,675.0,0.0023,585.41,0.0024
