@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-10-25T06:30:18.450743+00:00",
+  "config_path": "config/phase5/earth_j2.yaml",
+  "config_id": "P5-CFG-002-EARTH-J2",
+  "scenario_name": "earth_j2_zonal_harmonic_propagation",
+  "duration_s": 10800.0,
+  "integrator": "DOP853",
+  "step_count": 1081,
+  "energy_relative_drift": 3.615137896209343e-05,
+  "angular_momentum_drift": 1.806496115688875e-05,
+  "status": "SUCCESS"
+}

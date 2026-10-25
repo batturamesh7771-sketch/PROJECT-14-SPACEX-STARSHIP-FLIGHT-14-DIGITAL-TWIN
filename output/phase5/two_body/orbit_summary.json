@@ -1,0 +1,68 @@
+{
+  "success": true,
+  "status_message": "RK4 internal fallback propagation completed",
+  "duration_s": 5400.0,
+  "step_count": 541,
+  "final_epoch_utc": "2026-09-28T15:38:42.350000+00:00",
+  "final_altitude_km": 200.0003490496846,
+  "final_speed_km_s": 7.784297586792465,
+  "final_elements": {
+    "semi_major_axis_m": 6578198.269425781,
+    "semi_major_axis_km": 6578.198269425781,
+    "eccentricity": 9.314052159286126e-06,
+    "inclination_rad": 0.0,
+    "inclination_deg": 0.0,
+    "raan_rad": 0.0,
+    "raan_deg": 0.0,
+    "arg_periapsis_rad": 3.5124726879311386e-06,
+    "arg_periapsis_deg": 0.00020124986067342613,
+    "true_anomaly_rad": 0.10683304448196686,
+    "true_anomaly_deg": 6.121082561350089,
+    "orbital_period_s": 5309.7175472945655,
+    "orbital_period_min": 88.49529245490943,
+    "period_s": 5309.7175472945655,
+    "period_min": 88.49529245490943,
+    "periapsis_radius_m": 6578136.999743986,
+    "perigee_radius_m": 6578136.999743986,
+    "periapsis_altitude_m": 199999.99974398594,
+    "perigee_altitude_m": 199999.99974398594,
+    "perigee_altitude_km": 199.99999974398594,
+    "apoapsis_radius_m": 6578259.539107577,
+    "apogee_radius_m": 6578259.539107577,
+    "apoapsis_altitude_m": 200122.53910757694,
+    "apogee_altitude_m": 200122.53910757694,
+    "apogee_altitude_km": 200.12253910757696,
+    "specific_energy_j_kg": -30297083.295027707,
+    "specific_angular_momentum_m2_s": 51206178691.77158,
+    "is_bound": true,
+    "orbit_type": "elliptical",
+    "is_circular": false,
+    "is_equatorial": true
+  },
+  "energy_relative_drift": 4.118280687767074e-11,
+  "angular_momentum_relative_drift": 2.0591515881746485e-11,
+  "events_triggered": 3,
+  "event_summary": [
+    {
+      "event": "periapsis",
+      "time_s": 0.0,
+      "altitude_km": 200.0,
+      "epoch_utc": "2026-09-28T14:08:42.350000+00:00"
+    },
+    {
+      "event": "apoapsis",
+      "time_s": 2654.8579003319724,
+      "altitude_km": 200.00748868135736,
+      "epoch_utc": "2026-09-28T14:52:57.207900+00:00"
+    },
+    {
+      "event": "periapsis",
+      "time_s": 5309.717545604264,
+      "altitude_km": 199.9873581283344,
+      "epoch_utc": "2026-09-28T15:37:12.067546+00:00"
+    }
+  ],
+  "config_id": "P5-CFG-001-TWO-BODY",
+  "scenario_name": "baseline_two_body_verification",
+  "classification": "DERIVED_PUBLIC"
+}

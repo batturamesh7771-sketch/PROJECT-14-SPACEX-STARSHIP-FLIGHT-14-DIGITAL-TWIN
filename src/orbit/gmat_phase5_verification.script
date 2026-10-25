@@ -1,0 +1,60 @@
+% NASA General Mission Analysis Tool (GMAT) Script
+% Starship Flight 14 - Independent Orbital Verification
+% Epoch: 28 Sep 2026 14:08:42.350
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft StarshipP5;
+GMAT StarshipP5.DateFormat = UTCGregorian;
+GMAT StarshipP5.Epoch = '28 Sep 2026 14:08:42.350';
+GMAT StarshipP5.CoordinateSystem = EarthMJ2000Eq;
+GMAT StarshipP5.DisplayStateType = Cartesian;
+GMAT StarshipP5.X = 967.660500;
+GMAT StarshipP5.Y = -5900.231600;
+GMAT StarshipP5.Z = 2617.085100;
+GMAT StarshipP5.VX = 7.698600;
+GMAT StarshipP5.VY = 0.678700;
+GMAT StarshipP5.VZ = -1.311500;
+GMAT StarshipP5.DryMass = 220850.0;
+GMAT StarshipP5.Cd = 2.20;
+GMAT StarshipP5.Cr = 1.8;
+GMAT StarshipP5.DragArea = 63.62;
+GMAT StarshipP5.SRPArea = 63.62;
+
+%----------------------------------------
+%---------- Force Model & Propagator
+%----------------------------------------
+
+Create ForceModel Flight14_ForceModel;
+GMAT Flight14_ForceModel.CentralBody = Earth;
+GMAT Flight14_ForceModel.PrimaryBodies = {Earth};
+GMAT Flight14_ForceModel.PointMasses = {};
+GMAT Flight14_ForceModel.SRP = Off;
+GMAT Flight14_ForceModel.GravityField.Earth.Degree = 2;
+GMAT Flight14_ForceModel.GravityField.Earth.Order = 0;
+GMAT Flight14_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+
+Create Propagator Flight14_Prop;
+GMAT Flight14_Prop.FM = Flight14_ForceModel;
+GMAT Flight14_Prop.Type = RungeKutta89;
+GMAT Flight14_Prop.InitialStepSize = 10;
+GMAT Flight14_Prop.Accuracy = 1e-11;
+GMAT Flight14_Prop.MinStep = 0.001;
+GMAT Flight14_Prop.MaxStep = 60;
+
+%----------------------------------------
+%---------- Subscribers & Reports
+%----------------------------------------
+
+Create ReportFile OrbitalReport;
+GMAT OrbitalReport.Filename = 'C:/Users/user/.gemini/antigravity/scratch/starship_flight14_digital_lab/output/phase5/gmat_orbit_report.txt';
+GMAT OrbitalReport.Add = {StarshipP5.UTCGregorian, StarshipP5.Earth.SMA, StarshipP5.Earth.ECC, StarshipP5.Earth.Altitude, StarshipP5.Earth.RadPer, StarshipP5.Earth.RadApo};
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+Propagate Flight14_Prop(StarshipP5) {StarshipP5.ElapsedSecs = 10800.0};

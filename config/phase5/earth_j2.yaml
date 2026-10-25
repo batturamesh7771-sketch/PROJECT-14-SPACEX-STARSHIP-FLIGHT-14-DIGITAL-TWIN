@@ -1,0 +1,51 @@
+# Phase 5 Configuration: Earth J2 Oblateness Perturbation
+# Classification: VALIDATION_REFERENCE
+config_id: "P5-CFG-002-EARTH-J2"
+scenario_name: "earth_j2_zonal_harmonic_propagation"
+description: "Cartesian orbital propagation including WGS-84 J2 zonal harmonic oblateness perturbation."
+epoch_utc: "2026-09-28T14:08:42.350Z"
+reference_frame: "ECI_J2000"
+time_system: "UTC"
+
+constants:
+  central_body: "Earth"
+  mu_m3_s2: 3.986004418e14
+  r_earth_equatorial_m: 6378137.0
+  flattening: 0.0033528106647474805
+
+force_model:
+  gravity_type: "earth_j2_oblate"
+  enable_j2: true
+  j2_coefficient: 1.08262668e-3 # WGS-84 J2
+  enable_drag: false
+  enable_srp: false
+
+vehicle:
+  name: "Starship Stage 2 (Educational Model)"
+  mass_kg: 220850.0
+  cross_section_area_m2: 63.617
+  drag_coefficient: 2.20
+
+initial_state_cartesian:
+  # 200 km altitude, 26.0 deg inclination reference orbit
+  x_m: 5912440.0
+  y_m: 0.0
+  z_m: 2883760.0
+  vx_m_s: 0.0
+  vy_m_s: 7784.298
+  vz_m_s: 0.0
+
+propagation:
+  duration_seconds: 10800.0 # ~2 full orbits (3 hours)
+  integrator: "DOP853"
+  rtol: 1.0e-10
+  atol: 1.0e-12
+  max_step_seconds: 30.0
+  output_cadence_seconds: 10.0
+
+events:
+  detect_periapsis: true
+  detect_apoapsis: true
+  detect_equatorial_crossing: true
+  detect_atmospheric_interface: false
+  atmospheric_interface_altitude_m: 120000.0

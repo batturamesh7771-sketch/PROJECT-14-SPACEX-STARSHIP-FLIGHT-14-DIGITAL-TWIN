@@ -1,0 +1,54 @@
+# Phase 5 Configuration: Flight 14 Reconstructed Insertion & Upper-Stage Coast
+# Classification: DERIVED_PUBLIC
+config_id: "P5-CFG-003-F14-COAST"
+scenario_name: "flight14_insertion_coast_reconstruction"
+description: "Reconstructed Starship Flight 14 parking orbit propagation from SECO (T+522.35s) through 3-hour coast."
+epoch_utc: "2026-09-28T14:08:42.350Z"
+reference_frame: "ECI_J2000"
+time_system: "UTC"
+
+constants:
+  central_body: "Earth"
+  mu_m3_s2: 3.986004418e14
+  r_earth_equatorial_m: 6378137.0
+  flattening: 0.0033528106647474805
+
+force_model:
+  gravity_type: "earth_j2_oblate"
+  enable_j2: true
+  j2_coefficient: 1.08262668e-3
+  enable_drag: true
+  atmospheric_model: "us_standard_1976_exponential_fit"
+  base_density_kg_m3: 1.225
+  scale_height_m: 7200.0
+  enable_srp: false
+
+vehicle:
+  name: "Starship Flight 14 Upper Stage (S33/Ship)"
+  mass_kg: 220850.0 # 99.975 t dry + 39.0 t payload (26 Starlinks) + 81.875 t reserve
+  cross_section_area_m2: 63.617
+  drag_coefficient: 2.20
+
+initial_state_cartesian:
+  # State vector exactly from verified Phase 4 SECO solution at T+522.35s
+  x_m: 967660.5
+  y_m: -5900231.6
+  z_m: 2617085.1
+  vx_m_s: 7698.6
+  vy_m_s: 678.7
+  vz_m_s: -1311.5
+
+propagation:
+  duration_seconds: 10800.0 # 3.0 hours coast (Reuters reported mission duration)
+  integrator: "DOP853"
+  rtol: 1.0e-9
+  atol: 1.0e-11
+  max_step_seconds: 30.0
+  output_cadence_seconds: 10.0
+
+events:
+  detect_periapsis: true
+  detect_apoapsis: true
+  detect_equatorial_crossing: true
+  detect_atmospheric_interface: true
+  atmospheric_interface_altitude_m: 120000.0

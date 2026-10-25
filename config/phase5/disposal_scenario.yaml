@@ -1,0 +1,27 @@
+# Phase 5 Configuration: Hypothetical Targeted Deorbit & Disposal Scenario
+# Classification: SYNTHETIC_SCENARIO
+config_id: "P5-CFG-005-DISPOSAL"
+scenario_name: "hypothetical_targeted_deorbit_burn"
+description: "Educational hypothetical retrograde disposal burn lowering perigee to atmospheric entry interface."
+epoch_utc: "2026-09-28T14:08:42.350Z"
+reference_frame: "ECI_J2000"
+
+maneuver:
+  type: "impulsive_retrograde"
+  execution_epoch_offset_seconds: 5400.0 # Executed at T+5400s (after 1 orbit)
+  delta_v_mag_m_s: 95.0 # Retrograde velocity decrement (~95 m/s)
+  direction: "ANTI_VELOCITY"
+  propellant_consumed_kg: 5620.0 # From rocket equation (Isp=380s)
+  post_maneuver_mass_kg: 215230.0
+
+entry_interface:
+  altitude_threshold_m: 120000.0 # 120 km atmospheric interface
+  targeted_ocean: "Pacific Ocean (North of Hawaii)"
+  disclaimer: "Hypothetical scenario based on public splashdown zone; detailed aerothermal breakup not modeled."
+
+propagation:
+  duration_seconds: 9000.0
+  integrator: "DOP853"
+  rtol: 1.0e-8
+  atol: 1.0e-10
+  max_step_seconds: 30.0

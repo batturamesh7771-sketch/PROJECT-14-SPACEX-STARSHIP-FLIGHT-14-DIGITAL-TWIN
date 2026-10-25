@@ -1,0 +1,51 @@
+# Phase 5 Configuration: Baseline Two-Body Unperturbed Keplerian Propagation
+# Classification: VALIDATION_REFERENCE
+config_id: "P5-CFG-001-TWO-BODY"
+scenario_name: "baseline_two_body_verification"
+description: "Unperturbed Newtonian two-body gravitational propagation for analytical benchmark verification."
+epoch_utc: "2026-09-28T14:08:42.350Z"
+reference_frame: "ECI_J2000"
+time_system: "UTC"
+
+constants:
+  central_body: "Earth"
+  mu_m3_s2: 3.986004418e14 # WGS-84 GM (NIMA TR8350.2)
+  r_earth_equatorial_m: 6378137.0
+  flattening: 0.0033528106647474805 # 1/298.257223563
+
+force_model:
+  gravity_type: "two_body_point_mass"
+  enable_j2: false
+  j2_coefficient: 0.0
+  enable_drag: false
+  enable_srp: false
+
+vehicle:
+  name: "Starship Stage 2 (Educational Model)"
+  mass_kg: 220850.0 # Burnout hardware (138.975 t) + reserve propellant (81.875 t)
+  cross_section_area_m2: 63.617
+  drag_coefficient: 2.20
+
+initial_state_cartesian:
+  # Verified analytical 200 km circular reference orbit
+  x_m: 6578137.0
+  y_m: 0.0
+  z_m: 0.0
+  vx_m_s: 0.0
+  vy_m_s: 7784.298
+  vz_m_s: 0.0
+
+propagation:
+  duration_seconds: 5400.0 # ~1 full orbit (~90 minutes)
+  integrator: "DOP853" # Adaptive 8th-order Dormand-Prince
+  rtol: 1.0e-11
+  atol: 1.0e-13
+  max_step_seconds: 60.0
+  output_cadence_seconds: 10.0
+
+events:
+  detect_periapsis: true
+  detect_apoapsis: true
+  detect_equatorial_crossing: true
+  detect_atmospheric_interface: false
+  atmospheric_interface_altitude_m: 120000.0

@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-10-25T06:30:19.223935+00:00",
+  "config_path": "config/phase5/synthetic_insertion.yaml",
+  "config_id": "P5-CFG-003-F14-COAST",
+  "scenario_name": "flight14_insertion_coast_reconstruction",
+  "duration_s": 10800.0,
+  "integrator": "DOP853",
+  "step_count": 1081,
+  "energy_relative_drift": 0.00010794560099542656,
+  "angular_momentum_drift": 5.344663565167261e-05,
+  "status": "SUCCESS"
+}

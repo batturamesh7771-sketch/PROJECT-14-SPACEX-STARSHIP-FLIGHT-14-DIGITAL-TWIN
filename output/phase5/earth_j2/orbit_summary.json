@@ -1,0 +1,104 @@
+{
+  "success": true,
+  "status_message": "RK4 internal fallback propagation completed",
+  "duration_s": 10800.0,
+  "step_count": 1081,
+  "final_epoch_utc": "2026-09-28T17:08:42.350000+00:00",
+  "final_altitude_km": 199.99406481186207,
+  "final_speed_km_s": 7.784547545026044,
+  "final_elements": {
+    "semi_major_axis_m": 6578608.2002506135,
+    "semi_major_axis_km": 6578.608200250614,
+    "eccentricity": 0.00015145301145298048,
+    "inclination_rad": 0.45383225114925396,
+    "inclination_deg": 26.002672597773458,
+    "raan_rad": 4.694495400472634,
+    "raan_deg": 268.9747733906591,
+    "arg_periapsis_rad": 2.8934038925611953,
+    "arg_periapsis_deg": 165.7798314704804,
+    "true_anomaly_rad": 5.211638303971747,
+    "true_anomaly_deg": 298.60487916629955,
+    "orbital_period_s": 5310.213880191686,
+    "orbital_period_min": 88.50356466986143,
+    "period_s": 5310.213880191686,
+    "period_min": 88.50356466986143,
+    "periapsis_radius_m": 6577611.850227516,
+    "perigee_radius_m": 6577611.850227516,
+    "periapsis_altitude_m": 199474.85022751614,
+    "perigee_altitude_m": 199474.85022751614,
+    "perigee_altitude_km": 199.47485022751616,
+    "apoapsis_radius_m": 6579604.550273711,
+    "apogee_radius_m": 6579604.550273711,
+    "apoapsis_altitude_m": 201467.55027371086,
+    "apogee_altitude_m": 201467.55027371086,
+    "apogee_altitude_km": 201.46755027371086,
+    "specific_energy_j_kg": -30295195.402031638,
+    "specific_angular_momentum_m2_s": 51207773578.824,
+    "is_bound": true,
+    "orbit_type": "elliptical",
+    "is_circular": false,
+    "is_equatorial": false
+  },
+  "energy_relative_drift": 3.615137896209343e-05,
+  "angular_momentum_relative_drift": 1.806496115688875e-05,
+  "events_triggered": 9,
+  "event_summary": [
+    {
+      "event": "apoapsis",
+      "time_s": 0.0,
+      "altitude_km": 200.0860496692648,
+      "epoch_utc": "2026-09-28T14:08:42.350000+00:00"
+    },
+    {
+      "event": "descending_node",
+      "time_s": 1324.9357713030747,
+      "altitude_km": 195.23411996878218,
+      "epoch_utc": "2026-09-28T14:30:47.285771+00:00"
+    },
+    {
+      "event": "periapsis",
+      "time_s": 2652.063986266485,
+      "altitude_km": 189.2259091780763,
+      "epoch_utc": "2026-09-28T14:52:54.413986+00:00"
+    },
+    {
+      "event": "ascending_node",
+      "time_s": 3969.2605554838633,
+      "altitude_km": 195.23941297713853,
+      "epoch_utc": "2026-09-28T15:14:51.610555+00:00"
+    },
+    {
+      "event": "apoapsis",
+      "time_s": 5310.351587721167,
+      "altitude_km": 200.0705952238487,
+      "epoch_utc": "2026-09-28T15:37:12.701588+00:00"
+    },
+    {
+      "event": "descending_node",
+      "time_s": 6619.131800600379,
+      "altitude_km": 195.39149826526082,
+      "epoch_utc": "2026-09-28T15:59:01.481801+00:00"
+    },
+    {
+      "event": "periapsis",
+      "time_s": 7956.192381615157,
+      "altitude_km": 189.19284513464197,
+      "epoch_utc": "2026-09-28T16:21:18.542382+00:00"
+    },
+    {
+      "event": "ascending_node",
+      "time_s": 9263.457219126985,
+      "altitude_km": 195.08802814587204,
+      "epoch_utc": "2026-09-28T16:43:05.807219+00:00"
+    },
+    {
+      "event": "apoapsis",
+      "time_s": 10620.695783669004,
+      "altitude_km": 200.05693141102884,
+      "epoch_utc": "2026-09-28T17:05:43.045784+00:00"
+    }
+  ],
+  "config_id": "P5-CFG-002-EARTH-J2",
+  "scenario_name": "earth_j2_zonal_harmonic_propagation",
+  "classification": "DERIVED_PUBLIC"
+}

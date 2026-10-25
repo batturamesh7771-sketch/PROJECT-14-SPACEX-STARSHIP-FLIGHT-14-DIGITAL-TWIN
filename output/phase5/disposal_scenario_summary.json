@@ -1,0 +1,12 @@
+{
+  "status": "DEORBIT_INTERFACE_REACHED",
+  "initial_orbit_sma_km": 6567.733066988535,
+  "initial_perigee_altitude_km": 148.64024836455192,
+  "delta_v_applied_m_s": 95.0,
+  "propellant_consumed_kg": 5558.950190686737,
+  "post_burn_mass_kg": 215291.04980931326,
+  "transfer_orbit_perigee_altitude_km": -81.0520882372586,
+  "entry_interface_time_s": 6024.972155399477,
+  "entry_interface_altitude_km": 119.8835774027584,
+  "targeted_region": "Pacific Ocean (North of Hawaii)"
+}

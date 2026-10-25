@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-10-25T06:30:18.104103+00:00",
+  "config_path": "config/phase5/baseline_two_body.yaml",
+  "config_id": "P5-CFG-001-TWO-BODY",
+  "scenario_name": "baseline_two_body_verification",
+  "duration_s": 5400.0,
+  "integrator": "DOP853",
+  "step_count": 541,
+  "energy_relative_drift": 4.118280687767074e-11,
+  "angular_momentum_drift": 2.0591515881746485e-11,
+  "status": "SUCCESS"
+}

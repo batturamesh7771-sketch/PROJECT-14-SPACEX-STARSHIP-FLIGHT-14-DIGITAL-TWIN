@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "python_sma_km": 6568.253758056824,
+  "gmat_sma_km": 6568.244843232771,
+  "sma_diff_km": 0.008914824053135817,
+  "sma_error_percent": 0.00013572612266914372,
+  "python_ecc": 0.006286627436836611,
+  "gmat_ecc": 0.00628541697430487,
+  "ecc_diff": 1.2104625317409592e-06,
+  "python_periapsis_km": 6526.961593769319,
+  "gmat_periapsis_km": 6526.960685603725,
+  "periapsis_diff_km": 0.0009081655935005983,
+  "python_apoapsis_km": 6609.545922344329,
+  "gmat_apoapsis_km": 6609.529000861818,
+  "apoapsis_diff_km": 0.016921482510952046
+}

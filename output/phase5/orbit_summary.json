@@ -1,0 +1,98 @@
+{
+  "success": true,
+  "status_message": "RK4 internal fallback propagation completed",
+  "duration_s": 10800.0,
+  "step_count": 1081,
+  "final_epoch_utc": "2026-09-28T17:08:42.350000+00:00",
+  "final_altitude_km": 150.0685471162917,
+  "final_speed_km_s": 7.837607699719897,
+  "final_elements": {
+    "semi_major_axis_m": 6567995.513423819,
+    "semi_major_axis_km": 6567.995513423819,
+    "eccentricity": 0.006265533530154589,
+    "inclination_rad": 0.4496586052508495,
+    "inclination_deg": 25.763540302612792,
+    "raan_rad": 2.852185123780218,
+    "raan_deg": 163.41816998260478,
+    "arg_periapsis_rad": 1.995829795423848,
+    "arg_periapsis_deg": 114.352623904245,
+    "true_anomaly_rad": 0.25960250230114634,
+    "true_anomaly_deg": 14.874127732890928,
+    "orbital_period_s": 5297.369316264239,
+    "orbital_period_min": 88.28948860440399,
+    "period_s": 5297.369316264239,
+    "period_min": 88.28948860440399,
+    "periapsis_radius_m": 6526843.517308557,
+    "perigee_radius_m": 6526843.517308557,
+    "periapsis_altitude_m": 148706.5173085574,
+    "perigee_altitude_m": 148706.5173085574,
+    "perigee_altitude_km": 148.7065173085574,
+    "apoapsis_radius_m": 6609147.509539082,
+    "apogee_radius_m": 6609147.509539082,
+    "apoapsis_altitude_m": 231010.50953908172,
+    "apogee_altitude_m": 231010.50953908172,
+    "apogee_altitude_km": 231.0105095390817,
+    "specific_energy_j_kg": -30344146.93077449,
+    "specific_angular_momentum_m2_s": 51165448679.43148,
+    "is_bound": true,
+    "orbit_type": "elliptical",
+    "is_circular": false,
+    "is_equatorial": false
+  },
+  "energy_relative_drift": 0.00010794560099542656,
+  "angular_momentum_relative_drift": 5.344663565167261e-05,
+  "events_triggered": 8,
+  "event_summary": [
+    {
+      "event": "descending_node",
+      "time_s": 980.0365697883653,
+      "altitude_km": 171.13928202483802,
+      "epoch_utc": "2026-09-28T14:25:02.386570+00:00"
+    },
+    {
+      "event": "apoapsis",
+      "time_s": 2626.6875673845793,
+      "altitude_km": 217.19444388542976,
+      "epoch_utc": "2026-09-28T14:52:29.037567+00:00"
+    },
+    {
+      "event": "ascending_node",
+      "time_s": 3636.428669896965,
+      "altitude_km": 195.60261769080907,
+      "epoch_utc": "2026-09-28T15:09:18.778670+00:00"
+    },
+    {
+      "event": "periapsis",
+      "time_s": 5252.756015511666,
+      "altitude_km": 148.41025989885722,
+      "epoch_utc": "2026-09-28T15:36:15.106016+00:00"
+    },
+    {
+      "event": "descending_node",
+      "time_s": 6259.853492673458,
+      "altitude_km": 170.56462618436012,
+      "epoch_utc": "2026-09-28T15:53:02.203493+00:00"
+    },
+    {
+      "event": "apoapsis",
+      "time_s": 7919.135667641981,
+      "altitude_km": 217.07589195650164,
+      "epoch_utc": "2026-09-28T16:20:41.485668+00:00"
+    },
+    {
+      "event": "ascending_node",
+      "time_s": 8916.044022255563,
+      "altitude_km": 195.92136449086388,
+      "epoch_utc": "2026-09-28T16:37:18.394022+00:00"
+    },
+    {
+      "event": "periapsis",
+      "time_s": 10544.428127207311,
+      "altitude_km": 148.3350133021064,
+      "epoch_utc": "2026-09-28T17:04:26.778127+00:00"
+    }
+  ],
+  "config_id": "P5-CFG-003-F14-COAST",
+  "scenario_name": "flight14_insertion_coast_reconstruction",
+  "classification": "DERIVED_PUBLIC"
+}
