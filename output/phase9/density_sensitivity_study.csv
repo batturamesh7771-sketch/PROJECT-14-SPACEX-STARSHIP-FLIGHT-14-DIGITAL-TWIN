@@ -1,0 +1,6 @@
+density_multiplier,density_perturbation_percent,peak_heat_flux_MW_m2,integrated_heat_load_MJ_m2,peak_surface_temp_K,peak_bondline_temp_K,bondline_margin_K,is_acceptable
+0.8,-20.0,0.14,42.46,1293.43,371.47,161.68,True
+0.9,-10.0,0.149,45.03,1312.99,374.4,158.75,True
+1.0,0.0,0.157,47.47,1330.73,377.12,156.03,True
+1.1,10.0,0.164,49.78,1346.97,379.67,153.48,True
+1.2,20.0,0.172,52.0,1361.96,382.08,151.07,True

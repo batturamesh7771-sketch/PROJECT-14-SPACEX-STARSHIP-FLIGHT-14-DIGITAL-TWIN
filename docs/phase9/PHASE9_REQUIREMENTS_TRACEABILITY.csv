@@ -1,0 +1,14 @@
+RequirementID,Description,VerificationMethod,ModulePath,TestID,Status
+REQ-THM-001,Calculate stagnation-point heating rate and 1D thermal response for reentry,Aerothermal Conduction,src/thermal/conduction_1d.py,test_11_nominal_rtv_bondline_margin,VERIFIED
+REQ-THM-002,Implement Sutton-Graves stagnation heat flux correlation with blunt nose radius,Analytical Formulation,src/thermal/aerothermal_flux.py,test_01_sutton_graves_formula,VERIFIED
+REQ-THM-003,Implement Detra-Kemp-Riddell hypersonic stagnation heating correlation,Analytical Formulation,src/thermal/aerothermal_flux.py,test_02_detra_kemp_riddell_formula,VERIFIED
+REQ-THM-004,Implement windward belly acreage heating with angle of attack pitch scaling,Aerodynamic Scaling,src/thermal/aerothermal_flux.py,test_03_windward_acreage_pitch_scaling,VERIFIED
+REQ-THM-005,Implement surface radiative equilibrium temperature model,Radiative Physics,src/thermal/aerothermal_flux.py,test_04_radiative_equilibrium_temperature,VERIFIED
+REQ-THM-006,Model temperature-dependent porous silica tile thermal conductivity k(T),Material Modeling,src/thermal/material_properties.py,test_05_silica_conductivity_temperature_dependence,VERIFIED
+REQ-THM-007,Model temperature-dependent porous silica tile specific heat capacity cp(T),Material Modeling,src/thermal/material_properties.py,test_06_silica_specific_heat_temperature_dependence,VERIFIED
+REQ-THM-008,Construct 1D multi-layer spatial mesh across Tile SIP and Steel substrate,Spatial Discretization,src/thermal/conduction_1d.py,test_07_thermal_stack_mesh_generation,VERIFIED
+REQ-THM-009,Execute implicit TDMA Thomas algorithm tridiagonal linear solver,Numerical Solver,src/thermal/conduction_1d.py,test_08_tdma_linear_solver_accuracy,VERIFIED
+REQ-THM-010,Verify physical heat soak thermal diffusion delay through silica tile,Thermal Physics,src/thermal/conduction_1d.py,test_10_heat_soak_diffusion_lag,VERIFIED
+REQ-THM-011,Verify RTV silicone adhesive bondline margin against 533.15 K limit,Safety Margin,src/thermal/margin_analysis.py,test_11_nominal_rtv_bondline_margin,VERIFIED
+REQ-THM-012,Conduct tile thickness sizing trade study (15mm to 40mm),Optimization Study,src/thermal/margin_analysis.py,test_12_tile_thickness_trade_monotonicity,VERIFIED
+REQ-THM-013,Quantify sensitivity to upper atmospheric density fluctuations (+/- 20%),Uncertainty Quantification,src/thermal/margin_analysis.py,test_13_atmospheric_density_sensitivity,VERIFIED

@@ -1,0 +1,13 @@
+{
+  "tile_thickness_mm": 28.0,
+  "peak_surface_temp_K": 1330.73,
+  "peak_surface_temp_degC": 1057.58,
+  "peak_bondline_temp_K": 377.12,
+  "peak_bondline_temp_degC": 103.97,
+  "allowable_bondline_temp_K": 533.15,
+  "allowable_bondline_temp_degC": 260.0,
+  "temperature_margin_K": 156.03,
+  "margin_of_safety": 1.858,
+  "heat_soak_lag_seconds": 313.4,
+  "is_acceptable": true
+}

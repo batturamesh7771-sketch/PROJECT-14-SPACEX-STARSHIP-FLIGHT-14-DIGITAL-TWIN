@@ -1,0 +1,8 @@
+tile_thickness_mm,peak_surface_temp_K,peak_surface_temp_degC,peak_bondline_temp_K,peak_bondline_temp_degC,allowable_bondline_temp_K,allowable_bondline_temp_degC,temperature_margin_K,margin_of_safety,heat_soak_lag_seconds,is_acceptable
+15.0,1330.23,1057.08,526.1,252.95,533.15,260.0,7.05,0.03,154.0,True
+20.0,1330.64,1057.49,452.36,179.21,533.15,260.0,80.79,0.507,233.0,True
+25.0,1330.72,1057.57,402.42,129.27,533.15,260.0,130.73,1.196,313.4,True
+28.0,1330.73,1057.58,377.12,103.97,533.15,260.0,156.03,1.858,313.4,True
+32.0,1330.73,1057.58,348.26,75.11,533.15,260.0,184.89,3.355,313.4,True
+36.0,1330.74,1057.59,327.07,53.92,533.15,260.0,206.08,6.075,313.4,True
+40.0,1330.74,1057.59,313.03,39.88,533.15,260.0,220.12,11.075,313.4,True
