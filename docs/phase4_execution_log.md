@@ -34,3 +34,12 @@
 | **05:37:09** | Parameter Provenance Doc | `docs/phase4_parameter_provenance.md` | `write_to_file` | Formatted provenance and uncertainty matrix. | **AUTHORED** |
 | **05:37:20** | Dependency Map Doc | `docs/phase4_dependency_map.md` | `write_to_file` | Documented input/output flow and module dependencies. | **AUTHORED** |
 | **05:37:35** | Verification Plan Doc | `docs/phase4_verification_plan.md` | `write_to_file` | Formatted 20-point multi-body acceptance test matrix. | **AUTHORED** |
+| **05:54:55** | Staging Dynamics Refactor | `src/dynamics/staging_separation.py` | `write_to_file` | Implemented selectable separation modes (`hot_staging`, `zero_impulse`, `prescribed_impulse`, `prescribed_relative_delta_v`), rigorous `center_range_m` terminology, and momentum balance. | **RESOLVED** |
+| **05:55:33** | Phase 4 Master Pipeline Run | `src/run_phase4_staging.py` | `python src/run_phase4_staging.py` | Reproduced 5.50m at 1s, 48.06m at 3s; booster splashdown at 6.0 m/s; ship SECO at 152.05 km. | **VERIFIED** |
+| **05:56:04** | Sensitivity Study Execution | `src/dynamics/staging_sensitivity_study.py` | `python src/dynamics/staging_sensitivity_study.py` | Quantified time-step convergence (1.03% at 1s for dt=0.01s vs 0.001s), plume sensitivity, and zero/impulse modes. | **VERIFIED** |
+| **05:57:13** | 20-Point Test Suite Expansion | `tests/test_phase4_staging_recovery.py` | `write_to_file` | Implemented TEST-P4-01 through TEST-P4-20 covering multi-body physics, momentum balance, GMAT benchmark, and regression. | **AUTHORED** |
+| **05:58:29** | Initial Acceptance Test Run | `tests/test_phase4_staging_recovery.py` | `python -m unittest discover tests` | 64 PASS, 1 FAIL, 1 ERROR (GMAT timestamp parsing and parameters.yaml key name). | **DEFECTS** |
+| **05:58:54** | Test Suite Parser Fix | `tests/test_phase4_staging_recovery.py` | `replace_file_content` | Corrected token indexing for multi-word UTCGregorian timestamp and updated parameter registry keys. | **RESOLVED** |
+| **06:00:10** | Full Acceptance Suite Pass | `tests/` (66 tests) | `python -m unittest discover tests` | **Ran 66 tests in 23.445s. All 66 tests PASSED (0 failures, 0 errors).** | **PASS** |
+| **06:02:02** | Publication Plots Generation | `src/visualization/plot_phase4_staging.py` | `FreeCAD Python plot_phase4_staging.py` | Generated 6-panel publication-quality telemetry graphic `flight14_phase4_staging_plots.png` (411.8 KB). | **GENERATED** |
+

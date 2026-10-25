@@ -1,0 +1,173 @@
+{
+  "baseline_reproduction": {
+    "center_displacement_increment_1s_m": 5.4987,
+    "center_displacement_increment_3s_m": 48.0617,
+    "final_relative_distance_10s_m": 383.8036,
+    "final_relative_velocity_10s_ms": 100.366,
+    "peak_relative_accel_g": 1.366,
+    "peak_plume_force_kn": 1900.0
+  },
+  "time_step_sensitivity": [
+    {
+      "dt_s": 0.05,
+      "disp_1s_m": 5.8119,
+      "disp_3s_m": 49.0899,
+      "error_1s_m": 0.2558999999999996,
+      "error_1s_pct": 4.605831533477314,
+      "error_3s_m": 0.8393999999999977,
+      "error_3s_pct": 1.739671091491275
+    },
+    {
+      "dt_s": 0.02,
+      "disp_1s_m": 5.6549,
+      "disp_3s_m": 48.5743,
+      "error_1s_m": 0.09889999999999954,
+      "error_1s_pct": 1.7800575953923603,
+      "error_3s_m": 0.32379999999999853,
+      "error_3s_pct": 0.6710811286929639
+    },
+    {
+      "dt_s": 0.01,
+      "disp_1s_m": 5.4987,
+      "disp_3s_m": 48.0617,
+      "error_1s_m": 0.057299999999999685,
+      "error_1s_pct": 1.0313174946004262,
+      "error_3s_m": 0.18880000000000052,
+      "error_3s_pct": 0.3912912819556285
+    },
+    {
+      "dt_s": 0.005,
+      "disp_1s_m": 5.5248,
+      "disp_3s_m": 48.1475,
+      "error_1s_m": 0.031200000000000117,
+      "error_1s_pct": 0.5615550755939546,
+      "error_3s_m": 0.10300000000000153,
+      "error_3s_pct": 0.213469290473677
+    },
+    {
+      "dt_s": 0.001,
+      "disp_1s_m": 5.556,
+      "disp_3s_m": 48.2505,
+      "error_1s_m": 0.0,
+      "error_1s_pct": 0.0,
+      "error_3s_m": 0.0,
+      "error_3s_pct": 0.0
+    }
+  ],
+  "plume_force_sensitivity": [
+    {
+      "factor": 0.0,
+      "f_plume_peak_kn": 0.0,
+      "disp_1s_m": 3.8951,
+      "disp_3s_m": 41.1643,
+      "delta_from_baseline_1s_m": -1.6036000000000006
+    },
+    {
+      "factor": 0.5,
+      "f_plume_peak_kn": 950.0,
+      "disp_1s_m": 4.7277,
+      "disp_3s_m": 44.8663,
+      "delta_from_baseline_1s_m": -0.7710000000000008
+    },
+    {
+      "factor": 0.8,
+      "f_plume_peak_kn": 1520.0,
+      "disp_1s_m": 5.197,
+      "disp_3s_m": 46.8333,
+      "delta_from_baseline_1s_m": -0.3017000000000003
+    },
+    {
+      "factor": 1.0,
+      "f_plume_peak_kn": 1900.0,
+      "disp_1s_m": 5.4987,
+      "disp_3s_m": 48.0617,
+      "delta_from_baseline_1s_m": 0.0
+    },
+    {
+      "factor": 1.2,
+      "f_plume_peak_kn": 2280.0,
+      "disp_1s_m": 5.7924,
+      "disp_3s_m": 49.2332,
+      "delta_from_baseline_1s_m": 0.2936999999999994
+    },
+    {
+      "factor": 1.5,
+      "f_plume_peak_kn": 2850.0,
+      "disp_1s_m": 6.2187,
+      "disp_3s_m": 50.8971,
+      "delta_from_baseline_1s_m": 0.7199999999999998
+    }
+  ],
+  "booster_throttle_sensitivity": [
+    {
+      "throttle": 0.0,
+      "disp_1s_m": 7.9088,
+      "disp_3s_m": 64.3799
+    },
+    {
+      "throttle": 0.2,
+      "disp_1s_m": 6.6996,
+      "disp_3s_m": 56.158
+    },
+    {
+      "throttle": 0.4,
+      "disp_1s_m": 5.4987,
+      "disp_3s_m": 48.0617
+    },
+    {
+      "throttle": 0.6,
+      "disp_1s_m": 4.3077,
+      "disp_3s_m": 40.1634
+    }
+  ],
+  "booster_mass_sensitivity": [
+    {
+      "variation_pct": -10.0,
+      "m_booster_kg": 603900.0,
+      "disp_1s_m": 5.3424,
+      "disp_3s_m": 46.7174
+    },
+    {
+      "variation_pct": -5.0,
+      "m_booster_kg": 637450.0,
+      "disp_1s_m": 5.4246,
+      "disp_3s_m": 47.4235
+    },
+    {
+      "variation_pct": 0.0,
+      "m_booster_kg": 671000.0,
+      "disp_1s_m": 5.4987,
+      "disp_3s_m": 48.0617
+    },
+    {
+      "variation_pct": 5.0,
+      "m_booster_kg": 704550.0,
+      "disp_1s_m": 5.566,
+      "disp_3s_m": 48.6415
+    },
+    {
+      "variation_pct": 10.0,
+      "m_booster_kg": 738100.0000000001,
+      "disp_1s_m": 5.6274,
+      "disp_3s_m": 49.1703
+    }
+  ],
+  "modes_verification": {
+    "zero_impulse": {
+      "disp_1s_m": 0.0,
+      "rel_velocity_ms": 0.0
+    },
+    "prescribed_impulse": {
+      "impulse_ns": 1000000.0,
+      "disp_1s_m": 2.2148,
+      "rel_velocity_ms": 2.237,
+      "expected_rel_vel_ms": 2.2371528992540477,
+      "momentum_error_kg_ms": 0.0
+    },
+    "prescribed_relative_delta_v": {
+      "prescribed_dv_ms": 5.0,
+      "rel_velocity_ms": 5.0,
+      "momentum_error_kg_ms": 0.0
+    }
+  }
+}

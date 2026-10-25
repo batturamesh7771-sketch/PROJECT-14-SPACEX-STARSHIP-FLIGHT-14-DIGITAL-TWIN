@@ -1,16 +1,24 @@
 {
   "mission": "Starship Flight 14 Digital Engineering Laboratory",
   "phase": "Phase 4: Staging Dynamics & Dual-Vehicle Trajectory",
-  "timestamp": "2026-10-24T18:16:15Z",
+  "timestamp": "2026-10-25T05:55:33Z",
   "staging_separation": {
     "staging_trigger_s": 142.0,
+    "mode": "hot_staging",
+    "fidelity_level": "L1_3DOF_POINT_MASS",
     "initial_velocity_ms": 1807.8,
+    "center_displacement_increment_1s_m": 5.4987,
+    "center_displacement_increment_3s_m": 48.0617,
     "separation_clearance_1s_m": 5.4987,
     "separation_clearance_3s_m": 48.0617,
+    "min_surface_clearance_m": null,
+    "clearance_status": "not_computed",
+    "clearance_method": "point_mass_translation_only",
     "final_relative_distance_m": 383.8036,
     "final_relative_velocity_ms": 100.366,
     "peak_relative_accel_g": 1.366,
     "peak_plume_force_kn": 1900.0,
+    "momentum_error_kg_ms": 0.0,
     "status": "CLEAN_SEPARATION_VERIFIED"
   },
   "booster_recovery": {
