@@ -1,0 +1,80 @@
+# Starship Flight 14 Digital Engineering Lab
+# Scenario: Synthetic Landing Low Thrust (Under-Thrust Failure Mode)
+# Note: Designed to test failure detection and HARD_IMPACT classification.
+
+scenario_id: synthetic_landing_low_thrust
+classification: synthetic_scenario
+description: Under-thrust anomaly scenario where only 2 engines light, resulting in insufficient deceleration margin.
+
+initial_state:
+  epoch_type: elapsed_seconds_from_scenario_start
+  time_s: 0.0
+  frame: local_terminal_frame
+  position_m: [50.0, 1500.0]
+  velocity_mps: [15.0, -95.0]
+  attitude_deg: -90.0
+  pitch_rate_deg_s: 0.0
+  mass_kg: 124980.0
+  provenance_status: synthetic_assumption
+
+vehicle:
+  dry_mass_kg: 99980.0
+  usable_propellant_kg: 25000.0
+  reserve_propellant_kg: 1500.0
+  reference_area_m2: 63.62
+  broadside_area_m2: 450.0
+  axial_drag_coeff: 0.30
+  crossflow_drag_coeff: 1.15
+  lift_coeff_max: 0.25
+  pitch_inertia_kg_m2: 2.5e7
+  gimbal_arm_m: 20.0
+  values_status: assumption
+
+propulsion:
+  model: raptor_v3_landing_cluster
+  engine_count: 2                 # Anomaly: 1 engine out (only 2 active)
+  thrust_per_engine_nominal_N: 2250000.0
+  specific_impulse_s: 327.0
+  minimum_throttle: 0.40
+  maximum_throttle: 1.00
+  throttle_slew_rate_limit: 0.60
+  ignition_delay_s: 1.0
+  thrust_ramp_duration_s: 0.8
+  gimbal_limit_deg: 15.0
+  gimbal_slew_rate_deg_s: 20.0
+  source_status: assumption
+
+flip_maneuver:
+  mode: prescribed_kinematic_flip
+  trigger_altitude_m: 800.0
+  duration_s: 4.0
+  target_pitch_deg: 0.0
+  provenance: assumption
+
+guidance:
+  mode: feedback_baseline
+  target_position_m: [0.0, 0.0]
+  target_deceleration_mps2: 12.0
+  touchdown_velocity_mps: 1.5
+  kp_vertical: 0.40
+  kd_vertical: 0.80
+  kp_horizontal: 0.05
+  kd_horizontal: 0.15
+  max_tilt_deg: 10.0
+
+touchdown_criteria:
+  max_vertical_speed_mps: 3.0
+  max_horizontal_speed_mps: 1.5
+  max_pitch_error_deg: 5.0
+  max_pitch_rate_deg_s: 2.0
+  max_radial_error_m: 25.0
+
+integrator:
+  method: rk4
+  dt_s: 0.01
+  max_time_s: 40.0
+
+outputs:
+  write_csv: true
+  write_json_metadata: true
+  generate_plots: true

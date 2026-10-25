@@ -1,0 +1,39 @@
+# Starship Flight 14 Digital Engineering Lab
+# Scenario: Synthetic Landing Uncertainty (Monte Carlo Ensemble)
+# Note: Seeded reproducible sensitivity analysis.
+
+scenario_id: synthetic_landing_uncertainty
+classification: synthetic_scenario
+description: Seeded Monte Carlo ensemble perturbing entry velocity, vehicle mass, ignition delay, and thrust scale.
+
+base_config: config/phase7/synthetic_landing_baseline.yaml
+
+monte_carlo:
+  sample_count: 50
+  random_seed: 42
+  distributions:
+    initial_vz_mps:
+      type: normal
+      mean: -95.0
+      std_dev: 4.0
+    initial_mass_kg:
+      type: normal
+      mean: 124980.0
+      std_dev: 1500.0
+    ignition_delay_s:
+      type: uniform
+      min: 0.6
+      max: 1.6
+    thrust_scale:
+      type: uniform
+      min: 0.95
+      max: 1.05
+    crosswind_mps:
+      type: normal
+      mean: 0.0
+      std_dev: 3.0
+
+outputs:
+  write_samples_csv: true
+  write_summary_json: true
+  generate_scatter_plots: true

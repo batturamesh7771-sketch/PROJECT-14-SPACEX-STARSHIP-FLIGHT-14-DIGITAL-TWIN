@@ -1,0 +1,8 @@
+event_id,time_s,altitude_m,vertical_speed_mps,horizontal_speed_mps,pitch_deg,mass_kg,details
+FLIP_INITIATION,9.37,799.93,-66.64,3.04,-90.0,124980.0,Flip maneuver commanded at trigger altitude
+VERTICAL_ALIGNMENT,12.35,598.32,-73.21,-0.68,-14.83,124980.0,Vehicle oriented within 15 deg of local vertical
+ENGINE_IGNITION_PENDING,12.36,597.59,-73.28,-0.69,-14.57,124980.0,Engine relight command issued; awaiting spin-up
+THRUST_RAMP,15.68,305.25,-102.99,-0.8,0.0,124980.0,Engines lit; thrust ramping up to commanded level
+POWERED_DECELERATION,16.48,223.8,-94.47,-3.3,0.0,124365.0,Thrust ramp complete; closed-loop powered descent active
+TERMINAL_DESCENT,19.5,29.71,-46.95,-16.49,0.0,121412.0,Terminal descent phase entered below 30 m
+TOUCHDOWN_EVENT,20.1753,0.0,-41.01,-18.12,0.0,120938.2,Surface datum crossing localized via root-finding

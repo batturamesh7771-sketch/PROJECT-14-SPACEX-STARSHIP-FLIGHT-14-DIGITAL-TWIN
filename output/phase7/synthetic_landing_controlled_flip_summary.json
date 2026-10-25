@@ -1,0 +1,25 @@
+{
+  "outcome_classification": "HARD_IMPACT",
+  "touchdown_time_s": 33.2052,
+  "terminal_vertical_speed_mps": 15.597,
+  "terminal_horizontal_speed_mps": 33.715,
+  "terminal_total_speed_mps": 37.148,
+  "terminal_pitch_deg": -3.417,
+  "terminal_pitch_rate_deg_s": -71.161,
+  "miss_distance_m": 157.67,
+  "propellant_consumed_kg": 10882.3,
+  "remaining_usable_prop_kg": 14117.7,
+  "burn_duration_s": 18.98,
+  "ignition_delay_altitude_loss_m": 78.1,
+  "peak_apparent_g": 2.66,
+  "max_twr": 2.41,
+  "criteria_checks": {
+    "vertical_speed_acceptable": false,
+    "horizontal_speed_acceptable": false,
+    "pitch_attitude_acceptable": true,
+    "pitch_rate_acceptable": false,
+    "target_radial_acceptable": false,
+    "propellant_margin_acceptable": true
+  },
+  "disclaimer": "Educational recovery assessment for hypothetical reusable landing scenario. Does not represent official SpaceX proprietary landing data or Flight 14 ocean splashdown telemetry."
+}

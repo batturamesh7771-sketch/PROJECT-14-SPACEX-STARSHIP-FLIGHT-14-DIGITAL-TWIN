@@ -1,0 +1,12 @@
+req_id,description,parent_req,priority,verification_method,acceptance_criterion,status
+REQ-P7-01,Planar 2D/3-DOF translational dynamics integration,REQ-MISSION-01,P0,Numerical Benchmark,Position velocity and mass integrated without divergence,IMPLEMENTED
+REQ-P7-02,Mass depletion consistency during landing burn,REQ-PROP-01,P0,Unit Test,dm/dt = -T/(Isp*g0) exact integral within 0.01 kg,IMPLEMENTED
+REQ-P7-03,Continuous thrust ramp with ignition delay,REQ-PROP-02,P0,Unit Test,Thrust zero during delay continuous S-curve ramp,IMPLEMENTED
+REQ-P7-04,Bounded throttle limits and TVC gimbal limits,REQ-PROP-03,P0,Unit Test,Throttle clamped to [0.4 1.0] gimbal clamped to +/-15 deg,IMPLEMENTED
+REQ-P7-05,Prescribed kinematic aerodynamic flip maneuver,REQ-GNC-01,P0,Simulation Test,Attitude follows smooth continuous profile from -90 to 0 deg,IMPLEMENTED
+REQ-P7-06,Planar dynamic pitch torque integration (L2 mode),REQ-GNC-02,P1,Analytical Benchmark,Iyy*omega_dot = M_total verified with torque balance,IMPLEMENTED
+REQ-P7-07,Bounded feedback landing guidance controller,REQ-GNC-03,P0,Simulation Test,Regulates vertical descent to soft landing velocity target,IMPLEMENTED
+REQ-P7-08,Discrete 16-state event automaton,REQ-SIM-01,P0,State Machine Audit,Transitions execute sequentially with root-finding touchdown,IMPLEMENTED
+REQ-P7-09,Recovery assessment and outcome classification,REQ-REC-01,P0,Analysis,Distinct SUCCESS_CANDIDATE HARD_IMPACT ATTITUDE_FAILURE labels,IMPLEMENTED
+REQ-P7-10,Sensitivity study and Monte Carlo repeatability,REQ-VERIF-01,P1,Statistical Test,Deterministic repeatability with documented seed,IMPLEMENTED
+REQ-P7-11,Dual Python interpreter compatibility,REQ-ENV-01,P0,Execution Test,Passes under both Python 3.14 and FreeCAD Python 3.11,IMPLEMENTED

@@ -1,0 +1,35 @@
+{
+  "sample_count": 50,
+  "random_seed": 42,
+  "outcome_counts": {
+    "TRAJECTORY_REACHED_SURFACE": 12,
+    "SUCCESS_CANDIDATE": 37,
+    "HARD_IMPACT": 1
+  },
+  "success_fraction": 0.74,
+  "terminal_vertical_speed_mps": {
+    "mean": 2.433,
+    "min": 1.518,
+    "max": 5.194,
+    "std_dev": 1.0
+  },
+  "terminal_horizontal_speed_mps": {
+    "mean": 0.525,
+    "min": 0.138,
+    "max": 0.689,
+    "std_dev": 0.129
+  },
+  "propellant_consumed_kg": {
+    "mean": 8928.861,
+    "min": 8542.998,
+    "max": 9532.19,
+    "std_dev": 268.693
+  },
+  "peak_apparent_g": {
+    "mean": 2.288,
+    "min": 2.151,
+    "max": 2.49,
+    "std_dev": 0.07
+  },
+  "note": "Success fraction is conditional on assumed input distributions and educational simulation models."
+}

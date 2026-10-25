@@ -1,0 +1,26 @@
+parameter_name,value,units,source_id,classification,uncertainty,notes
+dry_mass_kg,99980.0,kg,SRC-P7-05,derived,+/- 5000 kg,Audited dry mass of Starship Upper Stage from Phase 2/3 baseline
+initial_entry_mass_kg,177272.71,kg,SRC-P7-05,derived,+/- 1000 kg,Audited post-deorbit Starship mass at 120 km entry interface
+landing_propellant_reserve_kg,25000.0,kg,SRC-P7-05,assumption,+/- 5000 kg,Assumed header tank propellant allocation for flip and landing burn
+raptor_count_landing,3,count,SRC-P7-05,public_fact,none,3 Center gimbaling Raptor engines used for landing
+raptor_sea_level_thrust_N,2250000.0,N,SRC-P7-05,public_fact,+/- 100000 N,Nominal sea-level thrust per Raptor engine (2.25 MN)
+raptor_sea_level_isp_s,327.0,s,SRC-P7-04,public_fact,+/- 5 s,Nominal sea-level specific impulse
+minimum_throttle_fraction,0.40,ratio,SRC-P7-05,assumption,+/- 0.05,Deep throttle capability assumption (40% min throttle)
+maximum_throttle_fraction,1.00,ratio,SRC-P7-05,assumption,none,100% rated thrust for landing maneuver
+ignition_delay_s,1.0,s,SRC-P7-02,assumption,+/- 0.5 s,Turbopump spin-up and line chill delay before full thrust ramp
+thrust_ramp_duration_s,0.8,s,SRC-P7-02,assumption,+/- 0.2 s,Duration of continuous S-curve thrust ramp to commanded level
+max_gimbal_angle_deg,15.0,deg,SRC-P7-02,assumption,+/- 2.0 deg,Maximum thrust vector deflection relative to vehicle centerline
+max_gimbal_slew_rate_deg_s,20.0,deg/s,SRC-P7-02,assumption,+/- 5.0 deg/s,Actuator TVC gimbal slew rate limit
+vehicle_length_m,50.3,m,SRC-P7-05,public_fact,+/- 0.5 m,Total Starship Upper Stage height
+vehicle_diameter_m,9.0,m,SRC-P7-05,public_fact,none,Outer hull diameter
+reference_area_m2,63.62,m^2,SRC-P7-05,derived,none,Axial cross-sectional area (pi * 4.5^2)
+broadside_area_m2,450.0,m^2,SRC-P7-05,derived,+/- 20 m^2,Broadside projected area in belly-flop attitude (50m x 9m)
+belly_flop_drag_coeff,1.15,dimensionless,SRC-P7-05,assumption,+/- 0.15,Cross-flow drag coefficient during belly-down descent
+vertical_drag_coeff,0.30,dimensionless,SRC-P7-05,assumption,+/- 0.05,Axial drag coefficient during vertical descent
+pitch_moment_of_inertia_kg_m2,2.5e7,kg*m^2,SRC-P7-02,derived,+/- 0.5e7 kg*m^2,Nominal pitch inertia at landing mass
+com_to_gimbal_arm_m,20.0,m,SRC-P7-05,derived,+/- 2.0 m,Distance from center of mass to engine gimbal pivot
+flip_initiation_altitude_m,800.0,m,SRC-P7-05,assumption,+/- 200 m,Altitude at which flip from -90 deg to vertical is commanded
+flip_duration_s,4.0,s,SRC-P7-05,assumption,+/- 1.0 s,Nominal duration of aerodynamic pitch-up rotation
+max_touchdown_vz_mps,3.0,m/s,SRC-P7-01,assumption,none,Maximum allowable vertical descent speed for safe touchdown
+max_touchdown_vx_mps,1.5,m/s,SRC-P7-01,assumption,none,Maximum allowable horizontal drift speed for safe touchdown
+max_touchdown_pitch_deg,5.0,deg,SRC-P7-01,assumption,none,Maximum allowable pitch error from vertical at touchdown

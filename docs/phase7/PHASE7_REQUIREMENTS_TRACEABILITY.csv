@@ -1,0 +1,12 @@
+req_id,description,priority,implementing_modules,test_id,verification_status,notes
+REQ-P7-01,Planar 2D/3-DOF translational dynamics integration,P0,src/landing/dynamics.py,TEST-P7-01,VERIFIED,RK4 integration with atmospheric density
+REQ-P7-02,Mass depletion consistency during landing burn,P0,src/landing/propulsion.py,TEST-P7-03,VERIFIED,Tsiolkovsky mass flow integral
+REQ-P7-03,Continuous thrust ramp with ignition delay,P0,src/landing/propulsion.py,TEST-P7-04 TEST-P7-05,VERIFIED,S-curve ramp and delay verified
+REQ-P7-04,Bounded throttle limits and TVC gimbal limits,P0,src/landing/propulsion.py,TEST-P7-07 TEST-P7-14,VERIFIED,Throttle clamped to [0.4 1.0] and TVC to +/-15 deg
+REQ-P7-05,Prescribed kinematic aerodynamic flip maneuver,P0,src/landing/flip.py,TEST-P7-08,VERIFIED,Cubic smoothstep pitch rotation
+REQ-P7-06,Planar dynamic pitch torque integration (L2 mode),P1,src/landing/flip.py src/landing/dynamics.py,TEST-P7-09,VERIFIED,Iyy angular acceleration torque balance
+REQ-P7-07,Bounded feedback landing guidance controller,P0,src/landing/guidance.py,TEST-P7-11 TEST-P7-14,VERIFIED,Parabolic deceleration with terminal constant velocity
+REQ-P7-08,Discrete 16-state event automaton,P0,src/landing/events.py,TEST-P7-15,VERIFIED,Root-finding continuous surface crossing
+REQ-P7-09,Recovery assessment and outcome classification,P0,src/landing/touchdown.py,TEST-P7-11 TEST-P7-12 TEST-P7-13,VERIFIED,Distinct SUCCESS_CANDIDATE and HARD_IMPACT outcomes
+REQ-P7-10,Sensitivity study and Monte Carlo repeatability,P1,src/landing/uncertainty.py,TEST-P7-19,VERIFIED,50-sample seeded ensemble with 74% success fraction
+REQ-P7-11,Dual Python interpreter compatibility,P0,src/phase7.py,TEST-P7-20,VERIFIED,Passes under Python 3.14 and FreeCAD Python 3.11
