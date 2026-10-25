@@ -562,6 +562,7 @@ body {
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+  pointer-events: none;
 }
 
 .vp-floating-readouts {
@@ -577,6 +578,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  pointer-events: none;
 }
 
 .vp-f-row {

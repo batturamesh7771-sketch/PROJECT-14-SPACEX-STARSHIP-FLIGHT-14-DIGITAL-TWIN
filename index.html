@@ -49,7 +49,7 @@
 
       <div class="utc-clock-block">
         <div class="utc-label">UTC</div>
-        <div class="utc-val" id="header-utc-clock">2024-06-06 12:34:56</div>
+        <div class="utc-val" id="header-utc-clock">2026-09-28 12:48:59</div>
       </div>
 
       <div class="mission-elapsed-block">
@@ -107,7 +107,7 @@
             <div class="ov-item"><span class="ov-lbl">Mission Elapsed</span><span class="ov-val" id="overview-elapsed-time">00:12:34</span></div>
             <div class="ov-item"><span class="ov-lbl">Total Mission Time</span><span class="ov-val">01:23:45 (est)</span></div>
             <div class="ov-item"><span class="ov-lbl">Orbit</span><span class="ov-val">Suborbital (Planned)</span></div>
-            <div class="ov-item"><span class="ov-lbl">Launch Window</span><span class="ov-val">2024-06-06 12:00:00 UTC</span></div>
+            <div class="ov-item"><span class="ov-lbl">Launch Window</span><span class="ov-val">2026-09-28 12:00:00 UTC</span></div>
             <div class="ov-item"><span class="ov-lbl">Weather</span><span class="ov-val">Clear / 28°C / 12 kt</span></div>
           </div>
         </div>
@@ -850,6 +850,43 @@
         radio.addEventListener("change", (e) => {
           sceneManager.setCameraMode(e.target.value);
         });
+      });
+
+      // 9b. View Mode Preset Buttons (EARTH, VEHICLE, TRAJECTORY, ORBIT, CUSTOM)
+      document.querySelectorAll(".vp-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".vp-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const view = btn.dataset.view;
+          if (view === "earth") {
+            sceneManager.setCameraMode("EARTH_GLOBAL");
+          } else if (view === "vehicle") {
+            sceneManager.setCameraMode("ORBIT_FOLLOW");
+          } else if (view === "trajectory") {
+            sceneManager.setCameraMode("EARTH_GLOBAL");
+          } else if (view === "orbit") {
+            sceneManager.setCameraMode("ORBIT_FOLLOW");
+          } else if (view === "custom") {
+            sceneManager.setCameraMode("FREE_ORBIT");
+          }
+        });
+      });
+
+      // 9c. 3D Environment Settings Controls (Tab 4)
+      const chkEarth = document.getElementById("env-chk-earth");
+      if (chkEarth) chkEarth.addEventListener("change", (e) => {
+        if (sceneManager.earthMesh) sceneManager.earthMesh.visible = e.target.checked;
+      });
+      const chkAtmo = document.getElementById("env-chk-atmo");
+      if (chkAtmo) chkAtmo.addEventListener("change", (e) => {
+        if (sceneManager.atmoMesh) sceneManager.atmoMesh.visible = e.target.checked;
+      });
+      const selFov = document.getElementById("env-sel-fov");
+      if (selFov) selFov.addEventListener("change", (e) => {
+        if (sceneManager.camera) {
+          sceneManager.camera.fov = parseFloat(e.target.value);
+          sceneManager.camera.updateProjectionMatrix();
+        }
       });
 
       // 10. Profile Switcher Dropdown Interaction
