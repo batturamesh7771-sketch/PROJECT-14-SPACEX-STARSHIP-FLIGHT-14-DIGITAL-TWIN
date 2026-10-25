@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starship Flight 14 — Digital Engineering Spatial Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-badge">FLIGHT 14</div>
+      <div>
+        <div class="brand-title">Starship Digital Engineering Lab</div>
+        <div class="brand-subtitle">Spatial Dashboard & Telemetry Inspector (Phases 1–9)</div>
+      </div>
+    </div>
+
+    <!-- Mission Profile Selector -->
+    <div class="profile-selector-group">
+      <button id="prof-btn-planned" class="profile-btn" data-profile="planned_flight14">
+        PLANNED FLIGHT 14
+      </button>
+      <button id="prof-btn-observed" class="profile-btn active" data-profile="observed_reconstruction">
+        OBSERVED RECONSTRUCTION
+      </button>
+      <button id="prof-btn-synthetic" class="profile-btn synthetic" data-profile="synthetic_landing_lab">
+        SYNTHETIC LANDING LAB
+      </button>
+    </div>
+
+    <!-- Master Simulation Playback Clock & Multipliers -->
+    <div class="playback-controls">
+      <div id="master-clock" class="clock-display">T+00:00:00.00</div>
+      <button id="btn-reset" class="ctrl-btn" title="Reset to T-0">RESET</button>
+      <button id="btn-step-back" class="ctrl-btn" title="Step Back 1s">◄ 1s</button>
+      <button id="btn-play" class="ctrl-btn active" title="Play/Pause Simulation">PAUSE</button>
+      <button id="btn-step-fwd" class="ctrl-btn" title="Step Forward 1s">1s ►</button>
+      <div style="display: flex; gap: 2px; margin-left: 6px;">
+        <button class="speed-btn ctrl-btn" data-speed="0.1">0.1x</button>
+        <button class="speed-btn ctrl-btn" data-speed="0.5">0.5x</button>
+        <button class="speed-btn ctrl-btn active" data-speed="1.0">1.0x</button>
+        <button class="speed-btn ctrl-btn" data-speed="2.0">2.0x</button>
+        <button class="speed-btn ctrl-btn" data-speed="5.0">5.0x</button>
+        <button class="speed-btn ctrl-btn" data-speed="10.0">10x</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Synthetic Profile Warning Banner -->
+  <div id="synthetic-banner" class="synthetic-banner-bar">
+    <span>⚠️ SYNTHETIC — NOT FLIGHT 14 HISTORY. Isolated Phase 7 Terminal Landing Dynamics Simulation.</span>
+  </div>
+
+  <!-- Main Workspace -->
+  <main id="main-workspace" class="main-workspace">
+
+    <!-- Left Telemetry Rail -->
+    <aside class="telemetry-rail">
+      
+      <!-- Primary Flight Telemetry Card -->
+      <div class="hud-card">
+        <div class="card-header">
+          <div class="card-title">Flight Dynamics (3-DOF / 6-DOF)</div>
+          <span class="card-badge verified">VERIFIED SOLVER</span>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Altitude</span>
+            <span class="metric-info-icon" data-channel="altitude_km" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-altitude" class="metric-value highlight">0.00</span>
+            <span class="metric-unit">km</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Inertial Velocity</span>
+            <span class="metric-info-icon" data-channel="velocity_km_s" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-velocity" class="metric-value">0.00</span>
+            <span class="metric-unit">km/s</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Mach Number</span>
+            <span class="metric-info-icon" data-channel="mach" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-mach" class="metric-value">0.0</span>
+            <span class="metric-unit">M</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Dynamic Pressure (q)</span>
+            <span class="metric-info-icon" data-channel="dynamic_pressure_kpa" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-q" class="metric-value">0.0</span>
+            <span class="metric-unit">kPa</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Felt Acceleration</span>
+            <span class="metric-info-icon" data-channel="apparent_g" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-g" class="metric-value">1.00</span>
+            <span class="metric-unit">g</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Raptor Thrust</span>
+            <span class="metric-info-icon" data-channel="thrust_mn" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-thrust" class="metric-value">0.00</span>
+            <span class="metric-unit">MN</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Vehicle Mass</span>
+            <span class="metric-info-icon" data-channel="mass_tonnes" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-mass" class="metric-value">120.0</span>
+            <span class="metric-unit">t</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attitude & Control Surfaces Card -->
+      <div class="hud-card">
+        <div class="card-header">
+          <div class="card-title">Attitude & Aero Flaps</div>
+          <span class="card-badge">ACTUATORS</span>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Body Pitch</span>
+            <span class="metric-info-icon" data-channel="pitch_deg" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-pitch" class="metric-value">0.0</span>
+            <span class="metric-unit">deg</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Forward Canards</span>
+            <span class="metric-info-icon" data-channel="flaps_forward_deg" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-flaps-fwd" class="metric-value">0.0</span>
+            <span class="metric-unit">deg</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Aft Main Flaps</span>
+            <span class="metric-info-icon" data-channel="flaps_aft_deg" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-flaps-aft" class="metric-value">0.0</span>
+            <span class="metric-unit">deg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aerothermal Reentry & TPS Card (Phase 9) -->
+      <div class="hud-card">
+        <div class="card-header">
+          <div class="card-title">Aerothermal & TPS (Phase 9)</div>
+          <span class="card-badge verified">TDMA 1D</span>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Stagnation Heat Flux</span>
+            <span class="metric-info-icon" data-channel="heat_flux_mw_m2" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-heat-flux" class="metric-value">0.000</span>
+            <span class="metric-unit">MW/m²</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Tile Surface Temp</span>
+            <span class="metric-info-icon" data-channel="surface_temp_k" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-surface-temp" class="metric-value">300 K</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">RTV Bondline Temp</span>
+            <span class="metric-info-icon" data-channel="bondline_temp_k" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-bondline-temp" class="metric-value">290.0 K</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Bondline Safety Margin</span>
+          <div class="metric-value-group">
+            <span id="val-bondline-margin" class="metric-value highlight" style="color: var(--accent-green);">+243.1 K</span>
+          </div>
+        </div>
+
+        <div class="gauge-bar-container">
+          <div id="gauge-bondline" class="gauge-bar-fill" style="width: 10%;"></div>
+        </div>
+      </div>
+
+      <!-- Structural FEA Stress Card (Phase 8) -->
+      <div class="hud-card">
+        <div class="card-header">
+          <div class="card-title">Structural FEA (Phase 8)</div>
+          <span class="card-badge verified">CALCULIX S4R</span>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Tank Pressure</span>
+          <div class="metric-value-group">
+            <span id="val-tank-pressure" class="metric-value">6.0</span>
+            <span class="metric-unit">bar</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Hoop Stress (σθ)</span>
+            <span class="metric-info-icon" data-channel="hoop_stress_mpa" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-hoop-stress" class="metric-value">675.0</span>
+            <span class="metric-unit">MPa</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric-label-group">
+            <span class="metric-label">Von Mises Stress</span>
+            <span class="metric-info-icon" data-channel="von_mises_mpa" title="View derivation & formula">ⓘ</span>
+          </div>
+          <div class="metric-value-group">
+            <span id="val-von-mises" class="metric-value">604.2</span>
+            <span class="metric-unit">MPa</span>
+          </div>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Yield Margin (FoS)</span>
+          <div class="metric-value-group">
+            <span id="val-tank-fos" class="metric-value highlight" style="color: var(--accent-green);">1.57</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Center 3D Viewport -->
+    <section class="viewport-container">
+      <canvas id="webgl-canvas"></canvas>
+
+      <!-- Viewport Floating Camera Dock & HUD -->
+      <div class="viewport-hud">
+        <div class="camera-controls-floating">
+          <button class="cam-btn active" data-mode="ORBIT_FOLLOW">FOLLOW VEHICLE</button>
+          <button class="cam-btn" data-mode="EARTH_GLOBAL">EARTH GLOBAL</button>
+          <button class="cam-btn" data-mode="STAGE_SEP">STAGE SEP</button>
+          <button class="cam-btn" data-mode="PAYLOAD_BAY">PAYLOAD BAY</button>
+          <button class="cam-btn" data-mode="ENTRY_BELLY">ENTRY BELLY</button>
+          <button class="cam-btn" data-mode="LANDING_PAD">LANDING PAD</button>
+          <button class="cam-btn" data-mode="FREE_ORBIT">FREE ORBIT</button>
+        </div>
+
+        <div class="viewport-floating-info">
+          <div class="vp-info-row">
+            <span class="vp-info-label">ALT</span>
+            <span id="vp-alt" class="vp-info-val">0.0 km</span>
+          </div>
+          <div class="vp-info-row">
+            <span class="vp-info-label">VEL</span>
+            <span id="vp-vel" class="vp-info-val">0.00 km/s</span>
+          </div>
+          <div class="vp-info-row">
+            <span class="vp-info-label">MACH</span>
+            <span id="vp-mach" class="vp-info-val">M 0.0</span>
+          </div>
+          <div class="vp-info-row">
+            <span class="vp-info-label">MODE</span>
+            <span id="vp-phase" class="vp-info-val" style="color: var(--accent-green);">STANDBY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Reticle -->
+      <div class="hud-center-reticle"></div>
+
+      <!-- Timeline Scrubber & Milestones Overlay -->
+      <div class="timeline-bar-wrapper">
+        <div id="milestones-container" style="display: flex; gap: 4px; overflow-x: auto;"></div>
+        <input type="range" id="timeline-scrubber" class="timeline-scrubber" min="0" max="100" step="0.1" value="0">
+      </div>
+    </section>
+
+    <!-- Right Mission Context Rail -->
+    <aside class="context-rail">
+      
+      <!-- Starlink V3 Payload Dispenser Sequence (26 Satellites) -->
+      <div class="hud-card" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="card-header">
+          <div class="card-title">Starlink V3 Payload Train</div>
+          <span id="sat-deploy-counter" class="card-badge verified">0 / 26 DEPLOYED</span>
+        </div>
+        <div id="satellite-list-container" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding-top: 4px;">
+          <!-- Dynamically populated 26 Starlinks -->
+        </div>
+      </div>
+
+      <!-- Physical CAD Mass & Dimensions (FreeCAD Phase 2) -->
+      <div class="hud-card">
+        <div class="card-header">
+          <div class="card-title">CAD Architecture & BOM</div>
+          <span class="card-badge">FREECAD V1.1</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Dry Mass</span>
+          <span class="metric-value">120.0 t</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Propellant Mass</span>
+          <span class="metric-value">1,200.0 t</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Stack Diameter</span>
+          <span class="metric-value">9.0 m</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Ship Height</span>
+          <span class="metric-value">50.0 m</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Payload Capacity</span>
+          <span class="metric-value">26x Starlink V3 (32.5 t)</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- Bottom Dock: Multi-Tab Console -->
+  <footer class="bottom-dock">
+    <div class="dock-header">
+      <div class="dock-tabs">
+        <button class="dock-tab active" data-tab="tab-charts">CHARTS (6-SERIES)</button>
+        <button class="dock-tab" data-tab="tab-ledger">PLANNED VS OBSERVED LEDGER</button>
+        <button class="dock-tab" data-tab="tab-channels">CHANNEL INSPECTOR</button>
+        <button class="dock-tab" data-tab="tab-explorer">VIRTUALIZED DATA EXPLORER (10,000+)</button>
+        <button class="dock-tab" data-tab="tab-physics">PHYSICS & ASSUMPTIONS</button>
+        <button class="dock-tab" data-tab="tab-manifest">RUN MANIFEST</button>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
+        STATUS: <span style="color: var(--accent-green);">SYNCHRONIZED SOLVER ACTIVE</span>
+      </div>
+    </div>
+
+    <div class="dock-body">
+
+      <!-- Tab 1: Engineering Charts -->
+      <div id="tab-charts" class="tab-pane active">
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-title"><span>Altitude</span><span>km vs s</span></div>
+            <canvas id="chart-altitude" class="chart-canvas"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title"><span>Inertial Velocity</span><span>km/s vs s</span></div>
+            <canvas id="chart-velocity" class="chart-canvas"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title"><span>Mach Number</span><span>M vs s</span></div>
+            <canvas id="chart-mach" class="chart-canvas"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title"><span>Dynamic Pressure (q)</span><span>kPa vs s</span></div>
+            <canvas id="chart-q" class="chart-canvas"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title"><span>Stagnation Heat Flux</span><span>MW/m² vs s</span></div>
+            <canvas id="chart-flux" class="chart-canvas"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title"><span>Felt Acceleration</span><span>g vs s</span></div>
+            <canvas id="chart-g" class="chart-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Planned vs Observed Event Diff Ledger -->
+      <div id="tab-ledger" class="tab-pane">
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Mission Milestone / Event</th>
+                <th>Planned Time</th>
+                <th>Actual Observed Time</th>
+                <th>Δt (Variance)</th>
+                <th>Execution Status</th>
+                <th>Technical Provenance & Context</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Channel Inspector -->
+      <div id="tab-channels" class="tab-pane">
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Channel Key</th>
+                <th>Parameter Name</th>
+                <th>Units</th>
+                <th>Mathematical Equation / Operator</th>
+                <th>Source Solver & Physical Provenance</th>
+              </tr>
+            </thead>
+            <tbody id="channel-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 4: Virtualized Data Explorer -->
+      <div id="tab-explorer" class="tab-pane">
+        <div style="display: flex; gap: 10px; margin-bottom: 8px; align-items: center;">
+          <input type="text" id="explorer-search" placeholder="Search 10,000+ simulation data records (time, phase, value)..." style="flex: 1; background: #060a12; border: 1px solid var(--border-subtle); color: #fff; padding: 4px 8px; font-family: var(--font-mono); font-size: 11px; border-radius: 3px;">
+          <select id="explorer-phase-filter" style="background: #060a12; border: 1px solid var(--border-subtle); color: var(--accent-cyan); padding: 4px 8px; font-family: var(--font-mono); font-size: 11px; border-radius: 3px;">
+            <option value="ALL">ALL PHASES</option>
+            <option value="ASCENT">ASCENT (PHASE 3)</option>
+            <option value="STAGING">STAGING (PHASE 4)</option>
+            <option value="ORBIT">ORBIT (PHASE 5)</option>
+            <option value="REENTRY">REENTRY (PHASE 6)</option>
+            <option value="LANDING_SYNTHETIC">SYNTHETIC LANDING (PHASE 7)</option>
+            <option value="THERMAL">TPS CONDUCTION (PHASE 9)</option>
+          </select>
+          <button id="btn-export-csv" class="ctrl-btn" style="background: rgba(0, 229, 255, 0.15); border-color: var(--accent-cyan); color: var(--accent-cyan);">EXPORT FILTERED CSV</button>
+          <div style="display: flex; gap: 4px; align-items: center;">
+            <button id="explorer-prev" class="ctrl-btn">◄</button>
+            <span id="explorer-page-info" style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); min-width: 220px; text-align: center;">Showing records 1–50</span>
+            <button id="explorer-next" class="ctrl-btn">►</button>
+          </div>
+        </div>
+
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Source Model</th>
+                <th>Phase</th>
+                <th>Time (s)</th>
+                <th>Altitude (km)</th>
+                <th>Speed (m/s)</th>
+                <th>Mach</th>
+                <th>Felt (g)</th>
+                <th>Thrust (MN)</th>
+                <th>Heat Flux (MW/m²)</th>
+              </tr>
+            </thead>
+            <tbody id="explorer-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 5: Physics & Mathematical Assumptions -->
+      <div id="tab-physics" class="tab-pane">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 11px; line-height: 1.5; color: var(--text-main);">
+          <div class="hud-card">
+            <div class="card-title">Astrodynamics & Gravity</div>
+            <p>• ECI J2000 frame standard</p>
+            <p>• Earth oblateness $J_2 = 1.08263 \times 10^{-3}$</p>
+            <p>• Earth mean radius $R_\oplus = 6,378,137.0\,\text{m}$</p>
+            <p>• GM = $3.986004418 \times 10^{14}\,\text{m}^3/\text{s}^2$</p>
+            <p>• RK4 fixed-step and Dormand-Prince variable-step integration</p>
+          </div>
+          <div class="hud-card">
+            <div class="card-title">Aerothermal & TPS (Phase 9)</div>
+            <p>• Sutton-Graves convective coefficient $k_{SG} = 1.7415 \times 10^{-4}$</p>
+            <p>• Nose radius $R_n = 5.0\,\text{m}$, windward pitch scale $(\sin\alpha)^{1.6}$</p>
+            <p>• 1D transient conduction via TDMA (Thomas algorithm)</p>
+            <p>• 28mm porous silica tile + 2.5mm SIP felt + 4mm 304L stainless steel</p>
+            <p>• RTV-560 bondline critical thermal limit: $533.15\,\text{K} (260^\circ\text{C})$</p>
+          </div>
+          <div class="hud-card">
+            <div class="card-title">Structural FEA & Tank Mechanics (Phase 8)</div>
+            <p>• 304L stainless steel yield strength: $\sigma_y = 950\,\text{MPa}$</p>
+            <p>• Tank internal design pressure: $p = 6.0\,\text{bar}$</p>
+            <p>• CalculiX CCX S4R quadrilateral shell element analysis</p>
+            <p>• Roark benchmark hoop stress: $\sigma_\theta = 675.0\,\text{MPa}$ (0.003% residual)</p>
+            <p>• Factor of Safety against yield: FoS = 1.57</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 6: Run Manifest & Provenance -->
+      <div id="tab-manifest" class="tab-pane">
+        <pre id="manifest-json-pre" style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan); background: rgba(0, 0, 0, 0.4); padding: 12px; border-radius: 4px; overflow: auto; height: 100%;"></pre>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Telemetry Channel Popover Modal -->
+  <div id="inspector-modal" class="inspector-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div id="modal-metric-title" class="modal-title">Metric Title</div>
+        <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+      </div>
+      <p id="modal-metric-desc" style="font-size: 12px; color: var(--text-main);"></p>
+      <div class="modal-formula-box">
+        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">GOVERNING EQUATION:</div>
+        <div id="modal-metric-formula">Equation</div>
+      </div>
+      <div id="modal-metric-provenance" style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-green);"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script src="js/scene.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/explorer.js"></script>
+
+  <!-- Main Dashboard Controller Orchestrator -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      let scenarioData = null;
+      let sceneManager = null;
+      let timelineController = null;
+      let hudManager = null;
+      let chartsManager = null;
+      let explorerManager = null;
+
+      try {
+        const resp = await fetch("data/scenario_data.json");
+        scenarioData = await resp.json();
+      } catch (err) {
+        console.error("Failed to load scenario data:", err);
+        return;
+      }
+
+      // Initialize 3D WebGL Scene
+      sceneManager = new MissionSceneManager("webgl-canvas");
+
+      // Initialize Charts
+      chartsManager = new EngineeringChartsManager();
+
+      // Initialize HUD & Channels
+      hudManager = new HudManager(
+        scenarioData.channel_registry,
+        scenarioData.fea_tank_section,
+        scenarioData.satellite_manifest
+      );
+
+      // Initialize Data Explorer & Ledger
+      const manifestResp = await fetch("data/run_manifest.json").catch(() => null);
+      const runManifest = manifestResp ? await manifestResp.json() : {};
+
+      explorerManager = new DataExplorerManager(
+        scenarioData.virtualized_explorer_records,
+        scenarioData.comparison_events,
+        runManifest
+      );
+
+      // Populate Satellite List in Right Sidebar
+      const satContainer = document.getElementById("satellite-list-container");
+      if (satContainer && scenarioData.satellite_manifest) {
+        scenarioData.satellite_manifest.forEach(s => {
+          const item = document.createElement("div");
+          item.id = `sat-item-${s.satellite_number}`;
+          item.style.display = "flex";
+          item.style.justifyContent = "space-between";
+          item.style.padding = "2px 4px";
+          item.style.fontSize = "10px";
+          item.style.fontFamily = "var(--font-mono)";
+          item.style.borderBottom = "1px solid rgba(255, 255, 255, 0.03)";
+          item.innerHTML = `
+            <span>#${s.satellite_number} (${s.deploy_time_s.toFixed(0)}s)</span>
+            <span class="sat-status" style="color: var(--text-muted); font-weight: 600;">ENCLOSED</span>
+          `;
+          satContainer.appendChild(item);
+        });
+      }
+
+      // Populate Channels Tab Table
+      const chTbody = document.getElementById("channel-tbody");
+      if (chTbody && scenarioData.channel_registry) {
+        Object.entries(scenarioData.channel_registry).forEach(([k, meta]) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><code>${k}</code></td>
+            <td><strong>${meta.name}</strong></td>
+            <td><span class="card-badge">${meta.unit}</span></td>
+            <td style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 11px;">${meta.formula}</td>
+            <td style="color: var(--text-muted);">${meta.provenance}</td>
+          `;
+          chTbody.appendChild(tr);
+        });
+      }
+
+      // Switch Profile Helper
+      const switchProfile = (profileKey) => {
+        const prof = scenarioData.profiles[profileKey];
+        if (!prof) return;
+
+        // Profile Buttons State
+        document.querySelectorAll(".profile-btn").forEach(b => b.classList.remove("active"));
+        const activeBtn = document.querySelector(`.profile-btn[data-profile="${profileKey}"]`);
+        if (activeBtn) activeBtn.classList.add("active");
+
+        // Synthetic Banner Warning
+        const banner = document.getElementById("synthetic-banner");
+        const workspace = document.getElementById("main-workspace");
+        if (prof.is_synthetic) {
+          banner.classList.add("visible");
+          workspace.classList.add("has-synthetic-banner");
+        } else {
+          banner.classList.remove("visible");
+          workspace.classList.remove("has-synthetic-banner");
+        }
+
+        // Update 3D Trajectory Ribbon
+        sceneManager.updateTrajectoryRibbon(prof.trajectory);
+
+        // Update Charts Trajectory
+        chartsManager.setTrajectory(prof.trajectory, prof.duration_s);
+
+        // Update Timeline
+        timelineController.setProfile(prof);
+      };
+
+      // Initialize Timeline Controller
+      timelineController = new TimelineController({
+        onStateUpdate: (statePoint, activeProfile) => {
+          sceneManager.updateVehicleState(statePoint, activeProfile);
+          hudManager.update(statePoint, activeProfile);
+          chartsManager.updateTime(statePoint.time_s);
+        },
+        onMilestoneSelect: (milestone) => {
+          if (milestone.camera) {
+            sceneManager.setCameraMode(milestone.camera);
+            document.querySelectorAll(".cam-btn").forEach(b => {
+              b.classList.toggle("active", b.dataset.mode === milestone.camera);
+            });
+          }
+        }
+      });
+
+      // Camera Mode Buttons
+      document.querySelectorAll(".cam-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".cam-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          sceneManager.setCameraMode(btn.dataset.mode);
+        });
+      });
+
+      // Profile Switcher Clicks
+      document.querySelectorAll(".profile-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          switchProfile(btn.dataset.profile);
+        });
+      });
+
+      // Bottom Dock Tabs
+      document.querySelectorAll(".dock-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".dock-tab").forEach(t => t.classList.remove("active"));
+          document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+
+          tab.classList.add("active");
+          const targetPane = document.getElementById(tab.dataset.tab);
+          if (targetPane) targetPane.classList.add("active");
+
+          if (tab.dataset.tab === "tab-charts") {
+            chartsManager.redrawAll();
+          }
+        });
+      });
+
+      // Default Active Profile: Observed Reconstruction
+      switchProfile("observed_reconstruction");
+    });
+  </script>
+
+</body>
+</html>

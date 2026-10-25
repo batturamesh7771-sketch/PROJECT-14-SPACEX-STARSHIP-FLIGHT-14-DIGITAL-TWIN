@@ -1,0 +1,14 @@
+{
+  "manifest_version": "1.0.0",
+  "generated_by": "src.dashboard.adapter",
+  "total_explorer_records": 9716,
+  "profiles": [
+    "planned_flight14",
+    "observed_reconstruction",
+    "synthetic_landing_lab"
+  ],
+  "satellites_count": 26,
+  "comparison_events_count": 19,
+  "features_supported_count": 145,
+  "coordinate_transform_status": "VERIFIED_ORTHOGONAL_DET_PLUS_1"
+}
