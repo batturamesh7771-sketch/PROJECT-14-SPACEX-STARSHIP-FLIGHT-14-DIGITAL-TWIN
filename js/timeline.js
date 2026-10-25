@@ -229,7 +229,8 @@ class TimelineController {
   loop(timestamp) {
     requestAnimationFrame(this.loop);
 
-    const deltaMs = timestamp - this.lastTimestamp;
+    const rawDelta = timestamp - this.lastTimestamp;
+    const deltaMs = Math.min(100.0, Math.max(0.0, rawDelta));
     this.lastTimestamp = timestamp;
 
     if (this.isPlaying && this.currentProfile) {

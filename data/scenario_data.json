@@ -519,10 +519,11 @@
   "profiles": {
     "planned_flight14": {
       "id": "planned_flight14",
+      "canonical_id": "flight14_planned",
       "name": "PLANNED FLIGHT 14",
       "badge": "PREFLIGHT BASELINE",
       "is_synthetic": false,
-      "description": "Preflight nominal mission design: 6 orbits, 275 km circular parking orbit, 26 Starlinks deployed, Pacific deorbit splashdown (~10 h total mission).",
+      "description": "Preflight nominal mission design: 6 orbits, 275 km circular parking orbit, 26 Starlinks deployed, booster recovery test toward Gulf splashdown, and Starship return toward Pacific splashdown (~10 h total mission).",
       "duration_s": 36000.0,
       "orbit_count": 6,
       "destination": "Pacific Ocean (Controlled Disposal)",
@@ -15378,6 +15379,2791 @@
           "phase": "ORBIT_NOMINAL"
         }
       ],
+      "booster_trajectory": [
+        {
+          "time_s": 140.0,
+          "altitude_km": 69.44,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 0.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 320.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -592311.1,
+            -5776520.6,
+            2802182.5
+          ],
+          "scene_pos": [
+            -0.592311,
+            2.802182,
+            5.776521
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 142.4,
+          "altitude_km": 70.592,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 0.39,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 319.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -592687.3,
+            -5777366.9,
+            2803009.2
+          ],
+          "scene_pos": [
+            -0.592687,
+            2.803009,
+            5.777367
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 144.8,
+          "altitude_km": 71.715,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 0.79,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 318.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -593061.0,
+            -5778187.0,
+            2803823.5
+          ],
+          "scene_pos": [
+            -0.593061,
+            2.803824,
+            5.778187
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 147.1,
+          "altitude_km": 72.809,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 1.18,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 317.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -593432.1,
+            -5778981.0,
+            2804625.3
+          ],
+          "scene_pos": [
+            -0.593432,
+            2.804625,
+            5.778981
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 149.5,
+          "altitude_km": 73.874,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 1.57,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 316.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -593800.8,
+            -5779748.7,
+            2805414.6
+          ],
+          "scene_pos": [
+            -0.593801,
+            2.805415,
+            5.779749
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 151.9,
+          "altitude_km": 74.91,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 1.96,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 315.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -594166.8,
+            -5780490.3,
+            2806191.4
+          ],
+          "scene_pos": [
+            -0.594167,
+            2.806191,
+            5.78049
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 154.2,
+          "altitude_km": 75.916,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 2.35,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 315.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -594530.3,
+            -5781205.7,
+            2806955.7
+          ],
+          "scene_pos": [
+            -0.59453,
+            2.806956,
+            5.781206
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 156.6,
+          "altitude_km": 76.894,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 2.73,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 314.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -594891.3,
+            -5781894.9,
+            2807707.4
+          ],
+          "scene_pos": [
+            -0.594891,
+            2.807707,
+            5.781895
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 159.0,
+          "altitude_km": 77.842,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 3.12,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 313.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -595249.7,
+            -5782557.9,
+            2808446.7
+          ],
+          "scene_pos": [
+            -0.59525,
+            2.808447,
+            5.782558
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 161.4,
+          "altitude_km": 78.762,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 3.5,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 312.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -595605.6,
+            -5783194.8,
+            2809173.4
+          ],
+          "scene_pos": [
+            -0.595606,
+            2.809173,
+            5.783195
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 163.8,
+          "altitude_km": 79.652,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 3.88,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 311.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -595958.9,
+            -5783805.5,
+            2809887.7
+          ],
+          "scene_pos": [
+            -0.595959,
+            2.809888,
+            5.783805
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 166.1,
+          "altitude_km": 80.513,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 4.26,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 310.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -596309.6,
+            -5784390.0,
+            2810589.3
+          ],
+          "scene_pos": [
+            -0.59631,
+            2.810589,
+            5.78439
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 168.5,
+          "altitude_km": 81.346,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 4.64,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 310.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -596657.7,
+            -5784948.4,
+            2811278.5
+          ],
+          "scene_pos": [
+            -0.596658,
+            2.811279,
+            5.784948
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 170.9,
+          "altitude_km": 82.149,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 5.01,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 309.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -597003.3,
+            -5785480.6,
+            2811955.1
+          ],
+          "scene_pos": [
+            -0.597003,
+            2.811955,
+            5.785481
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 173.2,
+          "altitude_km": 82.923,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 5.38,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 308.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -597346.3,
+            -5785986.7,
+            2812619.2
+          ],
+          "scene_pos": [
+            -0.597346,
+            2.812619,
+            5.785987
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 175.6,
+          "altitude_km": 83.668,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 5.74,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 307.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -597686.7,
+            -5786466.6,
+            2813270.8
+          ],
+          "scene_pos": [
+            -0.597687,
+            2.813271,
+            5.786467
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 178.0,
+          "altitude_km": 84.383,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 6.1,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 306.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -598024.5,
+            -5786920.3,
+            2813909.7
+          ],
+          "scene_pos": [
+            -0.598024,
+            2.81391,
+            5.78692
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 180.4,
+          "altitude_km": 85.07,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 6.46,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 305.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -598359.7,
+            -5787348.0,
+            2814536.2
+          ],
+          "scene_pos": [
+            -0.59836,
+            2.814536,
+            5.787348
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 182.8,
+          "altitude_km": 85.728,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 6.81,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 305.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -598692.4,
+            -5787749.4,
+            2815150.1
+          ],
+          "scene_pos": [
+            -0.598692,
+            2.81515,
+            5.787749
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 185.1,
+          "altitude_km": 86.356,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 7.16,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 304.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599022.4,
+            -5788124.7,
+            2815751.4
+          ],
+          "scene_pos": [
+            -0.599022,
+            2.815751,
+            5.788125
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 187.5,
+          "altitude_km": 86.956,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 7.5,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 303.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599349.8,
+            -5788473.9,
+            2816340.1
+          ],
+          "scene_pos": [
+            -0.59935,
+            2.81634,
+            5.788474
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 189.9,
+          "altitude_km": 87.526,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 7.84,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 302.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599674.7,
+            -5788796.9,
+            2816916.3
+          ],
+          "scene_pos": [
+            -0.599675,
+            2.816916,
+            5.788797
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 192.2,
+          "altitude_km": 88.067,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 8.17,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 301.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599996.9,
+            -5789093.8,
+            2817479.9
+          ],
+          "scene_pos": [
+            -0.599997,
+            2.81748,
+            5.789094
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 194.6,
+          "altitude_km": 88.579,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 8.5,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 300.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -600316.5,
+            -5789364.5,
+            2818030.9
+          ],
+          "scene_pos": [
+            -0.600317,
+            2.818031,
+            5.789365
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 197.0,
+          "altitude_km": 89.062,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 8.82,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 300.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -600633.5,
+            -5789609.2,
+            2818569.4
+          ],
+          "scene_pos": [
+            -0.600634,
+            2.818569,
+            5.789609
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 199.4,
+          "altitude_km": 89.516,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 9.13,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 299.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -600947.9,
+            -5789827.7,
+            2819095.2
+          ],
+          "scene_pos": [
+            -0.600948,
+            2.819095,
+            5.789828
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 201.8,
+          "altitude_km": 89.941,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 9.44,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 298.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -601259.7,
+            -5790020.0,
+            2819608.5
+          ],
+          "scene_pos": [
+            -0.60126,
+            2.819608,
+            5.79002
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 204.1,
+          "altitude_km": 90.337,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 9.74,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 297.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -601568.8,
+            -5790186.2,
+            2820109.1
+          ],
+          "scene_pos": [
+            -0.601569,
+            2.820109,
+            5.790186
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 206.5,
+          "altitude_km": 90.704,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 10.04,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 296.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -601875.3,
+            -5790326.4,
+            2820597.2
+          ],
+          "scene_pos": [
+            -0.601875,
+            2.820597,
+            5.790326
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 208.9,
+          "altitude_km": 91.041,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 10.33,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 295.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -602179.2,
+            -5790440.4,
+            2821072.6
+          ],
+          "scene_pos": [
+            -0.602179,
+            2.821073,
+            5.79044
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 211.2,
+          "altitude_km": 91.35,
+          "velocity_km_s": 0.7,
+          "mach": 2.19,
+          "dynamic_pressure_kpa": 10.61,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 295.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -602480.4,
+            -5790528.2,
+            2821535.4
+          ],
+          "scene_pos": [
+            -0.60248,
+            2.821535,
+            5.790528
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 213.6,
+          "altitude_km": 91.629,
+          "velocity_km_s": 0.697,
+          "mach": 2.18,
+          "dynamic_pressure_kpa": 10.88,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 294.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -602779.0,
+            -5790590.0,
+            2821985.7
+          ],
+          "scene_pos": [
+            -0.602779,
+            2.821986,
+            5.79059
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 216.0,
+          "altitude_km": 91.88,
+          "velocity_km_s": 0.693,
+          "mach": 2.17,
+          "dynamic_pressure_kpa": 11.15,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 293.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603074.9,
+            -5790625.6,
+            2822423.3
+          ],
+          "scene_pos": [
+            -0.603075,
+            2.822423,
+            5.790626
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 218.4,
+          "altitude_km": 92.101,
+          "velocity_km_s": 0.69,
+          "mach": 2.16,
+          "dynamic_pressure_kpa": 11.41,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 292.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603368.2,
+            -5790635.2,
+            2822848.2
+          ],
+          "scene_pos": [
+            -0.603368,
+            2.822848,
+            5.790635
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 220.8,
+          "altitude_km": 92.293,
+          "velocity_km_s": 0.687,
+          "mach": 2.15,
+          "dynamic_pressure_kpa": 11.66,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 291.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603658.9,
+            -5790618.6,
+            2823260.6
+          ],
+          "scene_pos": [
+            -0.603659,
+            2.823261,
+            5.790619
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 223.1,
+          "altitude_km": 92.456,
+          "velocity_km_s": 0.683,
+          "mach": 2.14,
+          "dynamic_pressure_kpa": 11.9,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 290.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603946.9,
+            -5790575.9,
+            2823660.3
+          ],
+          "scene_pos": [
+            -0.603947,
+            2.82366,
+            5.790576
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 225.5,
+          "altitude_km": 92.59,
+          "velocity_km_s": 0.68,
+          "mach": 2.12,
+          "dynamic_pressure_kpa": 12.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 290.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -604232.2,
+            -5790507.1,
+            2824047.4
+          ],
+          "scene_pos": [
+            -0.604232,
+            2.824047,
+            5.790507
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 227.9,
+          "altitude_km": 92.695,
+          "velocity_km_s": 0.677,
+          "mach": 2.11,
+          "dynamic_pressure_kpa": 12.36,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 289.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -604514.8,
+            -5790412.3,
+            2824421.8
+          ],
+          "scene_pos": [
+            -0.604515,
+            2.824422,
+            5.790412
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 230.2,
+          "altitude_km": 92.771,
+          "velocity_km_s": 0.673,
+          "mach": 2.1,
+          "dynamic_pressure_kpa": 12.58,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 288.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -604794.8,
+            -5790291.3,
+            2824783.6
+          ],
+          "scene_pos": [
+            -0.604795,
+            2.824784,
+            5.790291
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 232.6,
+          "altitude_km": 92.818,
+          "velocity_km_s": 0.67,
+          "mach": 2.09,
+          "dynamic_pressure_kpa": 12.79,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 287.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605072.2,
+            -5790144.2,
+            2825132.7
+          ],
+          "scene_pos": [
+            -0.605072,
+            2.825133,
+            5.790144
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 235.0,
+          "altitude_km": 92.836,
+          "velocity_km_s": 0.667,
+          "mach": 2.08,
+          "dynamic_pressure_kpa": 12.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 286.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605346.8,
+            -5789971.1,
+            2825469.2
+          ],
+          "scene_pos": [
+            -0.605347,
+            2.825469,
+            5.789971
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 237.4,
+          "altitude_km": 92.824,
+          "velocity_km_s": 0.663,
+          "mach": 2.07,
+          "dynamic_pressure_kpa": 13.18,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 285.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605618.8,
+            -5789771.8,
+            2825793.0
+          ],
+          "scene_pos": [
+            -0.605619,
+            2.825793,
+            5.789772
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 239.8,
+          "altitude_km": 92.784,
+          "velocity_km_s": 0.66,
+          "mach": 2.06,
+          "dynamic_pressure_kpa": 13.37,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 285.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605888.1,
+            -5789546.5,
+            2826104.2
+          ],
+          "scene_pos": [
+            -0.605888,
+            2.826104,
+            5.789546
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 242.1,
+          "altitude_km": 92.714,
+          "velocity_km_s": 0.657,
+          "mach": 2.05,
+          "dynamic_pressure_kpa": 13.54,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 284.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606154.7,
+            -5789295.0,
+            2826402.7
+          ],
+          "scene_pos": [
+            -0.606155,
+            2.826403,
+            5.789295
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 244.5,
+          "altitude_km": 92.615,
+          "velocity_km_s": 0.653,
+          "mach": 2.04,
+          "dynamic_pressure_kpa": 13.7,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 283.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606418.6,
+            -5789017.5,
+            2826688.5
+          ],
+          "scene_pos": [
+            -0.606419,
+            2.826688,
+            5.789018
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 246.9,
+          "altitude_km": 92.487,
+          "velocity_km_s": 0.65,
+          "mach": 2.03,
+          "dynamic_pressure_kpa": 13.86,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 282.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606679.9,
+            -5788713.9,
+            2826961.6
+          ],
+          "scene_pos": [
+            -0.60668,
+            2.826962,
+            5.788714
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 249.2,
+          "altitude_km": 92.331,
+          "velocity_km_s": 0.647,
+          "mach": 2.02,
+          "dynamic_pressure_kpa": 14.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 281.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606938.4,
+            -5788384.3,
+            2827222.1
+          ],
+          "scene_pos": [
+            -0.606938,
+            2.827222,
+            5.788384
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 251.6,
+          "altitude_km": 92.145,
+          "velocity_km_s": 0.643,
+          "mach": 2.01,
+          "dynamic_pressure_kpa": 14.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 280.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607194.2,
+            -5788028.5,
+            2827469.8
+          ],
+          "scene_pos": [
+            -0.607194,
+            2.82747,
+            5.788029
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 254.0,
+          "altitude_km": 91.93,
+          "velocity_km_s": 0.64,
+          "mach": 2.0,
+          "dynamic_pressure_kpa": 14.27,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 280.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607447.4,
+            -5787646.7,
+            2827704.9
+          ],
+          "scene_pos": [
+            -0.607447,
+            2.827705,
+            5.787647
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 256.4,
+          "altitude_km": 91.685,
+          "velocity_km_s": 0.637,
+          "mach": 1.99,
+          "dynamic_pressure_kpa": 14.38,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 279.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607697.8,
+            -5787238.8,
+            2827927.3
+          ],
+          "scene_pos": [
+            -0.607698,
+            2.827927,
+            5.787239
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 258.8,
+          "altitude_km": 91.412,
+          "velocity_km_s": 0.633,
+          "mach": 1.98,
+          "dynamic_pressure_kpa": 14.49,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 278.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607945.5,
+            -5786804.9,
+            2828137.0
+          ],
+          "scene_pos": [
+            -0.607946,
+            2.828137,
+            5.786805
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 261.1,
+          "altitude_km": 91.11,
+          "velocity_km_s": 0.63,
+          "mach": 1.97,
+          "dynamic_pressure_kpa": 14.59,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 277.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608190.5,
+            -5786344.9,
+            2828334.0
+          ],
+          "scene_pos": [
+            -0.608191,
+            2.828334,
+            5.786345
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 263.5,
+          "altitude_km": 90.778,
+          "velocity_km_s": 0.627,
+          "mach": 1.96,
+          "dynamic_pressure_kpa": 14.67,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 276.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608432.8,
+            -5785858.8,
+            2828518.2
+          ],
+          "scene_pos": [
+            -0.608433,
+            2.828518,
+            5.785859
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 265.9,
+          "altitude_km": 90.418,
+          "velocity_km_s": 0.623,
+          "mach": 1.95,
+          "dynamic_pressure_kpa": 14.75,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 275.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608672.3,
+            -5785346.6,
+            2828689.8
+          ],
+          "scene_pos": [
+            -0.608672,
+            2.82869,
+            5.785347
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 268.2,
+          "altitude_km": 90.028,
+          "velocity_km_s": 0.62,
+          "mach": 1.94,
+          "dynamic_pressure_kpa": 14.82,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 275.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608909.2,
+            -5784808.4,
+            2828848.6
+          ],
+          "scene_pos": [
+            -0.608909,
+            2.828849,
+            5.784808
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 270.6,
+          "altitude_km": 89.61,
+          "velocity_km_s": 0.617,
+          "mach": 1.93,
+          "dynamic_pressure_kpa": 14.87,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 274.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609143.3,
+            -5784244.2,
+            2828994.7
+          ],
+          "scene_pos": [
+            -0.609143,
+            2.828995,
+            5.784244
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 273.0,
+          "altitude_km": 89.162,
+          "velocity_km_s": 0.613,
+          "mach": 1.92,
+          "dynamic_pressure_kpa": 14.92,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 273.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609374.7,
+            -5783653.9,
+            2829128.1
+          ],
+          "scene_pos": [
+            -0.609375,
+            2.829128,
+            5.783654
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 275.4,
+          "altitude_km": 88.685,
+          "velocity_km_s": 0.61,
+          "mach": 1.91,
+          "dynamic_pressure_kpa": 14.95,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 272.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609603.3,
+            -5783037.5,
+            2829248.8
+          ],
+          "scene_pos": [
+            -0.609603,
+            2.829249,
+            5.783038
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 277.8,
+          "altitude_km": 88.179,
+          "velocity_km_s": 0.607,
+          "mach": 1.9,
+          "dynamic_pressure_kpa": 14.98,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 271.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609829.2,
+            -5782395.1,
+            2829356.7
+          ],
+          "scene_pos": [
+            -0.609829,
+            2.829357,
+            5.782395
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 280.1,
+          "altitude_km": 87.644,
+          "velocity_km_s": 0.603,
+          "mach": 1.89,
+          "dynamic_pressure_kpa": 14.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 270.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610052.3,
+            -5781726.7,
+            2829451.9
+          ],
+          "scene_pos": [
+            -0.610052,
+            2.829452,
+            5.781727
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 282.5,
+          "altitude_km": 87.08,
+          "velocity_km_s": 0.6,
+          "mach": 1.88,
+          "dynamic_pressure_kpa": 15.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 270.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610272.7,
+            -5781032.2,
+            2829534.3
+          ],
+          "scene_pos": [
+            -0.610273,
+            2.829534,
+            5.781032
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 284.9,
+          "altitude_km": 86.487,
+          "velocity_km_s": 0.597,
+          "mach": 1.86,
+          "dynamic_pressure_kpa": 14.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 269.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610490.4,
+            -5780311.7,
+            2829604.0
+          ],
+          "scene_pos": [
+            -0.61049,
+            2.829604,
+            5.780312
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 287.2,
+          "altitude_km": 85.864,
+          "velocity_km_s": 0.593,
+          "mach": 1.85,
+          "dynamic_pressure_kpa": 14.98,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 268.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610705.3,
+            -5779565.1,
+            2829661.0
+          ],
+          "scene_pos": [
+            -0.610705,
+            2.829661,
+            5.779565
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 289.6,
+          "altitude_km": 85.213,
+          "velocity_km_s": 0.59,
+          "mach": 1.84,
+          "dynamic_pressure_kpa": 14.95,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 267.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610917.4,
+            -5778792.5,
+            2829705.1
+          ],
+          "scene_pos": [
+            -0.610917,
+            2.829705,
+            5.778793
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 292.0,
+          "altitude_km": 84.533,
+          "velocity_km_s": 0.587,
+          "mach": 1.83,
+          "dynamic_pressure_kpa": 14.92,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 266.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611126.8,
+            -5777993.9,
+            2829736.6
+          ],
+          "scene_pos": [
+            -0.611127,
+            2.829737,
+            5.777994
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 294.4,
+          "altitude_km": 83.823,
+          "velocity_km_s": 0.583,
+          "mach": 1.82,
+          "dynamic_pressure_kpa": 14.87,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 265.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611333.4,
+            -5777169.3,
+            2829755.2
+          ],
+          "scene_pos": [
+            -0.611333,
+            2.829755,
+            5.777169
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 296.8,
+          "altitude_km": 83.084,
+          "velocity_km_s": 0.58,
+          "mach": 1.81,
+          "dynamic_pressure_kpa": 14.82,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 265.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611537.2,
+            -5776318.6,
+            2829761.1
+          ],
+          "scene_pos": [
+            -0.611537,
+            2.829761,
+            5.776319
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 299.1,
+          "altitude_km": 82.317,
+          "velocity_km_s": 0.577,
+          "mach": 1.8,
+          "dynamic_pressure_kpa": 14.75,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 264.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611738.3,
+            -5775441.9,
+            2829754.2
+          ],
+          "scene_pos": [
+            -0.611738,
+            2.829754,
+            5.775442
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 301.5,
+          "altitude_km": 81.52,
+          "velocity_km_s": 0.573,
+          "mach": 1.79,
+          "dynamic_pressure_kpa": 14.67,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 263.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611936.6,
+            -5774539.1,
+            2829734.5
+          ],
+          "scene_pos": [
+            -0.611937,
+            2.829735,
+            5.774539
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 303.9,
+          "altitude_km": 80.694,
+          "velocity_km_s": 0.57,
+          "mach": 1.78,
+          "dynamic_pressure_kpa": 14.59,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 262.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612132.1,
+            -5773610.4,
+            2829702.1
+          ],
+          "scene_pos": [
+            -0.612132,
+            2.829702,
+            5.77361
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 306.2,
+          "altitude_km": 79.839,
+          "velocity_km_s": 0.567,
+          "mach": 1.77,
+          "dynamic_pressure_kpa": 14.49,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 261.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612324.8,
+            -5772655.6,
+            2829656.8
+          ],
+          "scene_pos": [
+            -0.612325,
+            2.829657,
+            5.772656
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 308.6,
+          "altitude_km": 78.955,
+          "velocity_km_s": 0.563,
+          "mach": 1.76,
+          "dynamic_pressure_kpa": 14.38,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 260.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612514.7,
+            -5771674.9,
+            2829598.8
+          ],
+          "scene_pos": [
+            -0.612515,
+            2.829599,
+            5.771675
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 311.0,
+          "altitude_km": 78.042,
+          "velocity_km_s": 0.56,
+          "mach": 1.75,
+          "dynamic_pressure_kpa": 14.27,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 260.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612701.9,
+            -5770668.1,
+            2829527.9
+          ],
+          "scene_pos": [
+            -0.612702,
+            2.829528,
+            5.770668
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 313.4,
+          "altitude_km": 77.099,
+          "velocity_km_s": 0.557,
+          "mach": 1.74,
+          "dynamic_pressure_kpa": 14.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 259.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612886.2,
+            -5769635.3,
+            2829444.3
+          ],
+          "scene_pos": [
+            -0.612886,
+            2.829444,
+            5.769635
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 315.8,
+          "altitude_km": 76.128,
+          "velocity_km_s": 0.553,
+          "mach": 1.73,
+          "dynamic_pressure_kpa": 14.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 258.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613067.8,
+            -5768576.5,
+            2829347.8
+          ],
+          "scene_pos": [
+            -0.613068,
+            2.829348,
+            5.768576
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 318.1,
+          "altitude_km": 75.127,
+          "velocity_km_s": 0.55,
+          "mach": 1.72,
+          "dynamic_pressure_kpa": 13.86,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 257.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613246.5,
+            -5767491.7,
+            2829238.6
+          ],
+          "scene_pos": [
+            -0.613246,
+            2.829239,
+            5.767492
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 320.5,
+          "altitude_km": 74.098,
+          "velocity_km_s": 0.547,
+          "mach": 1.71,
+          "dynamic_pressure_kpa": 13.7,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 256.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613422.4,
+            -5766380.9,
+            2829116.5
+          ],
+          "scene_pos": [
+            -0.613422,
+            2.829117,
+            5.766381
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 322.9,
+          "altitude_km": 73.039,
+          "velocity_km_s": 0.543,
+          "mach": 1.7,
+          "dynamic_pressure_kpa": 13.54,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 255.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613595.6,
+            -5765244.1,
+            2828981.6
+          ],
+          "scene_pos": [
+            -0.613596,
+            2.828982,
+            5.765244
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 325.2,
+          "altitude_km": 71.952,
+          "velocity_km_s": 0.54,
+          "mach": 1.69,
+          "dynamic_pressure_kpa": 13.37,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 255.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613765.9,
+            -5764081.3,
+            2828833.9
+          ],
+          "scene_pos": [
+            -0.613766,
+            2.828834,
+            5.764081
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 327.6,
+          "altitude_km": 70.835,
+          "velocity_km_s": 0.537,
+          "mach": 1.68,
+          "dynamic_pressure_kpa": 13.18,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 254.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613933.4,
+            -5762892.5,
+            2828673.3
+          ],
+          "scene_pos": [
+            -0.613933,
+            2.828673,
+            5.762893
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 330.0,
+          "altitude_km": 69.689,
+          "velocity_km_s": 0.533,
+          "mach": 1.67,
+          "dynamic_pressure_kpa": 12.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 253.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614098.0,
+            -5761677.7,
+            2828500.0
+          ],
+          "scene_pos": [
+            -0.614098,
+            2.8285,
+            5.761678
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 332.4,
+          "altitude_km": 68.514,
+          "velocity_km_s": 0.53,
+          "mach": 1.66,
+          "dynamic_pressure_kpa": 12.79,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 252.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614259.9,
+            -5760437.0,
+            2828313.7
+          ],
+          "scene_pos": [
+            -0.61426,
+            2.828314,
+            5.760437
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 334.8,
+          "altitude_km": 67.31,
+          "velocity_km_s": 0.527,
+          "mach": 1.65,
+          "dynamic_pressure_kpa": 12.58,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 251.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614418.9,
+            -5759170.2,
+            2828114.7
+          ],
+          "scene_pos": [
+            -0.614419,
+            2.828115,
+            5.75917
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 337.1,
+          "altitude_km": 66.077,
+          "velocity_km_s": 0.523,
+          "mach": 1.64,
+          "dynamic_pressure_kpa": 12.36,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 250.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614575.1,
+            -5757877.5,
+            2827902.8
+          ],
+          "scene_pos": [
+            -0.614575,
+            2.827903,
+            5.757877
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 339.5,
+          "altitude_km": 64.814,
+          "velocity_km_s": 0.52,
+          "mach": 1.62,
+          "dynamic_pressure_kpa": 12.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 250.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614728.4,
+            -5756558.8,
+            2827678.0
+          ],
+          "scene_pos": [
+            -0.614728,
+            2.827678,
+            5.756559
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 341.9,
+          "altitude_km": 63.523,
+          "velocity_km_s": 0.517,
+          "mach": 1.61,
+          "dynamic_pressure_kpa": 11.9,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 249.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614878.9,
+            -5755214.1,
+            2827440.4
+          ],
+          "scene_pos": [
+            -0.614879,
+            2.82744,
+            5.755214
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 344.2,
+          "altitude_km": 62.203,
+          "velocity_km_s": 0.513,
+          "mach": 1.6,
+          "dynamic_pressure_kpa": 11.66,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 248.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615026.6,
+            -5753843.4,
+            2827189.9
+          ],
+          "scene_pos": [
+            -0.615027,
+            2.82719,
+            5.753843
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 346.6,
+          "altitude_km": 60.853,
+          "velocity_km_s": 0.51,
+          "mach": 1.59,
+          "dynamic_pressure_kpa": 11.41,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 247.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615171.4,
+            -5752446.8,
+            2826926.6
+          ],
+          "scene_pos": [
+            -0.615171,
+            2.826927,
+            5.752447
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 349.0,
+          "altitude_km": 59.474,
+          "velocity_km_s": 0.507,
+          "mach": 1.58,
+          "dynamic_pressure_kpa": 11.15,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 246.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615313.3,
+            -5751024.2,
+            2826650.4
+          ],
+          "scene_pos": [
+            -0.615313,
+            2.82665,
+            5.751024
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 351.4,
+          "altitude_km": 58.067,
+          "velocity_km_s": 0.503,
+          "mach": 1.57,
+          "dynamic_pressure_kpa": 10.88,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 245.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615452.4,
+            -5749575.6,
+            2826361.3
+          ],
+          "scene_pos": [
+            -0.615452,
+            2.826361,
+            5.749576
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 353.8,
+          "altitude_km": 56.63,
+          "velocity_km_s": 0.5,
+          "mach": 1.56,
+          "dynamic_pressure_kpa": 10.61,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 245.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615588.7,
+            -5748101.1,
+            2826059.3
+          ],
+          "scene_pos": [
+            -0.615589,
+            2.826059,
+            5.748101
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 356.1,
+          "altitude_km": 55.164,
+          "velocity_km_s": 0.497,
+          "mach": 1.55,
+          "dynamic_pressure_kpa": 10.33,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 244.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615722.0,
+            -5746600.6,
+            2825744.5
+          ],
+          "scene_pos": [
+            -0.615722,
+            2.825744,
+            5.746601
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 358.5,
+          "altitude_km": 53.669,
+          "velocity_km_s": 0.493,
+          "mach": 1.54,
+          "dynamic_pressure_kpa": 10.04,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 243.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615852.6,
+            -5745074.1,
+            2825416.7
+          ],
+          "scene_pos": [
+            -0.615853,
+            2.825417,
+            5.745074
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 360.9,
+          "altitude_km": 52.145,
+          "velocity_km_s": 0.49,
+          "mach": 1.53,
+          "dynamic_pressure_kpa": 9.74,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 242.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615980.2,
+            -5743521.7,
+            2825076.1
+          ],
+          "scene_pos": [
+            -0.61598,
+            2.825076,
+            5.743522
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 363.2,
+          "altitude_km": 50.592,
+          "velocity_km_s": 0.487,
+          "mach": 1.52,
+          "dynamic_pressure_kpa": 9.44,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 241.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616105.0,
+            -5741943.3,
+            2824722.6
+          ],
+          "scene_pos": [
+            -0.616105,
+            2.824723,
+            5.741943
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 365.6,
+          "altitude_km": 49.01,
+          "velocity_km_s": 0.483,
+          "mach": 1.51,
+          "dynamic_pressure_kpa": 9.13,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 240.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616226.9,
+            -5740339.0,
+            2824356.2
+          ],
+          "scene_pos": [
+            -0.616227,
+            2.824356,
+            5.740339
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 368.0,
+          "altitude_km": 47.398,
+          "velocity_km_s": 0.48,
+          "mach": 1.5,
+          "dynamic_pressure_kpa": 8.82,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 240.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616345.9,
+            -5738708.7,
+            2823976.8
+          ],
+          "scene_pos": [
+            -0.616346,
+            2.823977,
+            5.738709
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 370.4,
+          "altitude_km": 45.758,
+          "velocity_km_s": 0.477,
+          "mach": 1.49,
+          "dynamic_pressure_kpa": 8.5,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 239.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616462.0,
+            -5737052.5,
+            2823584.6
+          ],
+          "scene_pos": [
+            -0.616462,
+            2.823585,
+            5.737053
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 372.8,
+          "altitude_km": 44.088,
+          "velocity_km_s": 0.473,
+          "mach": 1.48,
+          "dynamic_pressure_kpa": 8.17,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 238.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616575.2,
+            -5735370.4,
+            2823179.4
+          ],
+          "scene_pos": [
+            -0.616575,
+            2.823179,
+            5.73537
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 375.1,
+          "altitude_km": 42.39,
+          "velocity_km_s": 0.47,
+          "mach": 1.47,
+          "dynamic_pressure_kpa": 7.84,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 237.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616685.6,
+            -5733662.3,
+            2822761.4
+          ],
+          "scene_pos": [
+            -0.616686,
+            2.822761,
+            5.733662
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 377.5,
+          "altitude_km": 40.662,
+          "velocity_km_s": 0.467,
+          "mach": 1.46,
+          "dynamic_pressure_kpa": 7.5,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 236.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616793.0,
+            -5731928.2,
+            2822330.4
+          ],
+          "scene_pos": [
+            -0.616793,
+            2.82233,
+            5.731928
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 379.9,
+          "altitude_km": 38.905,
+          "velocity_km_s": 0.463,
+          "mach": 1.45,
+          "dynamic_pressure_kpa": 7.16,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 235.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616897.6,
+            -5730168.3,
+            2821886.4
+          ],
+          "scene_pos": [
+            -0.616898,
+            2.821886,
+            5.730168
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 382.2,
+          "altitude_km": 37.12,
+          "velocity_km_s": 0.25,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 6.81,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 235.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -616999.2,
+            -5728382.3,
+            2821429.6
+          ],
+          "scene_pos": [
+            -0.616999,
+            2.82143,
+            5.728382
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 384.6,
+          "altitude_km": 35.305,
+          "velocity_km_s": 0.236,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 6.46,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 234.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617097.9,
+            -5726570.5,
+            2820959.8
+          ],
+          "scene_pos": [
+            -0.617098,
+            2.82096,
+            5.726571
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 387.0,
+          "altitude_km": 33.461,
+          "velocity_km_s": 0.222,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 6.1,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 233.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617193.8,
+            -5724732.8,
+            2820477.1
+          ],
+          "scene_pos": [
+            -0.617194,
+            2.820477,
+            5.724733
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 389.4,
+          "altitude_km": 31.587,
+          "velocity_km_s": 0.208,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 5.74,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 232.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617286.7,
+            -5722869.1,
+            2819981.4
+          ],
+          "scene_pos": [
+            -0.617287,
+            2.819981,
+            5.722869
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 391.8,
+          "altitude_km": 29.685,
+          "velocity_km_s": 0.194,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 5.38,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 231.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617376.7,
+            -5720979.5,
+            2819472.8
+          ],
+          "scene_pos": [
+            -0.617377,
+            2.819473,
+            5.720979
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 394.1,
+          "altitude_km": 27.754,
+          "velocity_km_s": 0.181,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 5.01,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 230.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617463.7,
+            -5719063.9,
+            2818951.2
+          ],
+          "scene_pos": [
+            -0.617464,
+            2.818951,
+            5.719064
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 396.5,
+          "altitude_km": 25.794,
+          "velocity_km_s": 0.167,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 4.64,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 230.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617547.9,
+            -5717122.5,
+            2818416.6
+          ],
+          "scene_pos": [
+            -0.617548,
+            2.818417,
+            5.717122
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 398.9,
+          "altitude_km": 23.804,
+          "velocity_km_s": 0.153,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 4.26,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 229.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617629.1,
+            -5715155.1,
+            2817869.1
+          ],
+          "scene_pos": [
+            -0.617629,
+            2.817869,
+            5.715155
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 401.2,
+          "altitude_km": 21.786,
+          "velocity_km_s": 0.139,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 3.88,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 228.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617707.3,
+            -5713161.9,
+            2817308.6
+          ],
+          "scene_pos": [
+            -0.617707,
+            2.817309,
+            5.713162
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 403.6,
+          "altitude_km": 19.738,
+          "velocity_km_s": 0.125,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 3.5,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 227.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617782.7,
+            -5711142.7,
+            2816735.2
+          ],
+          "scene_pos": [
+            -0.617783,
+            2.816735,
+            5.711143
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 406.0,
+          "altitude_km": 17.661,
+          "velocity_km_s": 0.111,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 3.12,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 226.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617855.1,
+            -5709097.6,
+            2816148.8
+          ],
+          "scene_pos": [
+            -0.617855,
+            2.816149,
+            5.709098
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 408.4,
+          "altitude_km": 15.555,
+          "velocity_km_s": 0.097,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 2.73,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 225.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617924.5,
+            -5707026.6,
+            2815549.4
+          ],
+          "scene_pos": [
+            -0.617925,
+            2.815549,
+            5.707027
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 410.8,
+          "altitude_km": 13.42,
+          "velocity_km_s": 0.083,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 2.35,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 225.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617991.0,
+            -5704929.7,
+            2814937.0
+          ],
+          "scene_pos": [
+            -0.617991,
+            2.814937,
+            5.70493
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 413.1,
+          "altitude_km": 11.256,
+          "velocity_km_s": 0.069,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 1.96,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 224.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618054.5,
+            -5702806.9,
+            2814311.6
+          ],
+          "scene_pos": [
+            -0.618055,
+            2.814312,
+            5.702807
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 415.5,
+          "altitude_km": 9.063,
+          "velocity_km_s": 0.056,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 1.57,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 223.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618115.1,
+            -5700658.2,
+            2813673.2
+          ],
+          "scene_pos": [
+            -0.618115,
+            2.813673,
+            5.700658
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 417.9,
+          "altitude_km": 6.841,
+          "velocity_km_s": 0.042,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 1.18,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 222.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618172.8,
+            -5698483.7,
+            2813021.8
+          ],
+          "scene_pos": [
+            -0.618173,
+            2.813022,
+            5.698484
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 420.2,
+          "altitude_km": 4.59,
+          "velocity_km_s": 0.028,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 0.79,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 221.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618227.4,
+            -5696283.2,
+            2812357.4
+          ],
+          "scene_pos": [
+            -0.618227,
+            2.812357,
+            5.696283
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 422.6,
+          "altitude_km": 2.309,
+          "velocity_km_s": 0.014,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 0.39,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 220.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618279.1,
+            -5694056.8,
+            2811680.0
+          ],
+          "scene_pos": [
+            -0.618279,
+            2.81168,
+            5.694057
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 425.0,
+          "altitude_km": 0.0,
+          "velocity_km_s": 0.01,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 0.0,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 220.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618327.9,
+            -5691804.6,
+            2810989.6
+          ],
+          "scene_pos": [
+            -0.618328,
+            2.81099,
+            5.691805
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        }
+      ],
       "milestones": [
         {
           "time_s": 0.0,
@@ -15385,29 +18171,54 @@
           "camera": "ORBIT_CLOSEUP"
         },
         {
-          "time_s": 162.0,
-          "name": "Hot-Staging",
+          "time_s": 62.0,
+          "name": "Max Q",
+          "camera": "ORBIT_CLOSEUP"
+        },
+        {
+          "time_s": 159.0,
+          "name": "Super Heavy MECO",
           "camera": "STAGE_SEP"
         },
         {
-          "time_s": 522.35,
-          "name": "Orbit Insertion (SECO)",
+          "time_s": 162.0,
+          "name": "Hot-Staging Separation",
+          "camera": "STAGE_SEP"
+        },
+        {
+          "time_s": 167.0,
+          "name": "Super Heavy Boostback Burn",
           "camera": "EARTH_GLOBAL"
         },
         {
-          "time_s": 2520.0,
-          "name": "Starlink Deploy Start",
-          "camera": "PAYLOAD_BAY"
+          "time_s": 422.0,
+          "name": "Super Heavy Gulf Splashdown",
+          "camera": "EARTH_GLOBAL"
         },
         {
-          "time_s": 3480.0,
-          "name": "Starlink Deploy End",
-          "camera": "PAYLOAD_BAY"
+          "time_s": 522.35,
+          "name": "Orbit Insertion (SECO-1)",
+          "camera": "ORBIT_FOLLOW"
+        },
+        {
+          "time_s": 1320.0,
+          "name": "Starlink V3 PEZ Mouth Opens",
+          "camera": "CARGO_DEPLOY_CAM"
+        },
+        {
+          "time_s": 1680.0,
+          "name": "26 Starlink Satellites Deployed",
+          "camera": "DEPLOY_WIDE_CAM"
         },
         {
           "time_s": 34200.0,
           "name": "Target Deorbit Burn",
-          "camera": "EARTH_GLOBAL"
+          "camera": "ORBIT_FOLLOW"
+        },
+        {
+          "time_s": 35280.0,
+          "name": "Atmospheric Reentry (EI 120 km)",
+          "camera": "ENTRY_BELLY"
         },
         {
           "time_s": 36000.0,
@@ -15418,10 +18229,11 @@
     },
     "observed_reconstruction": {
       "id": "observed_reconstruction",
+      "canonical_id": "flight14_observed_reconstruction",
       "name": "OBSERVED FLIGHT 14 RECONSTRUCTION",
       "badge": "POSTFLIGHT RECONSTRUCTION",
       "is_synthetic": false,
-      "description": "Postflight public reconstruction: liftoff, hot staging, orbit insertion, 26 Starlinks deployed, engine anomaly at ~3h, entry & Pacific ocean splashdown/expended.",
+      "description": "Postflight public reconstruction: liftoff with 33 Raptors (single engine shutdown on ascent), successful hot staging, remaining 5 Starship Raptors burned longer to compensate for early vacuum engine shutdown, successful orbital insertion, deployment of all 26 Starlink V3 satellites via rocket mouth PEZ slot, booster Gulf splashdown with FTS trigger, flight duration limited to ~3 hours out of caution, 1 Raptor deorbit burn, atmospheric entry, and ship splashdown in northern Pacific Ocean.",
       "duration_s": 11732.0,
       "orbit_count": 1.9,
       "destination": "Pacific Ocean (Expended Splashdown)",
@@ -41077,31 +43889,2861 @@
           "phase": "REENTRY"
         }
       ],
+      "booster_trajectory": [
+        {
+          "time_s": 140.0,
+          "altitude_km": 69.44,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 0.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 320.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -592311.1,
+            -5776520.6,
+            2802182.5
+          ],
+          "scene_pos": [
+            -0.592311,
+            2.802182,
+            5.776521
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 142.4,
+          "altitude_km": 70.592,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 0.39,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 319.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -592687.3,
+            -5777366.9,
+            2803009.2
+          ],
+          "scene_pos": [
+            -0.592687,
+            2.803009,
+            5.777367
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 144.8,
+          "altitude_km": 71.715,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 0.79,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 318.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -593061.0,
+            -5778187.0,
+            2803823.5
+          ],
+          "scene_pos": [
+            -0.593061,
+            2.803824,
+            5.778187
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 147.1,
+          "altitude_km": 72.809,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 1.18,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 317.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -593432.1,
+            -5778981.0,
+            2804625.3
+          ],
+          "scene_pos": [
+            -0.593432,
+            2.804625,
+            5.778981
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 149.5,
+          "altitude_km": 73.874,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 1.57,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 316.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -593800.8,
+            -5779748.7,
+            2805414.6
+          ],
+          "scene_pos": [
+            -0.593801,
+            2.805415,
+            5.779749
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 151.9,
+          "altitude_km": 74.91,
+          "velocity_km_s": 2.1,
+          "mach": 5.8,
+          "dynamic_pressure_kpa": 1.96,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 315.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -594166.8,
+            -5780490.3,
+            2806191.4
+          ],
+          "scene_pos": [
+            -0.594167,
+            2.806191,
+            5.78049
+          ],
+          "event": "BOOSTER_FLIP",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 154.2,
+          "altitude_km": 75.916,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 2.35,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 315.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -594530.3,
+            -5781205.7,
+            2806955.7
+          ],
+          "scene_pos": [
+            -0.59453,
+            2.806956,
+            5.781206
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 156.6,
+          "altitude_km": 76.894,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 2.73,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 314.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -594891.3,
+            -5781894.9,
+            2807707.4
+          ],
+          "scene_pos": [
+            -0.594891,
+            2.807707,
+            5.781895
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 159.0,
+          "altitude_km": 77.842,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 3.12,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 313.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -595249.7,
+            -5782557.9,
+            2808446.7
+          ],
+          "scene_pos": [
+            -0.59525,
+            2.808447,
+            5.782558
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 161.4,
+          "altitude_km": 78.762,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 3.5,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 312.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -595605.6,
+            -5783194.8,
+            2809173.4
+          ],
+          "scene_pos": [
+            -0.595606,
+            2.809173,
+            5.783195
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 163.8,
+          "altitude_km": 79.652,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 3.88,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 311.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -595958.9,
+            -5783805.5,
+            2809887.7
+          ],
+          "scene_pos": [
+            -0.595959,
+            2.809888,
+            5.783805
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 166.1,
+          "altitude_km": 80.513,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 4.26,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 310.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -596309.6,
+            -5784390.0,
+            2810589.3
+          ],
+          "scene_pos": [
+            -0.59631,
+            2.810589,
+            5.78439
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 168.5,
+          "altitude_km": 81.346,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 4.64,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 310.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -596657.7,
+            -5784948.4,
+            2811278.5
+          ],
+          "scene_pos": [
+            -0.596658,
+            2.811279,
+            5.784948
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 170.9,
+          "altitude_km": 82.149,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 5.01,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 309.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -597003.3,
+            -5785480.6,
+            2811955.1
+          ],
+          "scene_pos": [
+            -0.597003,
+            2.811955,
+            5.785481
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 173.2,
+          "altitude_km": 82.923,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 5.38,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 308.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -597346.3,
+            -5785986.7,
+            2812619.2
+          ],
+          "scene_pos": [
+            -0.597346,
+            2.812619,
+            5.785987
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 175.6,
+          "altitude_km": 83.668,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 5.74,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 307.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -597686.7,
+            -5786466.6,
+            2813270.8
+          ],
+          "scene_pos": [
+            -0.597687,
+            2.813271,
+            5.786467
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 178.0,
+          "altitude_km": 84.383,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 6.1,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 306.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -598024.5,
+            -5786920.3,
+            2813909.7
+          ],
+          "scene_pos": [
+            -0.598024,
+            2.81391,
+            5.78692
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 180.4,
+          "altitude_km": 85.07,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 6.46,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 305.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -598359.7,
+            -5787348.0,
+            2814536.2
+          ],
+          "scene_pos": [
+            -0.59836,
+            2.814536,
+            5.787348
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 182.8,
+          "altitude_km": 85.728,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 6.81,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 305.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -598692.4,
+            -5787749.4,
+            2815150.1
+          ],
+          "scene_pos": [
+            -0.598692,
+            2.81515,
+            5.787749
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 185.1,
+          "altitude_km": 86.356,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 7.16,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 304.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599022.4,
+            -5788124.7,
+            2815751.4
+          ],
+          "scene_pos": [
+            -0.599022,
+            2.815751,
+            5.788125
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 187.5,
+          "altitude_km": 86.956,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 7.5,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 303.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599349.8,
+            -5788473.9,
+            2816340.1
+          ],
+          "scene_pos": [
+            -0.59935,
+            2.81634,
+            5.788474
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 189.9,
+          "altitude_km": 87.526,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 7.84,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 302.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599674.7,
+            -5788796.9,
+            2816916.3
+          ],
+          "scene_pos": [
+            -0.599675,
+            2.816916,
+            5.788797
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 192.2,
+          "altitude_km": 88.067,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 8.17,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 301.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -599996.9,
+            -5789093.8,
+            2817479.9
+          ],
+          "scene_pos": [
+            -0.599997,
+            2.81748,
+            5.789094
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 194.6,
+          "altitude_km": 88.579,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 8.5,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 300.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -600316.5,
+            -5789364.5,
+            2818030.9
+          ],
+          "scene_pos": [
+            -0.600317,
+            2.818031,
+            5.789365
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 197.0,
+          "altitude_km": 89.062,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 8.82,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 300.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -600633.5,
+            -5789609.2,
+            2818569.4
+          ],
+          "scene_pos": [
+            -0.600634,
+            2.818569,
+            5.789609
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 199.4,
+          "altitude_km": 89.516,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 9.13,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 299.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -600947.9,
+            -5789827.7,
+            2819095.2
+          ],
+          "scene_pos": [
+            -0.600948,
+            2.819095,
+            5.789828
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 201.8,
+          "altitude_km": 89.941,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 9.44,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 298.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -601259.7,
+            -5790020.0,
+            2819608.5
+          ],
+          "scene_pos": [
+            -0.60126,
+            2.819608,
+            5.79002
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 204.1,
+          "altitude_km": 90.337,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 9.74,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 297.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -601568.8,
+            -5790186.2,
+            2820109.1
+          ],
+          "scene_pos": [
+            -0.601569,
+            2.820109,
+            5.790186
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 206.5,
+          "altitude_km": 90.704,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 10.04,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 296.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -601875.3,
+            -5790326.4,
+            2820597.2
+          ],
+          "scene_pos": [
+            -0.601875,
+            2.820597,
+            5.790326
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 208.9,
+          "altitude_km": 91.041,
+          "velocity_km_s": 1.2,
+          "mach": 3.5,
+          "dynamic_pressure_kpa": 10.33,
+          "thrust_mn": 68.0,
+          "active_engines": 31,
+          "mass_tonnes": 295.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -602179.2,
+            -5790440.4,
+            2821072.6
+          ],
+          "scene_pos": [
+            -0.602179,
+            2.821073,
+            5.79044
+          ],
+          "event": "BOOSTBACK_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 211.2,
+          "altitude_km": 91.35,
+          "velocity_km_s": 0.7,
+          "mach": 2.19,
+          "dynamic_pressure_kpa": 10.61,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 295.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -602480.4,
+            -5790528.2,
+            2821535.4
+          ],
+          "scene_pos": [
+            -0.60248,
+            2.821535,
+            5.790528
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 213.6,
+          "altitude_km": 91.629,
+          "velocity_km_s": 0.697,
+          "mach": 2.18,
+          "dynamic_pressure_kpa": 10.88,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 294.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -602779.0,
+            -5790590.0,
+            2821985.7
+          ],
+          "scene_pos": [
+            -0.602779,
+            2.821986,
+            5.79059
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 216.0,
+          "altitude_km": 91.88,
+          "velocity_km_s": 0.693,
+          "mach": 2.17,
+          "dynamic_pressure_kpa": 11.15,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 293.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603074.9,
+            -5790625.6,
+            2822423.3
+          ],
+          "scene_pos": [
+            -0.603075,
+            2.822423,
+            5.790626
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 218.4,
+          "altitude_km": 92.101,
+          "velocity_km_s": 0.69,
+          "mach": 2.16,
+          "dynamic_pressure_kpa": 11.41,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 292.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603368.2,
+            -5790635.2,
+            2822848.2
+          ],
+          "scene_pos": [
+            -0.603368,
+            2.822848,
+            5.790635
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 220.8,
+          "altitude_km": 92.293,
+          "velocity_km_s": 0.687,
+          "mach": 2.15,
+          "dynamic_pressure_kpa": 11.66,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 291.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603658.9,
+            -5790618.6,
+            2823260.6
+          ],
+          "scene_pos": [
+            -0.603659,
+            2.823261,
+            5.790619
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 223.1,
+          "altitude_km": 92.456,
+          "velocity_km_s": 0.683,
+          "mach": 2.14,
+          "dynamic_pressure_kpa": 11.9,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 290.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -603946.9,
+            -5790575.9,
+            2823660.3
+          ],
+          "scene_pos": [
+            -0.603947,
+            2.82366,
+            5.790576
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 225.5,
+          "altitude_km": 92.59,
+          "velocity_km_s": 0.68,
+          "mach": 2.12,
+          "dynamic_pressure_kpa": 12.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 290.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -604232.2,
+            -5790507.1,
+            2824047.4
+          ],
+          "scene_pos": [
+            -0.604232,
+            2.824047,
+            5.790507
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 227.9,
+          "altitude_km": 92.695,
+          "velocity_km_s": 0.677,
+          "mach": 2.11,
+          "dynamic_pressure_kpa": 12.36,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 289.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -604514.8,
+            -5790412.3,
+            2824421.8
+          ],
+          "scene_pos": [
+            -0.604515,
+            2.824422,
+            5.790412
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 230.2,
+          "altitude_km": 92.771,
+          "velocity_km_s": 0.673,
+          "mach": 2.1,
+          "dynamic_pressure_kpa": 12.58,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 288.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -604794.8,
+            -5790291.3,
+            2824783.6
+          ],
+          "scene_pos": [
+            -0.604795,
+            2.824784,
+            5.790291
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 232.6,
+          "altitude_km": 92.818,
+          "velocity_km_s": 0.67,
+          "mach": 2.09,
+          "dynamic_pressure_kpa": 12.79,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 287.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605072.2,
+            -5790144.2,
+            2825132.7
+          ],
+          "scene_pos": [
+            -0.605072,
+            2.825133,
+            5.790144
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 235.0,
+          "altitude_km": 92.836,
+          "velocity_km_s": 0.667,
+          "mach": 2.08,
+          "dynamic_pressure_kpa": 12.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 286.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605346.8,
+            -5789971.1,
+            2825469.2
+          ],
+          "scene_pos": [
+            -0.605347,
+            2.825469,
+            5.789971
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 237.4,
+          "altitude_km": 92.824,
+          "velocity_km_s": 0.663,
+          "mach": 2.07,
+          "dynamic_pressure_kpa": 13.18,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 285.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605618.8,
+            -5789771.8,
+            2825793.0
+          ],
+          "scene_pos": [
+            -0.605619,
+            2.825793,
+            5.789772
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 239.8,
+          "altitude_km": 92.784,
+          "velocity_km_s": 0.66,
+          "mach": 2.06,
+          "dynamic_pressure_kpa": 13.37,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 285.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -605888.1,
+            -5789546.5,
+            2826104.2
+          ],
+          "scene_pos": [
+            -0.605888,
+            2.826104,
+            5.789546
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 242.1,
+          "altitude_km": 92.714,
+          "velocity_km_s": 0.657,
+          "mach": 2.05,
+          "dynamic_pressure_kpa": 13.54,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 284.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606154.7,
+            -5789295.0,
+            2826402.7
+          ],
+          "scene_pos": [
+            -0.606155,
+            2.826403,
+            5.789295
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 244.5,
+          "altitude_km": 92.615,
+          "velocity_km_s": 0.653,
+          "mach": 2.04,
+          "dynamic_pressure_kpa": 13.7,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 283.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606418.6,
+            -5789017.5,
+            2826688.5
+          ],
+          "scene_pos": [
+            -0.606419,
+            2.826688,
+            5.789018
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 246.9,
+          "altitude_km": 92.487,
+          "velocity_km_s": 0.65,
+          "mach": 2.03,
+          "dynamic_pressure_kpa": 13.86,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 282.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606679.9,
+            -5788713.9,
+            2826961.6
+          ],
+          "scene_pos": [
+            -0.60668,
+            2.826962,
+            5.788714
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 249.2,
+          "altitude_km": 92.331,
+          "velocity_km_s": 0.647,
+          "mach": 2.02,
+          "dynamic_pressure_kpa": 14.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 281.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -606938.4,
+            -5788384.3,
+            2827222.1
+          ],
+          "scene_pos": [
+            -0.606938,
+            2.827222,
+            5.788384
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 251.6,
+          "altitude_km": 92.145,
+          "velocity_km_s": 0.643,
+          "mach": 2.01,
+          "dynamic_pressure_kpa": 14.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 280.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607194.2,
+            -5788028.5,
+            2827469.8
+          ],
+          "scene_pos": [
+            -0.607194,
+            2.82747,
+            5.788029
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 254.0,
+          "altitude_km": 91.93,
+          "velocity_km_s": 0.64,
+          "mach": 2.0,
+          "dynamic_pressure_kpa": 14.27,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 280.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607447.4,
+            -5787646.7,
+            2827704.9
+          ],
+          "scene_pos": [
+            -0.607447,
+            2.827705,
+            5.787647
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 256.4,
+          "altitude_km": 91.685,
+          "velocity_km_s": 0.637,
+          "mach": 1.99,
+          "dynamic_pressure_kpa": 14.38,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 279.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607697.8,
+            -5787238.8,
+            2827927.3
+          ],
+          "scene_pos": [
+            -0.607698,
+            2.827927,
+            5.787239
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 258.8,
+          "altitude_km": 91.412,
+          "velocity_km_s": 0.633,
+          "mach": 1.98,
+          "dynamic_pressure_kpa": 14.49,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 278.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -607945.5,
+            -5786804.9,
+            2828137.0
+          ],
+          "scene_pos": [
+            -0.607946,
+            2.828137,
+            5.786805
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 261.1,
+          "altitude_km": 91.11,
+          "velocity_km_s": 0.63,
+          "mach": 1.97,
+          "dynamic_pressure_kpa": 14.59,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 277.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608190.5,
+            -5786344.9,
+            2828334.0
+          ],
+          "scene_pos": [
+            -0.608191,
+            2.828334,
+            5.786345
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 263.5,
+          "altitude_km": 90.778,
+          "velocity_km_s": 0.627,
+          "mach": 1.96,
+          "dynamic_pressure_kpa": 14.67,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 276.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608432.8,
+            -5785858.8,
+            2828518.2
+          ],
+          "scene_pos": [
+            -0.608433,
+            2.828518,
+            5.785859
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 265.9,
+          "altitude_km": 90.418,
+          "velocity_km_s": 0.623,
+          "mach": 1.95,
+          "dynamic_pressure_kpa": 14.75,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 275.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608672.3,
+            -5785346.6,
+            2828689.8
+          ],
+          "scene_pos": [
+            -0.608672,
+            2.82869,
+            5.785347
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 268.2,
+          "altitude_km": 90.028,
+          "velocity_km_s": 0.62,
+          "mach": 1.94,
+          "dynamic_pressure_kpa": 14.82,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 275.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -608909.2,
+            -5784808.4,
+            2828848.6
+          ],
+          "scene_pos": [
+            -0.608909,
+            2.828849,
+            5.784808
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 270.6,
+          "altitude_km": 89.61,
+          "velocity_km_s": 0.617,
+          "mach": 1.93,
+          "dynamic_pressure_kpa": 14.87,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 274.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609143.3,
+            -5784244.2,
+            2828994.7
+          ],
+          "scene_pos": [
+            -0.609143,
+            2.828995,
+            5.784244
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 273.0,
+          "altitude_km": 89.162,
+          "velocity_km_s": 0.613,
+          "mach": 1.92,
+          "dynamic_pressure_kpa": 14.92,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 273.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609374.7,
+            -5783653.9,
+            2829128.1
+          ],
+          "scene_pos": [
+            -0.609375,
+            2.829128,
+            5.783654
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 275.4,
+          "altitude_km": 88.685,
+          "velocity_km_s": 0.61,
+          "mach": 1.91,
+          "dynamic_pressure_kpa": 14.95,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 272.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609603.3,
+            -5783037.5,
+            2829248.8
+          ],
+          "scene_pos": [
+            -0.609603,
+            2.829249,
+            5.783038
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 277.8,
+          "altitude_km": 88.179,
+          "velocity_km_s": 0.607,
+          "mach": 1.9,
+          "dynamic_pressure_kpa": 14.98,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 271.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -609829.2,
+            -5782395.1,
+            2829356.7
+          ],
+          "scene_pos": [
+            -0.609829,
+            2.829357,
+            5.782395
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 280.1,
+          "altitude_km": 87.644,
+          "velocity_km_s": 0.603,
+          "mach": 1.89,
+          "dynamic_pressure_kpa": 14.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 270.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610052.3,
+            -5781726.7,
+            2829451.9
+          ],
+          "scene_pos": [
+            -0.610052,
+            2.829452,
+            5.781727
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 282.5,
+          "altitude_km": 87.08,
+          "velocity_km_s": 0.6,
+          "mach": 1.88,
+          "dynamic_pressure_kpa": 15.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 270.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610272.7,
+            -5781032.2,
+            2829534.3
+          ],
+          "scene_pos": [
+            -0.610273,
+            2.829534,
+            5.781032
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 284.9,
+          "altitude_km": 86.487,
+          "velocity_km_s": 0.597,
+          "mach": 1.86,
+          "dynamic_pressure_kpa": 14.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 269.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610490.4,
+            -5780311.7,
+            2829604.0
+          ],
+          "scene_pos": [
+            -0.61049,
+            2.829604,
+            5.780312
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 287.2,
+          "altitude_km": 85.864,
+          "velocity_km_s": 0.593,
+          "mach": 1.85,
+          "dynamic_pressure_kpa": 14.98,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 268.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610705.3,
+            -5779565.1,
+            2829661.0
+          ],
+          "scene_pos": [
+            -0.610705,
+            2.829661,
+            5.779565
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 289.6,
+          "altitude_km": 85.213,
+          "velocity_km_s": 0.59,
+          "mach": 1.84,
+          "dynamic_pressure_kpa": 14.95,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 267.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -610917.4,
+            -5778792.5,
+            2829705.1
+          ],
+          "scene_pos": [
+            -0.610917,
+            2.829705,
+            5.778793
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 292.0,
+          "altitude_km": 84.533,
+          "velocity_km_s": 0.587,
+          "mach": 1.83,
+          "dynamic_pressure_kpa": 14.92,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 266.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611126.8,
+            -5777993.9,
+            2829736.6
+          ],
+          "scene_pos": [
+            -0.611127,
+            2.829737,
+            5.777994
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 294.4,
+          "altitude_km": 83.823,
+          "velocity_km_s": 0.583,
+          "mach": 1.82,
+          "dynamic_pressure_kpa": 14.87,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 265.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611333.4,
+            -5777169.3,
+            2829755.2
+          ],
+          "scene_pos": [
+            -0.611333,
+            2.829755,
+            5.777169
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 296.8,
+          "altitude_km": 83.084,
+          "velocity_km_s": 0.58,
+          "mach": 1.81,
+          "dynamic_pressure_kpa": 14.82,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 265.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611537.2,
+            -5776318.6,
+            2829761.1
+          ],
+          "scene_pos": [
+            -0.611537,
+            2.829761,
+            5.776319
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 299.1,
+          "altitude_km": 82.317,
+          "velocity_km_s": 0.577,
+          "mach": 1.8,
+          "dynamic_pressure_kpa": 14.75,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 264.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611738.3,
+            -5775441.9,
+            2829754.2
+          ],
+          "scene_pos": [
+            -0.611738,
+            2.829754,
+            5.775442
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 301.5,
+          "altitude_km": 81.52,
+          "velocity_km_s": 0.573,
+          "mach": 1.79,
+          "dynamic_pressure_kpa": 14.67,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 263.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -611936.6,
+            -5774539.1,
+            2829734.5
+          ],
+          "scene_pos": [
+            -0.611937,
+            2.829735,
+            5.774539
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 303.9,
+          "altitude_km": 80.694,
+          "velocity_km_s": 0.57,
+          "mach": 1.78,
+          "dynamic_pressure_kpa": 14.59,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 262.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612132.1,
+            -5773610.4,
+            2829702.1
+          ],
+          "scene_pos": [
+            -0.612132,
+            2.829702,
+            5.77361
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 306.2,
+          "altitude_km": 79.839,
+          "velocity_km_s": 0.567,
+          "mach": 1.77,
+          "dynamic_pressure_kpa": 14.49,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 261.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612324.8,
+            -5772655.6,
+            2829656.8
+          ],
+          "scene_pos": [
+            -0.612325,
+            2.829657,
+            5.772656
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 308.6,
+          "altitude_km": 78.955,
+          "velocity_km_s": 0.563,
+          "mach": 1.76,
+          "dynamic_pressure_kpa": 14.38,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 260.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612514.7,
+            -5771674.9,
+            2829598.8
+          ],
+          "scene_pos": [
+            -0.612515,
+            2.829599,
+            5.771675
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 311.0,
+          "altitude_km": 78.042,
+          "velocity_km_s": 0.56,
+          "mach": 1.75,
+          "dynamic_pressure_kpa": 14.27,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 260.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612701.9,
+            -5770668.1,
+            2829527.9
+          ],
+          "scene_pos": [
+            -0.612702,
+            2.829528,
+            5.770668
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 313.4,
+          "altitude_km": 77.099,
+          "velocity_km_s": 0.557,
+          "mach": 1.74,
+          "dynamic_pressure_kpa": 14.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 259.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -612886.2,
+            -5769635.3,
+            2829444.3
+          ],
+          "scene_pos": [
+            -0.612886,
+            2.829444,
+            5.769635
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 315.8,
+          "altitude_km": 76.128,
+          "velocity_km_s": 0.553,
+          "mach": 1.73,
+          "dynamic_pressure_kpa": 14.0,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 258.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613067.8,
+            -5768576.5,
+            2829347.8
+          ],
+          "scene_pos": [
+            -0.613068,
+            2.829348,
+            5.768576
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 318.1,
+          "altitude_km": 75.127,
+          "velocity_km_s": 0.55,
+          "mach": 1.72,
+          "dynamic_pressure_kpa": 13.86,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 257.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613246.5,
+            -5767491.7,
+            2829238.6
+          ],
+          "scene_pos": [
+            -0.613246,
+            2.829239,
+            5.767492
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 320.5,
+          "altitude_km": 74.098,
+          "velocity_km_s": 0.547,
+          "mach": 1.71,
+          "dynamic_pressure_kpa": 13.7,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 256.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613422.4,
+            -5766380.9,
+            2829116.5
+          ],
+          "scene_pos": [
+            -0.613422,
+            2.829117,
+            5.766381
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 322.9,
+          "altitude_km": 73.039,
+          "velocity_km_s": 0.543,
+          "mach": 1.7,
+          "dynamic_pressure_kpa": 13.54,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 255.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613595.6,
+            -5765244.1,
+            2828981.6
+          ],
+          "scene_pos": [
+            -0.613596,
+            2.828982,
+            5.765244
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 325.2,
+          "altitude_km": 71.952,
+          "velocity_km_s": 0.54,
+          "mach": 1.69,
+          "dynamic_pressure_kpa": 13.37,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 255.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613765.9,
+            -5764081.3,
+            2828833.9
+          ],
+          "scene_pos": [
+            -0.613766,
+            2.828834,
+            5.764081
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 327.6,
+          "altitude_km": 70.835,
+          "velocity_km_s": 0.537,
+          "mach": 1.68,
+          "dynamic_pressure_kpa": 13.18,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 254.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -613933.4,
+            -5762892.5,
+            2828673.3
+          ],
+          "scene_pos": [
+            -0.613933,
+            2.828673,
+            5.762893
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 330.0,
+          "altitude_km": 69.689,
+          "velocity_km_s": 0.533,
+          "mach": 1.67,
+          "dynamic_pressure_kpa": 12.99,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 253.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614098.0,
+            -5761677.7,
+            2828500.0
+          ],
+          "scene_pos": [
+            -0.614098,
+            2.8285,
+            5.761678
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 332.4,
+          "altitude_km": 68.514,
+          "velocity_km_s": 0.53,
+          "mach": 1.66,
+          "dynamic_pressure_kpa": 12.79,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 252.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614259.9,
+            -5760437.0,
+            2828313.7
+          ],
+          "scene_pos": [
+            -0.61426,
+            2.828314,
+            5.760437
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 334.8,
+          "altitude_km": 67.31,
+          "velocity_km_s": 0.527,
+          "mach": 1.65,
+          "dynamic_pressure_kpa": 12.58,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 251.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614418.9,
+            -5759170.2,
+            2828114.7
+          ],
+          "scene_pos": [
+            -0.614419,
+            2.828115,
+            5.75917
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 337.1,
+          "altitude_km": 66.077,
+          "velocity_km_s": 0.523,
+          "mach": 1.64,
+          "dynamic_pressure_kpa": 12.36,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 250.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614575.1,
+            -5757877.5,
+            2827902.8
+          ],
+          "scene_pos": [
+            -0.614575,
+            2.827903,
+            5.757877
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 339.5,
+          "altitude_km": 64.814,
+          "velocity_km_s": 0.52,
+          "mach": 1.62,
+          "dynamic_pressure_kpa": 12.14,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 250.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614728.4,
+            -5756558.8,
+            2827678.0
+          ],
+          "scene_pos": [
+            -0.614728,
+            2.827678,
+            5.756559
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 341.9,
+          "altitude_km": 63.523,
+          "velocity_km_s": 0.517,
+          "mach": 1.61,
+          "dynamic_pressure_kpa": 11.9,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 249.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -614878.9,
+            -5755214.1,
+            2827440.4
+          ],
+          "scene_pos": [
+            -0.614879,
+            2.82744,
+            5.755214
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 344.2,
+          "altitude_km": 62.203,
+          "velocity_km_s": 0.513,
+          "mach": 1.6,
+          "dynamic_pressure_kpa": 11.66,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 248.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615026.6,
+            -5753843.4,
+            2827189.9
+          ],
+          "scene_pos": [
+            -0.615027,
+            2.82719,
+            5.753843
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 346.6,
+          "altitude_km": 60.853,
+          "velocity_km_s": 0.51,
+          "mach": 1.59,
+          "dynamic_pressure_kpa": 11.41,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 247.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615171.4,
+            -5752446.8,
+            2826926.6
+          ],
+          "scene_pos": [
+            -0.615171,
+            2.826927,
+            5.752447
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 349.0,
+          "altitude_km": 59.474,
+          "velocity_km_s": 0.507,
+          "mach": 1.58,
+          "dynamic_pressure_kpa": 11.15,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 246.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615313.3,
+            -5751024.2,
+            2826650.4
+          ],
+          "scene_pos": [
+            -0.615313,
+            2.82665,
+            5.751024
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 351.4,
+          "altitude_km": 58.067,
+          "velocity_km_s": 0.503,
+          "mach": 1.57,
+          "dynamic_pressure_kpa": 10.88,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 245.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615452.4,
+            -5749575.6,
+            2826361.3
+          ],
+          "scene_pos": [
+            -0.615452,
+            2.826361,
+            5.749576
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 353.8,
+          "altitude_km": 56.63,
+          "velocity_km_s": 0.5,
+          "mach": 1.56,
+          "dynamic_pressure_kpa": 10.61,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 245.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615588.7,
+            -5748101.1,
+            2826059.3
+          ],
+          "scene_pos": [
+            -0.615589,
+            2.826059,
+            5.748101
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 356.1,
+          "altitude_km": 55.164,
+          "velocity_km_s": 0.497,
+          "mach": 1.55,
+          "dynamic_pressure_kpa": 10.33,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 244.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615722.0,
+            -5746600.6,
+            2825744.5
+          ],
+          "scene_pos": [
+            -0.615722,
+            2.825744,
+            5.746601
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 358.5,
+          "altitude_km": 53.669,
+          "velocity_km_s": 0.493,
+          "mach": 1.54,
+          "dynamic_pressure_kpa": 10.04,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 243.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615852.6,
+            -5745074.1,
+            2825416.7
+          ],
+          "scene_pos": [
+            -0.615853,
+            2.825417,
+            5.745074
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 360.9,
+          "altitude_km": 52.145,
+          "velocity_km_s": 0.49,
+          "mach": 1.53,
+          "dynamic_pressure_kpa": 9.74,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 242.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -615980.2,
+            -5743521.7,
+            2825076.1
+          ],
+          "scene_pos": [
+            -0.61598,
+            2.825076,
+            5.743522
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 363.2,
+          "altitude_km": 50.592,
+          "velocity_km_s": 0.487,
+          "mach": 1.52,
+          "dynamic_pressure_kpa": 9.44,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 241.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616105.0,
+            -5741943.3,
+            2824722.6
+          ],
+          "scene_pos": [
+            -0.616105,
+            2.824723,
+            5.741943
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 365.6,
+          "altitude_km": 49.01,
+          "velocity_km_s": 0.483,
+          "mach": 1.51,
+          "dynamic_pressure_kpa": 9.13,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 240.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616226.9,
+            -5740339.0,
+            2824356.2
+          ],
+          "scene_pos": [
+            -0.616227,
+            2.824356,
+            5.740339
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 368.0,
+          "altitude_km": 47.398,
+          "velocity_km_s": 0.48,
+          "mach": 1.5,
+          "dynamic_pressure_kpa": 8.82,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 240.0,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616345.9,
+            -5738708.7,
+            2823976.8
+          ],
+          "scene_pos": [
+            -0.616346,
+            2.823977,
+            5.738709
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 370.4,
+          "altitude_km": 45.758,
+          "velocity_km_s": 0.477,
+          "mach": 1.49,
+          "dynamic_pressure_kpa": 8.5,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 239.2,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616462.0,
+            -5737052.5,
+            2823584.6
+          ],
+          "scene_pos": [
+            -0.616462,
+            2.823585,
+            5.737053
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 372.8,
+          "altitude_km": 44.088,
+          "velocity_km_s": 0.473,
+          "mach": 1.48,
+          "dynamic_pressure_kpa": 8.17,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 238.3,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616575.2,
+            -5735370.4,
+            2823179.4
+          ],
+          "scene_pos": [
+            -0.616575,
+            2.823179,
+            5.73537
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 375.1,
+          "altitude_km": 42.39,
+          "velocity_km_s": 0.47,
+          "mach": 1.47,
+          "dynamic_pressure_kpa": 7.84,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 237.5,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616685.6,
+            -5733662.3,
+            2822761.4
+          ],
+          "scene_pos": [
+            -0.616686,
+            2.822761,
+            5.733662
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 377.5,
+          "altitude_km": 40.662,
+          "velocity_km_s": 0.467,
+          "mach": 1.46,
+          "dynamic_pressure_kpa": 7.5,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 236.7,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616793.0,
+            -5731928.2,
+            2822330.4
+          ],
+          "scene_pos": [
+            -0.616793,
+            2.82233,
+            5.731928
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 379.9,
+          "altitude_km": 38.905,
+          "velocity_km_s": 0.463,
+          "mach": 1.45,
+          "dynamic_pressure_kpa": 7.16,
+          "thrust_mn": 0.0,
+          "active_engines": 0,
+          "mass_tonnes": 235.8,
+          "apparent_g": 1.0,
+          "eci_pos_m": [
+            -616897.6,
+            -5730168.3,
+            2821886.4
+          ],
+          "scene_pos": [
+            -0.616898,
+            2.821886,
+            5.730168
+          ],
+          "event": "ATMOSPHERIC_DESCENT",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 382.2,
+          "altitude_km": 37.12,
+          "velocity_km_s": 0.25,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 6.81,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 235.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -616999.2,
+            -5728382.3,
+            2821429.6
+          ],
+          "scene_pos": [
+            -0.616999,
+            2.82143,
+            5.728382
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 384.6,
+          "altitude_km": 35.305,
+          "velocity_km_s": 0.236,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 6.46,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 234.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617097.9,
+            -5726570.5,
+            2820959.8
+          ],
+          "scene_pos": [
+            -0.617098,
+            2.82096,
+            5.726571
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 387.0,
+          "altitude_km": 33.461,
+          "velocity_km_s": 0.222,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 6.1,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 233.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617193.8,
+            -5724732.8,
+            2820477.1
+          ],
+          "scene_pos": [
+            -0.617194,
+            2.820477,
+            5.724733
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 389.4,
+          "altitude_km": 31.587,
+          "velocity_km_s": 0.208,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 5.74,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 232.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617286.7,
+            -5722869.1,
+            2819981.4
+          ],
+          "scene_pos": [
+            -0.617287,
+            2.819981,
+            5.722869
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 391.8,
+          "altitude_km": 29.685,
+          "velocity_km_s": 0.194,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 5.38,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 231.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617376.7,
+            -5720979.5,
+            2819472.8
+          ],
+          "scene_pos": [
+            -0.617377,
+            2.819473,
+            5.720979
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 394.1,
+          "altitude_km": 27.754,
+          "velocity_km_s": 0.181,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 5.01,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 230.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617463.7,
+            -5719063.9,
+            2818951.2
+          ],
+          "scene_pos": [
+            -0.617464,
+            2.818951,
+            5.719064
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 396.5,
+          "altitude_km": 25.794,
+          "velocity_km_s": 0.167,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 4.64,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 230.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617547.9,
+            -5717122.5,
+            2818416.6
+          ],
+          "scene_pos": [
+            -0.617548,
+            2.818417,
+            5.717122
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 398.9,
+          "altitude_km": 23.804,
+          "velocity_km_s": 0.153,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 4.26,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 229.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617629.1,
+            -5715155.1,
+            2817869.1
+          ],
+          "scene_pos": [
+            -0.617629,
+            2.817869,
+            5.715155
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 401.2,
+          "altitude_km": 21.786,
+          "velocity_km_s": 0.139,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 3.88,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 228.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617707.3,
+            -5713161.9,
+            2817308.6
+          ],
+          "scene_pos": [
+            -0.617707,
+            2.817309,
+            5.713162
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 403.6,
+          "altitude_km": 19.738,
+          "velocity_km_s": 0.125,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 3.5,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 227.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617782.7,
+            -5711142.7,
+            2816735.2
+          ],
+          "scene_pos": [
+            -0.617783,
+            2.816735,
+            5.711143
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 406.0,
+          "altitude_km": 17.661,
+          "velocity_km_s": 0.111,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 3.12,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 226.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617855.1,
+            -5709097.6,
+            2816148.8
+          ],
+          "scene_pos": [
+            -0.617855,
+            2.816149,
+            5.709098
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 408.4,
+          "altitude_km": 15.555,
+          "velocity_km_s": 0.097,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 2.73,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 225.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617924.5,
+            -5707026.6,
+            2815549.4
+          ],
+          "scene_pos": [
+            -0.617925,
+            2.815549,
+            5.707027
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 410.8,
+          "altitude_km": 13.42,
+          "velocity_km_s": 0.083,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 2.35,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 225.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -617991.0,
+            -5704929.7,
+            2814937.0
+          ],
+          "scene_pos": [
+            -0.617991,
+            2.814937,
+            5.70493
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 413.1,
+          "altitude_km": 11.256,
+          "velocity_km_s": 0.069,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 1.96,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 224.2,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618054.5,
+            -5702806.9,
+            2814311.6
+          ],
+          "scene_pos": [
+            -0.618055,
+            2.814312,
+            5.702807
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 415.5,
+          "altitude_km": 9.063,
+          "velocity_km_s": 0.056,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 1.57,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 223.3,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618115.1,
+            -5700658.2,
+            2813673.2
+          ],
+          "scene_pos": [
+            -0.618115,
+            2.813673,
+            5.700658
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 417.9,
+          "altitude_km": 6.841,
+          "velocity_km_s": 0.042,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 1.18,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 222.5,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618172.8,
+            -5698483.7,
+            2813021.8
+          ],
+          "scene_pos": [
+            -0.618173,
+            2.813022,
+            5.698484
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 420.2,
+          "altitude_km": 4.59,
+          "velocity_km_s": 0.028,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 0.79,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 221.7,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618227.4,
+            -5696283.2,
+            2812357.4
+          ],
+          "scene_pos": [
+            -0.618227,
+            2.812357,
+            5.696283
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 422.6,
+          "altitude_km": 2.309,
+          "velocity_km_s": 0.014,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 0.39,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 220.8,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618279.1,
+            -5694056.8,
+            2811680.0
+          ],
+          "scene_pos": [
+            -0.618279,
+            2.81168,
+            5.694057
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        },
+        {
+          "time_s": 425.0,
+          "altitude_km": 0.0,
+          "velocity_km_s": 0.01,
+          "mach": 0.2,
+          "dynamic_pressure_kpa": 0.0,
+          "thrust_mn": 12.0,
+          "active_engines": 3,
+          "mass_tonnes": 220.0,
+          "apparent_g": 2.5,
+          "eci_pos_m": [
+            -618327.9,
+            -5691804.6,
+            2810989.6
+          ],
+          "scene_pos": [
+            -0.618328,
+            2.81099,
+            5.691805
+          ],
+          "event": "LANDING_BURN",
+          "phase": "BOOSTER_RETURN"
+        }
+      ],
       "milestones": [
         {
           "time_s": 0.0,
-          "name": "Liftoff",
+          "name": "Liftoff (33 Raptors, Starbase TX)",
           "camera": "ORBIT_CLOSEUP"
         },
         {
-          "time_s": 162.0,
-          "name": "Hot-Staging",
+          "time_s": 45.0,
+          "name": "Single Booster Raptor Ascent Shutdown",
+          "camera": "ORBIT_CLOSEUP"
+        },
+        {
+          "time_s": 68.0,
+          "name": "Max Q",
+          "camera": "ORBIT_CLOSEUP"
+        },
+        {
+          "time_s": 160.0,
+          "name": "Booster MECO",
           "camera": "STAGE_SEP"
         },
         {
-          "time_s": 522.35,
-          "name": "SECO-1 Orbit Insertion",
+          "time_s": 162.0,
+          "name": "Hot-Staging & Starship Separation",
+          "camera": "STAGE_SEP"
+        },
+        {
+          "time_s": 167.0,
+          "name": "Booster Boostback Burn (31 Engines)",
           "camera": "EARTH_GLOBAL"
         },
         {
-          "time_s": 2520.0,
-          "name": "Starlink Deployment Sequence",
-          "camera": "PAYLOAD_BAY"
+          "time_s": 250.0,
+          "name": "Starship Vacuum Raptor Shutdown (Compensated)",
+          "camera": "ORBIT_FOLLOW"
+        },
+        {
+          "time_s": 425.0,
+          "name": "Booster Gulf Splashdown & FTS Safety Trigger",
+          "camera": "EARTH_GLOBAL"
+        },
+        {
+          "time_s": 522.35,
+          "name": "Orbit Insertion (Suborbital Transition)",
+          "camera": "ORBIT_FOLLOW"
+        },
+        {
+          "time_s": 900.0,
+          "name": "Raptor Sea-Level Burn to Circularize Orbit",
+          "camera": "ORBIT_FOLLOW"
+        },
+        {
+          "time_s": 1320.0,
+          "name": "Starlink V3 PEZ Mouth Door Opens",
+          "camera": "CARGO_DEPLOY_CAM"
+        },
+        {
+          "time_s": 1680.0,
+          "name": "All 26 Starlink V3 Satellites Deployed",
+          "camera": "DEPLOY_WIDE_CAM"
+        },
+        {
+          "time_s": 9900.0,
+          "name": "Cautionary Mission Shortening & Deorbit Burn",
+          "camera": "ORBIT_FOLLOW"
         },
         {
           "time_s": 10800.0,
-          "name": "Upper Stage Engine Anomaly (~3h)",
-          "camera": "EARTH_GLOBAL"
+          "name": "Atmospheric Entry Interface (EI 120 km)",
+          "camera": "ENTRY_BELLY"
         },
         {
           "time_s": 11300.0,
@@ -41117,6 +46759,7 @@
     },
     "synthetic_landing_lab": {
       "id": "synthetic_landing_lab",
+      "canonical_id": "synthetic_engineering_test",
       "name": "SYNTHETIC / PHASE 7 REUSABLE-LANDING LAB",
       "badge": "SYNTHETIC EXPERIMENTAL",
       "is_synthetic": true,
@@ -51950,6 +57593,11 @@
         }
       ]
     }
+  },
+  "profile_aliases": {
+    "flight14_planned": "planned_flight14",
+    "flight14_observed_reconstruction": "observed_reconstruction",
+    "synthetic_engineering_test": "synthetic_landing_lab"
   },
   "virtualized_explorer_records": [
     {

@@ -1401,3 +1401,332 @@ body {
 
 .highlight-green { color: var(--accent-green) !important; }
 .highlight-cyan { color: var(--accent-cyan) !important; }
+
+/* =========================================================================
+   Starlink V3 26-Satellite Manifest & Rocket Mouth Dispenser Controls
+   ========================================================================= */
+.satellites-control-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(5, 12, 24, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.sat-counter-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+.sat-quick-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.sat-action-btn {
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sat-action-btn:hover {
+  background: var(--accent-cyan);
+  color: #02050b;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.satellites-manifest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.sat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(8, 16, 32, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sat-item:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(12, 26, 48, 0.9);
+}
+
+.sat-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sat-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.sat-time {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.sat-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sat-status {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+}
+
+.sat-item.deployed .sat-status {
+  background: rgba(0, 255, 136, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.sat-item.ejecting .sat-status {
+  background: rgba(0, 229, 255, 0.25);
+  color: var(--accent-cyan);
+  border: 1px solid var(--accent-cyan);
+  animation: pulse-glow 1s infinite alternate;
+}
+
+.sat-track-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.sat-track-btn:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* =========================================================================
+   Event Milestone Cards Gallery (Target UI Layout)
+   ========================================================================= */
+.event-cards-gallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 2px 8px 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-subtle) transparent;
+  flex-shrink: 0;
+}
+
+.event-cards-gallery::-webkit-scrollbar {
+  height: 4px;
+}
+
+.event-cards-gallery::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 2px;
+}
+
+.event-card {
+  flex: 1 1 0;
+  min-width: 140px;
+  background: rgba(5, 12, 26, 0.85);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 4px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-card:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(8, 22, 46, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.event-card.active {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.45);
+  background: rgba(10, 26, 54, 0.95);
+}
+
+.event-card.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+}
+
+.event-card.completed {
+  border-color: rgba(0, 255, 136, 0.4);
+}
+
+.event-card.completed::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent-green);
+}
+
+.ec-header {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.ec-thumb {
+  height: 28px;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.ec-thumb.ec-launch {
+  background: linear-gradient(135deg, #180800 0%, #d84315 50%, #ffab00 100%);
+}
+
+.ec-thumb.ec-staging {
+  background: linear-gradient(135deg, #051428 0%, #0077ff 50%, #ff6d00 100%);
+}
+
+.ec-thumb.ec-orbit {
+  background: linear-gradient(135deg, #000814 0%, #0d47a1 50%, #00e5ff 100%);
+}
+
+.ec-thumb.ec-deploy {
+  background: linear-gradient(135deg, #020a1c 0%, #1565c0 50%, #00e676 100%);
+}
+
+.ec-thumb.ec-deorbit {
+  background: linear-gradient(135deg, #1a0026 0%, #6a1b9a 50%, #ff3d00 100%);
+}
+
+.ec-thumb.ec-reentry {
+  background: linear-gradient(135deg, #2b0202 0%, #c62828 50%, #ff9100 100%);
+}
+
+.ec-thumb.ec-splash {
+  background: linear-gradient(135deg, #001220 0%, #00695c 50%, #00b0ff 100%);
+}
+
+.ec-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  color: var(--text-muted);
+}
+
+.event-card.active .ec-footer {
+  color: var(--accent-cyan);
+}
+
+.event-card.completed .ec-footer {
+  color: var(--accent-green);
+}
+
+/* =========================================================================
+   Raptor 3 Cluster Matrix & Subsystem Panels
+   ========================================================================= */
+.raptor-matrix-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+}
+
+.raptor-sub-label {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--accent-green);
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.vm-engines-data {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.raptor-dot {
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.raptor-dot.firing {
+  fill: #00ff88;
+  filter: drop-shadow(0 0 3px #00ff88);
+}
+
+.raptor-dot.cutoff {
+  fill: #ff3344;
+  filter: drop-shadow(0 0 3px #ff3344);
+}
+
+.raptor-dot.inactive {
+  fill: #1a2536;
+  stroke: #334455;
+  stroke-width: 0.8;
+}
+

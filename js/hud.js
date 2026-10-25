@@ -23,6 +23,7 @@ class HudManager {
 
     this.initInspectorModal();
     this.initStaticFeaDisplay();
+    this.initRaptorSvg();
   }
 
   initStaticFeaDisplay() {
@@ -86,20 +87,28 @@ class HudManager {
       vpMachDisplay = `M ${Number(point.mach).toFixed(1)}`;
     }
 
-    // Engine status string
-    let engineStr = "33/33 (NOMINAL)";
+    // Engine status string (Flight 14 factual mission reconstruction)
+    let engineStr = "33/33 (NOMINAL ASCENT)";
     if (profile && profile.is_synthetic) {
       engineStr = (point.thrust_mn || 0) > 0.1 ? "3/3 (LANDING BURN)" : "0/3 (DESCENT)";
+    } else if (time_s <= 45.0) {
+      engineStr = (point.thrust_mn || 0) > 50.0 ? "33/33 (FULL THRUST)" : "33/33 (NOMINAL)";
     } else if (time_s <= 162.0) {
-      engineStr = (point.thrust_mn || 0) > 50.0 ? "33/33 (FULL THRUST)" : "33/33 (THROTTLED)";
+      engineStr = "32/33 (1 ENG CUTOFF T+45s)";
     } else if (time_s <= 168.0) {
       engineStr = "HOT-STAGING";
     } else if (time_s <= 522.35) {
-      engineStr = (point.thrust_mn || 0) > 0.1 ? "6/6 (NOMINAL)" : "6/6 (SHUTDOWN)";
-    } else if (time_s >= 5400.0 && time_s <= 5460.0) {
-      engineStr = "3/6 (DEORBIT BURN)";
-    } else if (time_s > 5460.0) {
-      engineStr = "0/6 (ENTRY FLIGHT)";
+      engineStr = (point.thrust_mn || 0) > 0.1 ? "5/6 (1 RVAC CUTOFF - EXTENDED)" : "0/6 (SECO)";
+    } else if (time_s <= 1320.0) {
+      engineStr = (point.thrust_mn || 0) > 0.1 ? "1/6 (ORBIT INSERTION)" : "0/6 (ORBIT COAST)";
+    } else if (time_s <= 1800.0) {
+      engineStr = "0/6 (26x SATELLITE DEPLOY)";
+    } else if (time_s >= 9900.0 && time_s <= 9960.0) {
+      engineStr = "1/6 (DEORBIT DISPOSAL BURN)";
+    } else if (time_s > 9960.0 && time_s < 11732.0) {
+      engineStr = "0/6 (ENTRY FLIGHT - FLAPS)";
+    } else if (time_s >= 11732.0) {
+      engineStr = "0/6 (PACIFIC SPLASHDOWN)";
     } else {
       engineStr = "0/6 (ORBIT COAST)";
     }
@@ -158,6 +167,12 @@ class HudManager {
 
     // 7. Update Starlink V3 Satellite Deployment Sequence
     this.updateSatellites(time_s);
+
+    // 8. Update Raptor Engine Matrix & Subsystem Data
+    this.updateRaptorMatrix(time_s, profile, point);
+
+    // 9. Update Event Milestone Cards Gallery (Target UI Layout)
+    this.updateEventCards(time_s);
   }
 
   updatePhasesStepper(currentTime_s, profile) {
@@ -212,16 +227,34 @@ class HudManager {
   updateSatellites(currentTime_s) {
     let deployedCount = 0;
     this.satellites.forEach(s => {
-      const isDeployed = currentTime_s >= s.deploy_time_s;
+      const dt = currentTime_s - s.deploy_time_s;
+      const isDeployed = dt >= 0;
+      const isEjecting = dt >= 0 && dt <= 4.0;
       if (isDeployed) deployedCount++;
 
       const satRowEl = document.getElementById(`sat-item-${s.satellite_number}`);
       if (satRowEl) {
-        satRowEl.className = isDeployed ? "sat-item deployed" : "sat-item pending";
-        const statusEl = satRowEl.querySelector(".sat-status");
-        if (statusEl) {
-          statusEl.innerText = isDeployed ? "DEPLOYED" : "ENCLOSED";
-          statusEl.style.color = isDeployed ? "var(--accent-green)" : "var(--text-muted)";
+        if (isEjecting) {
+          satRowEl.className = "sat-item ejecting";
+          const statusEl = satRowEl.querySelector(".sat-status");
+          if (statusEl) {
+            statusEl.innerText = "EJECTING";
+            statusEl.style.color = "var(--accent-cyan)";
+          }
+        } else if (isDeployed) {
+          satRowEl.className = "sat-item deployed";
+          const statusEl = satRowEl.querySelector(".sat-status");
+          if (statusEl) {
+            statusEl.innerText = "DEPLOYED";
+            statusEl.style.color = "var(--accent-green)";
+          }
+        } else {
+          satRowEl.className = "sat-item pending";
+          const statusEl = satRowEl.querySelector(".sat-status");
+          if (statusEl) {
+            statusEl.innerText = "ENCLOSED";
+            statusEl.style.color = "var(--text-muted)";
+          }
         }
       }
     });
@@ -274,6 +307,207 @@ class HudManager {
 
         modal.classList.add("active");
       });
+    });
+  }
+
+  initRaptorSvg() {
+    const svg = document.getElementById("raptor-matrix-svg");
+    if (!svg || svg.children.length > 0) return;
+
+    // SVG coordinate space 110x110, center at (55, 55)
+    const cx0 = 55, cy0 = 55;
+
+    // 1. Center Ring (3 engines): radius 10px
+    for (let i = 0; i < 3; i++) {
+      const angle = (i * 120 - 90) * (Math.PI / 180);
+      const cx = cx0 + 10 * Math.cos(angle);
+      const cy = cy0 + 10 * Math.sin(angle);
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("id", `rap-dot-${i}`);
+      circle.setAttribute("cx", cx.toFixed(1));
+      circle.setAttribute("cy", cy.toFixed(1));
+      circle.setAttribute("r", "3.2");
+      circle.setAttribute("class", "raptor-dot firing");
+      svg.appendChild(circle);
+    }
+
+    // 2. Middle Ring (10 engines): radius 24px
+    for (let i = 0; i < 10; i++) {
+      const angle = (i * 36 - 90) * (Math.PI / 180);
+      const cx = cx0 + 24 * Math.cos(angle);
+      const cy = cy0 + 24 * Math.sin(angle);
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("id", `rap-dot-${i + 3}`);
+      circle.setAttribute("cx", cx.toFixed(1));
+      circle.setAttribute("cy", cy.toFixed(1));
+      circle.setAttribute("r", "3.2");
+      circle.setAttribute("class", "raptor-dot firing");
+      svg.appendChild(circle);
+    }
+
+    // 3. Outer Ring (20 engines): radius 40px
+    for (let i = 0; i < 20; i++) {
+      const angle = (i * 18 - 90) * (Math.PI / 180);
+      const cx = cx0 + 40 * Math.cos(angle);
+      const cy = cy0 + 40 * Math.sin(angle);
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("id", `rap-dot-${i + 13}`);
+      circle.setAttribute("cx", cx.toFixed(1));
+      circle.setAttribute("cy", cy.toFixed(1));
+      circle.setAttribute("r", "3.0");
+      circle.setAttribute("class", "raptor-dot firing");
+      svg.appendChild(circle);
+    }
+  }
+
+  updateRaptorMatrix(currentTime_s, profile, point) {
+    const isSynthetic = profile && profile.is_synthetic;
+    const rapLabel = document.getElementById("raptor-sub-label");
+    const rapCfg = document.getElementById("rap-cfg");
+    const rapCount = document.getElementById("rap-count");
+    const rapThrust = document.getElementById("rap-thrust");
+    const rapPc = document.getElementById("rap-pc");
+    const rapIsp = document.getElementById("rap-isp");
+
+    if (isSynthetic) {
+      const isFiring = (point && (point.thrust_mn || 0) > 0.1);
+      if (rapLabel) rapLabel.innerText = isFiring ? "RAPTOR 3: 3/3 LANDING BURN" : "RAPTOR 3: 0/3 DESCENT";
+      if (rapCfg) rapCfg.innerText = "3 R3 (SEA LEVEL)";
+      if (rapCount) rapCount.innerText = isFiring ? "3 / 3 ACTIVE" : "0 / 3 INACTIVE";
+      if (rapThrust) rapThrust.innerText = isFiring ? `${((point.thrust_mn || 0) * 1000).toFixed(0)} kN` : "0 kN";
+      if (rapPc) rapPc.innerText = isFiring ? "350 bar" : "0 bar";
+      if (rapIsp) rapIsp.innerText = isFiring ? "350 s" : "—";
+      return;
+    }
+
+    // Flight 14 Observed & Planned
+    if (currentTime_s <= 45.0) {
+      // Nominal ascent: all 33 firing
+      for (let i = 0; i < 33; i++) {
+        const dot = document.getElementById(`rap-dot-${i}`);
+        if (dot) dot.setAttribute("class", "raptor-dot firing");
+      }
+      if (rapLabel) rapLabel.innerText = "BOOSTER: 33/33 NOMINAL";
+      if (rapCfg) rapCfg.innerText = "33 R3 (BOOSTER)";
+      if (rapCount) rapCount.innerText = "33 / 33 ACTIVE";
+      if (rapThrust) rapThrust.innerText = "72.4 MN";
+      if (rapPc) rapPc.innerText = "350 bar";
+      if (rapIsp) rapIsp.innerText = "350 s";
+    } else if (currentTime_s <= 162.0) {
+      // 1 engine early cutoff on Super Heavy (engine #13)
+      for (let i = 0; i < 33; i++) {
+        const dot = document.getElementById(`rap-dot-${i}`);
+        if (dot) {
+          dot.setAttribute("class", i === 13 ? "raptor-dot cutoff" : "raptor-dot firing");
+        }
+      }
+      if (rapLabel) rapLabel.innerText = "BOOSTER: 32/33 (1 ENG CUTOFF)";
+      if (rapCfg) rapCfg.innerText = "33 R3 (BOOSTER)";
+      if (rapCount) rapCount.innerText = "32 / 33 ACTIVE";
+      if (rapThrust) rapThrust.innerText = "70.2 MN";
+      if (rapPc) rapPc.innerText = "350 bar";
+      if (rapIsp) rapIsp.innerText = "350 s";
+    } else if (currentTime_s <= 168.0) {
+      // Hot staging
+      for (let i = 0; i < 33; i++) {
+        const dot = document.getElementById(`rap-dot-${i}`);
+        if (dot) dot.setAttribute("class", "raptor-dot inactive");
+      }
+      if (rapLabel) rapLabel.innerText = "HOT-STAGING IN PROGRESS";
+      if (rapCfg) rapCfg.innerText = "HOT-STAGE RING";
+      if (rapCount) rapCount.innerText = "RING IGNITION";
+      if (rapThrust) rapThrust.innerText = "—";
+      if (rapPc) rapPc.innerText = "—";
+      if (rapIsp) rapIsp.innerText = "—";
+    } else if (currentTime_s <= 522.35) {
+      // Starship 2nd stage: 3 Center SL + 3 RVac. 1 RVac shutdown early (dot #5)
+      for (let i = 0; i < 33; i++) {
+        const dot = document.getElementById(`rap-dot-${i}`);
+        if (!dot) continue;
+        if (i < 5) {
+          dot.setAttribute("class", "raptor-dot firing");
+        } else if (i === 5) {
+          dot.setAttribute("class", "raptor-dot cutoff");
+        } else {
+          dot.setAttribute("class", "raptor-dot inactive");
+        }
+      }
+      if (rapLabel) rapLabel.innerText = "STARSHIP: 5/6 (1 RVAC CUTOFF)";
+      if (rapCfg) rapCfg.innerText = "3 SL + 3 RVAC";
+      if (rapCount) rapCount.innerText = "5 / 6 ACTIVE";
+      if (rapThrust) rapThrust.innerText = "12.5 MN";
+      if (rapPc) rapPc.innerText = "350 bar";
+      if (rapIsp) rapIsp.innerText = "380 s";
+    } else if (currentTime_s > 522.35 && currentTime_s <= 600.0) {
+      // 1 Center SL engine orbit insertion burn
+      for (let i = 0; i < 33; i++) {
+        const dot = document.getElementById(`rap-dot-${i}`);
+        if (!dot) continue;
+        dot.setAttribute("class", i === 0 ? "raptor-dot firing" : "raptor-dot inactive");
+      }
+      if (rapLabel) rapLabel.innerText = "STARSHIP: 1/6 (ORBIT INSERTION)";
+      if (rapCfg) rapCfg.innerText = "1 SL RAPTOR";
+      if (rapCount) rapCount.innerText = "1 / 6 ACTIVE";
+      if (rapThrust) rapThrust.innerText = "2.2 MN";
+      if (rapPc) rapPc.innerText = "350 bar";
+      if (rapIsp) rapIsp.innerText = "350 s";
+    } else if (currentTime_s >= 9900.0 && currentTime_s <= 9960.0) {
+      // 1 Center SL engine deorbit burn
+      for (let i = 0; i < 33; i++) {
+        const dot = document.getElementById(`rap-dot-${i}`);
+        if (!dot) continue;
+        dot.setAttribute("class", i === 0 ? "raptor-dot firing" : "raptor-dot inactive");
+      }
+      if (rapLabel) rapLabel.innerText = "STARSHIP: 1/6 (DEORBIT BURN)";
+      if (rapCfg) rapCfg.innerText = "1 SL RAPTOR";
+      if (rapCount) rapCount.innerText = "1 / 6 ACTIVE";
+      if (rapThrust) rapThrust.innerText = "2.2 MN";
+      if (rapPc) rapPc.innerText = "350 bar";
+      if (rapIsp) rapIsp.innerText = "350 s";
+    } else {
+      // Coast / Entry / Inactive
+      for (let i = 0; i < 33; i++) {
+        const dot = document.getElementById(`rap-dot-${i}`);
+        if (dot) dot.setAttribute("class", "raptor-dot inactive");
+      }
+      if (currentTime_s >= 10800.0 && currentTime_s < 11732.0) {
+        if (rapLabel) rapLabel.innerText = "STARSHIP: 0/6 (AERO ENTRY - FLAPS)";
+      } else if (currentTime_s >= 11732.0) {
+        if (rapLabel) rapLabel.innerText = "STARSHIP: SPLASHDOWN (PACIFIC)";
+      } else {
+        if (rapLabel) rapLabel.innerText = "STARSHIP: 0/6 (COAST / DRIFT)";
+      }
+      if (rapCfg) rapCfg.innerText = "3 SL + 3 RVAC";
+      if (rapCount) rapCount.innerText = "0 / 6 ACTIVE";
+      if (rapThrust) rapThrust.innerText = "0 kN";
+      if (rapPc) rapPc.innerText = "0 bar";
+      if (rapIsp) rapIsp.innerText = "—";
+    }
+  }
+
+  updateEventCards(currentTime_s) {
+    const cardThresholds = [
+      { seek: 0, next: 162 },
+      { seek: 162, next: 522 },
+      { seek: 522, next: 1320 },
+      { seek: 1320, next: 9900 },
+      { seek: 9900, next: 10800 },
+      { seek: 10800, next: 11732 },
+      { seek: 11732, next: 99999 }
+    ];
+
+    document.querySelectorAll(".event-card").forEach(card => {
+      const seek = parseFloat(card.dataset.seek || "0");
+      const matched = cardThresholds.find(t => t.seek === seek);
+      if (!matched) return;
+
+      if (currentTime_s >= matched.next) {
+        card.className = "event-card completed";
+      } else if (currentTime_s >= matched.seek && currentTime_s < matched.next) {
+        card.className = "event-card active";
+      } else {
+        card.className = "event-card";
+      }
     });
   }
 }

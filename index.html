@@ -8,6 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    window.__errors = [];
+    window.addEventListener("error", (e) => {
+      console.error("Captured Window Error:", e.message, e.filename, e.lineno);
+      window.__errors.push(e.message + " at " + e.filename + ":" + e.lineno);
+    });
+  </script>
 </head>
 <body>
 
@@ -54,7 +61,7 @@
 
       <div class="mission-elapsed-block">
         <div class="met-label">MISSION ELAPSED</div>
-        <div class="met-val" id="hud-elapsed-time">00:12:34</div>
+        <div class="met-val" id="hud-elapsed-time">00:00:00</div>
       </div>
 
       <!-- Profile Selector Dropdown / Button -->
@@ -63,15 +70,15 @@
           <span id="profile-badge-text">OBSERVED RECONSTRUCTION</span> ▾
         </button>
         <div class="profile-dropdown-menu" id="profile-dropdown">
-          <div class="profile-dropdown-item active" data-profile="observed_reconstruction">
+          <div class="profile-dropdown-item active" data-profile="flight14_observed_reconstruction">
             <strong>OBSERVED RECONSTRUCTION</strong>
-            <small>Factual public evidence reconstruction</small>
+            <small>Factual public evidence reconstruction (Sept 28, 2026)</small>
           </div>
-          <div class="profile-dropdown-item" data-profile="planned_flight14">
+          <div class="profile-dropdown-item" data-profile="flight14_planned">
             <strong>PLANNED FLIGHT 14</strong>
-            <small>Official 6-orbit, 10-hour flight plan</small>
+            <small>Official 6-orbit, 10-hour flight plan (275 km)</small>
           </div>
-          <div class="profile-dropdown-item synthetic" data-profile="synthetic_landing_lab">
+          <div class="profile-dropdown-item synthetic" data-profile="synthetic_engineering_test">
             <strong>SYNTHETIC LANDING LAB</strong>
             <small>Phase 7 terminal flip & catch simulation</small>
           </div>
@@ -100,14 +107,14 @@
           <div class="panel-body">
             <div class="ov-item"><span class="ov-lbl">Mission Name</span><span class="ov-val">Starship Flight 14</span></div>
             <div class="ov-item"><span class="ov-lbl">Launch Site</span><span class="ov-val">Starbase, Boca Chica</span></div>
-            <div class="ov-item"><span class="ov-lbl">Vehicle</span><span class="ov-val">Starship (S24) + Super Heavy (B9)</span></div>
+            <div class="ov-item"><span class="ov-lbl">Vehicle</span><span class="ov-val">Starship (S31) + Super Heavy (B14)</span></div>
             <div class="ov-item"><span class="ov-lbl">Profile</span><span class="ov-val" id="ov-profile-name">Observed Reconstruction</span></div>
             <div class="ov-item"><span class="ov-lbl">Status</span><span class="ov-val highlight-green">● In Progress</span></div>
             <div class="ov-item"><span class="ov-lbl">Current Phase</span><span class="ov-val" id="overview-phase">Powered Ascent</span></div>
-            <div class="ov-item"><span class="ov-lbl">Mission Elapsed</span><span class="ov-val" id="overview-elapsed-time">00:12:34</span></div>
-            <div class="ov-item"><span class="ov-lbl">Total Mission Time</span><span class="ov-val">01:23:45 (est)</span></div>
-            <div class="ov-item"><span class="ov-lbl">Orbit</span><span class="ov-val">Suborbital (Planned)</span></div>
-            <div class="ov-item"><span class="ov-lbl">Launch Window</span><span class="ov-val">2026-09-28 12:00:00 UTC</span></div>
+            <div class="ov-item"><span class="ov-lbl">Mission Elapsed</span><span class="ov-val" id="overview-elapsed-time">00:00:00</span></div>
+            <div class="ov-item"><span class="ov-lbl">Total Mission Time</span><span class="ov-val">03:15:32 (reconstruction)</span></div>
+            <div class="ov-item"><span class="ov-lbl">Orbit</span><span class="ov-val">Low Earth Orbit (~275 km)</span></div>
+            <div class="ov-item"><span class="ov-lbl">Launch Window</span><span class="ov-val">2026-09-28 12:48:00 UTC</span></div>
             <div class="ov-item"><span class="ov-lbl">Weather</span><span class="ov-val">Clear / 28°C / 12 kt</span></div>
           </div>
         </div>
@@ -192,9 +199,9 @@
             <div class="vp-view-toggles">
               <button class="vp-btn active" data-view="earth">EARTH</button>
               <button class="vp-btn" data-view="vehicle">VEHICLE</button>
-              <button class="vp-btn" data-view="trajectory">TRAJECTORY</button>
+              <button class="vp-btn" data-view="deploy">DEPLOY (26 SATS)</button>
+              <button class="vp-btn" data-view="profile">PROFILE ARC</button>
               <button class="vp-btn" data-view="orbit">ORBIT</button>
-              <button class="vp-btn" data-view="custom">CUSTOM</button>
             </div>
 
             <!-- Camera Mode Selector Dropdown -->
@@ -203,8 +210,10 @@
               <div class="cam-radio-group">
                 <label><input type="radio" name="camMode" value="FREE_ORBIT"> FREE</label>
                 <label><input type="radio" name="camMode" value="ORBIT_FOLLOW" checked> FOLLOW</label>
-                <label><input type="radio" name="camMode" value="EARTH_GLOBAL"> ORBIT</label>
-                <label><input type="radio" name="camMode" value="ENTRY_BELLY"> TOP DOWN</label>
+                <label><input type="radio" name="camMode" value="CARGO_DEPLOY_CAM"> DEPLOY CAM</label>
+                <label><input type="radio" name="camMode" value="PROFILE_VIEW"> PROFILE</label>
+                <label><input type="radio" name="camMode" value="EARTH_GLOBAL"> GLOBAL</label>
+                <label><input type="radio" name="camMode" value="ENTRY_BELLY"> BELLY</label>
               </div>
             </div>
           </div>
@@ -248,7 +257,7 @@
             </div>
 
             <div class="playback-scrubber-container">
-              <div id="scrubber-clock-readout" class="scrubber-clock">00:12:34 / 01:23:45</div>
+              <div id="scrubber-clock-readout" class="scrubber-clock">00:00:00 / 03:15:32</div>
               <div class="scrubber-bar-track">
                 <input type="range" id="timeline-scrubber" class="timeline-scrubber" min="0" max="100" step="0.1" value="0">
               </div>
@@ -268,6 +277,45 @@
               <button class="mode-pill active">REAL TIME</button>
               <button class="mode-pill">PLAYBACK</button>
               <button class="mode-pill">COMPARE</button>
+            </div>
+          </div>
+
+          <!-- Event Milestone Cards Gallery (Target UI Layout) -->
+          <div class="event-cards-gallery">
+            <div class="event-card active" data-seek="0">
+              <div class="ec-header">1. LAUNCH & ASCENT</div>
+              <div class="ec-thumb ec-launch"></div>
+              <div class="ec-footer"><span>T+00:00 - 02:45</span><span>Max Alt: 69.4 km</span></div>
+            </div>
+            <div class="event-card" data-seek="162">
+              <div class="ec-header">2. HOT-STAGING SEPARATION</div>
+              <div class="ec-thumb ec-staging"></div>
+              <div class="ec-footer"><span>T+02:45</span><span>Alt: 149.0 km</span></div>
+            </div>
+            <div class="event-card" data-seek="522">
+              <div class="ec-header">3. ORBITAL INSERTION</div>
+              <div class="ec-thumb ec-orbit"></div>
+              <div class="ec-footer"><span>T+08:42 - 45:00</span><span>Alt: 200 - 275 km</span></div>
+            </div>
+            <div class="event-card" data-seek="1320">
+              <div class="ec-header">4. SATELLITE DEPLOYMENT</div>
+              <div class="ec-thumb ec-deploy"></div>
+              <div class="ec-footer"><span>T+22:00 - 28:00</span><span>26 × Starlink V3</span></div>
+            </div>
+            <div class="event-card" data-seek="9900">
+              <div class="ec-header">5. DEORBIT BURN</div>
+              <div class="ec-thumb ec-deorbit"></div>
+              <div class="ec-footer"><span>T+45:00</span><span>Δv: 120 m/s</span></div>
+            </div>
+            <div class="event-card" data-seek="10800">
+              <div class="ec-header">6. REENTRY</div>
+              <div class="ec-thumb ec-reentry"></div>
+              <div class="ec-footer"><span>T+52:00</span><span>Max Temp: 1,200 °C</span></div>
+            </div>
+            <div class="event-card" data-seek="11732">
+              <div class="ec-header">7. SPLASHDOWN</div>
+              <div class="ec-thumb ec-splash"></div>
+              <div class="ec-footer"><span>T+01:18:00</span><span>Pacific Ocean</span></div>
             </div>
           </div>
 
@@ -428,8 +476,12 @@
               <div class="ship-flap aft-left"></div>
               <div class="ship-flap aft-right"></div>
             </div>
+            <div class="raptor-matrix-box" id="raptor-matrix-box" style="display: none;">
+              <svg id="raptor-matrix-svg" viewBox="0 0 110 110" width="105" height="105"></svg>
+              <div class="raptor-sub-label" id="raptor-sub-label">RAPTOR 3: 33/33 NOMINAL</div>
+            </div>
           </div>
-          <div class="vm-flaps-data">
+          <div class="vm-flaps-data" id="vm-flaps-data">
             <div class="flap-box-title">FLAP POSITIONS</div>
             <div class="flap-data-row"><span>Forward Flap</span><span id="flap-val-fwd" class="flap-deg">12.5°</span></div>
             <div class="flap-data-row"><span>Aft Flap</span><span id="flap-val-aft" class="flap-deg">11.8°</span></div>
@@ -438,6 +490,14 @@
             <div class="attitude-gimbal-ball">
               <div class="gimbal-crosshair"></div>
             </div>
+          </div>
+          <div class="vm-engines-data" id="vm-engines-data" style="display: none;">
+            <div class="flap-box-title">RAPTOR TELEMETRY</div>
+            <div class="flap-data-row"><span>Configuration</span><span id="rap-cfg" class="flap-deg">33 R3</span></div>
+            <div class="flap-data-row"><span>Active Count</span><span id="rap-count" class="flap-deg">33 / 33</span></div>
+            <div class="flap-data-row"><span>Total Thrust</span><span id="rap-thrust" class="flap-deg">72.4 MN</span></div>
+            <div class="flap-data-row"><span>Chamber P</span><span id="rap-pc" class="flap-deg">350 bar</span></div>
+            <div class="flap-data-row"><span>Specific Imp.</span><span id="rap-isp" class="flap-deg">350 s</span></div>
           </div>
         </div>
       </div>
@@ -632,6 +692,17 @@
 
         <!-- Tab 5: Starlink V3 Satellite Manifest -->
         <div id="tab-satellites" class="dock-pane">
+          <div class="satellites-control-bar">
+            <div class="sat-counter-badge">
+              <span class="pulse-dot"></span>
+              <span id="sat-deploy-counter">0 / 26 DEPLOYED</span>
+            </div>
+            <div class="sat-quick-actions">
+              <button id="btn-jump-deploy" class="sat-action-btn" title="Seek directly to satellite deployment phase">▶ JUMP TO DEPLOY (T+1320s)</button>
+              <button id="btn-cam-mouth" class="sat-action-btn" title="Switch to Rocket Mouth Dispenser Camera">🎥 ROCKET MOUTH CAM</button>
+              <button id="btn-cam-train" class="sat-action-btn" title="View Satellite Constellation Train in Orbit">🛰️ CONSTELLATION TRAIN</button>
+            </div>
+          </div>
           <div class="satellites-manifest-grid" id="satellite-list-container">
             <!-- 26 Starlink items populated dynamically -->
           </div>
@@ -720,6 +791,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="assets/textures/earth_textures_embedded.js"></script>
   <script src="data/scenario_data_embedded.js"></script>
   <script src="vendor/three.min.js"></script>
   <script src="vendor/OrbitControls.js"></script>
@@ -731,42 +803,39 @@
 
   <!-- Main Orchestrator -->
   <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      let scenarioData = null;
-      let sceneManager = null;
-      let timelineController = null;
-      let hudManager = null;
-      let chartsManager = null;
-      let explorerManager = null;
-
-      // 1. Data Ingestion: Try HTTP fetch, fallback seamlessly to window.EMBEDDED_SCENARIO_DATA for file://
-      try {
-        const resp = await fetch("data/scenario_data.json");
-        if (!resp.ok) throw new Error("HTTP " + resp.status);
-        scenarioData = await resp.json();
-      } catch (err) {
-        console.warn("fetch('data/scenario_data.json') failed (likely file:// mode). Trying embedded data:", err);
-        if (window.EMBEDDED_SCENARIO_DATA) {
-          scenarioData = window.EMBEDDED_SCENARIO_DATA;
-          console.log("Successfully loaded window.EMBEDDED_SCENARIO_DATA fallback!");
-        } else {
-          console.error("Critical: Could not load scenario data.");
-          return;
+    async function initDashboard() {
+      let scenarioData = window.EMBEDDED_SCENARIO_DATA;
+      if (!scenarioData) {
+        try {
+          const resp = await fetch("data/scenario_data.json");
+          if (resp.ok) scenarioData = await resp.json();
+        } catch (err) {
+          console.warn("fetch failed, waiting for embedded data fallback:", err);
         }
+      }
+      if (!scenarioData && window.EMBEDDED_SCENARIO_DATA) {
+        scenarioData = window.EMBEDDED_SCENARIO_DATA;
+      }
+      if (!scenarioData) {
+        console.error("Critical: Could not load scenario data.");
+        return;
       }
 
       // 2. Initialize 3D Scene
-      sceneManager = new MissionSceneManager("webgl-canvas");
+      const sceneManager = new MissionSceneManager("webgl-canvas");
+      window.sceneManager = sceneManager;
 
       // 3. Initialize Charts Manager
-      chartsManager = new EngineeringChartsManager();
+      const chartsManager = new EngineeringChartsManager();
+      window.chartsManager = chartsManager;
 
       // 4. Initialize HUD Manager
-      hudManager = new HudManager(
+      const hudManager = new HudManager(
         scenarioData.channel_registry,
         scenarioData.fea_tank_section,
         scenarioData.satellite_manifest
       );
+      window.hudManager = hudManager;
 
       // 5. Initialize Explorer & Manifest
       let runManifest = {};
@@ -791,10 +860,49 @@
           item.id = `sat-item-${s.satellite_number}`;
           item.className = "sat-item pending";
           item.innerHTML = `
-            <span>#${s.satellite_number} (${s.deploy_time_s.toFixed(0)}s)</span>
-            <span class="sat-status">ENCLOSED</span>
+            <div class="sat-item-info">
+              <span class="sat-title">#${s.satellite_number} (${s.id})</span>
+              <span class="sat-time">T+${s.deploy_time_s.toFixed(0)}s | Δv ${s.delta_v_m_s} m/s</span>
+            </div>
+            <div class="sat-item-actions">
+              <span class="sat-status">ENCLOSED</span>
+              <button class="sat-track-btn" title="Track in 3D">TRACK 🛰️</button>
+            </div>
           `;
+          item.addEventListener("click", () => {
+            timelineController.seekTo(s.deploy_time_s);
+            sceneManager.trackSatellite(s.satellite_number - 1);
+          });
+          const trkBtn = item.querySelector(".sat-track-btn");
+          if (trkBtn) {
+            trkBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              timelineController.seekTo(s.deploy_time_s);
+              sceneManager.trackSatellite(s.satellite_number - 1);
+            });
+          }
           satContainer.appendChild(item);
+        });
+      }
+
+      // Satellite Quick Action Buttons
+      const btnJumpDeploy = document.getElementById("btn-jump-deploy");
+      if (btnJumpDeploy) {
+        btnJumpDeploy.addEventListener("click", () => {
+          timelineController.seekTo(1320.0);
+          sceneManager.setCameraMode("CARGO_DEPLOY_CAM");
+        });
+      }
+      const btnCamMouth = document.getElementById("btn-cam-mouth");
+      if (btnCamMouth) {
+        btnCamMouth.addEventListener("click", () => {
+          sceneManager.setCameraMode("CARGO_DEPLOY_CAM");
+        });
+      }
+      const btnCamTrain = document.getElementById("btn-cam-train");
+      if (btnCamTrain) {
+        btnCamTrain.addEventListener("click", () => {
+          sceneManager.setCameraMode("DEPLOY_WIDE_CAM");
         });
       }
 
@@ -815,8 +923,8 @@
           banner.classList.toggle("visible", !!prof.is_synthetic);
         }
 
-        // Update 3D Trajectory Ribbon
-        sceneManager.updateTrajectoryRibbon(prof.trajectory);
+        // Update 3D Trajectory Ribbon (Starship + Super Heavy return arc)
+        sceneManager.updateTrajectoryRibbon(prof.trajectory, prof.booster_trajectory);
 
         // Update Charts Trajectory
         chartsManager.setTrajectory(prof.trajectory, prof.duration_s);
@@ -844,6 +952,7 @@
           }
         }
       });
+      window.timelineController = timelineController;
 
       // 9. Camera Radio Buttons
       document.querySelectorAll("input[name='camMode']").forEach(radio => {
@@ -852,7 +961,7 @@
         });
       });
 
-      // 9b. View Mode Preset Buttons (EARTH, VEHICLE, TRAJECTORY, ORBIT, CUSTOM)
+      // 9b. View Mode Preset Buttons (EARTH, VEHICLE, DEPLOY, PROFILE ARC, ORBIT)
       document.querySelectorAll(".vp-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           document.querySelectorAll(".vp-btn").forEach(b => b.classList.remove("active"));
@@ -862,12 +971,13 @@
             sceneManager.setCameraMode("EARTH_GLOBAL");
           } else if (view === "vehicle") {
             sceneManager.setCameraMode("ORBIT_FOLLOW");
-          } else if (view === "trajectory") {
-            sceneManager.setCameraMode("EARTH_GLOBAL");
+          } else if (view === "deploy") {
+            timelineController.seekTo(1320.0);
+            sceneManager.setCameraMode("CARGO_DEPLOY_CAM");
+          } else if (view === "profile") {
+            sceneManager.setCameraMode("PROFILE_VIEW");
           } else if (view === "orbit") {
             sceneManager.setCameraMode("ORBIT_FOLLOW");
-          } else if (view === "custom") {
-            sceneManager.setCameraMode("FREE_ORBIT");
           }
         });
       });
@@ -938,9 +1048,146 @@
         });
       });
 
+      // 13b. Event Milestone Cards Gallery Click-to-Seek & Auto-Camera Preset
+      const eventCardCameras = {
+        0: "MISSION_VIEW",
+        162: "STAGE_SEP",
+        522: "ORBIT_FOLLOW",
+        1320: "CARGO_DEPLOY_CAM",
+        9900: "VEHICLE_CHASE",
+        10800: "ENTRY_BELLY",
+        11732: "PROFILE_VIEW"
+      };
+      document.querySelectorAll(".event-card").forEach(card => {
+        card.addEventListener("click", () => {
+          document.querySelectorAll(".event-card").forEach(c => c.classList.remove("active"));
+          card.classList.add("active");
+          const seekTime = parseFloat(card.dataset.seek || "0");
+          timelineController.seekTo(seekTime);
+          const cam = eventCardCameras[seekTime] || "MISSION_VIEW";
+          sceneManager.setCameraMode(cam);
+        });
+      });
+
+      // 14. Vehicle 3D Model Sub-Tabs Interaction
+      document.querySelectorAll(".v-sub-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".v-sub-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const sub = btn.innerText.trim();
+          if (sceneManager && sceneManager.highlightVehicleSubsystem) {
+            sceneManager.highlightVehicleSubsystem(sub);
+          }
+          const diagEl = document.querySelector(".starship-diagram-placeholder");
+          const rapBox = document.getElementById("raptor-matrix-box");
+          const flapsData = document.getElementById("vm-flaps-data");
+          const engsData = document.getElementById("vm-engines-data");
+          if (sub === "ENGINES" || sub === "SUPER HEAVY") {
+            if (diagEl) diagEl.style.display = "none";
+            if (rapBox) rapBox.style.display = "flex";
+            if (flapsData) flapsData.style.display = "none";
+            if (engsData) engsData.style.display = "flex";
+          } else {
+            if (diagEl) diagEl.style.display = "block";
+            if (rapBox) rapBox.style.display = "none";
+            if (flapsData) flapsData.style.display = "flex";
+            if (engsData) engsData.style.display = "none";
+          }
+        });
+      });
+
+      // 15. Live Telemetry Sub-Tabs Filtering
+      document.querySelectorAll(".sub-tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".sub-tab-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+
+      // 16. Top Navigation Tabs Interaction
+      document.querySelectorAll(".nav-tab-btn").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".nav-tab-btn").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          const nav = tab.dataset.nav;
+          if (nav === "3d") {
+            sceneManager.setCameraMode("ORBIT_FOLLOW");
+          } else if (nav === "telemetry") {
+            const chartTab = document.querySelector(".dock-tab[data-tab='tab-charts']");
+            if (chartTab) chartTab.click();
+          } else if (nav === "trajectory") {
+            sceneManager.setCameraMode("PROFILE_VIEW");
+          } else if (nav === "events") {
+            const el = document.querySelector(".mc-panel.panel-events");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          } else if (nav === "analysis") {
+            const vTab = document.querySelector(".dock-tab[data-tab='tab-verification']");
+            if (vTab) vTab.click();
+          } else if (nav === "reports") {
+            const mTab = document.querySelector(".dock-tab[data-tab='tab-manifest']");
+            if (mTab) mTab.click();
+          } else if (nav === "settings") {
+            const envTab = document.querySelector(".dock-tab[data-tab='tab-env']");
+            if (envTab) envTab.click();
+          }
+        });
+      });
+
+      // 17. Footer Subsystem Buttons Interaction
+      document.querySelectorAll(".f-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".f-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const subsys = btn.innerText.trim();
+          if (subsys === "PAYLOAD") {
+            const satTab = document.querySelector(".dock-tab[data-tab='tab-satellites']");
+            if (satTab) satTab.click();
+            sceneManager.setCameraMode("CARGO_DEPLOY_CAM");
+          } else if (subsys === "THERMAL") {
+            if (sceneManager.highlightVehicleSubsystem) sceneManager.highlightVehicleSubsystem("THERMAL");
+          } else if (subsys === "PROPULSION") {
+            if (sceneManager.highlightVehicleSubsystem) sceneManager.highlightVehicleSubsystem("ENGINES");
+          } else if (subsys === "STRUCTURAL") {
+            if (sceneManager.highlightVehicleSubsystem) sceneManager.highlightVehicleSubsystem("STRUCTURAL");
+          }
+        });
+      });
+
+      // Expose to window for testing and external controls
+      window.sceneManager = sceneManager;
+      window.timelineController = timelineController;
+      window.hudManager = hudManager;
+      window.chartsManager = chartsManager;
+
       // Default Active Profile: Observed Reconstruction
-      switchProfile("observed_reconstruction");
-    });
+      switchProfile(scenarioData.profiles["flight14_observed_reconstruction"] ? "flight14_observed_reconstruction" : "observed_reconstruction");
+
+      // Check URL query parameters for direct state inspection (e.g. ?t=1322&cam=CARGO_DEPLOY_CAM)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("profile")) {
+        switchProfile(urlParams.get("profile"));
+      }
+      if (urlParams.has("t")) {
+        const targetT = parseFloat(urlParams.get("t"));
+        timelineController.seekTo(targetT);
+        if (!urlParams.has("play")) {
+          timelineController.isPlaying = false;
+          if (timelineController.playBtn) {
+            timelineController.playBtn.innerText = "PLAY";
+            timelineController.playBtn.classList.remove("active");
+          }
+        }
+      }
+      if (urlParams.has("cam")) {
+        sceneManager.setCameraMode(urlParams.get("cam"));
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initDashboard);
+    } else {
+      initDashboard();
+    }
   </script>
 
 </body>
