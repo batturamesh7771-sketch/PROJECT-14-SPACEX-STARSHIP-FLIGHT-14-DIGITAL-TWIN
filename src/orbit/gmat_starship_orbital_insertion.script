@@ -1,5 +1,5 @@
 % NASA General Mission Analysis Tool (GMAT) Script
-% Starship Flight 14 — Stage 2 Orbital Insertion & Propagation Cross-Check
+% Starship Flight 14 - Stage 2 Orbital Insertion & Propagation Cross-Check
 % Mission Epoch: 28 Sep 2026 (Launch 14:00:00 UTC)
 % State at SECO (T+522.35s)
 
@@ -13,13 +13,13 @@ GMAT StarshipStage2.Epoch = '28 Sep 2026 14:08:42.350';
 GMAT StarshipStage2.CoordinateSystem = EarthMJ2000Eq;
 GMAT StarshipStage2.DisplayStateType = Cartesian;
 
-% State vector from verified Phase 4 SECO solution:
-GMAT StarshipStage2.X = -1885.241;
-GMAT StarshipStage2.Y = -5948.115;
-GMAT StarshipStage2.Z = 2954.820;
-GMAT StarshipStage2.VX = 2.1042;
-GMAT StarshipStage2.VY = 6.4951;
-GMAT StarshipStage2.VZ = 3.6120;
+% State vector from verified Phase 4 SECO solution (T+522.35s):
+GMAT StarshipStage2.X = 967.6605;
+GMAT StarshipStage2.Y = -5900.2316;
+GMAT StarshipStage2.Z = 2617.0851;
+GMAT StarshipStage2.VX = 7.6986;
+GMAT StarshipStage2.VY = 0.6787;
+GMAT StarshipStage2.VZ = -1.3115;
 
 GMAT StarshipStage2.DryMass = 138975.0; % Hardware + 26 Satellites (kg)
 GMAT StarshipStage2.Cd = 2.2;
@@ -54,7 +54,7 @@ GMAT DefaultProp.MaxStep = 60;
 
 Create ReportFile OrbitalReport;
 GMAT OrbitalReport.Filename = 'Starship_Flight14_GMAT_Orbit_Report.txt';
-GMAT OrbitalReport.Add = {StarshipStage2.UTCGregorian, StarshipStage2.Earth.SMA, StarshipStage2.Earth.ECC, StarshipStage2.Earth.INC, StarshipStage2.Earth.RadPer, StarshipStage2.Earth.RadApo};
+GMAT OrbitalReport.Add = {StarshipStage2.UTCGregorian, StarshipStage2.Earth.SMA, StarshipStage2.Earth.ECC, StarshipStage2.Earth.Altitude, StarshipStage2.Earth.RadPer, StarshipStage2.Earth.RadApo};
 
 %----------------------------------------
 %---------- Mission Sequence
