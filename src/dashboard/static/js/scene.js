@@ -52,6 +52,14 @@ class MissionSceneManager {
     this.trajectoryLine = null;
     this.beaconsGroup = null;
 
+    // Starlink V3 26-Satellite Rocket Mouth Dispenser System
+    this.dispenserGroup = null;
+    this.mouthDoorPivot = null;
+    this.mouthDoor = null;
+    this.satellitesGroup = null;
+    this.starlinkSatellites = [];
+    this.selectedSatelliteIndex = 0;
+
     // Camera & Framing
     this.currentCameraMode = "ORBIT_FOLLOW";
     this.sunDirection = new THREE.Vector3(50, 30, 40).normalize();
@@ -115,6 +123,7 @@ class MissionSceneManager {
     this.createStarfield();
     this.createEarth();
     this.createVehicle();
+    this.createDispenserMouthAndSatellites();
     this.createBeacons();
 
     // 7. Event Listeners
@@ -123,6 +132,15 @@ class MissionSceneManager {
     // 8. Master Animation Loop
     this.animate = this.animate.bind(this);
     requestAnimationFrame(this.animate);
+  }
+
+  onWindowResize() {
+    if (!this.canvas || !this.renderer || !this.camera) return;
+    this.width = this.canvas.clientWidth || window.innerWidth;
+    this.height = this.canvas.clientHeight || window.innerHeight;
+    this.camera.aspect = this.width / this.height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(this.width, this.height, false);
   }
 
   // =========================================================================
@@ -312,21 +330,32 @@ class MissionSceneManager {
     const earthRadius = 6.378137;
     const earthGeo = new THREE.SphereGeometry(earthRadius, 64, 64);
 
-    let earthTex = this.createProceduralEarthTexture();
+    let earthTex = null;
     const loader = new THREE.TextureLoader();
 
-    // Load High-Resolution Earth Maps
-    loader.load(
-      "assets/textures/globeprev-clouds-on-DOpaHC5m-r2.jpg",
-      (tex) => {
-        if (this.earthMesh) {
-          this.earthMesh.material.map = tex;
-          this.earthMesh.material.needsUpdate = true;
-        }
-      },
-      undefined,
-      () => { /* silent procedural fallback */ }
-    );
+    // Check embedded photographic NASA Earth texture (guaranteed CORS-free offline)
+    if (typeof window !== "undefined" && window.EMBEDDED_TEXTURES && window.EMBEDDED_TEXTURES.earthDay) {
+      try {
+        earthTex = loader.load(window.EMBEDDED_TEXTURES.earthDay);
+        earthTex.wrapS = THREE.RepeatWrapping;
+        earthTex.wrapT = THREE.ClampToEdgeWrapping;
+      } catch (e) {
+        earthTex = this.createProceduralEarthTexture();
+      }
+    } else {
+      earthTex = this.createProceduralEarthTexture();
+      loader.load(
+        "assets/textures/globeprev-clouds-on-DOpaHC5m-r2.jpg",
+        (tex) => {
+          if (this.earthMesh) {
+            this.earthMesh.material.map = tex;
+            this.earthMesh.material.needsUpdate = true;
+          }
+        },
+        undefined,
+        () => { /* procedural fallback */ }
+      );
+    }
 
     const earthMat = new THREE.MeshStandardMaterial({
       map: earthTex,
@@ -610,7 +639,274 @@ class MissionSceneManager {
     this.boosterGroup.position.y = -0.03 * vScale * 10;
     this.vehicleMasterGroup.add(this.boosterGroup);
 
+    // B5. Independent Super Heavy Booster for Gulf Return Branch
+    this.independentBoosterGroup = new THREE.Group();
+    const bIndBarrel = new THREE.Mesh(bBarrelGeo, steelMat);
+    bIndBarrel.position.y = -boosterLength / 2;
+    this.independentBoosterGroup.add(bIndBarrel);
+    const bIndInterstage = new THREE.Mesh(interstageGeo, darkMetalMat);
+    bIndInterstage.position.y = 0.025 * vScale * 10;
+    this.independentBoosterGroup.add(bIndInterstage);
+    for (let i = 0; i < 4; i++) {
+      const angle = (i * Math.PI) / 2;
+      const fin = new THREE.Mesh(gridFinGeo, darkMetalMat);
+      fin.position.set(Math.cos(angle) * (sRadius + 0.02 * vScale * 10), -0.04 * vScale * 10, Math.sin(angle) * (sRadius + 0.02 * vScale * 10));
+      fin.rotation.y = angle;
+      this.independentBoosterGroup.add(fin);
+    }
+    const indPlumeMat = new THREE.MeshBasicMaterial({
+      color: 0xffaa00,
+      transparent: true,
+      opacity: 0.0,
+      blending: THREE.AdditiveBlending,
+    });
+    this.independentBoosterPlume = new THREE.Mesh(bPlumeGeo, indPlumeMat);
+    this.independentBoosterPlume.position.y = -boosterLength - 0.32 * vScale * 10;
+    this.independentBoosterPlume.rotation.x = Math.PI;
+    this.independentBoosterGroup.add(this.independentBoosterPlume);
+    this.independentBoosterGroup.visible = false;
+    this.scene.add(this.independentBoosterGroup);
+
     this.scene.add(this.vehicleMasterGroup);
+  }
+
+  // =========================================================================
+  // Starlink V3 26-Satellite Rocket Mouth Dispenser Simulation
+  // Targets Visual References: media_1792951657295_146a92c9.png,
+  // media_1792951553611_3819560f.png, media_1792951549197_1830f39c.png
+  // =========================================================================
+  createDispenserMouthAndSatellites() {
+    const vScale = 0.20;
+    const sRadius = 0.045 * vScale * 10; // 0.09
+    const barrelLength = 0.32 * vScale * 10; // 0.64
+    const mouthY = barrelLength * 0.88; // 0.563 units up the barrel (just below nosecone)
+
+    // 1. Dispenser Mouth Group (mounted on Starship Upper Stage)
+    this.dispenserGroup = new THREE.Group();
+    this.dispenserGroup.position.set(0, mouthY, 0);
+
+    // Mouth Cavity Recess (Interior dark payload bay compartment)
+    const cavityMat = new THREE.MeshStandardMaterial({
+      color: 0x05070a,
+      roughness: 0.92,
+      metalness: 0.2,
+    });
+    const cavityGeo = new THREE.BoxGeometry(0.048, 0.015, 0.026);
+    const cavityMesh = new THREE.Mesh(cavityGeo, cavityMat);
+    cavityMesh.position.set(0, 0, sRadius - 0.012);
+    this.dispenserGroup.add(cavityMesh);
+
+    // Metallic Sill and Side Guide Rollers (ribbed coils on left and right)
+    const rollerMat = new THREE.MeshStandardMaterial({
+      color: 0x5a6370,
+      metalness: 0.92,
+      roughness: 0.22,
+    });
+    for (let side of [-0.022, 0.022]) {
+      const rollerGeo = new THREE.CylinderGeometry(0.0028, 0.0028, 0.013, 16);
+      const roller = new THREE.Mesh(rollerGeo, rollerMat);
+      roller.position.set(side, 0, sRadius - 0.002);
+      this.dispenserGroup.add(roller);
+    }
+
+    // Articulated Rocket Mouth Door (hinged at the top edge like an open mouth/visor)
+    const doorMat = new THREE.MeshStandardMaterial({
+      color: 0xdde6ed,
+      metalness: 0.94,
+      roughness: 0.20,
+    });
+    const doorGeo = new THREE.BoxGeometry(0.048, 0.014, 0.002);
+    this.mouthDoor = new THREE.Mesh(doorGeo, doorMat);
+
+    // Pivot positioned along the upper lip/hinge of the mouth
+    this.mouthDoorPivot = new THREE.Group();
+    this.mouthDoorPivot.position.set(0, 0.007, sRadius);
+    this.mouthDoor.position.set(0, -0.007, 0);
+    this.mouthDoorPivot.add(this.mouthDoor);
+    this.dispenserGroup.add(this.mouthDoorPivot);
+
+    this.starshipUpperGroup.add(this.dispenserGroup);
+
+    // 2. The 26 Starlink V3 Satellites
+    this.satellitesGroup = new THREE.Group();
+    this.scene.add(this.satellitesGroup);
+
+    this.starlinkSatellites = [];
+    const numSats = 26;
+
+    // Materials
+    const busMat = new THREE.MeshStandardMaterial({
+      color: 0x1f242d,
+      metalness: 0.88,
+      roughness: 0.28,
+    });
+    const solarMat = new THREE.MeshStandardMaterial({
+      color: 0x082a66,
+      metalness: 0.90,
+      roughness: 0.12,
+      emissive: new THREE.Color(0x021028),
+      emissiveIntensity: 0.35,
+    });
+    const antennaMat = new THREE.MeshStandardMaterial({
+      color: 0xd8e0e8,
+      metalness: 0.82,
+      roughness: 0.28,
+    });
+    const beaconMat = new THREE.MeshBasicMaterial({
+      color: 0x00ffcc,
+    });
+
+    for (let i = 0; i < numSats; i++) {
+      const sat = new THREE.Group();
+
+      // Satellite Bus (Flat-pack chassis)
+      const busGeo = new THREE.BoxGeometry(0.034, 0.0035, 0.048);
+      const busMesh = new THREE.Mesh(busGeo, busMat);
+      sat.add(busMesh);
+
+      // Phased Array Antenna (bottom surface)
+      const antGeo = new THREE.BoxGeometry(0.030, 0.0006, 0.042);
+      const antMesh = new THREE.Mesh(antGeo, antennaMat);
+      antMesh.position.y = -0.002;
+      sat.add(antMesh);
+
+      // 4 Guide Rollers on edges (matching user reference photos)
+      for (let rx of [-0.017, 0.017]) {
+        for (let rz of [-0.018, 0.018]) {
+          const rGeo = new THREE.CylinderGeometry(0.002, 0.002, 0.005, 12);
+          const rMesh = new THREE.Mesh(rGeo, rollerMat);
+          rMesh.rotation.z = Math.PI / 2;
+          rMesh.position.set(rx, 0, rz);
+          sat.add(rMesh);
+        }
+      }
+
+      // Deployable Solar Array Wing (hinged at rear edge)
+      const wingPivot = new THREE.Group();
+      wingPivot.position.set(0, 0.0025, -0.024);
+
+      const wingGeo = new THREE.BoxGeometry(0.014, 0.0006, 0.055);
+      const wingMesh = new THREE.Mesh(wingGeo, solarMat);
+      wingMesh.position.set(0, 0, -0.028);
+      wingPivot.add(wingMesh);
+      sat.add(wingPivot);
+
+      // Status Beacon LED
+      const beaconGeo = new THREE.SphereGeometry(0.0012, 8, 8);
+      const beaconMesh = new THREE.Mesh(beaconGeo, beaconMat);
+      beaconMesh.position.set(0.014, 0.0025, 0.022);
+      sat.add(beaconMesh);
+
+      // Initial stowed position in mouth dispenser
+      this.dispenserGroup.add(sat);
+      sat.position.set(0, (i - 13) * 0.0003, sRadius - 0.010);
+      sat.visible = false;
+
+      this.starlinkSatellites.push({
+        index: i,
+        number: i + 1,
+        id: `SAT-F14-${String(i + 1).padStart(3, "0")}`,
+        deployTime_s: 1320.0 + i * 14.0, // 1320s to 1670s (Flight 14 deployment window)
+        mesh: sat,
+        wingPivot: wingPivot,
+        beacon: beaconMesh,
+        state: "ENCLOSED",
+      });
+    }
+  }
+
+  updateSatellites(time_s) {
+    if (!this.starlinkSatellites || this.starlinkSatellites.length === 0) return;
+
+    const deployStart = 1320.0;
+    const deployEnd = 1680.0;
+
+    // 1. Articulated Rocket Mouth Door Animation
+    if (this.mouthDoorPivot) {
+      if (time_s >= (deployStart - 10.0) && time_s <= (deployEnd + 30.0)) {
+        // Mouth opens wide upward
+        const openProg = Math.min(1.0, Math.max(0.0, (time_s - (deployStart - 10.0)) / 10.0));
+        this.mouthDoorPivot.rotation.x = -openProg * 1.25; // 71 degrees open mouth!
+      } else if (time_s > (deployEnd + 30.0)) {
+        // Mouth closes flush
+        const closeProg = Math.min(1.0, (time_s - (deployEnd + 30.0)) / 10.0);
+        this.mouthDoorPivot.rotation.x = -(1.0 - closeProg) * 1.25;
+      } else {
+        this.mouthDoorPivot.rotation.x = 0; // Closed
+      }
+    }
+
+    const vPos = this.vehicleMasterGroup.position;
+    const vDir = this.lastVelocityDir.clone().normalize();
+    const rUp = vPos.clone().normalize();
+    const hNorm = new THREE.Vector3().crossVectors(rUp, vDir).normalize();
+
+    // 2. Update each of the 26 Starlinks
+    this.starlinkSatellites.forEach((s) => {
+      const dt = time_s - s.deployTime_s;
+
+      if (dt < 0) {
+        // STOWED inside mouth rack
+        if (s.mesh.parent !== this.dispenserGroup) {
+          this.dispenserGroup.add(s.mesh);
+        }
+        s.mesh.position.set(0, (s.index - 13) * 0.0003, 0.09 - 0.010);
+        s.mesh.rotation.set(0, 0, 0);
+        s.wingPivot.rotation.set(0, 0, 0); // Folded
+        s.beacon.material.color.setHex(0x334455);
+        s.state = "ENCLOSED";
+        s.mesh.visible = (time_s >= deployStart - 60.0 && s.index < 4);
+      } else if (dt <= 4.0) {
+        // EJECTING OUT OF ROCKET MOUTH (0 to 4s)
+        s.mesh.visible = true;
+        if (s.mesh.parent !== this.dispenserGroup) {
+          this.dispenserGroup.add(s.mesh);
+        }
+        const slideU = dt / 4.0;
+        // Slide out through the mouth slot along +Z
+        s.mesh.position.set(0, 0, (0.09 - 0.010) + slideU * 0.045);
+        s.mesh.rotation.x = slideU * 0.12;
+
+        // Wing starts unfolding near the exit
+        if (slideU > 0.6) {
+          const wingU = (slideU - 0.6) / 0.4;
+          s.wingPivot.rotation.y = wingU * (Math.PI / 2);
+        } else {
+          s.wingPivot.rotation.y = 0;
+        }
+
+        s.beacon.material.color.setHex(0x00e5ff); // Cyan active
+        s.state = "EJECTING";
+      } else {
+        // DEPLOYED IN FREE ORBIT!
+        s.mesh.visible = true;
+        if (s.mesh.parent !== this.satellitesGroup) {
+          this.satellitesGroup.add(s.mesh);
+        }
+
+        // Wing fully extended (90 deg)
+        s.wingPivot.rotation.y = Math.PI / 2;
+
+        // Physical separation & orbital drift
+        const freeTime = dt - 4.0;
+        const driftDist = freeTime * 0.00012;
+        const latDist = Math.sin(s.index * 0.45) * Math.min(0.08, freeTime * 0.00004);
+
+        const satPos = vPos.clone()
+          .sub(vDir.clone().multiplyScalar(driftDist + s.index * 0.008)) // Trailing constellation train!
+          .add(hNorm.clone().multiplyScalar(latDist + (s.index % 2 === 0 ? 0.004 : -0.004)))
+          .add(rUp.clone().multiplyScalar(0.003));
+
+        s.mesh.position.copy(satPos);
+        s.mesh.lookAt(satPos.clone().add(vDir));
+
+        // Pulsing telemetry beacon
+        const pulse = Math.sin(time_s * 4.0 + s.index) > 0 ? 0x00ff88 : 0x008844;
+        s.beacon.material.color.setHex(pulse);
+
+        s.state = "ONLINE";
+      }
+    });
   }
 
   // =========================================================================
@@ -621,32 +917,79 @@ class MissionSceneManager {
     this.scene.add(this.beaconsGroup);
   }
 
-  updateTrajectoryRibbon(trajectoryPoints) {
+  createMilestoneBadge(text, subtext, color = "#00e5ff") {
+    const canvas = document.createElement("canvas");
+    canvas.width = 256;
+    canvas.height = 72;
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "rgba(4, 16, 36, 0.88)";
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    if (ctx.roundRect) {
+      ctx.beginPath();
+      ctx.roundRect(4, 4, 248, 64, 10);
+      ctx.fill();
+      ctx.stroke();
+    } else {
+      ctx.fillRect(4, 4, 248, 64);
+      ctx.strokeRect(4, 4, 248, 64);
+    }
+
+    ctx.font = "bold 20px monospace";
+    ctx.fillStyle = color;
+    ctx.textAlign = "center";
+    ctx.fillText(text, 128, 30);
+
+    if (subtext) {
+      ctx.font = "15px monospace";
+      ctx.fillStyle = "#e0e6ed";
+      ctx.fillText(subtext, 128, 54);
+    }
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.minFilter = THREE.LinearFilter;
+    const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
+    const sprite = new THREE.Sprite(spriteMat);
+    sprite.scale.set(0.75, 0.22, 1.0);
+    return sprite;
+  }
+
+  updateTrajectoryRibbon(trajectoryPoints, boosterTrajectoryPoints) {
     if (this.trajectoryLine) {
       this.scene.remove(this.trajectoryLine);
       this.trajectoryLine.geometry.dispose();
       this.trajectoryLine.material.dispose();
       this.trajectoryLine = null;
     }
+    if (this.boosterTrajectoryLine) {
+      this.scene.remove(this.boosterTrajectoryLine);
+      this.boosterTrajectoryLine.geometry.dispose();
+      this.boosterTrajectoryLine.material.dispose();
+      this.boosterTrajectoryLine = null;
+    }
 
-    // Clear old beacon pins
+    // Clear old beacon pins and badge sprites
     while (this.beaconsGroup.children.length > 0) {
       const obj = this.beaconsGroup.children[0];
       this.beaconsGroup.remove(obj);
       if (obj.geometry) obj.geometry.dispose();
-      if (obj.material) obj.material.dispose();
+      if (obj.material) {
+        if (obj.material.map) obj.material.map.dispose();
+        obj.material.dispose();
+      }
     }
 
     if (!trajectoryPoints || trajectoryPoints.length < 2) return;
 
+    // 1. Starship Trajectory Ribbon
     const positions = [];
     const colors = [];
 
-    trajectoryPoints.forEach((pt, idx) => {
+    trajectoryPoints.forEach((pt) => {
       if (pt.scene_pos) {
         positions.push(pt.scene_pos[0], pt.scene_pos[1], pt.scene_pos[2]);
 
-        // Gradient ribbon coloring by flight phase
         if (pt.phase === "ASCENT") {
           colors.push(0.0, 0.9, 1.0); // Cyan
         } else if (pt.phase === "ORBIT" || pt.phase === "ORBIT_NOMINAL") {
@@ -655,15 +998,6 @@ class MissionSceneManager {
           colors.push(1.0, 0.45, 0.0); // Orange
         } else {
           colors.push(0.5, 0.2, 0.9); // Purple
-        }
-
-        // Add 3D Event Beacon Pins at major milestones
-        if (idx === 0 || idx === Math.floor(trajectoryPoints.length * 0.15) || idx === Math.floor(trajectoryPoints.length * 0.5) || idx === trajectoryPoints.length - 1) {
-          const pinGeo = new THREE.SphereGeometry(0.04, 16, 16);
-          const pinMat = new THREE.MeshBasicMaterial({ color: 0x00e5ff });
-          const pin = new THREE.Mesh(pinGeo, pinMat);
-          pin.position.set(pt.scene_pos[0], pt.scene_pos[1], pt.scene_pos[2]);
-          this.beaconsGroup.add(pin);
         }
       }
     });
@@ -681,6 +1015,65 @@ class MissionSceneManager {
 
     this.trajectoryLine = new THREE.Line(geometry, material);
     this.scene.add(this.trajectoryLine);
+
+    // 2. Super Heavy Booster Return Ribbon (Gulf of America Branch)
+    if (boosterTrajectoryPoints && boosterTrajectoryPoints.length > 1) {
+      const bPositions = [];
+      boosterTrajectoryPoints.forEach(pt => {
+        if (pt.scene_pos) {
+          bPositions.push(pt.scene_pos[0], pt.scene_pos[1], pt.scene_pos[2]);
+        }
+      });
+      const bGeo = new THREE.BufferGeometry();
+      bGeo.setAttribute("position", new THREE.Float32BufferAttribute(bPositions, 3));
+      const bMat = new THREE.LineBasicMaterial({
+        color: 0xffaa00,
+        linewidth: 2.5,
+        transparent: true,
+        opacity: 0.9,
+      });
+      this.boosterTrajectoryLine = new THREE.Line(bGeo, bMat);
+      this.scene.add(this.boosterTrajectoryLine);
+
+      // Add Booster Gulf Splashdown Pin
+      const splashPt = boosterTrajectoryPoints[boosterTrajectoryPoints.length - 1];
+      if (splashPt && splashPt.scene_pos) {
+        const pinGeo = new THREE.SphereGeometry(0.05, 16, 16);
+        const pinMat = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
+        const pin = new THREE.Mesh(pinGeo, pinMat);
+        pin.position.set(splashPt.scene_pos[0], splashPt.scene_pos[1], splashPt.scene_pos[2]);
+        this.beaconsGroup.add(pin);
+
+        const badge = this.createMilestoneBadge("WATER LANDING", "Gulf of America (T+07:05)", "#ffaa00");
+        badge.position.set(splashPt.scene_pos[0], splashPt.scene_pos[1] + 0.15, splashPt.scene_pos[2]);
+        this.beaconsGroup.add(badge);
+      }
+    }
+
+    // 3. Add 3D Milestone Callout Badges on Trajectory (Replicating SpaceX Trajectory Diagram)
+    const addBadgeAtFraction = (frac, title, sub, color) => {
+      const idx = Math.min(trajectoryPoints.length - 1, Math.floor(trajectoryPoints.length * frac));
+      const pt = trajectoryPoints[idx];
+      if (pt && pt.scene_pos) {
+        const pinGeo = new THREE.SphereGeometry(0.04, 16, 16);
+        const pinMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(color) });
+        const pin = new THREE.Mesh(pinGeo, pinMat);
+        pin.position.set(pt.scene_pos[0], pt.scene_pos[1], pt.scene_pos[2]);
+        this.beaconsGroup.add(pin);
+
+        const badge = this.createMilestoneBadge(title, sub, color);
+        badge.position.set(pt.scene_pos[0], pt.scene_pos[1] + 0.18, pt.scene_pos[2]);
+        this.beaconsGroup.add(badge);
+      }
+    };
+
+    addBadgeAtFraction(0.00, "LAUNCH", "Starbase T+00:00", "#00e5ff");
+    addBadgeAtFraction(0.12, "HOT STAGING", "Sep T+02:42", "#00e5ff");
+    addBadgeAtFraction(0.24, "ORBIT INSERTION", "275 km T+08:42", "#00e676");
+    addBadgeAtFraction(0.40, "26× STARLINK DEPLOY", "T+22:00 - 28:00", "#00e5ff");
+    addBadgeAtFraction(0.70, "DEORBIT BURN", "1 SL Raptor", "#ff9100");
+    addBadgeAtFraction(0.85, "STARSHIP ENTRY", "EI 120km (70° AoA)", "#ff5722");
+    addBadgeAtFraction(0.99, "PACIFIC SPLASHDOWN", "Northern Pacific", "#00e676");
   }
 
   // =========================================================================
@@ -702,32 +1095,135 @@ class MissionSceneManager {
     }
     this.lastVehiclePos.copy(vPos);
 
-    // 2. Vehicle Attitude (Pitch & Orbital Heading)
-    const pitchRad = THREE.MathUtils.degToRad(point.pitch_deg || 0);
-    this.vehicleMasterGroup.rotation.z = pitchRad;
+    // 2. Vehicle Attitude Kinematics (Full 3D Orthonormal Basis - Zero Gimbal Lock)
+    // Vehicle body axes:
+    // +Y_body: Longitudinal axis (Nosecone)
+    // -Z_body: Windward belly (Black hexagonal TPS tiles)
+    // +Z_body: Leeward hull (Stainless steel & Starlink dispenser mouth)
+    // +X_body: Starboard / right wing
+    const rUp = vPos.clone().normalize();
+    const vDir = this.lastVelocityDir.clone().normalize();
+    
+    // Local horizontal downrange vector
+    let hDir = vDir.clone().sub(rUp.clone().multiplyScalar(vDir.dot(rUp))).normalize();
+    if (hDir.lengthSq() < 1e-4) {
+      hDir = new THREE.Vector3(1, 0, 0);
+    }
 
-    // Align yaw tangent to orbital trajectory
-    const heading = Math.atan2(this.lastVelocityDir.x, this.lastVelocityDir.z);
-    this.vehicleMasterGroup.rotation.y = heading;
+    let noseDir = new THREE.Vector3();
+    let bellyDir = rUp.clone().negate(); // Default belly facing nadir (toward Earth)
+
+    if (profile && profile.is_synthetic) {
+      // Synthetic Phase 7 Landing Lab
+      if (time_s < 14.0) {
+        // Belly-flop descent (AoA 90 deg): Nose horizontal, belly down
+        noseDir.copy(hDir);
+        bellyDir.copy(rUp).negate();
+      } else if (time_s < 20.0) {
+        // Flip maneuver: Pitching from horizontal (90 deg) to vertical tail-down (0 deg)
+        const flipU = (time_s - 14.0) / 6.0;
+        const angle = (Math.PI / 2) * (1.0 - flipU);
+        noseDir.copy(hDir).multiplyScalar(Math.sin(angle)).add(rUp.clone().multiplyScalar(Math.cos(angle))).normalize();
+        bellyDir.copy(hDir).negate();
+      } else {
+        // Vertical propulsive touchdown: Tail-down, nose straight up
+        noseDir.copy(rUp);
+        bellyDir.copy(hDir).negate();
+      }
+    } else {
+      // Flight 14 Mission Flight Profile
+      if (time_s <= 12.0) {
+        // 1. Launch & Pad: Standing vertically upright
+        noseDir.copy(rUp);
+        bellyDir.copy(hDir).negate();
+      } else if (time_s <= 162.0) {
+        // 2. Ascent Gravity Turn: Pitching smoothly downrange towards horizontal
+        const pitchAngleRad = THREE.MathUtils.degToRad(Math.max(4.0, 90.0 - (time_s - 12.0) * 0.58));
+        noseDir.copy(rUp).multiplyScalar(Math.sin(pitchAngleRad)).add(hDir.clone().multiplyScalar(Math.cos(pitchAngleRad))).normalize();
+        bellyDir.copy(rUp).negate();
+      } else if (time_s <= 8100.0) {
+        // 3. Orbital Powered Flight & Coast (including Starlink deployment):
+        // PROGRADE! Nose pointing forward along velocity vector!
+        noseDir.copy(vDir);
+        bellyDir.copy(rUp).negate(); // Black TPS belly facing Earth
+      } else if (time_s <= 8190.0) {
+        // 4. Deorbit Burn: Retrograde flip 180 deg!
+        noseDir.copy(vDir).negate();
+        bellyDir.copy(rUp).negate();
+      } else if (time_s <= 11200.0) {
+        // 5. Hypersonic Entry: High AoA (70 deg) belly-first into oncoming relative wind
+        // Nose pitched 70 deg up from -vDir
+        const entryAoA = THREE.MathUtils.degToRad(70.0);
+        noseDir.copy(vDir).negate().multiplyScalar(Math.cos(entryAoA)).add(rUp.clone().multiplyScalar(Math.sin(entryAoA))).normalize();
+        bellyDir.copy(vDir).negate(); // Belly directly faces into airstream
+      } else if (time_s <= 11240.0) {
+        // 6. Subsonic Belly Flop: AoA 90 deg horizontal skydive
+        noseDir.copy(hDir);
+        bellyDir.copy(rUp).negate();
+      } else {
+        // 7. Landing Flip & Splashdown: Vertical tail-down
+        noseDir.copy(rUp);
+        bellyDir.copy(hDir).negate();
+      }
+    }
+
+    // Build orthonormal 3x3 basis [xBody, yBody, zBody]
+    const yBody = noseDir.clone().normalize();
+    let xBody = new THREE.Vector3().crossVectors(yBody, bellyDir).normalize();
+    if (xBody.lengthSq() < 1e-4) {
+      xBody = new THREE.Vector3().crossVectors(yBody, rUp).normalize();
+    }
+    const zBody = new THREE.Vector3().crossVectors(xBody, yBody).normalize();
+
+    const rotMatrix = new THREE.Matrix4().makeBasis(xBody, yBody, zBody);
+    this.vehicleMasterGroup.quaternion.setFromRotationMatrix(rotMatrix);
 
     // 3. Staging Separation Logic
-    // During ascent (t <= 162s), Booster is attached to Starship.
-    // At staging (t > 162s), Booster separates and drifts away.
+    // During ascent (t <= 140s), Booster is attached to Starship stack.
+    // At staging (t > 140s), Booster detaches and independentBoosterGroup follows return branch to Gulf!
     if (profile && profile.is_synthetic) {
       this.boosterGroup.visible = false;
+      if (this.independentBoosterGroup) this.independentBoosterGroup.visible = false;
       this.starshipUpperGroup.position.set(0, 0, 0);
-    } else if (time_s <= 162.0) {
+    } else if (time_s <= 140.0) {
       this.boosterGroup.visible = true;
       this.boosterGroup.position.set(0, -0.03 * 0.85, 0);
       this.starshipUpperGroup.position.set(0, 0, 0);
-    } else if (time_s <= 260.0) {
-      // Hot-staging drift: Booster moves backward along separation axis
-      const sepDist = (time_s - 162.0) * 0.003;
-      this.boosterGroup.visible = true;
-      this.boosterGroup.position.set(0, -0.03 * 0.85 - sepDist, -sepDist * 0.5);
+      if (this.independentBoosterGroup) this.independentBoosterGroup.visible = false;
     } else {
-      // Expended / Separated
       this.boosterGroup.visible = false;
+      if (this.independentBoosterGroup && profile && profile.booster_trajectory && time_s <= 425.0) {
+        const bTraj = profile.booster_trajectory;
+        let bPt = bTraj[0];
+        for (let i = 0; i < bTraj.length - 1; i++) {
+          if (time_s >= bTraj[i].time_s && time_s <= bTraj[i + 1].time_s) {
+            const u = (time_s - bTraj[i].time_s) / (bTraj[i + 1].time_s - bTraj[i].time_s);
+            const p1 = bTraj[i].scene_pos;
+            const p2 = bTraj[i + 1].scene_pos;
+            bPt = {
+              scene_pos: [
+                p1[0] + u * (p2[0] - p1[0]),
+                p1[1] + u * (p2[1] - p1[1]),
+                p1[2] + u * (p2[2] - p1[2])
+              ],
+              thrust_mn: bTraj[i].thrust_mn
+            };
+            break;
+          }
+        }
+        if (bPt && bPt.scene_pos) {
+          this.independentBoosterGroup.visible = true;
+          this.independentBoosterGroup.position.set(bPt.scene_pos[0], bPt.scene_pos[1], bPt.scene_pos[2]);
+          const bPos = new THREE.Vector3(bPt.scene_pos[0], bPt.scene_pos[1], bPt.scene_pos[2]);
+          const bUp = bPos.clone().normalize();
+          this.independentBoosterGroup.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), bUp);
+          if (this.independentBoosterPlume) {
+            this.independentBoosterPlume.material.opacity = (bPt.thrust_mn > 5.0) ? 0.9 : 0.0;
+          }
+        }
+      } else if (this.independentBoosterGroup) {
+        this.independentBoosterGroup.visible = false;
+      }
     }
 
     // 4. Aerodynamic Flap Deflections (Forward & Aft)
@@ -774,15 +1270,44 @@ class MissionSceneManager {
       }
     }
 
-    // 7. Update Camera Framing
+    // 7. Update Starlink V3 Satellite Deployment Simulation
+    this.updateSatellites(time_s);
+
+    // 8. Update Camera Framing
     this.updateCamera();
   }
 
   // =========================================================================
-  // Orbital Frame Camera Tracking (Solving Horizon & Earth Clipping)
+  // Orbital Frame Camera Tracking & Photographic Views
   // =========================================================================
   setCameraMode(mode) {
     this.currentCameraMode = mode;
+    this.snapCameraNextFrame = true;
+  }
+
+  trackSatellite(index) {
+    this.selectedSatelliteIndex = Math.max(0, Math.min(25, index));
+    this.setCameraMode("SATELLITE_TRACK");
+  }
+
+  highlightVehicleSubsystem(subsystem) {
+    const sub = (subsystem || "").toUpperCase();
+    if (sub === "STARSHIP") {
+      this.setCameraMode("ORBIT_FOLLOW");
+      if (this.starshipUpperGroup) this.starshipUpperGroup.visible = true;
+    } else if (sub === "SUPER HEAVY" || sub === "BOOSTER") {
+      this.setCameraMode("STAGE_SEP");
+    } else if (sub === "MOUTH" || sub === "PAYLOAD" || sub === "MOUTH / PAYLOAD") {
+      this.setCameraMode("CARGO_DEPLOY_CAM");
+    } else if (sub === "FLAPS") {
+      this.setCameraMode("ENTRY_BELLY");
+    } else if (sub === "ENGINES") {
+      this.setCameraMode("STAGE_SEP");
+    } else if (sub === "THERMAL") {
+      this.setCameraMode("ENTRY_BELLY");
+    } else if (sub === "STRUCTURAL") {
+      this.setCameraMode("ORBIT_FOLLOW");
+    }
   }
 
   updateCamera() {
@@ -796,65 +1321,81 @@ class MissionSceneManager {
     const vHat = this.lastVelocityDir.clone().normalize();
     const hHat = new THREE.Vector3().crossVectors(rHat, vHat).normalize();
 
+    const applyCam = (targetPos, targetLook) => {
+      if (this.snapCameraNextFrame) {
+        this.camera.position.copy(targetPos);
+        if (this.controls) this.controls.target.copy(targetLook);
+      } else {
+        this.camera.position.lerp(targetPos, 0.12);
+        if (this.controls) this.controls.target.lerp(targetLook, 0.12);
+      }
+    };
+
     if (this.currentCameraMode === "ORBIT_FOLLOW") {
       // Cinematic over-the-shoulder follow framing curved Earth limb below
-      // Position: slightly above (+rHat), behind (-vHat), and to the side (+hHat)
       const camOffset = rHat.clone().multiplyScalar(0.42)
         .sub(vHat.clone().multiplyScalar(0.78))
         .add(hHat.clone().multiplyScalar(0.48));
 
       const targetCamPos = vPos.clone().add(camOffset);
       const lookTarget = vPos.clone().add(vHat.clone().multiplyScalar(0.15));
+      applyCam(targetCamPos, lookTarget);
+    } else if (this.currentCameraMode === "CARGO_DEPLOY_CAM" || this.currentCameraMode === "PAYLOAD_BAY") {
+      // Rocket Mouth Dispenser Perspective (matching media_1792951657295_146a92c9.png & media_1792951553611_3819560f.png)
+      // Placed outside forward leeward hull looking directly at the mouth and deploying satellites
+      const mouthLocal = new THREE.Vector3(0, 0.64 * 0.88, 0.09);
+      const mouthWorld = mouthLocal.clone().applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
 
-      this.camera.position.lerp(targetCamPos, 0.08);
-      if (this.controls) {
-        this.controls.target.lerp(lookTarget, 0.08);
+      // Camera offset along vehicle body frame
+      const camLocalOffset = new THREE.Vector3(0.08, 0.64 * 0.88 + 0.04, 0.22);
+      const targetCamPos = camLocalOffset.applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
+      applyCam(targetCamPos, mouthWorld);
+    } else if (this.currentCameraMode === "DEPLOY_WIDE_CAM") {
+      // Wide Orbit View of Starship & Deployed Starlink Train (matching media_1792951549197_1830f39c.png)
+      const camOffset = rHat.clone().multiplyScalar(0.85)
+        .add(vHat.clone().multiplyScalar(0.95))
+        .add(hHat.clone().multiplyScalar(0.65));
+
+      const targetCamPos = vPos.clone().add(camOffset);
+      const lookTarget = vPos.clone().sub(vHat.clone().multiplyScalar(0.2));
+      applyCam(targetCamPos, lookTarget);
+    } else if (this.currentCameraMode === "PROFILE_VIEW") {
+      // Side-elevation flight profile arc (matching media_1792951144098_5fa826c7.png)
+      const profileCamPos = hHat.clone().multiplyScalar(15.5);
+      applyCam(profileCamPos, new THREE.Vector3(0, 0, 0));
+    } else if (this.currentCameraMode === "SATELLITE_TRACK") {
+      // Up-close tracking camera focused on selected Starlink satellite
+      const sat = this.starlinkSatellites[this.selectedSatelliteIndex] || this.starlinkSatellites[0];
+      if (sat && sat.mesh) {
+        const satWorldPos = new THREE.Vector3();
+        sat.mesh.getWorldPosition(satWorldPos);
+        const satCamPos = satWorldPos.clone().add(rHat.clone().multiplyScalar(0.06)).add(hHat.clone().multiplyScalar(0.05));
+        applyCam(satCamPos, satWorldPos);
       }
     } else if (this.currentCameraMode === "EARTH_GLOBAL") {
       // Pull back to planetary perspective showing the full orbit ribbon
       const globalPos = new THREE.Vector3(0, 13.5, 19.5);
-      this.camera.position.lerp(globalPos, 0.04);
-      if (this.controls) {
-        this.controls.target.lerp(new THREE.Vector3(0, 0, 0), 0.04);
-      }
+      applyCam(globalPos, new THREE.Vector3(0, 0, 0));
     } else if (this.currentCameraMode === "STAGE_SEP") {
       // Focus on the interstage separation interface
       const camOffset = rHat.clone().multiplyScalar(0.18)
         .sub(vHat.clone().multiplyScalar(0.35))
         .sub(hHat.clone().multiplyScalar(0.25));
 
-      this.camera.position.lerp(vPos.clone().add(camOffset), 0.1);
-      if (this.controls) {
-        this.controls.target.lerp(vPos, 0.1);
-      }
-    } else if (this.currentCameraMode === "PAYLOAD_BAY") {
-      // Starlink dispenser perspective
-      const camOffset = rHat.clone().multiplyScalar(0.25)
-        .add(vHat.clone().multiplyScalar(0.22))
-        .add(hHat.clone().multiplyScalar(0.25));
-
-      this.camera.position.lerp(vPos.clone().add(camOffset), 0.1);
-      if (this.controls) {
-        this.controls.target.lerp(vPos, 0.1);
-      }
+      applyCam(vPos.clone().add(camOffset), vPos);
     } else if (this.currentCameraMode === "ENTRY_BELLY") {
       // Direct view of the windward black TPS tile belly
       const camOffset = rHat.clone().multiplyScalar(-0.45)
         .sub(vHat.clone().multiplyScalar(0.25))
         .add(hHat.clone().multiplyScalar(0.35));
 
-      this.camera.position.lerp(vPos.clone().add(camOffset), 0.08);
-      if (this.controls) {
-        this.controls.target.lerp(vPos, 0.08);
-      }
+      applyCam(vPos.clone().add(camOffset), vPos);
     } else if (this.currentCameraMode === "LANDING_PAD") {
       // Ground pad observer view (for synthetic landing)
       const padPos = new THREE.Vector3(0.25, 0.08, 0.35);
-      this.camera.position.lerp(padPos, 0.08);
-      if (this.controls) {
-        this.controls.target.lerp(vPos, 0.08);
-      }
+      applyCam(padPos, vPos);
     }
+    this.snapCameraNextFrame = false;
     // "FREE_ORBIT" leaves OrbitControls in full interactive control
   }
 

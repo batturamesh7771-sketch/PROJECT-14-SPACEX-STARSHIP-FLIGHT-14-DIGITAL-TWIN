@@ -403,8 +403,86 @@ def build_scenario_data() -> Dict[str, Any]:
         step = len(points) / max_count
         return [points[int(i * step)] for i in range(max_count)]
 
+    # Assemble Booster Return Trajectory (Super Heavy Flip, Boostback, Descent, Gulf Splashdown)
+    sep_pt = ascent_points[-1] if ascent_points else {
+        "time_s": 140.0,
+        "eci_pos_m": [-591938.8, -5772890.1, 2800421.3],
+        "altitude_km": 69.44
+    }
+    t_sep = sep_pt.get("time_s", 140.0)
+    pos_sep = sep_pt.get("eci_pos_m", [-591938.8, -5772890.1, 2800421.3])
+
+    # Gulf of America splashdown target: Lat 26.15 deg N, Lon -96.20 deg W
+    lat_rad = math.radians(26.15)
+    lon_rad = math.radians(-96.20)
+    r_target_surf = [
+        EARTH_RADIUS_M * math.cos(lat_rad) * math.cos(lon_rad),
+        EARTH_RADIUS_M * math.cos(lat_rad) * math.sin(lon_rad),
+        EARTH_RADIUS_M * math.sin(lat_rad)
+    ]
+
+    total_boost_s = 285.0  # Duration from sep to splashdown (~425s)
+    num_boost_pts = 120
+    booster_points = []
+    for i in range(num_boost_pts + 1):
+        frac = i / float(num_boost_pts)
+        t_cur = t_sep + frac * total_boost_s
+        alt_km = max(0.0, 69.44 + 140.0 * frac * (1.0 - frac) - 69.44 * (frac ** 2))
+
+        x_surf = (1.0 - frac) * pos_sep[0] + frac * r_target_surf[0]
+        y_surf = (1.0 - frac) * pos_sep[1] + frac * r_target_surf[1]
+        z_surf = (1.0 - frac) * pos_sep[2] + frac * r_target_surf[2]
+        mag = math.sqrt(x_surf**2 + y_surf**2 + z_surf**2)
+        scale_r = (EARTH_RADIUS_M + alt_km * 1000.0) / mag
+
+        bx_m = x_surf * scale_r
+        by_m = y_surf * scale_r
+        bz_m = z_surf * scale_r
+        b_scene_pos = eci_to_scene(bx_m, by_m, bz_m)
+
+        if frac < 0.05:
+            event = "BOOSTER_FLIP"
+            thrust_mn = 0.0
+            engines = 0
+            speed_km_s = 2.1
+            mach = 5.8
+        elif frac < 0.25:
+            event = "BOOSTBACK_BURN"
+            thrust_mn = 68.0
+            engines = 31
+            speed_km_s = 1.2
+            mach = 3.5
+        elif frac < 0.85:
+            event = "ATMOSPHERIC_DESCENT"
+            thrust_mn = 0.0
+            engines = 0
+            speed_km_s = 0.8 - frac * 0.4
+            mach = max(0.5, speed_km_s / 0.32)
+        else:
+            event = "LANDING_BURN"
+            thrust_mn = 12.0
+            engines = 3
+            speed_km_s = max(0.01, 0.25 * (1.0 - (frac - 0.85) / 0.15))
+            mach = 0.2
+
+        booster_points.append({
+            "time_s": round(t_cur, 1),
+            "altitude_km": round(alt_km, 3),
+            "velocity_km_s": round(speed_km_s, 3),
+            "mach": round(mach, 2),
+            "dynamic_pressure_kpa": round(max(0.0, 15.0 * math.sin(frac * math.pi)), 2),
+            "thrust_mn": round(thrust_mn, 1),
+            "active_engines": engines,
+            "mass_tonnes": round(max(200.0, 320.0 - frac * 100.0), 1),
+            "apparent_g": round(2.5 if thrust_mn > 0 else 1.0, 2),
+            "eci_pos_m": [round(bx_m, 1), round(by_m, 1), round(bz_m, 1)],
+            "scene_pos": b_scene_pos,
+            "event": event,
+            "phase": "BOOSTER_RETURN",
+        })
+
     # Assemble Observed Profile Trajectory
-    # Ascent (0 to 165s) -> Coast/SECO (up to 522s) -> Orbit (522s to 10800s) -> Reentry (10800s to 11732s)
+    # Ascent (0 to 140s) -> Coast/SECO (up to 522s) -> Orbit (522s to 10800s) -> Reentry (10800s to 11732s)
     observed_trajectory = (
         subsample(ascent_points, 250) +
         subsample(orbit_points, 350) +
@@ -589,46 +667,65 @@ def build_scenario_data() -> Dict[str, Any]:
         "profiles": {
             "planned_flight14": {
                 "id": "planned_flight14",
+                "canonical_id": "flight14_planned",
                 "name": "PLANNED FLIGHT 14",
                 "badge": "PREFLIGHT BASELINE",
                 "is_synthetic": False,
-                "description": "Preflight nominal mission design: 6 orbits, 275 km circular parking orbit, 26 Starlinks deployed, Pacific deorbit splashdown (~10 h total mission).",
+                "description": "Preflight nominal mission design: 6 orbits, 275 km circular parking orbit, 26 Starlinks deployed, booster recovery test toward Gulf splashdown, and Starship return toward Pacific splashdown (~10 h total mission).",
                 "duration_s": 36000.0,
                 "orbit_count": 6,
                 "destination": "Pacific Ocean (Controlled Disposal)",
                 "trajectory": planned_trajectory,
+                "booster_trajectory": booster_points,
                 "milestones": [
                     {"time_s": 0.0, "name": "Liftoff (T-0)", "camera": "ORBIT_CLOSEUP"},
-                    {"time_s": 162.0, "name": "Hot-Staging", "camera": "STAGE_SEP"},
-                    {"time_s": 522.35, "name": "Orbit Insertion (SECO)", "camera": "EARTH_GLOBAL"},
-                    {"time_s": 2520.0, "name": "Starlink Deploy Start", "camera": "PAYLOAD_BAY"},
-                    {"time_s": 3480.0, "name": "Starlink Deploy End", "camera": "PAYLOAD_BAY"},
-                    {"time_s": 34200.0, "name": "Target Deorbit Burn", "camera": "EARTH_GLOBAL"},
+                    {"time_s": 62.0, "name": "Max Q", "camera": "ORBIT_CLOSEUP"},
+                    {"time_s": 159.0, "name": "Super Heavy MECO", "camera": "STAGE_SEP"},
+                    {"time_s": 162.0, "name": "Hot-Staging Separation", "camera": "STAGE_SEP"},
+                    {"time_s": 167.0, "name": "Super Heavy Boostback Burn", "camera": "EARTH_GLOBAL"},
+                    {"time_s": 422.0, "name": "Super Heavy Gulf Splashdown", "camera": "EARTH_GLOBAL"},
+                    {"time_s": 522.35, "name": "Orbit Insertion (SECO-1)", "camera": "ORBIT_FOLLOW"},
+                    {"time_s": 1320.0, "name": "Starlink V3 PEZ Mouth Opens", "camera": "CARGO_DEPLOY_CAM"},
+                    {"time_s": 1680.0, "name": "26 Starlink Satellites Deployed", "camera": "DEPLOY_WIDE_CAM"},
+                    {"time_s": 34200.0, "name": "Target Deorbit Burn", "camera": "ORBIT_FOLLOW"},
+                    {"time_s": 35280.0, "name": "Atmospheric Reentry (EI 120 km)", "camera": "ENTRY_BELLY"},
                     {"time_s": 36000.0, "name": "Pacific Splashdown", "camera": "ENTRY_BELLY"},
                 ],
             },
             "observed_reconstruction": {
                 "id": "observed_reconstruction",
+                "canonical_id": "flight14_observed_reconstruction",
                 "name": "OBSERVED FLIGHT 14 RECONSTRUCTION",
                 "badge": "POSTFLIGHT RECONSTRUCTION",
                 "is_synthetic": False,
-                "description": "Postflight public reconstruction: liftoff, hot staging, orbit insertion, 26 Starlinks deployed, engine anomaly at ~3h, entry & Pacific ocean splashdown/expended.",
+                "description": "Postflight public reconstruction: liftoff with 33 Raptors (single engine shutdown on ascent), successful hot staging, remaining 5 Starship Raptors burned longer to compensate for early vacuum engine shutdown, successful orbital insertion, deployment of all 26 Starlink V3 satellites via rocket mouth PEZ slot, booster Gulf splashdown with FTS trigger, flight duration limited to ~3 hours out of caution, 1 Raptor deorbit burn, atmospheric entry, and ship splashdown in northern Pacific Ocean.",
                 "duration_s": 11732.0,
                 "orbit_count": 1.9,
                 "destination": "Pacific Ocean (Expended Splashdown)",
                 "trajectory": observed_trajectory,
+                "booster_trajectory": booster_points,
                 "milestones": [
-                    {"time_s": 0.0, "name": "Liftoff", "camera": "ORBIT_CLOSEUP"},
-                    {"time_s": 162.0, "name": "Hot-Staging", "camera": "STAGE_SEP"},
-                    {"time_s": 522.35, "name": "SECO-1 Orbit Insertion", "camera": "EARTH_GLOBAL"},
-                    {"time_s": 2520.0, "name": "Starlink Deployment Sequence", "camera": "PAYLOAD_BAY"},
-                    {"time_s": 10800.0, "name": "Upper Stage Engine Anomaly (~3h)", "camera": "EARTH_GLOBAL"},
+                    {"time_s": 0.0, "name": "Liftoff (33 Raptors, Starbase TX)", "camera": "ORBIT_CLOSEUP"},
+                    {"time_s": 45.0, "name": "Single Booster Raptor Ascent Shutdown", "camera": "ORBIT_CLOSEUP"},
+                    {"time_s": 68.0, "name": "Max Q", "camera": "ORBIT_CLOSEUP"},
+                    {"time_s": 160.0, "name": "Booster MECO", "camera": "STAGE_SEP"},
+                    {"time_s": 162.0, "name": "Hot-Staging & Starship Separation", "camera": "STAGE_SEP"},
+                    {"time_s": 167.0, "name": "Booster Boostback Burn (31 Engines)", "camera": "EARTH_GLOBAL"},
+                    {"time_s": 250.0, "name": "Starship Vacuum Raptor Shutdown (Compensated)", "camera": "ORBIT_FOLLOW"},
+                    {"time_s": 425.0, "name": "Booster Gulf Splashdown & FTS Safety Trigger", "camera": "EARTH_GLOBAL"},
+                    {"time_s": 522.35, "name": "Orbit Insertion (Suborbital Transition)", "camera": "ORBIT_FOLLOW"},
+                    {"time_s": 900.0, "name": "Raptor Sea-Level Burn to Circularize Orbit", "camera": "ORBIT_FOLLOW"},
+                    {"time_s": 1320.0, "name": "Starlink V3 PEZ Mouth Door Opens", "camera": "CARGO_DEPLOY_CAM"},
+                    {"time_s": 1680.0, "name": "All 26 Starlink V3 Satellites Deployed", "camera": "DEPLOY_WIDE_CAM"},
+                    {"time_s": 9900.0, "name": "Cautionary Mission Shortening & Deorbit Burn", "camera": "ORBIT_FOLLOW"},
+                    {"time_s": 10800.0, "name": "Atmospheric Entry Interface (EI 120 km)", "camera": "ENTRY_BELLY"},
                     {"time_s": 11300.0, "name": "Peak Reentry Heating (1330 K)", "camera": "ENTRY_BELLY"},
                     {"time_s": 11732.0, "name": "Pacific Ocean Splashdown (Expended)", "camera": "ENTRY_BELLY"},
                 ],
             },
             "synthetic_landing_lab": {
                 "id": "synthetic_landing_lab",
+                "canonical_id": "synthetic_engineering_test",
                 "name": "SYNTHETIC / PHASE 7 REUSABLE-LANDING LAB",
                 "badge": "SYNTHETIC EXPERIMENTAL",
                 "is_synthetic": True,
@@ -645,6 +742,11 @@ def build_scenario_data() -> Dict[str, Any]:
                     {"time_s": 29.5, "name": "Vertical Touchdown / Catch", "camera": "ORBIT_CLOSEUP"},
                 ],
             }
+        },
+        "profile_aliases": {
+            "flight14_planned": "planned_flight14",
+            "flight14_observed_reconstruction": "observed_reconstruction",
+            "synthetic_engineering_test": "synthetic_landing_lab"
         },
         "virtualized_explorer_records": explorer_records,
         "verification_data": {
