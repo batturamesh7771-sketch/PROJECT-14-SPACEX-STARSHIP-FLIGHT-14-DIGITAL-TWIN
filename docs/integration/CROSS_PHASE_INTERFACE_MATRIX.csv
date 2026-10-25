@@ -1,0 +1,9 @@
+interface_id,upstream_phase,upstream_event,downstream_phase,downstream_event,epoch_mission_time_s,mass_handoff_kg,coordinate_frame,validation_rule
+IF-01,PHASE_1,LIFTOFF_DATA,PHASE_3,BOOSTER_IGNITION,0.000,4939800.00,ECI_J2000,Full stack mass == Booster (3600.825 t) + Ship (1338.975 t)
+IF-02,PHASE_3,MECO_STAGING,PHASE_4,HOT_STAGING_SEPARATION,159.200,4939800.00 - prop_consumed,ECI_J2000,Position and velocity continuity across separation epoch
+IF-03,PHASE_4,BOOSTER_SPLASHDOWN,CORE,BOOSTER_DISPOSAL,415.000,135000.00,ECEF_WGS84,Booster reaches sea level in Gulf of Mexico (26.0 N 96.5 W)
+IF-04,PHASE_4,SECO_INSERTION,PHASE_5,ORBITAL_COAST_INIT,522.350,220850.00,ECI_J2000,Orbital insertion state continuity (h=149.8 km v=7728 m/s)
+IF-05,PHASE_5,PAYLOAD_DEPLOYMENT,PHASE_5,POST_DEPLOYMENT_COAST,1500.000,181850.00,ECI_J2000,Mass reduction delta_m == 39000.0 kg (26 Starlinks x 1500 kg)
+IF-06,PHASE_5,DISPOSAL_BURN,PHASE_5,POST_DEORBIT_TRAJECTORY,5900.000,177272.71,ECI_J2000,Propellant consumed == 4577.29 kg; osculating perigee == -81.09 km
+IF-07,PHASE_5,INTERFACE_CROSSING,PHASE_6,ENTRY_INTERFACE_INIT,6527.315,177272.71,ECI_J2000,Altitude == 120000.0 m; v_rel == 7356.24 m/s; gamma == -0.7519 deg
+IF-08,PHASE_6,TERMINAL_IMPACT,CORE,MISSION_CONCLUSION,7456.755,177272.71,ECEF_WGS84,Sea level impact at 14.0441 S 15.4063 W (South Atlantic Ocean)

@@ -1,0 +1,10 @@
+event_id,mission_time_s,vehicle_stage,event_description,mass_before_kg,mass_added_kg,mass_removed_kg,propellant_consumed_kg,mass_after_kg,mass_balance_residual_kg
+EVT-01,0.000,FULL_STACK,Pad Liftoff Initial State,4939800.00,0.00,0.00,0.00,4939800.00,0.00
+EVT-02,159.200,BOOSTER_STAGE1,Super Heavy MECO Burnout,3600825.00,0.00,0.00,3265825.00,335000.00,0.00
+EVT-03,161.000,INTERSTAGE,Hot-Staging Ring Jettison,335000.00,0.00,9000.00,0.00,326000.00,0.00
+EVT-04,415.000,BOOSTER_STAGE1,Booster Gulf Splashdown,326000.00,0.00,0.00,191000.00,135000.00,0.00
+EVT-05,522.350,STARSHIP_STAGE2,Starship Upper Stage SECO Insertion,1338975.00,0.00,0.00,1118125.00,220850.00,0.00
+EVT-06,1500.000,STARSHIP_STAGE2,Starlink V3 Satellite Deployment,220850.00,0.00,39000.00,0.00,181850.00,0.00
+EVT-07,5900.000,STARSHIP_STAGE2,Targeted Deorbit Disposal Burn,181850.00,0.00,0.00,4577.29,177272.71,0.00
+EVT-08,6527.315,STARSHIP_STAGE2,120 km Atmospheric Entry Interface,177272.71,0.00,0.00,0.00,177272.71,0.00
+EVT-09,7456.755,STARSHIP_STAGE2,Terminal Sea-Level Impact (South Atlantic),177272.71,0.00,0.00,0.00,177272.71,0.00

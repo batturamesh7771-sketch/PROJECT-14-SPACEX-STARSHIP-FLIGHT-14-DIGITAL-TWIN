@@ -31,7 +31,7 @@ The simulation bridges the orbital disposal trajectory developed in Phase 5 to o
   - Cumulative Stagnation Heat Load: $Q_{\text{stag}} = 240.67\,\text{MJ/m}^2$
   - Entry Duration to Sea Level ($h = 0\,\text{m}$): $929.44\,\text{s}$ ($\approx 15.49\,\text{minutes}$)
   - Terminal Subsonic Relative Speed: $v_{\text{term}} = 209.7\,\text{m/s}$ (Mach $0.62$)
-  - Terminal Impact Location: $14.0441^\circ\,\text{S}$, $15.4063^\circ\,\text{W}$ (South Atlantic / Indian Ocean disposal track)
+  - Terminal Impact Location: $14.0441^\circ\,\text{S}$, $15.4063^\circ\,\text{W}$ (South Atlantic Ocean disposal track)
   - Target Miss Distance (Disposal Datum): $9.05\,\text{km}$ ($< 50\,\text{km}$ corridor radius, classified as `TARGET_REGION_REACHED`)
 - **Closed-Loop Guidance Tradeoffs:**
   - Active bank modulation ($\sigma \in [-45^\circ, +45^\circ]$) tilts the aerodynamic lift vector to null crossrange trajectory error.
@@ -60,7 +60,7 @@ Phase 6 evaluates three primary reentry scenarios:
 +--------------------------------------------------------------------------------------------------+
 ```
 
-1. **Pathway A (Nominal Indian Ocean Disposal — Approved Baseline):** Derived directly from the audited Phase 5 disposal burn. The upper stage executes a targeted retrograde burn ($\Delta v = 41.52\,\text{m/s}$), lowering perigee to $-81.09\,\text{km}$ (sub-surface), ensuring steep atmospheric capture and safe disposal in the remote ocean south of the equator.
+1. **Pathway A (Nominal South Atlantic Disposal — Approved Baseline):** Derived directly from the audited Phase 5 disposal burn. The upper stage executes a targeted retrograde burn ($\Delta v = 41.52\,\text{m/s}$), lowering perigee to $-81.09\,\text{km}$ (sub-surface), ensuring steep atmospheric capture and safe disposal in the remote South Atlantic Ocean south of the equator.
 2. **Pathway B (Synthetic Pacific Exclusion Corridor):** A constructed scenario evaluating closed-loop bank angle guidance toward an exclusion polygon north of Hawaii ($26.50^\circ\,\text{N}$, $162.00^\circ\,\text{W}$), testing crossrange steering authority and energy dissipation.
 3. **Pathway C (Hypothetical Direct Uncontrolled Decay):** A baseline uncontrolled scenario isolating open-loop aerodynamic trim ($\sigma = 0^\circ$).
 

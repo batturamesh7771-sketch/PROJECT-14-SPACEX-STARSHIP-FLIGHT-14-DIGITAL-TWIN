@@ -1,0 +1,19 @@
+requirement_id,phase,subsystem,source_file,test_file,test_id,acceptance_criterion,verification_status
+REQ-SYS-001,CORE,Systems,data/mission/flight14_planned_events.csv,tests/test_phase1_data_integrity.py,test_planned_events_integrity,Planned vs actual duration isolated,PASS
+REQ-SYS-001,CORE,Systems,data/mission/flight14_actual_events.csv,tests/test_phase1_data_integrity.py,test_actual_events_integrity_and_duration_isolation,Planned vs actual duration isolated,PASS
+REQ-SYS-002,CORE,Mass Accounting,data/audit/mass_balance.csv,tests/test_mass_balance.py,test_total_mission_mass_conservation,Mass residual == 0.0 kg across all events,PASS
+REQ-SYS-003,CORE,Astrodynamics,src/astrodynamics/frames.py,tests/test_phase5_astrodynamics.py,test_02_coordinate_frames_round_trip,Round trip ECI-ECEF error <= 1e-6 m,PASS
+REQ-CAD-001,PHASE_2,CAD Geometry,cad/freecad/skeleton/build_master_skeleton.py,tests/test_phase2_cad_integrity.py,test_master_skeleton_and_datums,Valid solids with positive volume,PASS
+REQ-CAD-002,PHASE_2,CAD Assembly,cad/freecad/assemblies/build_modular_assemblies.py,tests/test_phase2_cad_integrity.py,test_modular_assemblies,Assembly documents build cleanly,PASS
+REQ-CAD-003,PHASE_2,BOM Scaling,cad/freecad/scaling/benchmark_100k_scaling.py,tests/test_phase2_cad_integrity.py,test_100k_scaling_benchmark,100065 items in DB with RAM < 2048 MB,PASS_WITH_LIMITATIONS
+REQ-PROP-001,PHASE_3,Propulsion,src/propulsion/raptor3.py,tests/test_phase3_propulsion_ascent.py,test_raptor3_engine_thermodynamics,Thrust and flow scale correctly,PASS
+REQ-PROP-002,PHASE_3,Ascent Dynamics,src/dynamics/ascent_simulation.py,tests/test_phase3_acceptance.py,test_09_tsiolkovsky_rocket_equation,Velocity matches Tsiolkovsky rocket equation,PASS
+REQ-STAG-001,PHASE_4,Staging Dynamics,src/dynamics/staging_separation.py,tests/test_phase4_staging_recovery.py,test_hot_staging_separation_dynamics,Stages clear without negative relative velocity,PASS_WITH_LIMITATIONS
+REQ-STAG-002,PHASE_4,Relative Motion,src/run_phase4_staging.py,tests/test_phase4_staging_recovery.py,test_11_monotonic_center_displacement,Monotonic center-of-mass displacement,PASS
+REQ-ORB-001,PHASE_5,Orbital Mechanics,src/astrodynamics/orbit_propagation.py,tests/test_phase5_astrodynamics.py,test_12_two_body_conservation,Orbital energy & angular momentum conserved,PASS
+REQ-ORB-002,PHASE_5,Independent Verification,src/orbit/gmat_phase5_verification.script,tests/test_phase5_astrodynamics.py,test_23_gmat_cartesian_ephemeris_residuals,GMAT ephemeris residual <= 300 m,PASS
+REQ-ORB-003,PHASE_5,Disposal,config/phase5/disposal_scenario.yaml,tests/test_phase5_astrodynamics.py,test_21_deorbit_earth_intersecting_geometry,Perigee < 0 km; 120 km interface crossing,PASS
+REQ-ENT-001,PHASE_6,Reentry Dynamics,src/reentry/dynamics.py,tests/test_phase6_reentry.py,test_p6_21_trajectory_simulation_baseline_run,Continuous trajectory 120 km to 0 m,PASS
+REQ-ENT-002,PHASE_6,Aerothermodynamics,src/reentry/heating.py,tests/test_phase6_reentry.py,test_p6_10_sutton_graves_heating_formula,Sutton-Graves matches NASA TR R-376,PASS_WITH_LIMITATIONS
+REQ-ENT-003,PHASE_6,Guidance,src/reentry/guidance.py,tests/test_phase6_reentry.py,test_p6_14_guidance_rate_limiting,Bank angle slew rate <= 10 deg/s,PASS
+REQ-ENT-004,PHASE_6,Terminal Assessment,src/reentry/splashdown.py,tests/test_phase6_reentry.py,test_p6_20_splashdown_assessment_classification,Correctly classified South Atlantic endpoint,PASS

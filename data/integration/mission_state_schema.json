@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StarshipFlight14MissionState",
+  "description": "Authoritative mission state contract for Starship Flight 14 Digital Lab cross-phase handoffs.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mission_id",
+    "scenario_id",
+    "stage_id",
+    "event_id",
+    "time_epoch_utc",
+    "elapsed_mission_time_s",
+    "coordinate_frame",
+    "position_m",
+    "velocity_m_s",
+    "mass_kg",
+    "mass_breakdown",
+    "geodetic",
+    "atmosphere_relative",
+    "provenance_tag"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "enum": ["1.0.0"] },
+    "mission_id": { "type": "string", "enum": ["Starship_Flight14"] },
+    "scenario_id": { "type": "string" },
+    "stage_id": { "type": "string", "enum": ["FULL_STACK", "BOOSTER_STAGE1", "STARSHIP_STAGE2"] },
+    "event_id": { "type": "string" },
+    "time_epoch_utc": { "type": "string" },
+    "elapsed_mission_time_s": { "type": "number", "minimum": 0.0 },
+    "elapsed_stage_time_s": { "type": "number", "minimum": 0.0 },
+    "coordinate_frame": { "type": "string", "enum": ["ECI_J2000", "ECEF_WGS84", "TRAJECTORY_FRAME"] },
+    "position_m": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "velocity_m_s": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "mass_kg": { "type": "number", "exclusiveMinimum": 0.0 },
+    "mass_breakdown": {
+      "type": "object",
+      "required": ["dry_mass_kg", "payload_mass_kg", "propellant_mass_kg"],
+      "properties": {
+        "dry_mass_kg": { "type": "number", "minimum": 0.0 },
+        "payload_mass_kg": { "type": "number", "minimum": 0.0 },
+        "propellant_mass_kg": { "type": "number", "minimum": 0.0 }
+      }
+    },
+    "geodetic": {
+      "type": "object",
+      "required": ["latitude_deg", "longitude_deg", "altitude_m"],
+      "properties": {
+        "latitude_deg": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "longitude_deg": { "type": "number", "minimum": -180.0, "maximum": 180.0 },
+        "altitude_m": { "type": "number" }
+      }
+    },
+    "atmosphere_relative": {
+      "type": "object",
+      "required": ["speed_m_s", "mach", "flight_path_angle_deg", "dynamic_pressure_pa"],
+      "properties": {
+        "speed_m_s": { "type": "number", "minimum": 0.0 },
+        "mach": { "type": "number", "minimum": 0.0 },
+        "flight_path_angle_deg": { "type": "number", "minimum": -90.0, "maximum": 90.0 },
+        "dynamic_pressure_pa": { "type": "number", "minimum": 0.0 }
+      }
+    },
+    "provenance_tag": {
+      "type": "string",
+      "enum": [
+        "PUBLIC_FACT",
+        "DERIVED_PUBLIC",
+        "MODEL_ASSUMPTION",
+        "SYNTHETIC_SCENARIO",
+        "SIMULATION_OUTPUT",
+        "VALIDATION_REFERENCE"
+      ]
+    },
+    "validity_status": { "type": "string" }
+  }
+}

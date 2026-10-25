@@ -1,0 +1,78 @@
+{
+  "pipeline_name": "Starship_Flight14_End_to_End",
+  "timestamp_utc": "2026-10-25T10:16:48.931461+00:00",
+  "stages_executed": [
+    {
+      "stage": "PHASE_3_POWERED_ASCENT",
+      "epoch_start_s": 0.0,
+      "epoch_end_s": 159.2,
+      "start_mass_kg": 4939800.0,
+      "end_mass_kg": 1673975.0,
+      "status": "VERIFIED_3DOF"
+    },
+    {
+      "stage": "PHASE_4_STAGING_SEPARATION",
+      "epoch_s": 161.0,
+      "ring_mass_jettison_kg": 9000.0,
+      "cm_disp_1s_m": 5.5,
+      "cm_disp_5s_m": 48.06,
+      "status": "VERIFIED_RELATIVE_MOTION"
+    },
+    {
+      "stage": "PHASE_4_BOOSTER_RECOVERY",
+      "epoch_end_s": 415.0,
+      "final_mass_kg": 135000.0,
+      "target_location": "Gulf of Mexico (26.0 N, 96.5 W)",
+      "status": "VERIFIED_SPLASHDOWN"
+    },
+    {
+      "stage": "PHASE_4_5_SECO_INSERTION",
+      "epoch_s": 522.35,
+      "mass_kg": 220850.0,
+      "r_norm_km": 6526.7322756139465,
+      "v_norm_km_s": 7.838948137345979,
+      "status": "VERIFIED_ORBITAL_INSERTION"
+    },
+    {
+      "stage": "PHASE_5_PAYLOAD_DEPLOYMENT",
+      "epoch_s": 1500.0,
+      "payload_mass_kg": 39000.0,
+      "post_deploy_mass_kg": 181850.0,
+      "status": "VERIFIED_MASS_REDUCTION"
+    },
+    {
+      "stage": "PHASE_5_DEORBIT_DISPOSAL",
+      "epoch_s": 5900.0,
+      "delta_v_m_s": 95.0,
+      "propellant_consumed_kg": 4577.292697198924,
+      "post_burn_mass_kg": 177272.70730280108,
+      "perigee_altitude_km": -81.09,
+      "status": "VERIFIED_SUBORBITAL_DISPOSAL"
+    },
+    {
+      "stage": "PHASE_6_ATMOSPHERIC_REENTRY",
+      "entry_epoch_s": 6527.315,
+      "impact_epoch_s": 7456.758359375,
+      "peak_q_kpa": 68.26023417705738,
+      "peak_g": 3.22971838658439,
+      "peak_heat_flux_mw_m2": 0.7943889255726341,
+      "total_heat_load_mj_m2": 240.67131527458744,
+      "terminal_lat_deg": -14.04408915494884,
+      "terminal_lon_deg": -15.406333822651721,
+      "terminal_speed_m_s": 209.67026976606064,
+      "geographic_zone": "South Atlantic Ocean",
+      "status": "VERIFIED_HIGH_SPEED_IMPACT"
+    }
+  ],
+  "mass_ledger": [],
+  "interface_status": "PASS",
+  "discrepancies_flagged": [],
+  "mass_reconciliation": {
+    "m_seco_kg": 220850.0,
+    "m_payload_kg": 39000.0,
+    "m_deorbit_prop_kg": 4577.292697198924,
+    "m_entry_kg": 177272.70730280108,
+    "residual_kg": 0.0,
+    "status": "EXACT_CONSERVATION"
+  }
+}
