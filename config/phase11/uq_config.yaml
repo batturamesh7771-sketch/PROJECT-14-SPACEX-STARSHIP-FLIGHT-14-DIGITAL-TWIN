@@ -1,0 +1,82 @@
+# Phase 11 Configuration: End-to-End Mission Uncertainty Quantification & Sensitivity
+# Standards Reference: NASA-STD-7009B, JCGM 101:2008
+config_id: "P11-CFG-001-UQ"
+scenario_id: "flight14_mission_uq"
+description: "Reproducible Monte Carlo dispersion, batch quantile convergence, covariance propagation, and sensitivity screening."
+created_utc: "2026-10-25T14:30:00Z"
+
+execution:
+  random_seed: 42
+  pilot_sample_count: 50
+  nominal_sample_count: 200
+  batch_size: 50
+  quantile_convergence_threshold: 0.02 # 2% stabilization criterion
+  confidence_level: 0.95
+
+distributions:
+  thrust_scale:
+    type: "normal"
+    mean: 1.0
+    std: 0.02
+    unit: "ratio"
+    description: "Booster and upper stage Raptor thrust multiplier (+/- 2% 1-sigma)"
+
+  isp_scale:
+    type: "normal"
+    mean: 1.0
+    std: 0.01
+    unit: "ratio"
+    description: "Specific impulse scaling (+/- 1% 1-sigma)"
+
+  mass_initial_tonnes:
+    type: "normal"
+    mean: 4939.8
+    std: 15.0
+    unit: "t"
+    description: "Total stack liftoff mass dispersion"
+
+  drag_coefficient_scale:
+    type: "uniform"
+    min: 0.90
+    max: 1.10
+    unit: "ratio"
+    description: "Ascent and entry aerodynamic drag coefficient uncertainty"
+
+  atmosphere_density_scale:
+    type: "uniform"
+    min: 0.85
+    max: 1.15
+    unit: "ratio"
+    description: "Exosphere and upper atmospheric density variation (+/- 15%)"
+
+  k_sutton_graves_scale:
+    type: "normal"
+    mean: 1.0
+    std: 0.05
+    unit: "ratio"
+    description: "Convective stagnation-point heat transfer constant scaling"
+
+  tile_thickness_mm:
+    type: "normal"
+    mean: 28.0
+    std: 0.8
+    unit: "mm"
+    description: "Hexagonal porous silica tile thickness tolerance"
+
+covariance_propagation:
+  submodel: "orbital_insertion_cutoff"
+  input_variables: ["thrust_scale", "isp_scale", "mass_initial_tonnes"]
+  nominal_inputs: [1.0, 1.0, 4939.8]
+  input_covariance:
+    - [0.0004, 0.00008, 0.0]
+    - [0.00008, 0.0001, 0.0]
+    - [0.0, 0.0, 225.0]
+
+sensitivity_screening:
+  method: "one_at_a_time_morris"
+  perturbation_fraction: 0.05 # +/- 5% baseline step
+  target_metrics:
+    - "max_dynamic_pressure_kpa"
+    - "orbital_insertion_velocity_km_s"
+    - "peak_stagnation_heat_flux_mw_m2"
+    - "peak_bondline_temp_k"

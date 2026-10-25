@@ -220,6 +220,8 @@ def build_scenario_data() -> Dict[str, Any]:
     actual_events_csv = find_file("data/mission/flight14_actual_events.csv")
     manifest_csv = find_file("data/mission/satellite_manifest.csv")
     bom_csv = find_file("cad/freecad/deliverables/starship_flight14_bom.csv")
+    uq_json = find_file("output/phase11/uq_summary.json")
+    v_manifest_json = find_file("output/phase11/verification_run_manifest.json")
 
     # 2. Parse structural FEA results
     fea_raw = load_json_data(fea_json) or {}
@@ -645,6 +647,10 @@ def build_scenario_data() -> Dict[str, Any]:
             }
         },
         "virtualized_explorer_records": explorer_records,
+        "verification_data": {
+            "uq_summary": load_json_data(uq_json) or {},
+            "run_manifest": load_json_data(v_manifest_json) or {},
+        },
     }
 
     return scenario_payload

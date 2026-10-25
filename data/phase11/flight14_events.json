@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0.0",
+  "project": "Starship Flight 14 Digital Engineering Lab",
+  "mission": "Starship Flight 14",
+  "created_utc": "2026-10-25T14:15:00Z",
+  "source_registry": {
+    "SRC-SPX-F14": {
+      "title": "Starship Flight 14 Official Preflight Mission Overview",
+      "url": "https://www.spacex.com/launches/starship-flight-14",
+      "publisher": "SpaceX",
+      "accessed_date": "2026-10-25",
+      "reliability": "PRIMARY_AUTHORITATIVE_PLAN"
+    },
+    "SRC-SPX-UPD": {
+      "title": "SpaceX Official Mission Updates Archive",
+      "url": "https://new.spacex.com/updates",
+      "publisher": "SpaceX",
+      "accessed_date": "2026-10-25",
+      "reliability": "PRIMARY_AUTHORITATIVE_POSTFLIGHT"
+    },
+    "SRC-SC-LIVE": {
+      "title": "SpaceX Starship Flight 14 Live Chronology & Coverage",
+      "url": "https://www.space.com/news/live/spacex-starship-flight-14-live-updates-sept-28-2026-starship-first-orbital-launch-attempt",
+      "publisher": "Space.com",
+      "accessed_date": "2026-10-25",
+      "reliability": "CONTEMPORANEOUS_MEDIA_CHRONOLOGY"
+    },
+    "SRC-AP-F14": {
+      "title": "SpaceX Starship reaches orbit on 14th flight before splashdown",
+      "url": "https://apnews.com/article/spacex-starship-orbit-262d3c58d56bf7a525b49115d6c5dfe8",
+      "publisher": "Associated Press",
+      "accessed_date": "2026-10-25",
+      "reliability": "PRIMARY_ACCREDITED_WIRE"
+    },
+    "SRC-REUTERS": {
+      "title": "SpaceX Starship launches 14th flight, first headed to orbit",
+      "url": "https://www.reuters.com/business/media-telecom/spacexs-starship-launches-14th-flight-first-headed-orbit-2026-09-28/",
+      "publisher": "Reuters",
+      "accessed_date": "2026-10-25",
+      "reliability": "PRIMARY_ACCREDITED_WIRE"
+    }
+  },
+  "profiles": {
+    "flight14_planned_public_reference": {
+      "profile_id": "flight14_planned_public_reference",
+      "description": "Preflight design reference profile: 6 orbits, 275 km circular parking orbit, ~10 hour flight duration, Pacific deorbit disposal.",
+      "is_synthetic": false,
+      "events": [
+        {
+          "event_id": "F14-P-001",
+          "name": "Liftoff Commit",
+          "time_s": 0.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 0.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-002",
+          "name": "Max Q (Max Dynamic Pressure)",
+          "time_s": 58.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 5.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-003",
+          "name": "Super Heavy MECO",
+          "time_s": 140.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 2.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-004",
+          "name": "Hot-Staging Separation",
+          "time_s": 142.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 2.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-005",
+          "name": "Starship SECO-1 (Orbit Insertion)",
+          "time_s": 522.35,
+          "time_type": "planned",
+          "time_uncertainty_s": 10.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-006",
+          "name": "Starlink V3 Deployment Start",
+          "time_s": 2520.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 60.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-007",
+          "name": "Starlink V3 Deployment Complete",
+          "time_s": 3480.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 60.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-008",
+          "name": "Target Deorbit Burn (Orbit 6)",
+          "time_s": 34200.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 120.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        },
+        {
+          "event_id": "F14-P-009",
+          "name": "Pacific Ocean Controlled Splashdown",
+          "time_s": 36000.0,
+          "time_type": "planned",
+          "time_uncertainty_s": 300.0,
+          "source_id": "SRC-SPX-F14",
+          "status": "NOMINAL"
+        }
+      ]
+    },
+    "flight14_observed_public_reconstruction": {
+      "profile_id": "flight14_observed_public_reconstruction",
+      "description": "Postflight public reconstruction: liftoff, hot staging, upper-stage Raptor anomaly, orbit insertion, 26 Starlinks deployed, early return command, entry, and Northern Pacific splashdown (~3h 09m, expended).",
+      "is_synthetic": false,
+      "events": [
+        {
+          "event_id": "F14-O-001",
+          "name": "Liftoff Observed",
+          "time_s": 0.0,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 15.0,
+          "source_id": "SRC-SC-LIVE",
+          "status": "CONFIRMED"
+        },
+        {
+          "event_id": "F14-O-002",
+          "name": "Hot-Staging Observed",
+          "time_s": 154.0,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 5.0,
+          "source_id": "SRC-SC-LIVE",
+          "status": "CONFIRMED"
+        },
+        {
+          "event_id": "F14-O-003",
+          "name": "Upper Stage Engine Shutdown Anomaly",
+          "time_s": 270.0,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 30.0,
+          "source_id": "SRC-AP-F14",
+          "status": "ANOMALY_RECORDED"
+        },
+        {
+          "event_id": "F14-O-004",
+          "name": "Super Heavy Gulf Splashdown",
+          "time_s": 400.0,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 20.0,
+          "source_id": "SRC-REUTERS",
+          "status": "EXPENDED_SPLASHDOWN"
+        },
+        {
+          "event_id": "F14-O-005",
+          "name": "Orbital Insertion Achieved (~275 km)",
+          "time_s": 522.35,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 15.0,
+          "source_id": "SRC-SPX-UPD",
+          "status": "CONFIRMED"
+        },
+        {
+          "event_id": "F14-O-006",
+          "name": "Starlink V3 Deployment Sequence (26 Satellites)",
+          "time_s": 2040.0,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 60.0,
+          "source_id": "SRC-SC-LIVE",
+          "status": "CONFIRMED_26_DEPLOYED"
+        },
+        {
+          "event_id": "F14-O-007",
+          "name": "Early Return & Deorbit Burn Command",
+          "time_s": 9900.0,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 120.0,
+          "source_id": "SRC-REUTERS",
+          "status": "EARLY_RETURN_INITIATED"
+        },
+        {
+          "event_id": "F14-O-008",
+          "name": "Atmospheric Reentry Interface (120 km)",
+          "time_s": 10800.0,
+          "time_type": "derived",
+          "time_uncertainty_s": 60.0,
+          "source_id": "SRC-SC-LIVE",
+          "status": "CONFIRMED"
+        },
+        {
+          "event_id": "F14-O-009",
+          "name": "Northern Pacific Ocean Splashdown",
+          "time_s": 11340.0,
+          "time_type": "reported_approximate",
+          "time_uncertainty_s": 60.0,
+          "source_id": "SRC-AP-F14",
+          "status": "EXPENDED_SPLASHDOWN"
+        }
+      ]
+    }
+  }
+}

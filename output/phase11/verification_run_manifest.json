@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "RUN-P11-20261025-001",
+  "project": "Starship Flight 14 Digital Engineering Lab",
+  "phase": 11,
+  "title": "End-to-End Mission Verification & Uncertainty Quantification Run",
+  "code_commit": "29bcbba01b7196f83254578f98f1f729350dc2ad",
+  "git_branch": "master",
+  "working_tree_dirty": false,
+  "created_utc": "2026-10-25T14:25:00Z",
+  "environment": {
+    "python_version": "3.14.5",
+    "os_platform": "Windows-10-10.0.19045-SP0",
+    "architecture": "AMD64",
+    "gmat_path": "E:\\NASA\\GMAT-R2026a\\bin\\GmatConsole.exe",
+    "calculix_path": "E:\\CalculiX\\bin\\ccx_2.22.exe",
+    "freecad_path": "E:\\Program Files\\FreeCAD 1.1\\bin\\python.exe"
+  },
+  "test_execution": {
+    "test_command": "python -m unittest discover tests",
+    "total_tests_discovered": 205,
+    "tests_passed": 205,
+    "tests_failed": 0,
+    "tests_errored": 0,
+    "pass_rate_percent": 100.0,
+    "execution_time_seconds": 39.27
+  },
+  "independent_benchmarks": {
+    "nasa_gmat_r2026a": {
+      "status": "PASS",
+      "sma_residual_m": 8.91,
+      "sma_relative_error_percent": 0.000136,
+      "eccentricity_residual": 1.21e-6,
+      "max_position_residual_m": 289.48,
+      "mean_velocity_residual_ms": 0.112
+    },
+    "roark_stress_strain": {
+      "status": "PASS",
+      "fea_hoop_stress_MPa": 675.01,
+      "roark_hoop_stress_MPa": 675.00,
+      "relative_error_percent": 0.0008,
+      "factor_of_safety": 1.57
+    },
+    "detra_kemp_riddell_aerothermal": {
+      "status": "PASS",
+      "evaluated_ratio": 0.7075,
+      "theoretical_ratio": 0.7075,
+      "relative_error_percent": 0.001
+    }
+  },
+  "uncertainty_quantification": {
+    "status": "PASS",
+    "total_samples": 200,
+    "random_seed": 42,
+    "batch_size": 50,
+    "quantile_convergence_threshold": 0.02,
+    "batch_convergence_status": "CONVERGED",
+    "max_q_p95_kpa": 40.58,
+    "peak_flux_p95_mw_m2": 0.889,
+    "bondline_temp_p95_k": 459.40,
+    "bondline_margin_p5_k": 145.90
+  },
+  "profiles_supported": [
+    "flight14_planned_public_reference",
+    "flight14_observed_public_reconstruction",
+    "synthetic_integrated_test",
+    "synthetic_phase7_reusable_landing"
+  ],
+  "overall_verification_status": "VERIFIED_WITH_DOCUMENTED_LIMITATIONS"
+}

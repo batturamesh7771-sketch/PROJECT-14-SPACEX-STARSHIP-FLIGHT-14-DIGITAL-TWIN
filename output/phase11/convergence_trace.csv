@@ -1,0 +1,5 @@
+batch_id,cumulative_samples,max_q_p95,max_q_rel_change,heat_flux_p95,heat_flux_rel_change,bondline_temp_p95,bondline_temp_rel_change
+1,50,40.4896,,0.8538,,385.0915,
+2,100,40.5958,0.00262,0.8651,0.01322,385.7145,0.00162
+3,150,40.5677,0.00069,0.8805,0.0178,385.7595,0.00012
+4,200,40.5836,0.00039,0.8893,0.00992,385.0925,0.00173
