@@ -334,7 +334,7 @@ def build_scenario_data() -> Dict[str, Any]:
             "time_s": t,
             "altitude_km": alt,
             "velocity_km_s": vel,
-            "mach": round(vel * 1000.0 / 295.0, 2),
+            "mach": None,  # Physically undefined in orbital vacuum (density ~ 0)
             "dynamic_pressure_kpa": 0.0,
             "thrust_mn": 0.0,
             "mass_tonnes": 120.0,
@@ -435,7 +435,7 @@ def build_scenario_data() -> Dict[str, Any]:
             "time_s": round(t_cur, 1),
             "altitude_km": 275.0,
             "velocity_km_s": 7.74,
-            "mach": 26.2,
+            "mach": None,  # Physically undefined in orbital vacuum
             "dynamic_pressure_kpa": 0.0,
             "thrust_mn": 0.0,
             "mass_tonnes": 120.0,

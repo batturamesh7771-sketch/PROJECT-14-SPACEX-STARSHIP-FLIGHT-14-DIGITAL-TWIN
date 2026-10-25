@@ -147,6 +147,13 @@ class TimelineController {
     if (this.hudElapsedEl) this.hudElapsedEl.innerText = standardFormat;
     if (this.overviewElapsedEl) this.overviewElapsedEl.innerText = standardFormat;
 
+    // Flight 14 Launch Epoch: September 28, 2026, 12:48:59 UTC
+    const LAUNCH_EPOCH_MS = Date.UTC(2026, 8, 28, 12, 48, 59);
+    const currentUtc = new Date(LAUNCH_EPOCH_MS + this.currentTime * 1000);
+    const utcFormatted = currentUtc.toISOString().replace("T", " ").substring(0, 19);
+    const utcEl = document.getElementById("header-utc-clock");
+    if (utcEl) utcEl.innerText = utcFormatted;
+
     const scrubberClock = document.getElementById("scrubber-clock-readout");
     if (scrubberClock) {
       const totHrs = Math.floor(this.maxTime / 3600);

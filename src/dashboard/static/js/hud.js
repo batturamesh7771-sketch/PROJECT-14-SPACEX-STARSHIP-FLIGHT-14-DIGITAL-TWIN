@@ -54,15 +54,54 @@ class HudManager {
     const pitch_deg = point.pitch_deg || 0.0;
     const flap_deg = point.flaps_fwd_deg || 0.0;
 
-    // Fuel remaining estimate (4939.8 t gross down to ~340 t dry)
-    const maxMass = 4939800.0;
-    const dryMass = 340000.0;
-    const fuelPct = Math.max(0, Math.min(100, Math.round(((mass_kg - dryMass) / (maxMass - dryMass)) * 100)));
+    // Stage-aware propellant remaining calculation
+    let fuelPct = 100;
+    if (profile && profile.is_synthetic) {
+      // Synthetic Phase 7 terminal landing: 115 t starting down to ~100 t dry
+      fuelPct = Math.max(0, Math.min(100, Math.round(((mass_kg - 100000.0) / (115000.0 - 100000.0)) * 100)));
+    } else if (time_s <= 162.0) {
+      // Booster + Upper stage ascent: 4,940 t down to ~1,500 t at staging
+      fuelPct = Math.max(0, Math.min(100, Math.round(((mass_kg - 1500000.0) / (4940000.0 - 1500000.0)) * 100)));
+    } else if (time_s <= 522.35) {
+      // Starship 2nd stage powered burn: 1,320 t down to ~120 t at SECO
+      fuelPct = Math.max(0, Math.min(100, Math.round(((mass_kg - 120000.0) / (1320000.0 - 120000.0)) * 100)));
+    } else if (time_s <= 5400.0) {
+      // Orbital coast: reserve / disposal propellant (~15 t available)
+      const reservePropT = Math.max(0, (point.mass_tonnes || 120.0) - 105.0);
+      fuelPct = Math.max(0, Math.min(100, Math.round((reservePropT / 15.0) * 100)));
+    } else {
+      // Deorbit burn and entry: residual header tank propellant
+      const residualT = Math.max(0, (point.mass_tonnes || 105.0) - 100.0);
+      fuelPct = Math.max(0, Math.min(100, Math.round((residualT / 5.0) * 100)));
+    }
+
+    // Mach number handling: physically undefined in orbital vacuum (alt > 100 km)
+    let machDisplay = "0.0";
+    let vpMachDisplay = "M 0.0";
+    if (point.altitude_km > 100.0 || point.mach === null || point.mach === undefined) {
+      machDisplay = "N/A (Vacuum)";
+      vpMachDisplay = "VACUUM";
+    } else {
+      machDisplay = `${Number(point.mach).toFixed(1)}`;
+      vpMachDisplay = `M ${Number(point.mach).toFixed(1)}`;
+    }
 
     // Engine status string
     let engineStr = "33/33 (NOMINAL)";
-    if (time_s > 162.0) {
-      engineStr = (point.thrust_mn || 0) > 0.1 ? "3/3 (NOMINAL)" : "0/3 (COAST)";
+    if (profile && profile.is_synthetic) {
+      engineStr = (point.thrust_mn || 0) > 0.1 ? "3/3 (LANDING BURN)" : "0/3 (DESCENT)";
+    } else if (time_s <= 162.0) {
+      engineStr = (point.thrust_mn || 0) > 50.0 ? "33/33 (FULL THRUST)" : "33/33 (THROTTLED)";
+    } else if (time_s <= 168.0) {
+      engineStr = "HOT-STAGING";
+    } else if (time_s <= 522.35) {
+      engineStr = (point.thrust_mn || 0) > 0.1 ? "6/6 (NOMINAL)" : "6/6 (SHUTDOWN)";
+    } else if (time_s >= 5400.0 && time_s <= 5460.0) {
+      engineStr = "3/6 (DEORBIT BURN)";
+    } else if (time_s > 5460.0) {
+      engineStr = "0/6 (ENTRY FLIGHT)";
+    } else {
+      engineStr = "0/6 (ORBIT COAST)";
     }
 
     // Set Live Telemetry Fields
@@ -70,7 +109,7 @@ class HudManager {
     this.setVal("telemetry-vel", `${this.formatNumber(vel_ms, 0)} m/s`);
     this.setVal("telemetry-q", `${this.formatNumber(q_pa, 0)} Pa`);
     this.setVal("telemetry-flux", `${this.formatNumber(heat_flux_w_m2, 0)} W/m²`);
-    this.setVal("telemetry-mach", `${mach.toFixed(1)}`);
+    this.setVal("telemetry-mach", machDisplay);
     this.setVal("telemetry-g", `${g_force.toFixed(2)} g`);
     this.setVal("telemetry-thrust", `${this.formatNumber(thrust_kn, 0)} kN`);
     this.setVal("telemetry-mass", `${this.formatNumber(mass_kg, 0)} kg`);
@@ -109,7 +148,7 @@ class HudManager {
     this.setVal("vp-phase", point.phase || "ACTIVE");
     this.setVal("vp-alt", `${(point.altitude_km || 0).toFixed(1)} km`);
     this.setVal("vp-vel", `${(point.velocity_km_s || 0).toFixed(2)} km/s`);
-    this.setVal("vp-mach", `M ${mach.toFixed(1)}`);
+    this.setVal("vp-mach", vpMachDisplay);
 
     // 5. Update Left Flight Phases Stepper (1 to 8)
     this.updatePhasesStepper(time_s, profile);
