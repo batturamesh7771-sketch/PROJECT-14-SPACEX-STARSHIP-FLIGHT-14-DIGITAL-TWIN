@@ -1,0 +1,5 @@
+time_s,event_name,altitude_km,geodetic_lat_deg,geodetic_lon_deg,speed_rel_ms,mach,dynamic_pressure_kpa,apparent_g_load,stagnation_heat_flux_mw_m2,cumulative_heat_load_mj_m2
+0.00,atmospheric_entry_interface_120km,120.208,7.1082,-58.2491,7356.21,17.80,0.00,0.00,0.0061,0.000
+615.00,peak_stagnation_heat_flux,43.593,-10.9083,-22.7823,6075.43,18.76,42.31,2.00,0.8815,150.075
+707.00,peak_dynamic_pressure,30.779,-12.7652,-19.1904,3272.32,10.82,85.47,4.04,0.3635,214.273
+868.62,ocean_surface_splashdown_datum,0.000,-13.6774,-17.8828,209.17,0.61,26.80,1.11,0.0008,225.252

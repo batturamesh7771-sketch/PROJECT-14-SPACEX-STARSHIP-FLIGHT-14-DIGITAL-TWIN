@@ -1,0 +1,19 @@
+{
+  "scenario_id": "synthetic_entry_uncontrolled",
+  "classification": "SYNTHETIC_SCENARIO",
+  "initial_entry_altitude_km": 120.2083731839126,
+  "initial_relative_speed_ms": 7356.205482960504,
+  "initial_mach": 17.79605286438525,
+  "entry_flight_path_angle_deg": -0.7518640192860582,
+  "peak_dynamic_pressure_kpa": 68.26014820507262,
+  "peak_apparent_g_load": 3.2297142696983054,
+  "peak_stagnation_heat_flux_mw_m2": 0.7944080762384227,
+  "cumulative_heat_load_mj_m2": 240.6713171522583,
+  "reentry_flight_duration_s": 929.443359375,
+  "terminal_impact_lat_deg": -14.044089601640001,
+  "terminal_impact_lon_deg": -15.406332753800116,
+  "terminal_relative_speed_ms": 209.67040990165697,
+  "target_miss_distance_km": 74.82304745244818,
+  "outcome_classification": "TARGET_REGION_MISSED",
+  "target_within_corridor": false
+}

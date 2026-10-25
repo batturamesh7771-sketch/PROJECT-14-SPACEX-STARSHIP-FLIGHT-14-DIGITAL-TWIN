@@ -1,0 +1,14 @@
+{
+  "comparison_title": "Starship Flight 14 Reentry Guidance Assessment",
+  "uncontrolled_miss_km": 74.82304745244818,
+  "guided_miss_km": 312.5557522103844,
+  "miss_reduction_km": -237.73270475793623,
+  "miss_improvement_percent": -317.7265733650063,
+  "uncontrolled_peak_g": 3.2297142696983054,
+  "guided_peak_g": 4.044216800728954,
+  "uncontrolled_peak_heat_mw_m2": 0.7944080762384227,
+  "guided_peak_heat_mw_m2": 0.8814590163768771,
+  "uncontrolled_total_heat_load_mj_m2": 240.6713171522583,
+  "guided_total_heat_load_mj_m2": 225.25201071312216,
+  "guided_target_status": "TARGET_REGION_MISSED"
+}

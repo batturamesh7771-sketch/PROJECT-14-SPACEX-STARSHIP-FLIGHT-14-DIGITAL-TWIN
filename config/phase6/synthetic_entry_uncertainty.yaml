@@ -1,0 +1,49 @@
+# Phase 6 Configuration: Reentry Uncertainty Quantification & Monte Carlo
+# Classification: SYNTHETIC_SCENARIO
+config_id: "P6-CFG-004-UNCERTAINTY"
+scenario_name: "synthetic_entry_uncertainty"
+description: "OAT parameter sensitivity and seeded pseudo-random Monte Carlo trajectory dispersion ensemble."
+epoch_utc: "2026-09-28T15:48:47.315Z"
+reference_frame: "ECI_J2000"
+
+initial_state_cartesian:
+  x_m: 5528938.10
+  y_m: -3319172.12
+  z_m: 798881.33
+  vx_m_s: 3895.7417
+  vy_m_s: 5894.2764
+  vz_m_s: -3257.6110
+  elapsed_mission_seconds: 6527.315
+
+vehicle:
+  vehicle_id: "Starship_Flight14_UpperStage"
+  mass_kg: 177272.71
+  reference_area_m2: 63.617
+  reference_length_m: 50.0
+  nose_radius_m: 4.50
+  nominal_angle_of_attack_deg: 70.0
+  cd_hypersonic: 1.50
+  cl_hypersonic: 0.40
+  max_bank_angle_deg: 45.0
+  max_bank_rate_deg_s: 10.0
+
+atmosphere:
+  model: "US_STANDARD_ATMOSPHERE_1976"
+  density_scale_factor: 1.0
+
+target:
+  target_name: "South Atlantic Recovery Corridor"
+  latitude_deg: -14.04
+  longitude_deg: -15.49
+  corridor_radius_m: 100000.0
+
+uncertainty:
+  monte_carlo_samples: 50
+  random_seed: 42
+  variations_1sigma:
+    mass_relative: 0.02 # +/- 2%
+    reference_area_relative: 0.03 # +/- 3%
+    cd_relative: 0.04 # +/- 4%
+    cl_relative: 0.05 # +/- 5%
+    density_relative: 0.05 # +/- 5%
+    velocity_magnitude_m_s: 10.0 # +/- 10 m/s

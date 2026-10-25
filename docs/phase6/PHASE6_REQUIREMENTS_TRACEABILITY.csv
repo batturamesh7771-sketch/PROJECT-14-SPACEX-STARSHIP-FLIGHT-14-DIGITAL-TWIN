@@ -1,0 +1,32 @@
+requirement_id,gate,title,description,source_file,test_id,verification_status,provenance_tag
+REQ-P6-G00,Gate 0,Prerequisite Toolchain & Working Tree Audit,Verify Python 3.14 / FreeCAD Python 3.11 / GMAT and preserve Git baseline 665803c,docs/phase6/PHASE6_INITIAL_INSPECTION.md,TEST-P6-01 to TEST-P6-25,VERIFIED,PUBLIC_FACT
+REQ-P6-G01,Gate 1,Disposal State Entry Handoff Verification,Verify Phase 5 disposal state crossing 120 km interface with negative flight path angle,docs/phase6/PHASE5_ENTRY_STATE_READINESS.md,TEST-P6-21,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G02-1,Gate 2,US Standard Atmosphere 1976 Base Model,Standard sea level and layer properties from 0 to 86 km,src/reentry/atmosphere.py,TEST-P6-01,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G02-2,Gate 2,Stratosphere Layer Structure,Isothermal 11-20 km layer and density variation,src/reentry/atmosphere.py,TEST-P6-02,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G02-3,Gate 2,Continuous Thermospheric Extension,Continuum density scale-height extension from 86 to 150 km,src/reentry/atmosphere.py,TEST-P6-03,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G02-4,Gate 2,Atmospheric Density Scaling,Scale factor support for atmospheric dispersion studies,src/reentry/atmosphere.py,TEST-P6-04,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G03-1,Gate 3,Starship Entry Vehicle Mass & Area,Entry mass 177.27 t and cross-sectional area 63.62 m2,src/reentry/vehicle.py,TEST-P6-05,VERIFIED,DERIVED_PUBLIC
+REQ-P6-G03-2,Gate 3,Ballistic Coefficient Calculation,Hypersonic ballistic coefficient calculation beta = m / (Cd * A_ref),src/reentry/vehicle.py,TEST-P6-05,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G04-1,Gate 4,Drag Direction Anti-Parallel,Aerodynamic drag strictly anti-parallel to atmospheric-relative velocity,src/reentry/aerodynamics.py,TEST-P6-06,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G04-2,Gate 4,Lift Vector Strict Orthogonality,Aerodynamic lift vector strictly perpendicular to relative velocity,src/reentry/aerodynamics.py,TEST-P6-07,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G04-3,Gate 4,Bank Angle Lift Rotation,Bank angle modulation rotates lift vector around relative velocity vector,src/reentry/aerodynamics.py,TEST-P6-08,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G04-4,Gate 4,Zero-Speed Aerodynamic Guard,Pure zero relative velocity returns zero aerodynamic forces without NaN,src/reentry/aerodynamics.py,TEST-P6-09,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G05-1,Gate 5,Sutton-Graves Stagnation Heat Flux,NASA TR R-376 convective stagnation heating correlation,src/reentry/heating.py,TEST-P6-10,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G05-2,Gate 5,Radiative Equilibrium Wall Temperature,Stefan-Boltzmann radiation equilibrium outer mold line temperature,src/reentry/heating.py,TEST-P6-11,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G05-3,Gate 5,Cumulative Heat Load Integration,Integral of stagnation heat flux over time Q(t) monotonically increasing,src/reentry/heating.py,TEST-P6-12,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G06-1,Gate 6,Apparent Deceleration & G-Load,Total non-gravitational deceleration calculation in Earth g units,src/reentry/aerodynamics.py,TEST-P6-22,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G06-2,Gate 6,Dynamic Pressure Tracking,Dynamic pressure q_dyn = 0.5 * rho * v_rel^2 tracking and peak capture,src/reentry/aerodynamics.py,TEST-P6-22,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G07-1,Gate 7,Closed-Loop Crossrange Guidance,Proportional-derivative bank angle modulation for crossrange error nulling,src/reentry/guidance.py,TEST-P6-13,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G07-2,Gate 7,Guidance Actuator Rate Limiting,Enforce flap actuation roll rate limit <= 10 deg/s,src/reentry/guidance.py,TEST-P6-14,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G07-3,Gate 7,Guidance Bank Angle Saturation,Enforce maximum commanded bank angle limit <= 45 deg,src/reentry/guidance.py,TEST-P6-15,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G07-4,Gate 7,Dynamic Pressure Deadband Gate,Deactivate aerodynamic guidance commands when q_dyn < 50 Pa,src/reentry/guidance.py,TEST-P6-16,VERIFIED,MODEL_ASSUMPTION
+REQ-P6-G08-1,Gate 8,WGS-84 Geodetic Coordinate Conversion,Bowring closed-form ECEF to WGS-84 geodetic conversion,src/reentry/splashdown.py,TEST-P6-17,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G08-2,Gate 8,Great-Circle Distance Metric,Haversine great-circle distance on spherical Earth datum,src/reentry/splashdown.py,TEST-P6-18,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G08-3,Gate 8,Atmospheric-Relative Velocity Transformation,Earth rotation subtraction v_rel = v_eci - omega x r_eci,src/reentry/splashdown.py,TEST-P6-19,VERIFIED,VALIDATION_REFERENCE
+REQ-P6-G08-4,Gate 8,Terminal Splashdown Classification,Assess miss distance and classify TARGET_REGION_REACHED or MISSED,src/reentry/splashdown.py,TEST-P6-20,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G09-1,Gate 9,Full Trajectory Numerical Propagation,3-DOF propagation from 120 km interface to sea level (h = 0 m),src/reentry/dynamics.py,TEST-P6-21,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G09-2,Gate 9,Guided Trajectory Control Execution,Closed-loop guidance modulates bank angle during reentry flight,src/reentry/dynamics.py,TEST-P6-23,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G10-1,Gate 10,OAT Parameter Sensitivity Study,Deterministic One-At-a-Time sensitivity analysis for key flight parameters,src/reentry/uncertainty.py,TEST-P6-24,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G10-2,Gate 10,Monte Carlo Trajectory Dispersion Ensemble,Seeded pseudo-random Monte Carlo analysis (Seed 42 reproducibility),src/reentry/uncertainty.py,TEST-P6-25,VERIFIED,SIMULATION_OUTPUT
+REQ-P6-G11-1,Gate 11,Comprehensive Test Suite Execution,All 114 project tests pass with zero regressions,tests/test_phase6_reentry.py,ALL_TESTS,VERIFIED,PUBLIC_FACT
+REQ-P6-G11-2,Gate 11,Publication Visualizations Generated,10 publication-quality figures at 300 DPI,src/generate_phase6_plots.py,PLOTS_GEN,VERIFIED,SIMULATION_OUTPUT

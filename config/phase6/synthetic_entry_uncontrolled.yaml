@@ -1,0 +1,57 @@
+# Phase 6 Configuration: Synthetic Reentry Uncontrolled Baseline Scenario
+# Classification: SYNTHETIC_SCENARIO
+config_id: "P6-CFG-003-UNCONTROLLED"
+scenario_name: "synthetic_entry_uncontrolled"
+description: "Uncontrolled ballistic-lift entry trajectory for direct comparative baseline against guided case."
+epoch_utc: "2026-09-28T15:48:47.315Z"
+reference_frame: "ECI_J2000"
+
+initial_state_cartesian:
+  x_m: 5528938.10
+  y_m: -3319172.12
+  z_m: 798881.33
+  vx_m_s: 3895.7417
+  vy_m_s: 5894.2764
+  vz_m_s: -3257.6110
+  elapsed_mission_seconds: 6527.315
+
+vehicle:
+  vehicle_id: "Starship_Flight14_UpperStage"
+  mass_kg: 177272.71
+  reference_area_m2: 63.617
+  reference_length_m: 50.0
+  nose_radius_m: 4.50
+  nominal_angle_of_attack_deg: 70.0
+  cd_hypersonic: 1.50
+  cl_hypersonic: 0.40
+  max_bank_angle_deg: 45.0
+  max_bank_rate_deg_s: 10.0
+
+atmosphere:
+  model: "US_STANDARD_ATMOSPHERE_1976"
+  density_scale_factor: 1.0
+  temperature_offset_k: 0.0
+
+heating:
+  correlation: "SUTTON_GRAVES_1971"
+  k_sg_earth: 1.7415e-4
+  surface_emissivity: 0.85
+  windward_acreage_ratio: 0.25
+
+guidance:
+  mode: "DISABLED"
+  enabled: false
+
+target:
+  target_name: "South Atlantic Centered Corridor"
+  latitude_deg: -13.50
+  longitude_deg: -15.00
+  corridor_radius_m: 50000.0
+
+propagation:
+  max_duration_seconds: 1500.0
+  integrator: "DOP853"
+  rtol: 1.0e-8
+  atol: 1.0e-10
+  eval_step_seconds: 1.0
+  enable_j2: true

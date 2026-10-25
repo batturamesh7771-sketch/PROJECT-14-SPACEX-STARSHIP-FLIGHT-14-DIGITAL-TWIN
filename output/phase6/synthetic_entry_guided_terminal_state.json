@@ -1,0 +1,23 @@
+{
+  "impact_time_s": 868.6240234375,
+  "impact_epoch_utc": "2026-09-28T16:03:15.939Z",
+  "geodetic_lat_deg": -13.677379172790147,
+  "geodetic_lon_deg": -17.882843432945943,
+  "geodetic_alt_m": 0.04868766851723194,
+  "terminal_inertial_speed_ms": 561.4803530345937,
+  "terminal_relative_speed_ms": 209.16611706554002,
+  "terminal_flight_path_angle_deg": -60.67431941099486,
+  "terminal_dynamic_pressure_pa": 26797.03466619924,
+  "target_lat_deg": -13.5,
+  "target_lon_deg": -15.0,
+  "miss_distance_km": 312.5557522103844,
+  "crossrange_error_km": 157.60954803788135,
+  "downrange_error_km": 312.5557522103844,
+  "target_within_corridor": false,
+  "outcome_classification": "TARGET_REGION_MISSED",
+  "cumulative_heat_load_mj_m2": 225.25201071312216,
+  "peak_dynamic_pressure_pa": 85474.69377747473,
+  "peak_apparent_g_load": 4.044216800728954,
+  "peak_stagnation_heat_flux_mw_m2": 0.8814590163768771,
+  "disclaimer": "Educational trajectory simulation reaching ocean surface datum. Surface intersection does not model terminal flip, landing burn relight, or structural survivability; not an official SpaceX splashdown certification."
+}
