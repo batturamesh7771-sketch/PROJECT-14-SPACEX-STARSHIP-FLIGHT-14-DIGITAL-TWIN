@@ -222,6 +222,11 @@
           <div class="viewport-canvas-wrapper">
             <canvas id="webgl-canvas"></canvas>
 
+            <!-- Dedicated SpaceX Flight 14 Trajectory Infographic View (matching spacex.com/launches/starship-flight-14) -->
+            <div id="spacex-trajectory-profile-view" class="spacex-trajectory-profile-view" style="display: none;">
+              <canvas id="spacex-trajectory-canvas"></canvas>
+            </div>
+
             <!-- Center Reticle / Attitude Crosshairs -->
             <div class="hud-center-reticle"></div>
 
@@ -796,6 +801,7 @@
   <script src="vendor/three.min.js"></script>
   <script src="vendor/OrbitControls.js"></script>
   <script src="js/scene.js"></script>
+  <script src="js/spacex_profile.js"></script>
   <script src="js/timeline.js"></script>
   <script src="js/hud.js"></script>
   <script src="js/charts.js"></script>
@@ -824,6 +830,19 @@
       // 2. Initialize 3D Scene
       const sceneManager = new MissionSceneManager("webgl-canvas");
       window.sceneManager = sceneManager;
+
+      // 2b. Initialize Dedicated SpaceX Trajectory Infographic Profile
+      let spacexProfile = null;
+      try {
+        if (typeof SpacexTrajectoryProfile !== "undefined") {
+          spacexProfile = new SpacexTrajectoryProfile("spacex-trajectory-canvas");
+        } else if (typeof window.SpacexTrajectoryProfile !== "undefined") {
+          spacexProfile = new window.SpacexTrajectoryProfile("spacex-trajectory-canvas");
+        }
+      } catch (err) {
+        console.error("SpacexTrajectoryProfile initialization failed:", err);
+      }
+      window.spacexProfile = spacexProfile;
 
       // 3. Initialize Charts Manager
       const chartsManager = new EngineeringChartsManager();
@@ -939,6 +958,9 @@
           sceneManager.updateVehicleState(statePoint, activeProfile);
           hudManager.update(statePoint, activeProfile);
           chartsManager.updateTime(statePoint.time_s);
+          if (window.spacexProfile) {
+            window.spacexProfile.updateTime(statePoint.time_s);
+          }
 
           // Update Data Inspector Tab
           const inspVal = document.getElementById("insp-val");
@@ -967,17 +989,29 @@
           document.querySelectorAll(".vp-btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           const view = btn.dataset.view;
-          if (view === "earth") {
-            sceneManager.setCameraMode("EARTH_GLOBAL");
-          } else if (view === "vehicle") {
-            sceneManager.setCameraMode("ORBIT_FOLLOW");
-          } else if (view === "deploy") {
-            timelineController.seekTo(1320.0);
-            sceneManager.setCameraMode("CARGO_DEPLOY_CAM");
-          } else if (view === "profile") {
+          const profView = document.getElementById("spacex-trajectory-profile-view");
+          const webglCanvas = document.getElementById("webgl-canvas");
+
+          if (view === "profile") {
+            if (profView) profView.style.display = "block";
+            if (webglCanvas) webglCanvas.style.display = "none";
+            if (window.spacexProfile) window.spacexProfile.resize();
             sceneManager.setCameraMode("PROFILE_VIEW");
-          } else if (view === "orbit") {
-            sceneManager.setCameraMode("ORBIT_FOLLOW");
+          } else {
+            if (profView) profView.style.display = "none";
+            if (webglCanvas) webglCanvas.style.display = "block";
+            if (sceneManager) sceneManager.onWindowResize();
+
+            if (view === "earth") {
+              sceneManager.setCameraMode("EARTH_GLOBAL");
+            } else if (view === "vehicle") {
+              sceneManager.setCameraMode("ORBIT_FOLLOW");
+            } else if (view === "deploy") {
+              timelineController.seekTo(1320.0);
+              sceneManager.setCameraMode("CARGO_DEPLOY_CAM");
+            } else if (view === "orbit") {
+              sceneManager.setCameraMode("ORBIT_FOLLOW");
+            }
           }
         });
       });
@@ -1110,13 +1144,19 @@
           document.querySelectorAll(".nav-tab-btn").forEach(t => t.classList.remove("active"));
           tab.classList.add("active");
           const nav = tab.dataset.nav;
-          if (nav === "3d") {
+          if (nav === "overview") {
+            const vpVeh = document.querySelector(".vp-btn[data-view='vehicle']");
+            if (vpVeh) vpVeh.click();
+          } else if (nav === "3d") {
+            const vpVeh = document.querySelector(".vp-btn[data-view='vehicle']");
+            if (vpVeh) vpVeh.click();
             sceneManager.setCameraMode("ORBIT_FOLLOW");
           } else if (nav === "telemetry") {
             const chartTab = document.querySelector(".dock-tab[data-tab='tab-charts']");
             if (chartTab) chartTab.click();
           } else if (nav === "trajectory") {
-            sceneManager.setCameraMode("PROFILE_VIEW");
+            const vpProf = document.querySelector(".vp-btn[data-view='profile']");
+            if (vpProf) vpProf.click();
           } else if (nav === "events") {
             const el = document.querySelector(".mc-panel.panel-events");
             if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -1177,6 +1217,11 @@
             timelineController.playBtn.classList.remove("active");
           }
         }
+      }
+      if (urlParams.has("view")) {
+        const v = urlParams.get("view");
+        const btn = document.querySelector(`.vp-btn[data-view='${v}']`);
+        if (btn) btn.click();
       }
       if (urlParams.has("cam")) {
         sceneManager.setCameraMode(urlParams.get("cam"));

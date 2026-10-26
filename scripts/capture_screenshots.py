@@ -75,109 +75,256 @@ def read_frame(sock):
         data.extend(chunk)
     return data.decode(errors="ignore")
 
-def capture_url(chrome_path, url, out_png_path, wait_sec=4):
+def call_cdp(sock, method, params=None, msg_id=1, timeout=15.0):
+    payload = {"id": msg_id, "method": method}
+    if params is not None:
+        payload["params"] = params
+    send_frame(sock, json.dumps(payload))
+    start = time.time()
+    while time.time() - start < timeout:
+        frame = read_frame(sock)
+        if frame:
+            try:
+                data = json.loads(frame)
+                if data.get("id") == msg_id:
+                    return data
+            except Exception:
+                pass
+    return None
+
+def main():
+    chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "docs"))
+    artifact_dir = r"C:\Users\user\.gemini\antigravity\brain\3cb4378b-1fb2-42fa-94fb-0fc3e4a81d55"
+    os.makedirs(base_dir, exist_ok=True)
+
     port = get_free_port()
     user_data = tempfile.mkdtemp()
+    print(f"Launching Chrome on remote-debugging-port={port}...")
     proc = subprocess.Popen([
         chrome_path,
         "--headless=new",
+        "--enable-webgl",
+        "--ignore-gpu-blocklist",
+        "--use-gl=angle",
+        "--use-angle=d3d11",
         f"--remote-debugging-port={port}",
         f"--user-data-dir={user_data}",
         "--window-size=1920,1080",
-        url
+        "http://127.0.0.1:8080/"
     ])
+
     s = None
     try:
-        time.sleep(2.0)
-        resp = urllib.request.urlopen(f"http://127.0.0.1:{port}/json")
-        targets = json.loads(resp.read().decode())
-        page_target = next(t for t in targets if "8080" in t.get("url", ""))
+        # 1. Connect to Chrome CDP
+        page_target = None
+        for _ in range(30):
+            time.sleep(0.5)
+            try:
+                resp = urllib.request.urlopen(f"http://127.0.0.1:{port}/json")
+                targets = json.loads(resp.read().decode())
+                page_targets = [t for t in targets if t.get("type") == "page" and "8080" in t.get("url", "")]
+                if page_targets:
+                    page_target = page_targets[0]
+                    print(f"Connected to page target: {page_target.get('url')}")
+                    break
+            except Exception:
+                pass
+        assert page_target, "Could not acquire dashboard page target from Chrome"
         ws_url = page_target["webSocketDebuggerUrl"]
         path = "/" + ws_url.split("/", 3)[3]
 
         s = socket.create_connection(("127.0.0.1", port))
-        s.settimeout(5.0)
-        assert ws_handshake(s, f"127.0.0.1:{port}", path), "WS Handshake failed"
+        s.settimeout(4.0)
+        assert ws_handshake(s, f"127.0.0.1:{port}", path), "CDP WebSocket Handshake failed"
 
-        # Ensure exact URL navigation with full query parameters
-        send_frame(s, json.dumps({
-            "id": 1,
-            "method": "Page.navigate",
-            "params": {"url": url}
-        }))
-        time.sleep(2.5)
+        # Enable necessary domains
+        call_cdp(s, "Page.enable", msg_id=1)
+        call_cdp(s, "Runtime.enable", msg_id=2)
 
-        # 1. Force 1920x1080 viewport metrics
-        send_frame(s, json.dumps({
-            "id": 10,
-            "method": "Emulation.setDeviceMetricsOverride",
-            "params": {
-                "width": 1920,
-                "height": 1080,
-                "deviceScaleFactor": 1,
-                "mobile": False
-            }
-        }))
+        # Set 1920x1080 metrics
+        call_cdp(s, "Emulation.setDeviceMetricsOverride", {
+            "width": 1920,
+            "height": 1080,
+            "deviceScaleFactor": 1,
+            "mobile": False
+        }, msg_id=3)
 
-        # 2. Trigger window resize for Three.js render sizing
-        send_frame(s, json.dumps({
-            "id": 11,
-            "method": "Runtime.evaluate",
-            "params": {"expression": "window.dispatchEvent(new Event('resize')); if (window.sceneManager) window.sceneManager.onWindowResize();"}
-        }))
+        # 3. Wait for complete initialization
+        print("Waiting for page and simulation initialization...")
+        initialized = False
+        for attempt in range(50):
+            res = call_cdp(s, "Runtime.evaluate", {
+                "expression": """
+                (function() {
+                    return (
+                        document.readyState === 'complete' &&
+                        window.sceneManager !== undefined &&
+                        window.timelineController !== undefined &&
+                        window.timelineController.currentProfile !== undefined &&
+                        window.hudManager !== undefined
+                    );
+                })()
+                """,
+                "returnByValue": True
+            }, msg_id=10 + attempt, timeout=2.5)
+            val = res.get("result", {}).get("result", {}).get("value") if res else None
+            if val is True:
+                print(f"Page fully initialized at attempt {attempt}!")
+                initialized = True
+                break
+            elif attempt % 5 == 0:
+                print(f"  Attempt {attempt}: res={res}")
+            time.sleep(0.5)
 
-        # 3. Explicitly enforce target time and camera if present in URL
-        url_t = None
-        url_cam = None
-        if "?" in url:
-            query = url.split("?", 1)[1]
-            params = dict(p.split("=", 1) for p in query.split("&") if "=" in p)
-            if "t" in params:
-                url_t = float(params["t"])
-            if "cam" in params:
-                url_cam = params["cam"]
+        assert initialized, "Page failed to initialize in time"
 
-        if url_t is not None or url_cam is not None:
-            expr = ""
-            if url_t is not None:
-                expr += f"if (window.timelineController) {{ window.timelineController.seekTo({url_t}); window.timelineController.isPlaying = false; }} "
-            if url_cam is not None:
-                expr += f"if (window.sceneManager) {{ window.sceneManager.setCameraMode('{url_cam}'); }} "
-            send_frame(s, json.dumps({
-                "id": 12,
-                "method": "Runtime.evaluate",
-                "params": {"expression": expr}
-            }))
+        # Make sure canvas resize is dispatched
+        call_cdp(s, "Runtime.evaluate", {
+            "expression": "window.dispatchEvent(new Event('resize')); if (window.sceneManager) window.sceneManager.onWindowResize();",
+            "returnByValue": True
+        }, msg_id=99)
 
-        # Wait for simulation and 3D textures to settle
-        time.sleep(wait_sec)
+        # 4. Define all screenshot capture targets
+        shots = [
+            # 1. Main 3D Cockpit / Mission View (matching Image 1)
+            {
+                "name": "flight14_cockpit_view.png",
+                "view": "vehicle",
+                "cam": "MISSION_VIEW",
+                "t": 400.0,
+                "wait": 3.0
+            },
+            {
+                "name": "flight14_overview_branching.png",
+                "view": "vehicle",
+                "cam": "MISSION_VIEW",
+                "t": 400.0,
+                "wait": 3.0
+            },
+            # 2. Dedicated SpaceX Trajectory Infographic Profile (matching Image 2)
+            {
+                "name": "flight14_spacex_profile.png",
+                "view": "profile",
+                "cam": "PROFILE_VIEW",
+                "t": 522.0,
+                "wait": 3.0
+            },
+            # 3. 26 Starlinks Deploying Forward from Nosecone Slot with Solar Wings
+            {
+                "name": "flight14_satellite_forward_deploy.png",
+                "view": "vehicle",
+                "cam": "CARGO_DEPLOY_CAM",
+                "t": 1450.0,
+                "wait": 3.0
+            },
+            {
+                "name": "flight14_satellite_deployment.png",
+                "view": "vehicle",
+                "cam": "DEPLOY_WIDE_CAM",
+                "t": 1450.0,
+                "wait": 3.0
+            },
+            # 4. Starship 60 deg Belly-Flop Entry with Hexagonal Tiles and Plasma Shockwave
+            {
+                "name": "flight14_reentry_belly.png",
+                "view": "vehicle",
+                "cam": "ENTRY_BELLY",
+                "t": 10800.0,
+                "wait": 3.0
+            },
+            # 5. Staging Separation
+            {
+                "name": "flight14_staging_separation.png",
+                "view": "vehicle",
+                "cam": "STAGE_SEP",
+                "t": 165.0,
+                "wait": 3.0
+            },
+        ]
 
-        # Trigger screenshot with explicit 1920x1080 clip
-        msg_id = 999
-        send_frame(s, json.dumps({
-            "id": msg_id,
-            "method": "Page.captureScreenshot",
-            "params": {
+        msg_counter = 200
+        for shot in shots:
+            filename = shot["name"]
+            out_path = os.path.join(base_dir, filename)
+            print(f"\n--- Processing: {filename} (t={shot['t']}, view={shot['view']}, cam={shot['cam']}) ---")
+
+            # Apply state in browser
+            setup_code = f"""
+            (function() {{
+                const targetView = "{shot['view']}";
+                const targetCam = "{shot['cam']}";
+                const targetT = {shot['t']};
+
+                // View Mode
+                const btn = document.querySelector(`.vp-btn[data-view='${{targetView}}']`);
+                if (btn) btn.click();
+
+                // Explicit timeline seek
+                if (window.timelineController) {{
+                    window.timelineController.seekTo(targetT);
+                    window.timelineController.isPlaying = false;
+                    if (window.timelineController.playBtn) {{
+                        window.timelineController.playBtn.innerText = "PLAY";
+                        window.timelineController.playBtn.classList.remove("active");
+                    }}
+                }}
+
+                // Camera mode
+                if (window.sceneManager) {{
+                    window.sceneManager.setCameraMode(targetCam);
+                    window.sceneManager.snapCameraNextFrame = true;
+                    window.sceneManager.onWindowResize();
+                }}
+
+                // Profile Canvas render if in profile mode
+                if (targetView === "profile" && window.spacexProfile) {{
+                    window.spacexProfile.resize();
+                    window.spacexProfile.updateTime(targetT);
+                    window.spacexProfile.render();
+                }}
+
+                return {{
+                    t: window.timelineController ? window.timelineController.currentTime : -1,
+                    view: document.querySelector('.vp-btn.active') ? document.querySelector('.vp-btn.active').dataset.view : null,
+                    cam: window.sceneManager ? window.sceneManager.currentCameraMode : null,
+                    profDisplay: document.getElementById('spacex-trajectory-profile-view') ? document.getElementById('spacex-trajectory-profile-view').style.display : null
+                }};
+            }})()
+            """
+            msg_counter += 1
+            eval_res = call_cdp(s, "Runtime.evaluate", {"expression": setup_code, "returnByValue": True}, msg_id=msg_counter)
+            applied_state = eval_res.get("result", {}).get("result", {}).get("value") if eval_res else None
+            print(f"  Applied state: {applied_state}")
+
+            # Wait for WebGL / 2D Canvas rendering to settle
+            time.sleep(shot["wait"])
+
+            # Capture Screenshot
+            msg_counter += 1
+            cap_res = call_cdp(s, "Page.captureScreenshot", {
                 "format": "png",
                 "clip": {"x": 0, "y": 0, "width": 1920, "height": 1080, "scale": 1}
-            }
-        }))
+            }, msg_id=msg_counter, timeout=15.0)
 
-        # Read frames until we receive response
-        for _ in range(50):
-            frame = read_frame(s)
-            if not frame:
-                continue
-            data = json.loads(frame)
-            if data.get("id") == msg_id:
-                b64_data = data.get("result", {}).get("data")
-                if b64_data:
-                    os.makedirs(os.path.dirname(out_png_path), exist_ok=True)
-                    with open(out_png_path, "wb") as f:
-                        f.write(base64.b64decode(b64_data))
-                    print(f"Captured {out_png_path} ({os.path.getsize(out_png_path)} bytes)")
-                    return True
-        return False
+            if cap_res and "result" in cap_res and "data" in cap_res["result"]:
+                b64 = cap_res["result"]["data"]
+                decoded = base64.b64decode(b64)
+                with open(out_path, "wb") as f_out:
+                    f_out.write(decoded)
+                print(f"  Saved {out_path} ({len(decoded)} bytes)")
+
+                # Also mirror to brain artifact directory
+                if os.path.exists(artifact_dir):
+                    art_file = os.path.join(artifact_dir, filename)
+                    with open(art_file, "wb") as f_art:
+                        f_art.write(decoded)
+                    print(f"  Mirrored to artifact: {art_file}")
+            else:
+                print(f"  ERROR: Screenshot capture failed for {filename}")
+
+        print("\nAll screenshot tasks finished successfully!")
+
     finally:
         if s:
             try:
@@ -192,23 +339,6 @@ def capture_url(chrome_path, url, out_png_path, wait_sec=4):
                 proc.kill()
             except Exception:
                 pass
-
-def main():
-    chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "docs"))
-
-    shots = [
-        ("http://127.0.0.1:8080/?cam=MISSION_VIEW", os.path.join(base_dir, "flight14_overview_branching.png"), 4),
-        ("http://127.0.0.1:8080/?t=165&cam=STAGE_SEP", os.path.join(base_dir, "flight14_staging_separation.png"), 4),
-        ("http://127.0.0.1:8080/?t=1325&cam=CARGO_DEPLOY_CAM", os.path.join(base_dir, "flight14_satellite_deployment.png"), 4),
-        ("http://127.0.0.1:8080/?t=10800&cam=ENTRY_BELLY", os.path.join(base_dir, "flight14_reentry_belly.png"), 4),
-    ]
-
-    for url, out_path, wait_s in shots:
-        print(f"Capturing: {url} -> {out_path}")
-        ok = capture_url(chrome_path, url, out_path, wait_sec=wait_s)
-        print("Success:", ok)
-        time.sleep(1.0)
 
 if __name__ == "__main__":
     main()
