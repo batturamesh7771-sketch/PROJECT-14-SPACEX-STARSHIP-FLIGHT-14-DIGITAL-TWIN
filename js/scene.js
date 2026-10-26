@@ -98,24 +98,38 @@ class MissionSceneManager {
       this.controls.dampingFactor = 0.05;
       this.controls.minDistance = 0.15;
       this.controls.maxDistance = 500;
+      this.controls.enabled = false;
+      this.controls.addEventListener("start", () => {
+        this.currentCameraMode = "FREE_ORBIT";
+        this.controls.enabled = true;
+        const freeRadio = document.querySelector("input[name='camMode'][value='FREE_ORBIT']");
+        if (freeRadio) freeRadio.checked = true;
+        const titleBox = document.querySelector(".cam-box-title");
+        if (titleBox) titleBox.innerText = "CAMERA: FREE ORBIT";
+      });
     }
 
     // 5. Physically Inspired Space Lighting
-    const ambientLight = new THREE.AmbientLight(0x1a2638, 0.65);
+    const ambientLight = new THREE.AmbientLight(0x28384c, 0.95);
     this.scene.add(ambientLight);
 
     // Primary Solar Directional Light
-    const sunLight = new THREE.DirectionalLight(0xffffff, 2.4);
-    sunLight.position.copy(this.sunDirection).multiplyScalar(100);
-    this.scene.add(sunLight);
+    this.sunLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    this.sunLight.position.set(60, 45, 50).normalize().multiplyScalar(100);
+    this.scene.add(this.sunLight);
+
+    // Camera Keylight (attached to camera so spacecraft is always beautifully lit from observer angle)
+    this.cameraLight = new THREE.DirectionalLight(0xd5e8ff, 1.4);
+    this.camera.add(this.cameraLight);
+    this.scene.add(this.camera);
 
     // Soft Earth Albedo Upward Bounce Light
-    const earthAlbedo = new THREE.DirectionalLight(0x1c4480, 0.85);
-    earthAlbedo.position.set(0, -50, 0);
+    const earthAlbedo = new THREE.DirectionalLight(0x1a447c, 1.1);
+    earthAlbedo.position.set(0, -60, 0);
     this.scene.add(earthAlbedo);
 
     // Subtle Cyan Rim Backlight for Spacecraft Silhouettes
-    const rimLight = new THREE.DirectionalLight(0x00d4ff, 0.4);
+    const rimLight = new THREE.DirectionalLight(0x00d4ff, 0.5);
     rimLight.position.set(-40, 10, -40).normalize();
     this.scene.add(rimLight);
 
@@ -422,17 +436,19 @@ class MissionSceneManager {
   // Authentic Starship & Super Heavy 3D Vehicle Geometry
   // =========================================================================
   createOgiveNosecone(radius, length, segments = 32) {
-    // Generates a tangent ogive curve: r(y) = sqrt(rho^2 - (L - y)^2) + R - rho
+    // True aerodynamic tangent ogive curve:
+    // Base at y = 0 has r = radius, smoothly curving to a sharp aerodynamic tip at y = length (r = 0).
     const rho = (radius * radius + length * length) / (2.0 * radius);
     const points = [];
-    const steps = 24;
+    const steps = 30;
 
     for (let i = 0; i <= steps; i++) {
       const y = (i / steps) * length;
-      const term = rho * rho - Math.pow(length - y, 2);
-      const r = Math.max(0.0, Math.sqrt(Math.max(0, term)) + radius - rho);
+      const term = Math.max(0.0, rho * rho - y * y);
+      const r = Math.max(0.0, Math.sqrt(term) + radius - rho);
       points.push(new THREE.Vector2(r, y));
     }
+    points.push(new THREE.Vector2(0, length));
 
     return new THREE.LatheGeometry(points, segments);
   }
@@ -442,30 +458,29 @@ class MissionSceneManager {
 
     // Baseline scale factor: Starship is 50m long, 9m diameter.
     // In scene units: 1 unit = 1000 km = 1,000,000m.
-    // For crisp WebGL visibility across orbital ranges, we use a vehicle display scale:
     const vScale = 0.20;
     const sRadius = 0.045 * vScale * 10; // 0.09 units
 
     // Materials
-    // 1. Brushed 304L Stainless Steel (Leeward hull)
+    // 1. Brushed 304L Stainless Steel (Metallic, reflective leeward hull)
     const steelMat = new THREE.MeshStandardMaterial({
-      color: 0xdde6ed,
-      metalness: 0.94,
-      roughness: 0.20,
+      color: 0xe8eef6,
+      metalness: 0.95,
+      roughness: 0.16,
     });
 
-    // 2. Black Hexagonal TPS Tiles (Windward belly heat shield)
+    // 2. Black Hexagonal TPS Tiles (Windward heat shield belly)
     const tileMat = new THREE.MeshStandardMaterial({
-      color: 0x121418,
-      metalness: 0.08,
-      roughness: 0.88,
+      color: 0x0c0e12,
+      metalness: 0.06,
+      roughness: 0.90,
     });
 
     // 3. Dark Ceramic / Carbon Matrix (Engine bells & interstage)
     const darkMetalMat = new THREE.MeshStandardMaterial({
-      color: 0x22262c,
-      metalness: 0.85,
-      roughness: 0.35,
+      color: 0x1e2228,
+      metalness: 0.88,
+      roughness: 0.30,
     });
 
     // =======================================================================
@@ -476,7 +491,7 @@ class MissionSceneManager {
     const barrelLength = 0.32 * vScale * 10;
     const noseLength = 0.22 * vScale * 10;
 
-    // A1. Main Cylindrical Barrel (Leeward 180 deg)
+    // A1. Main Cylindrical Barrel (Solid closed leeward hull)
     const barrelGeo = new THREE.CylinderGeometry(
       sRadius, sRadius, barrelLength, 32, 1, false, Math.PI / 2, Math.PI
     );
@@ -486,24 +501,31 @@ class MissionSceneManager {
 
     // A2. Windward Black TPS Belly Barrel (Windward 180 deg)
     const bellyGeo = new THREE.CylinderGeometry(
-      sRadius * 1.004, sRadius * 1.004, barrelLength, 32, 1, false, -Math.PI / 2, Math.PI
+      sRadius * 1.006, sRadius * 1.006, barrelLength, 32, 1, false, -Math.PI / 2, Math.PI
     );
     const bellyMesh = new THREE.Mesh(bellyGeo, tileMat);
     bellyMesh.position.y = barrelLength / 2;
     this.starshipUpperGroup.add(bellyMesh);
 
-    // A3. Sleek Ogive Nosecone
+    // A3. Sleek Pointed Ogive Nosecone (Solid curved nose)
     const ogiveGeo = this.createOgiveNosecone(sRadius, noseLength, 32);
     const noseMesh = new THREE.Mesh(ogiveGeo, steelMat);
     noseMesh.position.y = barrelLength;
     this.starshipUpperGroup.add(noseMesh);
 
-    // Windward Heat Shield Nose Cone Overlay
-    const noseShieldGeo = new THREE.CylinderGeometry(
-      sRadius * 0.99, 0.001, noseLength, 32, 1, false, -Math.PI / 2, Math.PI
-    );
+    // Windward Heat Shield Nose Cone Overlay (Windward 180 deg half-lathe)
+    const shieldPoints = [];
+    const rho = (sRadius * sRadius + noseLength * noseLength) / (2.0 * sRadius);
+    for (let i = 0; i <= 30; i++) {
+      const y = (i / 30) * noseLength;
+      const term = Math.max(0.0, rho * rho - y * y);
+      const r = Math.max(0.0, Math.sqrt(term) + sRadius * 1.006 - rho);
+      shieldPoints.push(new THREE.Vector2(r, y));
+    }
+    shieldPoints.push(new THREE.Vector2(0, noseLength));
+    const noseShieldGeo = new THREE.LatheGeometry(shieldPoints, 32, -Math.PI / 2, Math.PI);
     const noseShieldMesh = new THREE.Mesh(noseShieldGeo, tileMat);
-    noseShieldMesh.position.y = barrelLength + noseLength / 2;
+    noseShieldMesh.position.y = barrelLength;
     this.starshipUpperGroup.add(noseShieldMesh);
 
     // A4. Aerodynamic Forward Flaps (Sculpted Swept Delta Canards)
@@ -547,7 +569,14 @@ class MissionSceneManager {
     this.flaps.aftRight.rotation.y = Math.PI / 2;
     this.starshipUpperGroup.add(this.flaps.aftRight);
 
-    // A6. Raptor Vacuum & Sea-Level Engine Nozzles
+    // Aft Bulkhead Dome (Solid bottom closing the engine skirt, preventing hollow pipe look)
+    const aftDomeGeo = new THREE.SphereGeometry(sRadius * 0.99, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+    const aftDomeMesh = new THREE.Mesh(aftDomeGeo, darkMetalMat);
+    aftDomeMesh.rotation.x = Math.PI;
+    aftDomeMesh.position.y = 0;
+    this.starshipUpperGroup.add(aftDomeMesh);
+
+    // A6. Engine Skirt & 6 Distinct Raptor 3 Engine Bells
     const engineSkirt = new THREE.Mesh(
       new THREE.CylinderGeometry(sRadius, sRadius * 0.98, 0.03 * vScale * 10, 32),
       darkMetalMat
@@ -555,10 +584,20 @@ class MissionSceneManager {
     engineSkirt.position.y = -0.015 * vScale * 10;
     this.starshipUpperGroup.add(engineSkirt);
 
+    // 3 Center Sea-Level Raptor Bells
+    for (let i = 0; i < 3; i++) {
+      const angle = (i * Math.PI * 2) / 3 + Math.PI / 6;
+      const rBell = sRadius * 0.28;
+      const bellGeo = new THREE.ConeGeometry(0.010 * vScale * 10, 0.024 * vScale * 10, 16, 1, true);
+      const bellMesh = new THREE.Mesh(bellGeo, darkMetalMat);
+      bellMesh.position.set(Math.cos(angle) * rBell, -0.022 * vScale * 10, Math.sin(angle) * rBell);
+      this.starshipUpperGroup.add(bellMesh);
+    }
+
     // 3 Large Vacuum Raptor Bells
     for (let i = 0; i < 3; i++) {
       const angle = (i * Math.PI * 2) / 3;
-      const rBell = sRadius * 0.55;
+      const rBell = sRadius * 0.58;
       const bellGeo = new THREE.ConeGeometry(0.016 * vScale * 10, 0.035 * vScale * 10, 16, 1, true);
       const bellMesh = new THREE.Mesh(bellGeo, darkMetalMat);
       bellMesh.position.set(Math.cos(angle) * rBell, -0.035 * vScale * 10, Math.sin(angle) * rBell);
@@ -878,7 +917,7 @@ class MissionSceneManager {
         s.beacon.material.color.setHex(0x00e5ff); // Cyan active
         s.state = "EJECTING";
       } else {
-        // DEPLOYED IN FREE ORBIT!
+        // DEPLOYED IN FREE ORBIT AHEAD OF STARSHIP
         s.mesh.visible = true;
         if (s.mesh.parent !== this.satellitesGroup) {
           this.satellitesGroup.add(s.mesh);
@@ -887,15 +926,18 @@ class MissionSceneManager {
         // Wing fully extended (90 deg)
         s.wingPivot.rotation.y = Math.PI / 2;
 
-        // Physical separation & orbital drift
+        // Physical forward separation & orbital drift
         const freeTime = dt - 4.0;
-        const driftDist = freeTime * 0.00012;
-        const latDist = Math.sin(s.index * 0.45) * Math.min(0.08, freeTime * 0.00004);
+        const driftDist = freeTime * 0.00015;
+        const latDist = Math.sin(s.index * 0.6) * Math.min(0.12, 0.015 + freeTime * 0.00005);
+        const altDist = (s.index % 2 === 0 ? 0.006 : -0.006) + Math.cos(s.index) * 0.003;
 
+        // Deploy FORWARD ahead of Starship nosecone (tip at 0.86) along orbital velocity vector
+        const fwdDist = 0.88 + s.index * 0.042 + Math.min(0.60, driftDist);
         const satPos = vPos.clone()
-          .sub(vDir.clone().multiplyScalar(driftDist + s.index * 0.008)) // Trailing constellation train!
-          .add(hNorm.clone().multiplyScalar(latDist + (s.index % 2 === 0 ? 0.004 : -0.004)))
-          .add(rUp.clone().multiplyScalar(0.003));
+          .add(vDir.clone().multiplyScalar(fwdDist))
+          .add(hNorm.clone().multiplyScalar(latDist))
+          .add(rUp.clone().multiplyScalar(altDist + 0.04));
 
         s.mesh.position.copy(satPos);
         s.mesh.lookAt(satPos.clone().add(vDir));
@@ -1283,6 +1325,14 @@ class MissionSceneManager {
   setCameraMode(mode) {
     this.currentCameraMode = mode;
     this.snapCameraNextFrame = true;
+    if (this.controls) {
+      this.controls.enabled = (mode === "FREE_ORBIT");
+    }
+    const radio = document.querySelector(`input[name='camMode'][value='${mode}']`);
+    if (radio) radio.checked = true;
+    const titleBox = document.querySelector(".cam-box-title");
+    if (titleBox) titleBox.innerText = `CAMERA: ${mode.replace(/_/g, " ")}`;
+    this.updateCamera();
   }
 
   trackSatellite(index) {
@@ -1322,43 +1372,38 @@ class MissionSceneManager {
     const hHat = new THREE.Vector3().crossVectors(rHat, vHat).normalize();
 
     const applyCam = (targetPos, targetLook) => {
-      if (this.snapCameraNextFrame) {
-        this.camera.position.copy(targetPos);
-        if (this.controls) this.controls.target.copy(targetLook);
-      } else {
-        this.camera.position.lerp(targetPos, 0.12);
-        if (this.controls) this.controls.target.lerp(targetLook, 0.12);
-      }
+      this.camera.position.copy(targetPos);
+      this.camera.lookAt(targetLook);
+      if (this.controls) this.controls.target.copy(targetLook);
     };
 
-    if (this.currentCameraMode === "ORBIT_FOLLOW") {
-      // Cinematic over-the-shoulder follow framing curved Earth limb below
+    if (this.currentCameraMode === "ORBIT_FOLLOW" || this.currentCameraMode === "MISSION_VIEW") {
+      // 3/4 Front-Side View matching SpaceX target UI (media_1793008843083_e04a5a48.jpg)
+      // Placed ahead along vHat (+0.55), above along rHat (+0.42), and lateral along hHat (+0.65)
       const camOffset = rHat.clone().multiplyScalar(0.42)
-        .sub(vHat.clone().multiplyScalar(0.78))
-        .add(hHat.clone().multiplyScalar(0.48));
-
-      const targetCamPos = vPos.clone().add(camOffset);
-      const lookTarget = vPos.clone().add(vHat.clone().multiplyScalar(0.15));
-      applyCam(targetCamPos, lookTarget);
-    } else if (this.currentCameraMode === "CARGO_DEPLOY_CAM" || this.currentCameraMode === "PAYLOAD_BAY") {
-      // Rocket Mouth Dispenser Perspective (matching media_1792951657295_146a92c9.png & media_1792951553611_3819560f.png)
-      // Placed outside forward leeward hull looking directly at the mouth and deploying satellites
-      const mouthLocal = new THREE.Vector3(0, 0.64 * 0.88, 0.09);
-      const mouthWorld = mouthLocal.clone().applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
-
-      // Camera offset along vehicle body frame
-      const camLocalOffset = new THREE.Vector3(0.08, 0.64 * 0.88 + 0.04, 0.22);
-      const targetCamPos = camLocalOffset.applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
-      applyCam(targetCamPos, mouthWorld);
-    } else if (this.currentCameraMode === "DEPLOY_WIDE_CAM") {
-      // Wide Orbit View of Starship & Deployed Starlink Train (matching media_1792951549197_1830f39c.png)
-      const camOffset = rHat.clone().multiplyScalar(0.85)
-        .add(vHat.clone().multiplyScalar(0.95))
+        .add(vHat.clone().multiplyScalar(0.55))
         .add(hHat.clone().multiplyScalar(0.65));
 
       const targetCamPos = vPos.clone().add(camOffset);
-      const lookTarget = vPos.clone().sub(vHat.clone().multiplyScalar(0.2));
+      const lookTarget = vPos.clone().sub(vHat.clone().multiplyScalar(0.1));
       applyCam(targetCamPos, lookTarget);
+    } else if (this.currentCameraMode === "CARGO_DEPLOY_CAM" || this.currentCameraMode === "PAYLOAD_BAY") {
+      // Rocket Mouth Dispenser Perspective (matching media_1792951553611_3819560f.png & media_1792951549197_1830f39c.png)
+      // Placed alongside forward leeward hull looking at the nose slot and emerging Starlink train
+      const lookTargetLocal = new THREE.Vector3(0, 0.85, 0.15);
+      const lookTargetWorld = lookTargetLocal.clone().applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
+
+      const camLocalOffset = new THREE.Vector3(-0.42, 0.65, 0.55);
+      const targetCamPos = camLocalOffset.applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
+      applyCam(targetCamPos, lookTargetWorld);
+    } else if (this.currentCameraMode === "DEPLOY_WIDE_CAM") {
+      // Wide Orbit View of Starship & Deployed Starlink Train (matching media_1792951549197_1830f39c.png)
+      const lookTargetLocal = new THREE.Vector3(0, 0.85, 0.10);
+      const lookTargetWorld = lookTargetLocal.clone().applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
+
+      const camLocalOffset = new THREE.Vector3(-0.85, 1.10, 1.20);
+      const targetCamPos = camLocalOffset.applyQuaternion(this.vehicleMasterGroup.quaternion).add(vPos);
+      applyCam(targetCamPos, lookTargetWorld);
     } else if (this.currentCameraMode === "PROFILE_VIEW") {
       // Side-elevation flight profile arc (matching media_1792951144098_5fa826c7.png)
       const profileCamPos = hHat.clone().multiplyScalar(15.5);
@@ -1377,12 +1422,12 @@ class MissionSceneManager {
       const globalPos = new THREE.Vector3(0, 13.5, 19.5);
       applyCam(globalPos, new THREE.Vector3(0, 0, 0));
     } else if (this.currentCameraMode === "STAGE_SEP") {
-      // Focus on the interstage separation interface
-      const camOffset = rHat.clone().multiplyScalar(0.18)
-        .sub(vHat.clone().multiplyScalar(0.35))
-        .sub(hHat.clone().multiplyScalar(0.25));
+      // Hot-stage separation: Starship firing engines & Booster falling back
+      const camOffset = rHat.clone().multiplyScalar(0.48)
+        .sub(vHat.clone().multiplyScalar(0.85))
+        .add(hHat.clone().multiplyScalar(0.70));
 
-      applyCam(vPos.clone().add(camOffset), vPos);
+      applyCam(vPos.clone().add(camOffset), vPos.clone().add(vHat.clone().multiplyScalar(0.20)));
     } else if (this.currentCameraMode === "ENTRY_BELLY") {
       // Direct view of the windward black TPS tile belly
       const camOffset = rHat.clone().multiplyScalar(-0.45)
@@ -1415,8 +1460,10 @@ class MissionSceneManager {
       this.earthGroup.rotation.y += 0.00012;
     }
 
-    if (this.controls) {
+    if (this.controls && this.currentCameraMode === "FREE_ORBIT") {
       this.controls.update();
+    } else {
+      this.updateCamera();
     }
 
     if (this.vehicleMasterGroup) {

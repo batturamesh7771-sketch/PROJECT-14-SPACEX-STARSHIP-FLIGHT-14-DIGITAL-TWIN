@@ -1730,3 +1730,25 @@ body {
   stroke-width: 0.8;
 }
 
+/* =========================================================================
+   Dedicated SpaceX Flight 14 Trajectory Infographic View
+   ========================================================================= */
+.spacex-trajectory-profile-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#spacex-trajectory-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
