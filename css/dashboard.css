@@ -1752,3 +1752,424 @@ body {
   height: 100%;
   display: block;
 }
+
+/* =========================================================================
+   Phase Engineering Workbench Panels (Phases 1 - 10)
+   ========================================================================= */
+.phase-workbench-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 14px 18px 14px;
+  background: var(--bg-card);
+  border-radius: 6px;
+  min-height: 240px;
+}
+
+.pwb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pwb-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pwb-badge {
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.8px;
+}
+
+.pwb-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+}
+
+.pwb-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.pwb-status-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pwb-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pwb-status.pass {
+  background: rgba(0, 230, 118, 0.12);
+  border: 1px solid rgba(0, 230, 118, 0.4);
+  color: var(--accent-green);
+}
+
+.pwb-status.warn {
+  background: rgba(255, 145, 0, 0.12);
+  border: 1px solid rgba(255, 145, 0, 0.4);
+  color: var(--accent-orange);
+}
+
+.pwb-status.fail {
+  background: rgba(255, 23, 68, 0.12);
+  border: 1px solid rgba(255, 23, 68, 0.4);
+  color: var(--accent-red);
+}
+
+.fea-workbench-grid,
+.gmat-workbench-grid,
+.prop-workbench-grid,
+.cad-workbench-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.tps-workbench-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card-full-span {
+  grid-column: 1 / -1;
+}
+
+.pwb-card {
+  background: rgba(14, 28, 54, 0.7);
+  border: 1px solid var(--border-card);
+  border-radius: 5px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pwb-card-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: 0.6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 5px;
+}
+
+.pwb-data-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pwb-d-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.pwb-k {
+  color: var(--text-muted);
+}
+
+.pwb-v {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.pwb-gauge-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.pwb-gauge-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.pwb-progress-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pwb-progress-bar {
+  height: 100%;
+  transition: width 0.3s ease, background 0.3s ease;
+  border-radius: 5px;
+}
+
+.pwb-progress-bar.fill-green {
+  background: linear-gradient(90deg, #00c853, #00e676);
+}
+
+.pwb-progress-bar.fill-orange {
+  background: linear-gradient(90deg, #ff9100, #ffab40);
+}
+
+.pwb-progress-bar.fill-red {
+  background: linear-gradient(90deg, #d50000, #ff1744);
+}
+
+.pwb-threshold-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 2;
+}
+
+.pwb-gauge-sublabels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-dim);
+}
+
+.pwb-note-box {
+  background: rgba(0, 229, 255, 0.06);
+  border-left: 3px solid var(--accent-cyan);
+  padding: 6px 10px;
+  font-size: 10px;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin-top: 6px;
+  border-radius: 0 4px 4px 0;
+}
+
+.tps-canvas-wrapper {
+  width: 100%;
+  background: #020611;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#tps-gradient-canvas {
+  width: 100%;
+  height: 140px;
+  display: block;
+}
+
+.tps-stations-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.tps-st-item {
+  background: rgba(8, 17, 33, 0.85);
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+}
+
+.tps-st-item.highlight-cyan {
+  border-color: rgba(0, 229, 255, 0.5);
+  background: rgba(0, 229, 255, 0.08);
+}
+
+.st-depth {
+  font-size: 8px;
+  color: var(--text-muted);
+}
+
+.st-layer {
+  font-size: 9px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.st-temp {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cad-mode-btn-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cad-mode-btn {
+  background: rgba(14, 28, 54, 0.9);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cad-mode-btn:hover {
+  color: #ffffff;
+  border-color: var(--accent-cyan);
+}
+
+.cad-mode-btn.active {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+.cad-spectrum-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #0044ff 0%, #00e5ff 30%, #00e676 60%, #ff9100 80%, #ff1744 100%);
+  margin-top: 4px;
+}
+
+.cad-spectrum-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* =========================================================================
+   3D CAD Models Interactive Section & Embeds
+   ========================================================================= */
+.cad-interactive-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #02050e;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.cad-model-toggle-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: rgba(8, 16, 32, 0.95);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.cad-model-tab {
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  color: var(--text-main, #d5e8ff);
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cad-model-tab:hover {
+  background: rgba(0, 229, 255, 0.18);
+  border-color: rgba(0, 229, 255, 0.6);
+  color: #00e5ff;
+}
+
+.cad-model-tab.active {
+  background: #00e5ff;
+  border-color: #00e5ff;
+  color: #02050e;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.cad-embed-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: calc(100% - 44px);
+  overflow: hidden;
+  background: #000;
+}
+
+.cad-embed-container iframe {
+  width: 100%;
+  height: calc(100% - 24px);
+  border: none;
+  display: block;
+}
+
+.sketchfab-embed-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.cad-workbench-card-embed {
+  margin-top: 14px;
+  background: rgba(6, 14, 28, 0.9);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.cad-embed-frame-box {
+  width: 100%;
+  height: 380px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+}
+
+.cad-embed-frame-box iframe {
+  width: 100%;
+  height: calc(100% - 24px);
+  border: none;
+}
+
+

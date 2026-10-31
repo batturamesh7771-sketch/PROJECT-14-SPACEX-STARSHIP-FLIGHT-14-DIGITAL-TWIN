@@ -38,7 +38,7 @@ class HudManager {
     if (fEl) fEl.innerText = `${(this.feaData.factor_of_safety || 1.57).toFixed(2)}`;
   }
 
-  update(point, profile) {
+  update(point, profile, physicsState) {
     if (!point) return;
 
     const time_s = point.time_s || 0;
@@ -173,6 +173,9 @@ class HudManager {
 
     // 9. Update Event Milestone Cards Gallery (Target UI Layout)
     this.updateEventCards(time_s);
+
+    // 10. Update Phase Engineering Workbenches with Real-Time Physics
+    this.updatePhysicsWorkbench(point, profile, physicsState);
   }
 
   updatePhasesStepper(currentTime_s, profile) {
@@ -508,6 +511,275 @@ class HudManager {
       } else {
         card.className = "event-card";
       }
+    });
+  }
+
+  // =========================================================================
+  // Phase Engineering Workbench Real-Time Physics Synchronization
+  // =========================================================================
+  updatePhysicsWorkbench(point, profile, physicsState) {
+    if (!physicsState && window.physicsEngine) {
+      physicsState = window.physicsEngine.evaluateFullMissionState(point, point.time_s);
+    }
+    if (!physicsState) return;
+
+    const { fea, tps, astrodynamics: astro, propulsion: prop } = physicsState;
+
+    // 1. Structural FEA & Buckling Panel (Phase 8)
+    if (fea) {
+      this.setVal("fea-p-val", `${fea.pressure_bar.toFixed(2)} bar (${(fea.pressure_bar * 0.1).toFixed(2)} MPa)`);
+      this.setVal("fea-hoop-val", `${fea.hoop_stress_MPa.toFixed(2)} MPa`);
+      this.setVal("fea-long-val", `${fea.longitudinal_stress_MPa.toFixed(2)} MPa`);
+      this.setVal("fea-thrust-val", `${fea.axial_thrust_stress_MPa.toFixed(2)} MPa`);
+      this.setVal("fea-bend-val", `±${fea.bending_stress_MPa.toFixed(2)} MPa`);
+      this.setVal("fea-radial-val", `${fea.radial_displacement_mm > 0 ? "+" : ""}${fea.radial_displacement_mm.toFixed(2)} mm`);
+      this.setVal("fea-axial-val", `${fea.axial_displacement_mm > 0 ? "+" : ""}${fea.axial_displacement_mm.toFixed(2)} mm`);
+      this.setVal("fea-vm-val", `${fea.von_mises_stress_MPa.toFixed(2)} MPa`);
+      this.setVal("fea-fos-val", `${fea.factor_of_safety_yield.toFixed(2)}`);
+      this.setVal("fea-margin-val", `${fea.margin_of_safety_yield > 0 ? "+" : ""}${fea.margin_of_safety_yield.toFixed(2)}`);
+      this.setVal("fea-buck-cl", `${fea.critical_buckling_stress_MPa.toFixed(2)} MPa`);
+      this.setVal("fea-buck-crit", `${fea.critical_buckling_stress_MPa.toFixed(2)} MPa`);
+      this.setVal("fea-buck-load", `${Math.max(0, -fea.longitudinal_stress_MPa).toFixed(2)} MPa`);
+      this.setVal("fea-buck-fos", fea.factor_of_safety_buckling >= 99 ? "99.00 (NO BUCKLING RISK)" : `${fea.factor_of_safety_buckling.toFixed(2)} (${fea.is_buckling_nominal ? "SAFE" : "CRITICAL"})`);
+
+      const vmBar = document.getElementById("fea-vm-bar");
+      if (vmBar) {
+        const vmPct = Math.min(100, Math.max(0, (fea.von_mises_stress_MPa / 950.0) * 100));
+        vmBar.style.width = `${vmPct.toFixed(1)}%`;
+        vmBar.className = "pwb-progress-bar " + (fea.factor_of_safety_yield >= 1.25 ? "fill-green" : fea.factor_of_safety_yield >= 1.0 ? "fill-orange" : "fill-red");
+      }
+
+      const yieldBadge = document.getElementById("fea-yield-badge");
+      if (yieldBadge) {
+        yieldBadge.innerText = `● YIELD SF: ${fea.factor_of_safety_yield.toFixed(2)} (${fea.is_yield_nominal ? "NOMINAL" : "MARGIN EXCEEDED"})`;
+        yieldBadge.className = "pwb-status " + (fea.is_yield_nominal ? "pass" : "fail");
+      }
+
+      const buckBadge = document.getElementById("fea-buckling-badge");
+      if (buckBadge) {
+        buckBadge.innerText = `● SP-8007 BUCKLING: ${fea.is_buckling_nominal ? "SAFE" : "BUCKLING RISK"}`;
+        buckBadge.className = "pwb-status " + (fea.is_buckling_nominal ? "pass" : "fail");
+      }
+    }
+
+    // 2. Aerothermal & TPS Panel (Phase 9)
+    if (tps) {
+      this.setVal("tps-st-0", `${tps.surface_temp_K.toFixed(0)} K (${tps.surface_temp_C.toFixed(0)} °C)`);
+      this.setVal("tps-st-14", `${tps.tile_mid_temp_K.toFixed(0)} K (${(tps.tile_mid_temp_K - 273.15).toFixed(0)} °C)`);
+      this.setVal("tps-st-28", `${tps.tile_inner_temp_K.toFixed(0)} K (${(tps.tile_inner_temp_K - 273.15).toFixed(0)} °C)`);
+      this.setVal("tps-st-rtv", `${tps.rtv_bondline_temp_K.toFixed(1)} K (${tps.rtv_bondline_temp_C.toFixed(1)} °C)`);
+      this.setVal("tps-st-tank", `${tps.tank_wall_temp_K.toFixed(1)} K (${(tps.tank_wall_temp_K - 273.15).toFixed(1)} °C)`);
+
+      this.setVal("tps-bond-temp-val", `${tps.rtv_bondline_temp_K.toFixed(1)} K (${tps.rtv_bondline_temp_C.toFixed(1)} °C)`);
+      this.setVal("tps-bond-margin-val", `+${tps.rtv_margin_K.toFixed(1)} K`);
+      this.setVal("tps-sg-flux", `${tps.stagnation_flux_sutton_graves_MW_m2.toFixed(3)} MW/m²`);
+      this.setVal("tps-dkr-flux", `${tps.stagnation_flux_dkr_MW_m2.toFixed(3)} MW/m²`);
+      this.setVal("tps-wind-flux", `${tps.windward_belly_flux_MW_m2.toFixed(3)} MW/m²`);
+      this.setVal("tps-aoa-val", `${(point.pitch_deg || 70).toFixed(1)}°`);
+
+      const bondBar = document.getElementById("tps-bond-gauge-bar");
+      if (bondBar) {
+        const bondPct = Math.min(100, Math.max(0, ((tps.rtv_bondline_temp_K - 290.0) / (533.15 - 290.0)) * 100));
+        bondBar.style.width = `${bondPct.toFixed(1)}%`;
+        bondBar.className = "pwb-progress-bar " + (tps.rtv_bondline_temp_K < 450 ? "fill-green" : tps.rtv_bondline_temp_K < 500 ? "fill-orange" : "fill-red");
+      }
+
+      const rtvBadge = document.getElementById("tps-rtv-badge");
+      if (rtvBadge) {
+        rtvBadge.innerText = `● RTV-560: ${tps.is_rtv_safe ? "SAFE" : "OVERHEAT"} (MARGIN +${tps.rtv_margin_K.toFixed(1)} K)`;
+        rtvBadge.className = "pwb-status " + (tps.is_rtv_safe ? "pass" : "fail");
+      }
+
+      const surfBadge = document.getElementById("tps-surf-badge");
+      if (surfBadge) {
+        surfBadge.innerText = `● TILE SURFACE: ${tps.is_silica_safe ? "NOMINAL (< 1650 K)" : "EXCEEDED LIMIT"}`;
+        surfBadge.className = "pwb-status " + (tps.is_silica_safe ? "pass" : "warn");
+      }
+
+      // Draw dynamic 1D thermal gradient cross-section canvas
+      this.drawTpsGradient(tps);
+    }
+
+    // 3. Astrodynamics & GMAT / SPICE Panel (Phase 5)
+    if (astro) {
+      this.setVal("astro-sma-val", `${this.formatNumber(astro.semi_major_axis_km, 2)} km`);
+      this.setVal("astro-ecc-val", `${astro.eccentricity.toFixed(6)}`);
+      this.setVal("astro-inc-val", `${astro.inclination_deg.toFixed(2)}°`);
+      this.setVal("astro-perigee-val", `${astro.perigee_altitude_km.toFixed(1)} km`);
+      this.setVal("astro-apogee-val", `${astro.apogee_altitude_km.toFixed(1)} km`);
+      this.setVal("astro-period-val", `${astro.orbital_period_min.toFixed(2)} min`);
+      this.setVal("astro-energy-val", `${astro.specific_energy_MJ_kg.toFixed(2)} MJ/kg`);
+      this.setVal("astro-raan-val", `${astro.j2_nodal_regression_deg_day.toFixed(2)} deg/day`);
+      this.setVal("astro-w-val", `${astro.j2_perigee_precession_deg_day.toFixed(2)} deg/day`);
+      this.setVal("astro-beta-val", `${astro.solar_beta_angle_deg > 0 ? "+" : ""}${astro.solar_beta_angle_deg.toFixed(1)}°`);
+      this.setVal("astro-eclipse-val", astro.eclipse_status);
+
+      const eclipseBadge = document.getElementById("astro-eclipse-badge");
+      if (eclipseBadge) {
+        eclipseBadge.innerText = `● SOLAR: ${astro.eclipse_status.startsWith("UMBRA") ? "UMBRA SHADOW" : "SUNLIT"}`;
+        eclipseBadge.className = "pwb-status " + (astro.eclipse_status.startsWith("UMBRA") ? "warn" : "pass");
+      }
+    }
+
+    // 4. Propulsion & Mass Properties Panel (Phases 2 & 4)
+    if (prop) {
+      this.setVal("prop-b14-val", `${prop.booster_active_engines} / ${prop.booster_total_engines} ACTIVE`);
+      this.setVal("prop-s31-val", `${prop.ship_active_engines} / ${prop.ship_total_engines} ACTIVE`);
+      this.setVal("prop-pc-val", `${prop.chamber_pressure_bar.toFixed(1)} bar`);
+      this.setVal("prop-isp-val", `${prop.specific_impulse_s.toFixed(0)} s`);
+      this.setVal("prop-mdot-val", `${this.formatNumber(prop.mass_flow_rate_kg_s, 0)} kg/s`);
+      this.setVal("prop-mass-val", `${this.formatNumber((point.mass_tonnes || 120) * 1000, 0)} kg`);
+      this.setVal("prop-fuel-val", `${this.formatNumber(prop.propellant_mass_tonnes * 1000, 0)} kg`);
+      this.setVal("prop-xcg-val", `${prop.center_of_gravity_x_m.toFixed(1)} m`);
+
+      const clusterBadge = document.getElementById("prop-cluster-badge");
+      if (clusterBadge) {
+        const totalActive = prop.booster_active_engines + prop.ship_active_engines;
+        clusterBadge.innerText = totalActive > 0 ? `● RAPTOR 3: ${totalActive} FIRING` : `● ENGINES: IDLE`;
+      }
+    }
+
+    // 5. CAD Kinematics Panel
+    const fwdFlap = Math.abs(point.flaps_fwd_deg || 0);
+    const aftFlap = Math.abs(point.flaps_aft_deg || 0);
+    this.setVal("cad-fl-fwd", `${(fwdFlap * 0.98).toFixed(1)}°`);
+    this.setVal("cad-fr-fwd", `${(fwdFlap * 1.02).toFixed(1)}°`);
+    this.setVal("cad-al-aft", `${aftFlap.toFixed(1)}°`);
+    this.setVal("cad-ar-aft", `${aftFlap.toFixed(1)}°`);
+
+    const t = point.time_s || 0;
+    let doorStatus = "0.0° (LOCKED CLOSED)";
+    if (t >= 1310 && t <= 1710) {
+      doorStatus = "71.0° (DISPENSER MOUTH OPEN)";
+    } else if (t > 1710 && t < 1740) {
+      doorStatus = "CLOSING FLUSH";
+    }
+    this.setVal("cad-door-val", doorStatus);
+  }
+
+  drawTpsGradient(tps) {
+    const canvas = document.getElementById("tps-gradient-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width;
+    const h = canvas.height;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Total physical stack: 28mm (tile) + 2.5mm (SIP) + 1.0mm (RTV) + 4.0mm (steel) = 35.5 mm
+    const totalMm = 35.5;
+    const padL = 48;
+    const padR = 25;
+    const padT = 20;
+    const padB = 30;
+    const plotW = w - padL - padR;
+    const plotH = h - padT - padB;
+
+    const x0 = padL;
+    const xTileEnd = padL + (28.0 / totalMm) * plotW;
+    const xSipEnd = padL + ((28.0 + 2.5) / totalMm) * plotW;
+    const xRtvEnd = padL + ((28.0 + 2.5 + 1.0) / totalMm) * plotW;
+    const xSteelEnd = padL + plotW;
+
+    // Layer 1: Ceramic Silica Tile (0 to 28 mm)
+    ctx.fillStyle = "rgba(18, 24, 38, 0.90)";
+    ctx.fillRect(x0, padT, xTileEnd - x0, plotH);
+
+    // Layer 2: Nomex Felt SIP (28 to 30.5 mm)
+    ctx.fillStyle = "rgba(42, 34, 24, 0.85)";
+    ctx.fillRect(xTileEnd, padT, xSipEnd - xTileEnd, plotH);
+
+    // Layer 3: RTV-560 Adhesive Bondline (30.5 to 31.5 mm)
+    ctx.fillStyle = "rgba(0, 229, 255, 0.40)";
+    ctx.fillRect(xSipEnd, padT, xRtvEnd - xSipEnd, plotH);
+
+    // Layer 4: 304L Stainless Steel Tank (31.5 to 35.5 mm)
+    ctx.fillStyle = "rgba(25, 42, 70, 0.90)";
+    ctx.fillRect(xRtvEnd, padT, xSteelEnd - xRtvEnd, plotH);
+
+    // Dividers
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+    ctx.lineWidth = 1;
+    [x0, xTileEnd, xSipEnd, xRtvEnd, xSteelEnd].forEach(x => {
+      ctx.beginPath();
+      ctx.moveTo(x, padT);
+      ctx.lineTo(x, padT + plotH);
+      ctx.stroke();
+    });
+
+    // Layer Titles below
+    ctx.font = "9px 'JetBrains Mono', monospace";
+    ctx.fillStyle = "#8fa3b0";
+    ctx.textAlign = "center";
+    ctx.fillText("SILICA TILE (28 mm)", (x0 + xTileEnd) / 2, padT + plotH + 18);
+    ctx.fillText("SIP", (xTileEnd + xSipEnd) / 2, padT + plotH + 18);
+    ctx.fillText("RTV", (xSipEnd + xRtvEnd) / 2, padT + plotH + 18);
+    ctx.fillText("304L TANK", (xRtvEnd + xSteelEnd) / 2, padT + plotH + 18);
+
+    // Temperature scaling
+    const tMin = 250.0;
+    const tMax = Math.max(1400.0, (tps.surface_temp_K || 300) * 1.15);
+    const tempToY = (t) => padT + plotH - ((t - tMin) / (tMax - tMin)) * plotH;
+
+    // RTV 533.15 K Limit Line
+    const yLimit = tempToY(533.15);
+    if (yLimit >= padT && yLimit <= padT + plotH) {
+      ctx.strokeStyle = "rgba(255, 23, 68, 0.65)";
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(padL, yLimit);
+      ctx.lineTo(padL + plotW, yLimit);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "#ff5252";
+      ctx.font = "8px 'JetBrains Mono', monospace";
+      ctx.textAlign = "right";
+      ctx.fillText("533 K", padL - 4, yLimit + 3);
+    }
+
+    // Gradient curve through stations
+    const stations = [
+      { x: x0, t: tps.surface_temp_K || 300 },
+      { x: x0 + (14.0 / totalMm) * plotW, t: tps.tile_mid_temp_K || 295 },
+      { x: xTileEnd, t: tps.tile_inner_temp_K || 292 },
+      { x: (xSipEnd + xRtvEnd) / 2, t: tps.rtv_bondline_temp_K || 290 },
+      { x: xSteelEnd, t: tps.tank_wall_temp_K || 290 },
+    ];
+
+    ctx.beginPath();
+    stations.forEach((st, idx) => {
+      const px = st.x;
+      const py = Math.min(padT + plotH, Math.max(padT, tempToY(st.t)));
+      if (idx === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    });
+
+    const grad = ctx.createLinearGradient(padL, 0, padL + plotW, 0);
+    grad.addColorStop(0, "#ff5722");
+    grad.addColorStop(0.65, "#ffb300");
+    grad.addColorStop(0.85, "#00e5ff");
+    grad.addColorStop(1.0, "#00e676");
+
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 3.0;
+    ctx.stroke();
+
+    // Draw station dots with labels
+    stations.forEach((st) => {
+      const px = st.x;
+      const py = Math.min(padT + plotH, Math.max(padT, tempToY(st.t)));
+      ctx.beginPath();
+      ctx.arc(px, py, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.strokeStyle = "#00e5ff";
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 9px 'JetBrains Mono', monospace";
+      ctx.textAlign = "center";
+      ctx.fillText(`${st.t.toFixed(0)} K`, px, Math.max(padT + 12, py - 6));
     });
   }
 }

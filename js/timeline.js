@@ -38,6 +38,7 @@ class TimelineController {
   setProfile(profileData) {
     this.currentProfile = profileData;
     this.trajectory = profileData.trajectory || [];
+    this.boosterTrajectory = profileData.booster_trajectory || [];
     this.maxTime = profileData.duration_s || (this.trajectory.length > 0 ? this.trajectory[this.trajectory.length - 1].time_s : 100.0);
     this.currentTime = 0.0;
 
@@ -219,10 +220,80 @@ class TimelineController {
     };
   }
 
+  interpolateBoosterState(time_s) {
+    if (!this.boosterTrajectory || this.boosterTrajectory.length === 0) return null;
+    const bTraj = this.boosterTrajectory;
+    const tStart = bTraj[0].time_s;
+    const tEnd = bTraj[bTraj.length - 1].time_s;
+
+    if (time_s < tStart) {
+      return { isAttached: true, time_s: time_s };
+    }
+    if (time_s >= tEnd) {
+      const pLast = bTraj[bTraj.length - 1];
+      return {
+        isAttached: false,
+        time_s: time_s,
+        altitude_km: 0.0,
+        velocity_km_s: 0.0,
+        thrust_mn: 0.0,
+        active_engines: 0,
+        apparent_g: 1.0,
+        phase: "BOOSTER_SPLASHDOWN",
+        event: "SPLASHDOWN_AFTERMATH",
+        scene_pos: pLast.scene_pos || [-0.618328, 2.81099, 5.691805],
+      };
+    }
+
+    let low = 0;
+    let high = bTraj.length - 1;
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      if (bTraj[mid].time_s <= time_s && (mid === bTraj.length - 1 || bTraj[mid + 1].time_s > time_s)) {
+        const p1 = bTraj[mid];
+        const p2 = bTraj[mid + 1];
+        const dt = p2.time_s - p1.time_s;
+        const u = dt > 0 ? (time_s - p1.time_s) / dt : 0;
+        const pos1 = p1.scene_pos || [-0.6, 2.8, 5.7];
+        const pos2 = p2.scene_pos || [-0.6, 2.8, 5.7];
+        const interp = (v1, v2, def) => {
+          if (v1 === undefined || v1 === null) return def;
+          if (v2 === undefined || v2 === null) return v1;
+          return v1 + (v2 - v1) * u;
+        };
+        return {
+          isAttached: false,
+          time_s: time_s,
+          altitude_km: interp(p1.altitude_km, p2.altitude_km, 0),
+          velocity_km_s: interp(p1.velocity_km_s, p2.velocity_km_s, 0),
+          mach: interp(p1.mach, p2.mach, 0),
+          thrust_mn: interp(p1.thrust_mn, p2.thrust_mn, 0),
+          apparent_g: interp(p1.apparent_g, p2.apparent_g, 1.0),
+          active_engines: p1.active_engines || 0,
+          phase: p1.phase,
+          scene_pos: [
+            pos1[0] + (pos2[0] - pos1[0]) * u,
+            pos1[1] + (pos2[1] - pos1[1]) * u,
+            pos1[2] + (pos2[2] - pos1[2]) * u,
+          ],
+        };
+      } else if (bTraj[mid].time_s > time_s) {
+        high = mid - 1;
+      } else {
+        low = mid + 1;
+      }
+    }
+    return this.boosterTrajectory[0];
+  }
+
   notifyState() {
     const currentState = this.interpolateState(this.currentTime);
+    const boosterState = this.interpolateBoosterState(this.currentTime);
+    if (currentState) {
+      currentState.boosterState = boosterState;
+    }
     if (this.callbacks.onStateUpdate && currentState) {
-      this.callbacks.onStateUpdate(currentState, this.currentProfile);
+      this.callbacks.onStateUpdate(currentState, boosterState, this.currentProfile);
     }
   }
 
