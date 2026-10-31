@@ -13,7 +13,20 @@ Spans **11 interconnected engineering phases**—from EGM96 geopotential ascent 
 
 ---
 
-## ⚡ 1-Click Launch: Test on Any Laptop with Zero Glitches
+## 🌐 1-Click Live Web Simulation (Click to Test Instantly — Zero Setup!)
+
+You can run and explore the entire simulation **live in your browser right now** without installing Python, cloning code, or running any local servers:
+
+| Web Interface | Instant One-Click Live Web Link | Features |
+|---|---|---|
+| 🧪 **Spatial Engineering Lab** | **[🚀 Launch Engineering Lab (Live Web)](https://batturamesh7771-sketch.github.io/PROJECT-14-SPACEX-STARSHIP-FLIGHT-14-DIGITAL-TWIN/)** | Real-time 3D kinematics, GMAT astrodynamics, FEA, TPS, and interactive 3D CAD models. |
+| 🎬 **Cinematic Mission Replay** | **[🎬 Launch Cinematic Replay (Live Web)](https://batturamesh7771-sketch.github.io/PROJECT-14-SPACEX-STARSHIP-FLIGHT-14-DIGITAL-TWIN/replay.html)** | 17 director cameras, audio-visual storytelling, stage separation, and ocean splashdown. |
+
+> 💡 **Works on Any Laptop, Tablet, or Phone**: Runs directly via WebGL in Google Chrome, Microsoft Edge, Safari, and Firefox at smooth 60 FPS with zero lag or glitches.
+
+---
+
+## ⚡ Local Setup: Run Offline on Your Laptop
 
 Run the full platform locally with **zero external web dependencies**, sub-second startup, and guaranteed 60 FPS performance:
 
