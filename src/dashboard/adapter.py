@@ -318,17 +318,40 @@ def build_scenario_data() -> Dict[str, Any]:
             "phase": "ASCENT",
         })
 
-    # Phase 5 Orbit
+    # Phase 5 Orbit (stop before atmospheric entry interface)
     orbit_rows = load_csv_rows(orbit_csv)
     orbit_points = []
+    # Phase 6 Entry: authoritative Flight 14 public reconstruction splashes down at T+3h 09m 24s (11364.0s)
+    entry_rows = load_csv_rows(entry_csv)
+    entry_duration = float(entry_rows[-1]["time_s"]) if entry_rows else 929.4
+    t_entry_start = round(11364.0 - entry_duration, 1)  # ~10434.6s (EI 120 km)
+
     for r in orbit_rows:
         t = float(r["time_s"]) + 522.35  # Offset to mission elapsed time
+        if t >= t_entry_start:
+            break
         alt = float(r["altitude_km"])
         vel = float(r["speed_km_s"])
         x_m = float(r["x_m"])
         y_m = float(r["y_m"])
         z_m = float(r["z_m"])
         scene_pos = eci_to_scene(x_m, y_m, z_m)
+
+        # Physical Mass Accounting: 120t dry + 39t (26 Starlinks @ 1.5t) + 26t reserve propellant = 185t at SECO
+        # Satellites deploy between T+1320s and T+1680s (39t deployed)
+        # Deorbit burn at T+9900s consumes 20t propellant down to 126t
+        if t < 1320.0:
+            mass_t = 185.0
+        elif t <= 1680.0:
+            dep_frac = (t - 1320.0) / 360.0
+            mass_t = 185.0 - dep_frac * 39.0
+        elif t < 9900.0:
+            mass_t = 146.0
+        elif t < 9960.0:
+            burn_frac = (t - 9900.0) / 60.0
+            mass_t = 146.0 - burn_frac * 20.0
+        else:
+            mass_t = 126.0
 
         orbit_points.append({
             "time_s": t,
@@ -337,7 +360,7 @@ def build_scenario_data() -> Dict[str, Any]:
             "mach": None,  # Physically undefined in orbital vacuum (density ~ 0)
             "dynamic_pressure_kpa": 0.0,
             "thrust_mn": 0.0,
-            "mass_tonnes": 120.0,
+            "mass_tonnes": round(mass_t, 1),
             "apparent_g": 0.0,
             "eci_pos_m": [x_m, y_m, z_m],
             "scene_pos": scene_pos,
@@ -350,13 +373,10 @@ def build_scenario_data() -> Dict[str, Any]:
             "phase": "ORBIT",
         })
 
-    # Phase 6 Entry
-    entry_rows = load_csv_rows(entry_csv)
     entry_points = []
-    t_entry_start = 10800.0  # Entry begins after orbital anomaly
     for r in entry_rows:
         dt = float(r["time_s"])
-        t = t_entry_start + dt
+        t = round(t_entry_start + dt, 2)
         alt = float(r["altitude_m"]) / 1000.0
         vel = float(r["speed_inertial_ms"]) / 1000.0
         mach = float(r["mach"])
@@ -365,35 +385,66 @@ def build_scenario_data() -> Dict[str, Any]:
         q_stag = float(r["stagnation_heat_flux_mw_m2"])
         t_rad_c = float(r["radiative_eq_temp_deg_c"])
         t_rad_k = t_rad_c + 273.15
-        bank = float(r["bank_angle_cmd_deg"])
         x_m = float(r["x_eci_m"])
         y_m = float(r["y_eci_m"])
         z_m = float(r["z_eci_m"])
-        scene_pos = eci_to_scene(x_m, y_m, z_m)
 
-        # Flap deflections proportional to Mach and pitch trim
-        pitch = 40.0 if alt > 40.0 else max(10.0, 40.0 * (alt / 40.0))
+        # Physical terminal landing flip and 3-engine burn (T+11335s to T+11364s)
+        # Matching user reference image: vertical attitude (pitch 90°), 3 Raptors firing downward
+        if t >= 11335.0:
+            flip_frac = min(1.0, (t - 11335.0) / 8.0)
+            pitch = 15.0 + flip_frac * 75.0  # Smoothly flip to 90.0° vertical upright
+            if t >= 11340.0 and t < 11364.0:
+                burn_frac = min(1.0, (t - 11340.0) / 24.0)
+                thrust = 6.6  # 3 Center Raptors producing ~2.2 MN each
+                accel = 1.8 + 0.4 * burn_frac
+                vel = max(0.005, 0.085 * (1.0 - burn_frac))  # Decelerate to 5 m/s
+                alt = max(0.0005, 1.5 * (1.0 - burn_frac) ** 2)  # Descend smoothly to ocean surface
+                phase = "LANDING_BURN"
+            elif t >= 11364.0:
+                thrust = 0.0
+                accel = 1.0
+                vel = 0.0
+                alt = 0.0
+                pitch = 90.0
+                phase = "SPLASHDOWN"
+            else:
+                thrust = 0.0
+                phase = "LANDING_FLIP"
+        else:
+            thrust = 0.0
+            phase = "REENTRY"
+            pitch = 40.0 if alt > 40.0 else max(10.0, 40.0 * (alt / 40.0))
+
+        # Recompute scene position to reflect precise descent onto water surface
+        if alt <= 2.0:
+            r_vec = math.sqrt(x_m**2 + y_m**2 + z_m**2)
+            scale_surf = (EARTH_RADIUS_M + alt * 1000.0) / r_vec
+            scene_pos = eci_to_scene(x_m * scale_surf, y_m * scale_surf, z_m * scale_surf)
+        else:
+            scene_pos = eci_to_scene(x_m, y_m, z_m)
+
         flap_fwd = round(20.0 * math.sin(dt * 0.05), 1)
         flap_aft = round(15.0 * math.cos(dt * 0.05) + pitch * 0.3, 1)
 
         entry_points.append({
             "time_s": t,
-            "altitude_km": alt,
-            "velocity_km_s": vel,
-            "mach": mach,
-            "dynamic_pressure_kpa": q,
-            "thrust_mn": 0.0,
-            "mass_tonnes": 105.0,
-            "apparent_g": accel,
-            "eci_pos_m": [x_m, y_m, z_m],
+            "altitude_km": round(alt, 4),
+            "velocity_km_s": round(vel, 4),
+            "mach": round(mach, 2) if alt > 0 else 0.0,
+            "dynamic_pressure_kpa": round(q, 2),
+            "thrust_mn": round(thrust, 1),
+            "mass_tonnes": round(max(95.0, 105.0 - (t - 11340.0) * 0.4 if t >= 11340.0 else 105.0), 1),
+            "apparent_g": round(accel, 2),
+            "eci_pos_m": [round(x_m, 1), round(y_m, 1), round(z_m, 1)],
             "scene_pos": scene_pos,
-            "pitch_deg": pitch,
+            "pitch_deg": round(pitch, 1),
             "flaps_fwd_deg": flap_fwd,
             "flaps_aft_deg": flap_aft,
-            "heat_flux_mw_m2": q_stag,
-            "surface_temp_k": round(t_rad_k, 1),
-            "bondline_temp_k": round(min(377.1, 290.0 + (t_rad_k - 290.0) * 0.08), 1),
-            "phase": "REENTRY",
+            "heat_flux_mw_m2": round(q_stag if t < 11330.0 else 0.0, 3),
+            "surface_temp_k": round(t_rad_k if t < 11330.0 else 320.0, 1),
+            "bondline_temp_k": round(min(377.1, 290.0 + (t_rad_k - 290.0) * 0.08) if t < 11330.0 else 310.0, 1),
+            "phase": phase,
         })
 
     # Subsample points for smooth 60fps WebGL replay without overloading memory
@@ -699,7 +750,7 @@ def build_scenario_data() -> Dict[str, Any]:
                 "badge": "POSTFLIGHT RECONSTRUCTION",
                 "is_synthetic": False,
                 "description": "Postflight public reconstruction: liftoff with 33 Raptors (single engine shutdown on ascent), successful hot staging, remaining 5 Starship Raptors burned longer to compensate for early vacuum engine shutdown, successful orbital insertion, deployment of all 26 Starlink V3 satellites via rocket mouth PEZ slot, booster Gulf splashdown with FTS trigger, flight duration limited to ~3 hours out of caution, 1 Raptor deorbit burn, atmospheric entry, and ship splashdown in northern Pacific Ocean.",
-                "duration_s": 11732.0,
+                "duration_s": 11364.0,
                 "orbit_count": 1.9,
                 "destination": "Pacific Ocean (Expended Splashdown)",
                 "trajectory": observed_trajectory,
@@ -718,9 +769,10 @@ def build_scenario_data() -> Dict[str, Any]:
                     {"time_s": 1320.0, "name": "Starlink V3 PEZ Mouth Door Opens", "camera": "CARGO_DEPLOY_CAM"},
                     {"time_s": 1680.0, "name": "All 26 Starlink V3 Satellites Deployed", "camera": "DEPLOY_WIDE_CAM"},
                     {"time_s": 9900.0, "name": "Cautionary Mission Shortening & Deorbit Burn", "camera": "ORBIT_FOLLOW"},
-                    {"time_s": 10800.0, "name": "Atmospheric Entry Interface (EI 120 km)", "camera": "ENTRY_BELLY"},
-                    {"time_s": 11300.0, "name": "Peak Reentry Heating (1330 K)", "camera": "ENTRY_BELLY"},
-                    {"time_s": 11732.0, "name": "Pacific Ocean Splashdown (Expended)", "camera": "ENTRY_BELLY"},
+                    {"time_s": 10435.0, "name": "Atmospheric Entry Interface (EI 120 km)", "camera": "ENTRY_BELLY"},
+                    {"time_s": 10795.0, "name": "Peak Reentry Heating (1330 K)", "camera": "ENTRY_BELLY"},
+                    {"time_s": 11340.0, "name": "Terminal Flip & 3-Raptor Landing Burn", "camera": "ENTRY_BELLY"},
+                    {"time_s": 11364.0, "name": "Pacific Ocean Splashdown (Expended)", "camera": "ENTRY_BELLY"},
                 ],
             },
             "synthetic_landing_lab": {

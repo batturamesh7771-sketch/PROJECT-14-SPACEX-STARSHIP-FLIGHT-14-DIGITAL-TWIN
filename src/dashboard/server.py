@@ -11,6 +11,7 @@ import sys
 import argparse
 import http.server
 import socketserver
+import traceback
 from typing import Optional
 
 from src.dashboard.adapter import export_dashboard_data
@@ -23,6 +24,13 @@ class DashboardRequestHandler(http.server.SimpleHTTPRequestHandler):
         static_dir = os.path.join(os.path.dirname(__file__), "static")
         super().__init__(*args, directory=static_dir, **kwargs)
 
+    def do_GET(self):
+        if self.path in ("/favicon.ico", "favicon.ico"):
+            self.send_response(204)
+            self.end_headers()
+            return
+        super().do_GET()
+
     def end_headers(self):
         # Enable CORS and disable caching for real-time local digital engineering iteration
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -30,6 +38,7 @@ class DashboardRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Pragma", "no-cache")
         self.send_header("Expires", "0")
         super().end_headers()
+
 
 
 def run_server(port: int = 8080, host: str = "127.0.0.1", export_data: bool = True) -> None:
@@ -49,15 +58,29 @@ def run_server(port: int = 8080, host: str = "127.0.0.1", export_data: bool = Tr
     # Allow port reuse to avoid 'Address already in use' during development restarts
     socketserver.TCPServer.allow_reuse_address = True
 
+    class RobustHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
+        daemon_threads = True
+        allow_reuse_address = True
+
+        def handle_error(self, request, client_address):
+            exc_type, _, _ = sys.exc_info()
+            if exc_type in (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+                return
+            super().handle_error(request, client_address)
+
     try:
-        with socketserver.TCPServer((host, port), handler) as httpd:
+        with RobustHTTPServer((host, port), handler) as httpd:
             print(f"[Dashboard] ========================================================")
             print(f"[Dashboard] STARSHIP FLIGHT 14 DIGITAL ENGINEERING SPATIAL DASHBOARD")
             print(f"[Dashboard] Serving WebGL application at: http://{host}:{port}/")
             print(f"[Dashboard] Static webroot: {static_dir}")
             print(f"[Dashboard] Press Ctrl+C to terminate server.")
             print(f"[Dashboard] ========================================================")
-            httpd.serve_forever()
+            while True:
+                try:
+                    httpd.serve_forever()
+                except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+                    continue
     except KeyboardInterrupt:
         print("\n[Dashboard] Server stopped gracefully by user.")
     except Exception as e:

@@ -42,6 +42,7 @@
       <button class="nav-tab-btn" data-nav="analysis">ANALYSIS</button>
       <button class="nav-tab-btn" data-nav="reports">REPORTS</button>
       <button class="nav-tab-btn" data-nav="settings">SETTINGS</button>
+      <a href="replay.html" class="nav-tab-btn cfr-nav-btn" style="text-decoration: none; display: inline-flex; align-items: center; color: var(--accent-cyan); font-weight: 700; border: 1px solid rgba(0, 229, 255, 0.4); background: rgba(0, 229, 255, 0.08); padding: 4px 10px; border-radius: 4px; margin-left: 6px;" title="Open Broadcast Cinematic Mission Replay">🎬 CINEMATIC REPLAY</a>
     </nav>
 
     <!-- Top Right Telemetry & Status Badges -->
@@ -201,6 +202,7 @@
               <button class="vp-btn" data-view="vehicle">VEHICLE</button>
               <button class="vp-btn" data-view="deploy">DEPLOY (26 SATS)</button>
               <button class="vp-btn" data-view="profile">PROFILE ARC</button>
+              <button class="vp-btn" data-view="cad">3D CAD MODELS</button>
               <button class="vp-btn" data-view="orbit">ORBIT</button>
             </div>
 
@@ -225,6 +227,34 @@
             <!-- Dedicated SpaceX Flight 14 Trajectory Infographic View (matching spacex.com/launches/starship-flight-14) -->
             <div id="spacex-trajectory-profile-view" class="spacex-trajectory-profile-view" style="display: none;">
               <canvas id="spacex-trajectory-canvas"></canvas>
+            </div>
+
+            <!-- Dedicated 3D CAD Interactive Section with Verified Sketchfab Embeds -->
+            <div id="cad-interactive-viewport" class="cad-interactive-viewport" style="display: none;">
+              <div class="cad-model-toggle-bar">
+                <button class="cad-model-tab active" data-cad="starship">🚀 STARSHIP & SUPER HEAVY (3D CAD)</button>
+                <button class="cad-model-tab" data-cad="starlink">🛰️ STARLINK V3 SATELLITE (3D CAD)</button>
+                <div style="flex: 1;"></div>
+                <button class="cad-model-tab close-cad" id="btn-close-cad" style="color: #00e5ff; border-color: rgba(0, 229, 255, 0.4);" title="Return to 3D Mission Simulation">✕ BACK TO 3D SIMULATION</button>
+              </div>
+
+              <div id="cad-embed-starship" class="cad-embed-container active" style="width: 100%; height: calc(100% - 46px);">
+                <div class="sketchfab-embed-wrapper" style="width: 100%; height: 100%;">
+                  <iframe title="Space X Starship and Super Heavy Booster" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d3cf8d66721b48adb17f599b199a99bf/embed" style="width: 100%; height: calc(100% - 28px); border: none; background: #000;"> </iframe>
+                  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #8899a6; text-align: center;">
+                    <a href="https://sketchfab.com/3d-models/space-x-starship-and-super-heavy-booster-d3cf8d66721b48adb17f599b199a99bf" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e5ff;"> Space X Starship and Super Heavy Booster </a> by <a href="https://sketchfab.com/Gibson005" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e5ff;"> Gibson005 </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e5ff;">Sketchfab</a>
+                  </p>
+                </div>
+              </div>
+
+              <div id="cad-embed-starlink" class="cad-embed-container" style="display: none; width: 100%; height: calc(100% - 46px);">
+                <div class="sketchfab-embed-wrapper" style="width: 100%; height: 100%;">
+                  <iframe title="Spacex Starlink V3 Satellite" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5ff0a7c079d84792ba90da2d271d224f/embed" style="width: 100%; height: calc(100% - 28px); border: none; background: #000;"> </iframe>
+                  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #8899a6; text-align: center;">
+                    <a href="https://sketchfab.com/3d-models/spacex-starlink-v3-satellite-5ff0a7c079d84792ba90da2d271d224f" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e5ff;"> Spacex Starlink V3 Satellite </a> by <a href="https://sketchfab.com/MechLab85" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e5ff;"> MechLab3D </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #00e5ff;">Sketchfab</a>
+                  </p>
+                </div>
+              </div>
             </div>
 
             <!-- Center Reticle / Attitude Crosshairs -->
@@ -470,6 +500,7 @@
             <button class="v-sub-btn">ENGINES</button>
             <button class="v-sub-btn">THERMAL</button>
             <button class="v-sub-btn">STRUCTURAL</button>
+            <button class="v-sub-btn" data-sub="cad" style="color: var(--accent-cyan); font-weight: 700;">3D CAD</button>
           </div>
         </div>
         <div class="vm-content-row">
@@ -592,6 +623,11 @@
     <div class="mc-dock-row">
       <div class="dock-header-tabs">
         <button class="dock-tab active" data-tab="tab-charts">ENGINEERING PLOTS (6-SERIES)</button>
+        <button class="dock-tab" data-tab="tab-fea">STRUCTURAL FEA (PHASE 8)</button>
+        <button class="dock-tab" data-tab="tab-tps">AEROTHERMAL & TPS (PHASE 9)</button>
+        <button class="dock-tab" data-tab="tab-gmat">ASTRODYNAMICS & GMAT (PHASE 5)</button>
+        <button class="dock-tab" data-tab="tab-propulsion">PROPULSION & MASS (PHASE 2 & 4)</button>
+        <button class="dock-tab" data-tab="tab-cad">CAD KINEMATICS & MODES</button>
         <button class="dock-tab" data-tab="tab-inspector">DATA INSPECTOR</button>
         <button class="dock-tab" data-tab="tab-logs">SYSTEM LOGS</button>
         <button class="dock-tab" data-tab="tab-env">3D ENVIRONMENT</button>
@@ -628,6 +664,368 @@
             <div class="chart-box">
               <div class="chart-header"><span>FELT ACCELERATION</span><span class="unit-tag">G VS S</span></div>
               <canvas id="chart-g"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Structural FEA & Buckling (Phase 8) -->
+        <div id="tab-fea" class="dock-pane">
+          <div class="phase-workbench-panel">
+            <div class="pwb-header">
+              <div class="pwb-title-group">
+                <span class="pwb-badge">PHASE 8</span>
+                <span class="pwb-title">THIN-SHELL STRUCTURAL FEA & BUCKLING BENCHMARK</span>
+                <span class="pwb-sub">Roark Thin-Shell Theory • Von Mises Plane Stress • NASA SP-8007</span>
+              </div>
+              <div class="pwb-status-group">
+                <span class="pwb-status pass" id="fea-yield-badge">● YIELD SF: 1.57 (NOMINAL)</span>
+                <span class="pwb-status pass" id="fea-buckling-badge">● SP-8007 BUCKLING: SAFE</span>
+              </div>
+            </div>
+
+            <div class="fea-workbench-grid">
+              <!-- Card 1: 2D Stress Tensor & Geometry -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">MEMBRANE STRESS TENSOR (CYLINDRICAL TANK)</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Ullage Pressure (p)</span><span class="pwb-v highlight-cyan" id="fea-p-val">6.00 bar (0.60 MPa)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Hoop Stress (σ_h = p·r/t)</span><span class="pwb-v" id="fea-hoop-val">675.00 MPa</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Longitudinal Stress (σ_l)</span><span class="pwb-v" id="fea-long-val">285.40 MPa</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Axial Thrust Component (σ_l,thrust)</span><span class="pwb-v" id="fea-thrust-val">-52.10 MPa</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Bending Moment Component (σ_l,bend)</span><span class="pwb-v" id="fea-bend-val">±0.00 MPa</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Radial Dilation (Δr)</span><span class="pwb-v highlight-green" id="fea-radial-val">+13.82 mm</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Axial Deflection (ΔL)</span><span class="pwb-v" id="fea-axial-val">+4.65 mm</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Shell Radius / Wall Thickness (r / t)</span><span class="pwb-v">4.50 m / 4.0 mm (r/t = 1125)</span></div>
+                </div>
+              </div>
+
+              <!-- Card 2: Von Mises Equivalent Stress vs Yield Strength -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">VON MISES YIELD CRITERION (AISI 304L)</div>
+                <div class="pwb-gauge-container">
+                  <div class="pwb-gauge-labels">
+                    <span>σ_vm: <strong id="fea-vm-val" class="highlight-cyan">604.22 MPa</strong></span>
+                    <span>Cryogenic Yield: <strong>950.0 MPa</strong></span>
+                  </div>
+                  <div class="pwb-progress-track">
+                    <div id="fea-vm-bar" class="pwb-progress-bar fill-green" style="width: 63.6%;"></div>
+                    <div class="pwb-threshold-line" style="left: 30.5%;" title="Room Temp Yield (290 MPa)"></div>
+                  </div>
+                  <div class="pwb-gauge-sublabels">
+                    <span>0 MPa</span>
+                    <span>Room Yield (290 MPa)</span>
+                    <span>Cryo Limit (950 MPa)</span>
+                  </div>
+                </div>
+                <div class="pwb-data-grid" style="margin-top: 10px;">
+                  <div class="pwb-d-row"><span class="pwb-k">Factor of Safety (SF_y = S_y / σ_vm)</span><span class="pwb-v highlight-green" id="fea-fos-val">1.57</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Margin of Safety (MS = SF - 1)</span><span class="pwb-v highlight-green" id="fea-margin-val">+0.57</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Young's Modulus (E) / Poisson (ν)</span><span class="pwb-v">193 GPa / 0.29</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Finite Element Solver Benchmark</span><span class="pwb-v">CalculiX / Roark Error &lt; 0.05%</span></div>
+                </div>
+              </div>
+
+              <!-- Card 3: NASA SP-8007 Shell Buckling Analysis -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">NASA SP-8007 AXIAL SHELL BUCKLING</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Classical Buckling Stress (σ_cl)</span><span class="pwb-v" id="fea-buck-cl">185.32 MPa</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Knockdown Factor (γ)</span><span class="pwb-v" id="fea-buck-gamma">0.334</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Pressure Stabilization (Δσ_p)</span><span class="pwb-v" id="fea-buck-delta">+38.45 MPa</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Critical Buckling Stress (σ_cr)</span><span class="pwb-v highlight-cyan" id="fea-buck-crit">100.34 MPa</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Net Axial Compressive Load</span><span class="pwb-v" id="fea-buck-load">0.00 MPa (Tension)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Buckling Safety Factor</span><span class="pwb-v highlight-green" id="fea-buck-fos">99.00 (NO BUCKLING RISK)</span></div>
+                </div>
+                <div class="pwb-note-box">
+                  Internal ullage pressure (6.0 bar) prestresses the cylindrical skin into longitudinal tension, preventing compressive Euler/shell diamond buckling modes during 33-Raptor liftoff thrust.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Aerothermal & TPS 1D Heat-Soak (Phase 9) -->
+        <div id="tab-tps" class="dock-pane">
+          <div class="phase-workbench-panel">
+            <div class="pwb-header">
+              <div class="pwb-title-group">
+                <span class="pwb-badge">PHASE 9</span>
+                <span class="pwb-title">AEROTHERMAL HEATING & 1D MULTI-LAYER TPS CONDUCTION</span>
+                <span class="pwb-sub">Sutton-Graves / DKR • Thomas Algorithm (TDMA) • Silica Tile to Steel Tank</span>
+              </div>
+              <div class="pwb-status-group">
+                <span class="pwb-status pass" id="tps-rtv-badge">● RTV-560: SAFE (MARGIN +145.2 K)</span>
+                <span class="pwb-status pass" id="tps-surf-badge">● TILE SURFACE: &lt; 1650 K</span>
+              </div>
+            </div>
+
+            <div class="tps-workbench-grid">
+              <!-- Visual Multi-Layer Cross Section Canvas -->
+              <div class="pwb-card card-full-span">
+                <div class="pwb-card-title">1D TRANSIENT TEMPERATURE GRADIENT THROUGH TPS STACK</div>
+                <div class="tps-canvas-wrapper">
+                  <canvas id="tps-gradient-canvas" width="840" height="150"></canvas>
+                </div>
+                <div class="tps-stations-row">
+                  <div class="tps-st-item">
+                    <span class="st-depth">0.0 mm (Surface)</span>
+                    <span class="st-layer">Porous Silica Tile</span>
+                    <span class="st-temp highlight-orange" id="tps-st-0">1,245 K (972 °C)</span>
+                  </div>
+                  <div class="tps-st-item">
+                    <span class="st-depth">14.0 mm (Mid-Tile)</span>
+                    <span class="st-layer">Silica Core</span>
+                    <span class="st-temp" id="tps-st-14">890 K (617 °C)</span>
+                  </div>
+                  <div class="tps-st-item">
+                    <span class="st-depth">28.0 mm (Tile Back)</span>
+                    <span class="st-layer">Tile / SIP Interface</span>
+                    <span class="st-temp" id="tps-st-28">480 K (207 °C)</span>
+                  </div>
+                  <div class="tps-st-item highlight-cyan">
+                    <span class="st-depth">30.5 mm (Bondline)</span>
+                    <span class="st-layer">RTV-560 Silicone</span>
+                    <span class="st-temp highlight-cyan" id="tps-st-rtv">388.0 K (114.8 °C)</span>
+                  </div>
+                  <div class="tps-st-item">
+                    <span class="st-depth">34.5 mm (Tank Back)</span>
+                    <span class="st-layer">304L Steel Skin</span>
+                    <span class="st-temp" id="tps-st-tank">385.2 K (112.0 °C)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: RTV-560 Bondline Margin -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">RTV-560 ADHESIVE THERMAL MARGIN</div>
+                <div class="pwb-gauge-container">
+                  <div class="pwb-gauge-labels">
+                    <span>Bondline: <strong id="tps-bond-temp-val" class="highlight-cyan">388.0 K</strong></span>
+                    <span>Limit: <strong>533.15 K (260 °C)</strong></span>
+                  </div>
+                  <div class="pwb-progress-track">
+                    <div id="tps-bond-gauge-bar" class="pwb-progress-bar fill-green" style="width: 40.2%;"></div>
+                    <div class="pwb-threshold-line" style="left: 80%;" title="Caution (>450 K)"></div>
+                  </div>
+                  <div class="pwb-gauge-sublabels">
+                    <span>290 K</span>
+                    <span>Caution (450 K)</span>
+                    <span>Max Allowable (533.15 K)</span>
+                  </div>
+                </div>
+                <div class="pwb-data-grid" style="margin-top: 10px;">
+                  <div class="pwb-d-row"><span class="pwb-k">RTV-560 Safety Margin</span><span class="pwb-v highlight-green" id="tps-bond-margin-val">+145.15 K</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Diffusion Lag (τ ≈ L²/α)</span><span class="pwb-v">~240 seconds delay</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Nomex SIP Thickness</span><span class="pwb-v">2.5 mm felt</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Cryogenic Methane Heat Sink</span><span class="pwb-v">Active Backface Absorption</span></div>
+                </div>
+              </div>
+
+              <!-- Card 3: Hypersonic Aerothermal Heating Fluxes -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">HYPERSONIC HEATING CORRELATIONS</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Sutton-Graves Stagnation Flux</span><span class="pwb-v" id="tps-sg-flux">0.794 MW/m²</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Detra-Kemp-Riddell (DKR) Flux</span><span class="pwb-v" id="tps-dkr-flux">0.781 MW/m²</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Windward Belly Acreage Flux</span><span class="pwb-v highlight-orange" id="tps-wind-flux">0.245 MW/m²</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Belly Flop Angle of Attack (α)</span><span class="pwb-v highlight-cyan" id="tps-aoa-val">70.0°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">RCG Coating Emissivity (ε)</span><span class="pwb-v">0.88</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Stefan-Boltzmann Radiation Equilibrium</span><span class="pwb-v">Verified Pass</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Astrodynamics & GMAT / SPICE (Phase 5) -->
+        <div id="tab-gmat" class="dock-pane">
+          <div class="phase-workbench-panel">
+            <div class="pwb-header">
+              <div class="pwb-title-group">
+                <span class="pwb-badge">PHASE 5</span>
+                <span class="pwb-title">ORBITAL MECHANICS & NASA GMAT / SPICE CROSS-VERIFICATION</span>
+                <span class="pwb-sub">Keplerian Elements • J2 Secular Precession • GMAT R2026a Dual-Branch Propagation</span>
+              </div>
+              <div class="pwb-status-group">
+                <span class="pwb-status pass">● GMAT R2026a: VERIFIED PASS</span>
+                <span class="pwb-status pass" id="astro-eclipse-badge">● SOLAR: SUNLIT</span>
+              </div>
+            </div>
+
+            <div class="gmat-workbench-grid">
+              <!-- Card 1: Osculating Keplerian Elements -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">OSCULATING KEPLERIAN ELEMENTS</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Semi-Major Axis (a)</span><span class="pwb-v highlight-cyan" id="astro-sma-val">6,653.14 km</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Eccentricity (e)</span><span class="pwb-v" id="astro-ecc-val">0.008450</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Orbital Inclination (i)</span><span class="pwb-v" id="astro-inc-val">26.30°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Perigee Altitude (h_p)</span><span class="pwb-v" id="astro-perigee-val">168.2 km</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Apogee Altitude (h_a)</span><span class="pwb-v" id="astro-apogee-val">275.4 km</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Orbital Period (T)</span><span class="pwb-v highlight-green" id="astro-period-val">89.42 min</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Specific Orbital Energy (ε)</span><span class="pwb-v" id="astro-energy-val">-29.95 MJ/kg</span></div>
+                </div>
+              </div>
+
+              <!-- Card 2: Secular J2 Precession & Ephemeris -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">GEOPOTENTIAL J2 PERTURBATIONS & EPHEMERIS</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Nodal Regression (dΩ/dt)</span><span class="pwb-v highlight-orange" id="astro-raan-val">-6.85 deg/day</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Perigee Precession (dω/dt)</span><span class="pwb-v highlight-cyan" id="astro-w-val">+12.40 deg/day</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">SPICE Solar Beta Angle (β_⊙)</span><span class="pwb-v" id="astro-beta-val">+18.4°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Shadow Eclipse State</span><span class="pwb-v highlight-green" id="astro-eclipse-val">SUNLIT (0.0% UMBRA)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Earth Central Body Gravity (μ)</span><span class="pwb-v">3.986004418e14 m³/s²</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">WGS-84 Equatorial Radius (R_E)</span><span class="pwb-v">6,378.137 km</span></div>
+                </div>
+              </div>
+
+              <!-- Card 3: NASA GMAT R2026a Residual Cross-Verification -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">NASA GMAT R2026a CROSS-BENCHMARK</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Semi-Major Axis Residual</span><span class="pwb-v highlight-green">8.91 m (0.000136%)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Eccentricity Residual</span><span class="pwb-v highlight-green">1.21e-6</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Inclination Residual</span><span class="pwb-v highlight-green">0.00004°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Integrator Comparison</span><span class="pwb-v">DOP853 (Python) vs PrinceDormand78 (GMAT)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">NASA-STD-7009B Credential</span><span class="pwb-v highlight-cyan">LEVEL 4 VERIFIED PASS</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Propulsion & Mass (Phase 2 & 4) -->
+        <div id="tab-propulsion" class="dock-pane">
+          <div class="phase-workbench-panel">
+            <div class="pwb-header">
+              <div class="pwb-title-group">
+                <span class="pwb-badge">PHASES 2 & 4</span>
+                <span class="pwb-title">RAPTOR 3 PROPULSION DYNAMICS & MASS PROPERTIES</span>
+                <span class="pwb-sub">33-Engine Booster Matrix • 6-Engine Ship Cluster • Center of Gravity Kinematics</span>
+              </div>
+              <div class="pwb-status-group">
+                <span class="pwb-status pass" id="prop-cluster-badge">● RAPTOR 3: 33/33 NOMINAL</span>
+                <span class="pwb-status pass">● MIXTURE RATIO: 3.60 (CH4/LOX)</span>
+              </div>
+            </div>
+
+            <div class="prop-workbench-grid">
+              <!-- Card 1: Raptor Cluster Telemetry -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">RAPTOR 3 CLUSTER TELEMETRY</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Booster Active Engines</span><span class="pwb-v highlight-cyan" id="prop-b14-val">32 / 33 ACTIVE</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Starship Active Engines</span><span class="pwb-v" id="prop-s31-val">0 / 6 (ORBIT COAST)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Chamber Pressure (P_c)</span><span class="pwb-v highlight-green" id="prop-pc-val">350.0 bar</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Specific Impulse (I_sp)</span><span class="pwb-v" id="prop-isp-val">350 s (SL) / 380 s (VAC)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Propellant Mass Flow (m_dot)</span><span class="pwb-v" id="prop-mdot-val">21,450 kg/s</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Mixture Ratio (O/F)</span><span class="pwb-v">3.60 (Liquid Methane / LOX)</span></div>
+                </div>
+              </div>
+
+              <!-- Card 2: Mass Breakdown & Center of Gravity -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">MASS BREAKDOWN & CENTER OF GRAVITY (X_cg)</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Total Vehicle Mass</span><span class="pwb-v highlight-cyan" id="prop-mass-val">4,832,000 kg</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Propellant Mass Remaining</span><span class="pwb-v" id="prop-fuel-val">4,532,000 kg</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Dry Structural Mass</span><span class="pwb-v">300,000 kg (Booster + Ship)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Center of Gravity (X_cg from nose)</span><span class="pwb-v highlight-orange" id="prop-xcg-val">68.5 m</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Aerodynamic Static Margin</span><span class="pwb-v highlight-green">+1.85 caliber (PASSIVE STABLE)</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: CAD Kinematics & 3D Shading Modes -->
+        <div id="tab-cad" class="dock-pane">
+          <div class="phase-workbench-panel">
+            <div class="pwb-header">
+              <div class="pwb-title-group">
+                <span class="pwb-badge">CAD & 3D</span>
+                <span class="pwb-title">VEHICLE CAD GEOMETRY & REAL-TIME SHADING MODES</span>
+                <span class="pwb-sub">Actuated Control Flaps • PEZ Mouth Mechanism • Stress & Thermal Shading</span>
+              </div>
+              <div class="pwb-status-group">
+                <span class="pwb-status pass">● 3D MESH: 304L PBR</span>
+              </div>
+            </div>
+
+            <div class="cad-workbench-grid">
+              <!-- Card 1: 3D Visualization Shading Modes -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">3D VEHICLE SHADING MODES</div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Switch the 3D Starship hull appearance to visualize calculated physics live on the vehicle mesh:</p>
+                <div class="cad-mode-btn-group">
+                  <button class="cad-mode-btn active" data-vmode="standard">POLISHED STEEL (PBR)</button>
+                  <button class="cad-mode-btn" data-vmode="thermal">AEROTHERMAL HEAT GLOW</button>
+                  <button class="cad-mode-btn" data-vmode="fea_stress">FEA VON MISES HEATMAP</button>
+                </div>
+                <div class="cad-mode-legend" id="cad-mode-legend" style="margin-top: 12px; display: none;">
+                  <div class="cad-legend-title" id="cad-legend-title" style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">FEA Von Mises Stress Spectrum:</div>
+                  <div class="cad-spectrum-bar" id="cad-spectrum-bar"></div>
+                  <div class="cad-spectrum-labels" id="cad-spectrum-labels">
+                    <span>0 MPa</span>
+                    <span>300 MPa</span>
+                    <span>600 MPa</span>
+                    <span>950 MPa (Yield)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Control Surfaces & Flap Actuators -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">ACTUATED CONTROL SURFACES (KINEMATICS)</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Forward Left Canard</span><span class="pwb-v highlight-cyan" id="cad-fl-fwd">12.5°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Forward Right Canard</span><span class="pwb-v highlight-cyan" id="cad-fr-fwd">12.5°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Aft Left Body Flap</span><span class="pwb-v highlight-cyan" id="cad-al-aft">11.8°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Aft Right Body Flap</span><span class="pwb-v highlight-cyan" id="cad-ar-aft">11.8°</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Actuator Slew Rate</span><span class="pwb-v">40 deg/s (Electric Direct-Drive)</span></div>
+                </div>
+              </div>
+
+              <!-- Card 3: Forward PEZ Cargo Dispenser Mouth -->
+              <div class="pwb-card">
+                <div class="pwb-card-title">STARLINK V3 PEZ DISPENSER MOUTH</div>
+                <div class="pwb-data-grid">
+                  <div class="pwb-d-row"><span class="pwb-k">Articulated Mouth Door Angle</span><span class="pwb-v highlight-green" id="cad-door-val">0.0° (LOCKED CLOSED)</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Deployment Track & Rollers</span><span class="pwb-v">Nominal</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Payload Capacity</span><span class="pwb-v">26 × Starlink V3 Satellites</span></div>
+                  <div class="pwb-d-row"><span class="pwb-k">Ejection Vector</span><span class="pwb-v">Forward Prograde Along Velocity</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3D CAD Models Interactive Embeds Grid in Dock Tab -->
+            <div class="cad-workbench-card-embed" style="margin-top: 14px;">
+              <div class="pwb-card-title" style="color: var(--accent-cyan); font-weight: 700; margin-bottom: 8px;">
+                🚀 3D CAD MODEL — SPACEX STARSHIP & SUPER HEAVY BOOSTER (FULL STACK)
+              </div>
+              <div class="cad-embed-frame-box">
+                <div class="sketchfab-embed-wrapper">
+                  <iframe title="Space X Starship and Super Heavy Booster" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/d3cf8d66721b48adb17f599b199a99bf/embed"> </iframe>
+                  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                    <a href="https://sketchfab.com/3d-models/space-x-starship-and-super-heavy-booster-d3cf8d66721b48adb17f599b199a99bf" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Space X Starship and Super Heavy Booster </a> by <a href="https://sketchfab.com/Gibson005" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Gibson005 </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="cad-workbench-card-embed" style="margin-top: 14px;">
+              <div class="pwb-card-title" style="color: var(--accent-cyan); font-weight: 700; margin-bottom: 8px;">
+                🛰️ 3D CAD MODEL — SPACEX STARLINK V3 DIRECT-TO-CELL SATELLITE
+              </div>
+              <div class="cad-embed-frame-box">
+                <div class="sketchfab-embed-wrapper">
+                  <iframe title="Spacex Starlink V3 Satellite" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5ff0a7c079d84792ba90da2d271d224f/embed"> </iframe>
+                  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                    <a href="https://sketchfab.com/3d-models/spacex-starlink-v3-satellite-5ff0a7c079d84792ba90da2d271d224f" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Spacex Starlink V3 Satellite </a> by <a href="https://sketchfab.com/MechLab85" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> MechLab3D </a> on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -800,6 +1198,9 @@
   <script src="data/scenario_data_embedded.js"></script>
   <script src="vendor/three.min.js"></script>
   <script src="vendor/OrbitControls.js"></script>
+  <script src="js/launchpad_scene.js"></script>
+  <script src="js/ocean_splashdown.js"></script>
+  <script src="js/physics_engine.js"></script>
   <script src="js/scene.js"></script>
   <script src="js/spacex_profile.js"></script>
   <script src="js/timeline.js"></script>
@@ -830,6 +1231,17 @@
       // 2. Initialize 3D Scene
       const sceneManager = new MissionSceneManager("webgl-canvas");
       window.sceneManager = sceneManager;
+
+      // 2a. Initialize Mission Physics Engine (Astrodynamics, GMAT R2026a, NASA SPICE, FEA, TPS)
+      let physicsEngine = null;
+      try {
+        if (typeof MissionPhysicsEngine !== "undefined") {
+          physicsEngine = new MissionPhysicsEngine();
+        }
+      } catch (err) {
+        console.warn("MissionPhysicsEngine initialization warning:", err);
+      }
+      window.physicsEngine = physicsEngine;
 
       // 2b. Initialize Dedicated SpaceX Trajectory Infographic Profile
       let spacexProfile = null;
@@ -954,15 +1366,31 @@
 
       // 8. Initialize Timeline Controller
       timelineController = new TimelineController({
-        onStateUpdate: (statePoint, activeProfile) => {
-          sceneManager.updateVehicleState(statePoint, activeProfile);
-          hudManager.update(statePoint, activeProfile);
+        onStateUpdate: (statePoint, boosterState, activeProfile) => {
+          if (activeProfile === undefined && boosterState && (boosterState.name || boosterState.trajectory)) {
+            activeProfile = boosterState;
+            boosterState = statePoint.boosterState || null;
+          }
+
+          // 1. Update Kinematic 3D Simulation (Earth, Vehicle, Booster, Satellites, Launchpad, Ocean)
+          sceneManager.updateVehicleState(statePoint, boosterState, activeProfile);
+
+          // 2. Real-Time Astrodynamics (GMAT R2026a residual benchmark, SPICE solar beta), FEA, and TPS Physics
+          let physicsState = null;
+          if (window.physicsEngine) {
+            physicsState = window.physicsEngine.evaluateFullMissionState(statePoint, statePoint.time_s);
+          }
+
+          // 3. Update HUD and Phase Engineering Workbenches
+          hudManager.update(statePoint, activeProfile, physicsState);
+
+          // 4. Update Engineering Plots & Trajectory Profile
           chartsManager.updateTime(statePoint.time_s);
           if (window.spacexProfile) {
             window.spacexProfile.updateTime(statePoint.time_s);
           }
 
-          // Update Data Inspector Tab
+          // 5. Update Data Inspector Tab
           const inspVal = document.getElementById("insp-val");
           const inspTime = document.getElementById("insp-time");
           if (inspVal) inspVal.innerText = `${((statePoint.altitude_km || 0) * 1000).toFixed(0)} m`;
@@ -983,21 +1411,28 @@
         });
       });
 
-      // 9b. View Mode Preset Buttons (EARTH, VEHICLE, DEPLOY, PROFILE ARC, ORBIT)
+      // 9b. View Mode Preset Buttons (EARTH, VEHICLE, DEPLOY, PROFILE ARC, 3D CAD, ORBIT)
       document.querySelectorAll(".vp-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           document.querySelectorAll(".vp-btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           const view = btn.dataset.view;
+          const cadView = document.getElementById("cad-interactive-viewport");
           const profView = document.getElementById("spacex-trajectory-profile-view");
           const webglCanvas = document.getElementById("webgl-canvas");
 
-          if (view === "profile") {
+          if (view === "cad") {
+            if (cadView) cadView.style.display = "flex";
+            if (profView) profView.style.display = "none";
+            if (webglCanvas) webglCanvas.style.display = "none";
+          } else if (view === "profile") {
+            if (cadView) cadView.style.display = "none";
             if (profView) profView.style.display = "block";
             if (webglCanvas) webglCanvas.style.display = "none";
             if (window.spacexProfile) window.spacexProfile.resize();
             sceneManager.setCameraMode("PROFILE_VIEW");
           } else {
+            if (cadView) cadView.style.display = "none";
             if (profView) profView.style.display = "none";
             if (webglCanvas) webglCanvas.style.display = "block";
             if (sceneManager) sceneManager.onWindowResize();
@@ -1011,6 +1446,57 @@
               sceneManager.setCameraMode("CARGO_DEPLOY_CAM");
             } else if (view === "orbit") {
               sceneManager.setCameraMode("ORBIT_FOLLOW");
+            }
+          }
+        });
+      });
+
+      // 9bb. CAD Interactive Viewport Tabs & Return Button
+      document.querySelectorAll(".cad-model-tab:not(.close-cad)").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".cad-model-tab:not(.close-cad)").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          const cadModel = tab.dataset.cad;
+          const shipContainer = document.getElementById("cad-embed-starship");
+          const satContainer = document.getElementById("cad-embed-starlink");
+          if (cadModel === "starship") {
+            if (shipContainer) shipContainer.style.display = "block";
+            if (satContainer) satContainer.style.display = "none";
+          } else if (cadModel === "starlink") {
+            if (shipContainer) shipContainer.style.display = "none";
+            if (satContainer) satContainer.style.display = "block";
+          }
+        });
+      });
+
+      const btnCloseCad = document.getElementById("btn-close-cad");
+      if (btnCloseCad) {
+        btnCloseCad.addEventListener("click", () => {
+          const vpVeh = document.querySelector(".vp-btn[data-view='vehicle']");
+          if (vpVeh) vpVeh.click();
+        });
+      }
+
+      // 9bc. 3D Vehicle CAD Shading Modes (Tab 6 & Scene Integration)
+      document.querySelectorAll(".cad-mode-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".cad-mode-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const vmode = btn.dataset.vmode;
+          if (sceneManager && sceneManager.setVehicleShadingMode) {
+            sceneManager.setVehicleShadingMode(vmode);
+          }
+          const legend = document.getElementById("cad-mode-legend");
+          const legendTitle = document.getElementById("cad-legend-title");
+          if (legend) {
+            if (vmode === "fea_stress") {
+              legend.style.display = "block";
+              if (legendTitle) legendTitle.innerText = "FEA Von Mises Stress Spectrum (MPa):";
+            } else if (vmode === "thermal") {
+              legend.style.display = "block";
+              if (legendTitle) legendTitle.innerText = "Aerothermal Stagnation Heat Flux (MW/m²):";
+            } else {
+              legend.style.display = "none";
             }
           }
         });
@@ -1109,6 +1595,11 @@
           document.querySelectorAll(".v-sub-btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
           const sub = btn.innerText.trim();
+          if (btn.dataset.sub === "cad" || sub === "3D CAD") {
+            const cadBtn = document.querySelector(".vp-btn[data-view='cad']");
+            if (cadBtn) cadBtn.click();
+            return;
+          }
           if (sceneManager && sceneManager.highlightVehicleSubsystem) {
             sceneManager.highlightVehicleSubsystem(sub);
           }

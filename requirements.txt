@@ -1,0 +1,4 @@
+# Project 14: SpaceX Starship Flight 14 Digital Engineering Lab
+# Core scientific computation dependencies (Dashboard server uses Python standard library)
+numpy>=1.23.0
+scipy>=1.9.0

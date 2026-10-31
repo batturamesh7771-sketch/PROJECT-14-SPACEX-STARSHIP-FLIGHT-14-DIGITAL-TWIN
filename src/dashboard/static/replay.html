@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starship Flight 14 — Cinematic Mission Replay (Broadcast Lab)</title>
+  <link rel="stylesheet" href="cinematic/css/cinematic_replay.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Floating Restore UI Button for Cinema Clean View -->
+  <button id="cfr-btn-show-ui" class="cfr-cinema-restore-btn" style="display: none;" title="Restore UI Overlays (or press Esc)">
+    <span>👁️</span> SHOW CONTROLS (ESC)
+  </button>
+
+  <!-- Full-Screen 3D WebGL Canvas Viewport -->
+  <div class="cfr-viewport-container">
+    <canvas id="cfr-webgl-canvas"></canvas>
+    <div class="cfr-broadcast-vignette"></div>
+  </div>
+
+  <!-- Top Broadcast Header Bar -->
+  <header class="cfr-header-bar">
+    <div class="cfr-brand-group">
+      <a href="index.html" class="cfr-back-btn" title="Return to Engineering Dashboard">
+        <span>&larr;</span> ENGINEERING LAB
+      </a>
+      <div class="cfr-title-block">
+        <div class="cfr-title-row">
+          <span class="cfr-mission-title">STARSHIP FLIGHT 14</span>
+          <span class="cfr-live-badge"><span class="cfr-live-dot"></span> BROADCAST REPLAY</span>
+        </div>
+        <span class="cfr-mission-subtitle">INTERACTIVE 3D RECONSTRUCTION & MISSION STORY</span>
+      </div>
+    </div>
+
+    <!-- Header Right: Mode Switches, Profile Switcher & Clock -->
+    <div class="cfr-header-right">
+      <div class="cfr-action-btn-group">
+        <button class="cfr-btn-mode" id="cfr-btn-camera-mode" title="Toggle between Auto Broadcast Tracking and Free 3D Touch/Mouse Orbit Navigation">
+          <span>🎥</span> AUTO BROADCAST
+        </button>
+        <button class="cfr-btn-mode" id="cfr-btn-cinema-mode" title="Toggle Cinema View: Hide all UI overlays for pure 3D space simulation">
+          <span>👁️</span> CINEMA VIEW
+        </button>
+        <button class="cfr-btn-mode" id="cfr-btn-fullscreen" title="Toggle Native Fullscreen View">
+          <span>⛶</span> FULLSCREEN
+        </button>
+      </div>
+
+      <div class="cfr-profile-selector">
+        <button class="cfr-profile-btn active" data-profile="flight14_observed_reconstruction">OBSERVED RECONSTRUCTION</button>
+        <button class="cfr-profile-btn" data-profile="flight14_planned">PLANNED (10H / 6-ORBIT)</button>
+        <button class="cfr-profile-btn synthetic" data-profile="synthetic_engineering_test">SYNTHETIC SANDBOX</button>
+      </div>
+
+      <div class="cfr-clock-block">
+        <span class="cfr-clock-label">MISSION ELAPSED TIME</span>
+        <span class="cfr-clock-val" id="cfr-clock-display">T - 00:00:10</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Synthetic Sandbox Notice Banner (Hidden during factual profiles) -->
+  <div id="cfr-synthetic-banner" class="cfr-synthetic-banner">
+    ⚠️ SYNTHETIC ENGINEERING EXPERIMENT — NOT OBSERVED FLIGHT 14 HISTORY (HYPOTHETICAL MECHAZILLA TOWER CATCH SIMULATION)
+  </div>
+
+  <!-- Chapter Quick-Seek Ribbon -->
+  <nav class="cfr-chapter-ribbon" id="cfr-chapter-ribbon">
+    <button class="cfr-chapter-pill active" data-seek="0" data-camera="PAD_WIDE">01. PRELAUNCH & PAD</button>
+    <button class="cfr-chapter-pill" data-seek="1" data-camera="IGNITION_TRACK">02. 33-RAPTOR LIFTOFF</button>
+    <button class="cfr-chapter-pill" data-seek="35" data-camera="ASCENT_CHASE">03. ENGINE EVENT</button>
+    <button class="cfr-chapter-pill" data-seek="62" data-camera="ASCENT_LONG_LENS">04. MAX Q DYNAMIC PRESSURE</button>
+    <button class="cfr-chapter-pill" data-seek="140" data-camera="STAGING_WIDE">05. HOT-STAGING SEPARATION</button>
+    <button class="cfr-chapter-pill" data-seek="148" data-camera="BOOSTER_RETURN_CHASE">06. BOOSTER BOOSTBACK</button>
+    <button class="cfr-chapter-pill" data-seek="422" data-camera="BOOSTER_GULF_WIDE">07. BOOSTER GULF SPLASH</button>
+    <button class="cfr-chapter-pill" data-seek="525" data-camera="SHIP_SPACE_CHASE">08. SHIP ORBITAL INSERTION</button>
+    <button class="cfr-chapter-pill" data-seek="1320" data-camera="SATELLITE_DEPLOY_CLOSE">09. 26 STARLINK DEPLOY</button>
+    <button class="cfr-chapter-pill" data-seek="5400" data-camera="ORBIT_OVERVIEW">10. 2-LAP ADJUSTMENT</button>
+    <button class="cfr-chapter-pill" data-seek="9900" data-camera="DEORBIT_CHASE">11. RETROGRADE DEORBIT</button>
+    <button class="cfr-chapter-pill" data-seek="10434" data-camera="ENTRY_LONG_LENS">12. 70° BELLY REENTRY</button>
+    <button class="cfr-chapter-pill" data-seek="11160" data-camera="ENTRY_DRONE_TRACK">13. PEAK PLASMA HEATING</button>
+    <button class="cfr-chapter-pill" data-seek="11335" data-camera="PACIFIC_APPROACH">14. VERTICAL FLIP BURN</button>
+    <button class="cfr-chapter-pill" data-seek="11364" data-camera="SPLASHDOWN_WIDE">15. PACIFIC RECOVERY FLEET</button>
+  </nav>
+
+  <!-- Floating Telemetry HUD (Top Right) -->
+  <aside class="cfr-telemetry-hud">
+    <div class="cfr-hud-card">
+      <div class="cfr-hud-card-header">
+        <span id="cfr-hud-stage-name">STAGE: FULL STACK</span>
+        <span style="color: var(--cfr-cyan);" id="cfr-hud-mode-tag">REAL-TIME</span>
+      </div>
+      <div class="cfr-metric-grid">
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">ALTITUDE</span>
+          <span class="cfr-m-val highlight-cyan" id="cfr-m-alt">0.0 km</span>
+        </div>
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">VELOCITY</span>
+          <span class="cfr-m-val" id="cfr-m-vel">0 km/h (M 0.0)</span>
+        </div>
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">DYNAMIC PRESSURE</span>
+          <span class="cfr-m-val" id="cfr-m-q">0.0 kPa</span>
+        </div>
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">STAGNATION FLUX</span>
+          <span class="cfr-m-val highlight-orange" id="cfr-m-heat">0.000 MW/m²</span>
+        </div>
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">APPARENT ACCEL</span>
+          <span class="cfr-m-val" id="cfr-m-g">1.00 G</span>
+        </div>
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">MAIN THRUST</span>
+          <span class="cfr-m-val highlight-green" id="cfr-m-thrust">0.0 MN</span>
+        </div>
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">VEHICLE MASS</span>
+          <span class="cfr-m-val" id="cfr-m-mass">5,120 t</span>
+        </div>
+        <div class="cfr-metric-row">
+          <span class="cfr-m-lbl">ATTITUDE PITCH</span>
+          <span class="cfr-m-val" id="cfr-m-pitch">90.0°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Starlink V3 Payload Counter -->
+    <div class="cfr-satellite-badge">
+      <span style="color: var(--cfr-text-muted);">STARLINK V3 PEZ:</span>
+      <span class="cfr-sat-count-val" id="cfr-sat-count">0 / 26 DEPLOYED</span>
+    </div>
+  </aside>
+
+  <!-- Broadcast Lower-Third: Event Callout Card -->
+  <div class="cfr-lower-third">
+    <div class="cfr-lt-chapter-pill" id="cfr-lt-chapter">CHAPTER: PRELAUNCH</div>
+    <div class="cfr-lt-headline-card">
+      <div class="cfr-lt-event-title" id="cfr-lt-title">Prelaunch & Launchpad Presence</div>
+      <div class="cfr-lt-event-desc" id="cfr-lt-desc">
+        Standing atop the Orbital Launch Mount at Starbase, Texas. Mechazilla tower chopsticks steady the 121-meter stacked vehicle prior to propellant pressurization.
+      </div>
+      <div class="cfr-lt-meta-row">
+        <span class="cfr-lt-meta-item">LOCATION: <strong>STARBASE, TX</strong></span>
+        <span class="cfr-lt-meta-item">STATUS: <strong>STANDBY</strong></span>
+        <span class="cfr-lt-meta-item">VERIFICATION: <strong>FLIGHT 14 PUBLIC RECON</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Replay Master Controls & Timeline -->
+  <footer class="cfr-bottom-controls-bar">
+    <div class="cfr-timeline-wrapper">
+      <div class="cfr-time-indicator-row">
+        <span class="cfr-scrub-clock" id="cfr-scrub-clock">T - 00:00:10</span>
+        <span class="cfr-scrub-total">MISSION DURATION: 03:09:24 (11,364s)</span>
+      </div>
+      <div class="cfr-scrubber-track-container">
+        <input type="range" min="0" max="1000" value="0" class="cfr-scrubber-input" id="cfr-timeline-scrub">
+      </div>
+    </div>
+
+    <div class="cfr-controls-flex-row">
+      <!-- Playback Buttons -->
+      <div class="cfr-playback-btn-group">
+        <button class="cfr-btn primary" id="cfr-btn-play">PLAY</button>
+        <button class="cfr-btn" id="cfr-btn-restart">RESTART (T-10)</button>
+        <button class="cfr-btn" id="cfr-btn-step-back">&minus;5s</button>
+        <button class="cfr-btn" id="cfr-btn-step-fwd">+5s</button>
+      </div>
+
+      <!-- Playback Speed Multipliers -->
+      <div class="cfr-speed-group">
+        <button class="cfr-speed-btn" data-speed="0.1">0.1x</button>
+        <button class="cfr-speed-btn" data-speed="0.5">0.5x</button>
+        <button class="cfr-speed-btn active" data-speed="1.0">1x</button>
+        <button class="cfr-speed-btn" data-speed="2.0">2x</button>
+        <button class="cfr-speed-btn" data-speed="5.0">5x</button>
+        <button class="cfr-speed-btn" data-speed="10.0">10x</button>
+        <button class="cfr-speed-btn" data-speed="30.0">30x</button>
+        <button class="cfr-speed-btn" data-speed="60.0">60x</button>
+      </div>
+
+      <!-- 21 Broadcast Camera Selector -->
+      <div class="cfr-camera-group">
+        <label for="cfr-camera-select" style="font-family: var(--cfr-font-mono); font-size: 10px; color: var(--cfr-text-muted);">CAMERA:</label>
+        <select class="cfr-cam-select" id="cfr-camera-select">
+          <option value="AUTO">DIRECTOR AUTO-TRACK</option>
+          <option value="PAD_WIDE">01. Pad Panoramic (Starbase OLM)</option>
+          <option value="PAD_LOW_ANGLE">02. Pad Low-Angle (121m Up-Look)</option>
+          <option value="IGNITION_TRACK">03. Ignition & Deluge Vapor Track</option>
+          <option value="ASCENT_CHASE">04. Ascent Chase (Rear-Quarter Profile)</option>
+          <option value="ASCENT_LONG_LENS">05. Ground Telephoto (Max Q)</option>
+          <option value="STAGING_WIDE">06. Staging Wide (Dual Vehicle)</option>
+          <option value="STAGING_CLOSE">07. Hot-Staging Interstage Ring</option>
+          <option value="BOOSTER_RETURN_CHASE">08. Booster Flip & Boostback Chase</option>
+          <option value="BOOSTER_GULF_WIDE">09. Booster Gulf Water Landing Wide</option>
+          <option value="SHIP_SPACE_CHASE">10. Starship Space Chase (Solo Orbit)</option>
+          <option value="ORBIT_OVERVIEW">11. Orbit Overview (Earth Horizon)</option>
+          <option value="SATELLITE_DEPLOY_CLOSE">12. Starlink V3 PEZ Mouth Close</option>
+          <option value="SATELLITE_TRAIN_WIDE">13. Starlink Train Panoramic</option>
+          <option value="ORBITAL_EARTH_LIMB">14. Orbital Earth Limb & Hull Glint</option>
+          <option value="DEORBIT_CHASE">15. Deorbit Burn (Retrograde)</option>
+          <option value="ENTRY_LONG_LENS">16. Hypersonic Entry (70° Belly AoA)</option>
+          <option value="ENTRY_DRONE_TRACK">17. Peak Heating Drone Track</option>
+          <option value="PACIFIC_APPROACH">18. Pacific Ocean Terminal Approach</option>
+          <option value="SPLASHDOWN_WIDE">19. Pacific Splashdown Wide</option>
+          <option value="SPLASHDOWN_WATER_LEVEL">20. Water-Level Surface View</option>
+          <option value="POST_SPLASHDOWN_HOLD">21. Post-Splashdown Horizon Hold</option>
+        </select>
+      </div>
+    </div>
+  </footer>
+
+  <!-- End of Mission Splashdown Modal -->
+  <div id="cfr-mission-complete-modal" class="cfr-mission-complete-modal" style="display: none;">
+    <div class="cfr-complete-card">
+      <div class="cfr-complete-header">
+        <span class="cfr-complete-title">MISSION COMPLETE — PACIFIC SPLASHDOWN</span>
+        <button id="cfr-modal-close" class="cfr-modal-close-btn">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--cfr-text-muted); line-height: 1.5; margin-bottom: 12px;">
+        Starship Flight 14 successfully concluded its mission with a controlled atmospheric reentry and soft water touchdown in the Northern Pacific Ocean at approximately T+03:09:24. All 26 Starlink V3 satellites were confirmed deployed.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; font-family: var(--cfr-font-mono); font-size: 11px;">
+        <div style="background: rgba(255,255,255,0.04); padding: 8px; border-radius: 4px;">
+          <div style="color: var(--cfr-text-dim);">BOOSTER RECOVERY</div>
+          <div style="color: var(--cfr-green); font-weight: 700;">GULF SPLASHDOWN</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); padding: 8px; border-radius: 4px;">
+          <div style="color: var(--cfr-text-dim);">STARLINK V3</div>
+          <div style="color: var(--cfr-cyan); font-weight: 700;">26 / 26 DEPLOYED</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); padding: 8px; border-radius: 4px;">
+          <div style="color: var(--cfr-text-dim);">SHIP TOUCHDOWN</div>
+          <div style="color: var(--cfr-green); font-weight: 700;">PACIFIC OCEAN</div>
+        </div>
+      </div>
+      <button class="cfr-btn primary" onclick="document.getElementById('cfr-mission-complete-modal').style.display='none';">CLOSE SUMMARY</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/textures/earth_textures_embedded.js"></script>
+  <script src="data/scenario_data_embedded.js"></script>
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+
+  <!-- Cinematic Replay Module Scripts -->
+  <script src="cinematic/js/replay_controller.js?v=4"></script>
+  <script src="cinematic/js/camera_director.js?v=4"></script>
+  <script src="cinematic/js/launchpad_scene.js?v=4"></script>
+  <script src="cinematic/js/ocean_splashdown.js?v=4"></script>
+  <script src="cinematic/js/cinematic_app.js?v=4"></script>
+
+  <!-- Bootstrapper -->
+  <script>
+    function bootCfr() {
+      if (typeof CfrCinematicApp !== "undefined" && typeof CfrLaunchpadScene !== "undefined" && typeof CfrOceanSplashdown !== "undefined" && typeof CfrCameraDirector !== "undefined") {
+        if (!window.cfrApp) {
+          try {
+            window.cfrApp = new CfrCinematicApp("cfr-webgl-canvas");
+          } catch (e) {
+            console.error("CFR App initialization error:", e);
+            window.__cfrLastError = e.message;
+          }
+        }
+      } else {
+        setTimeout(bootCfr, 50);
+      }
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bootCfr);
+    } else {
+      bootCfr();
+    }
+  </script>
+</body>
+</html>

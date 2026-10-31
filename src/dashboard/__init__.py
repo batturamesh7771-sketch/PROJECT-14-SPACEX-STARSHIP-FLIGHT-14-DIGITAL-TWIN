@@ -7,6 +7,11 @@ local HTTP serving, and interactive WebGL telemetry inspection.
 """
 
 from src.dashboard.adapter import build_scenario_data, export_dashboard_data
-from src.dashboard.server import run_server
+
+
+def run_server(*args, **kwargs):
+    from src.dashboard.server import run_server as _rs
+    return _rs(*args, **kwargs)
+
 
 __all__ = ["build_scenario_data", "export_dashboard_data", "run_server"]
